@@ -206,10 +206,10 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
 
   return (
     <section className="bg-primary-0">
-      <div className="container mx-auto flex flex-col items-center gap-10 px-6 py-20">
-        <div className="flex max-w-2xl flex-col items-center gap-4 text-center">
-          <h1>{heading ?? "Paste AI text. Get clean text."}</h1>
-          <p className="text-body-lg text-neutral-700">
+      <div className="container mx-auto flex flex-col items-center gap-8 sm:gap-10 px-4 sm:px-6 py-12 sm:py-20">
+        <div className="flex max-w-2xl flex-col items-center gap-3 sm:gap-4 text-center">
+          <h1 className="text-3xl sm:text-h1">{heading ?? "Paste AI text. Get clean text."}</h1>
+          <p className="text-body-md sm:text-body-lg text-neutral-700">
             {subheading ??
               "Remove invisible characters, unwanted formatting, AI cliché buzzwords (delve, tapestry), Markdown artifacts, and AI text quirks instantly."}
           </p>
@@ -217,7 +217,7 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full max-w-5xl rounded-xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8 shadow-sm"
+          className="w-full max-w-5xl rounded-2xl border border-neutral-200 bg-neutral-50 p-4 sm:p-8 shadow-sm"
         >
           {/* Quick Presets Bar */}
           <div className="mb-6 flex flex-wrap items-center gap-2 border-b border-neutral-200 pb-5">
@@ -391,11 +391,11 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
             </div>
           ) : null}
 
-          <div className="mt-6 flex flex-wrap items-center gap-4 border-t border-neutral-200 pt-6">
+          <div className="mt-6 flex flex-col sm:flex-row flex-wrap items-center gap-3 sm:gap-4 border-t border-neutral-200 pt-6">
             <button
               type="submit"
               disabled={!hasText}
-              className="flex cursor-pointer items-center gap-2 rounded-lg bg-primary-600 px-8 py-4 text-button text-neutral-50 transition-colors duration-200 hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-500"
+              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary-600 px-8 py-3.5 sm:py-4 text-button text-neutral-50 transition-colors duration-200 hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-500"
             >
               <Sparkles className="h-5 w-5" aria-hidden="true" />
               Clean Text
@@ -405,7 +405,7 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="flex cursor-pointer items-center gap-2 rounded-lg border border-neutral-300 px-8 py-4 text-button text-neutral-900 transition-colors duration-200 hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-300 px-8 py-3.5 sm:py-4 text-button text-neutral-900 transition-colors duration-200 hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
                 >
                   {copied ? (
                     <Check className="h-5 w-5 text-primary-600" aria-hidden="true" />
@@ -417,7 +417,7 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="flex cursor-pointer items-center gap-2 rounded-lg border border-neutral-300 px-6 py-4 text-button text-neutral-700 transition-colors duration-200 hover:bg-neutral-100"
+                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-300 px-6 py-3.5 sm:py-4 text-button text-neutral-700 transition-colors duration-200 hover:bg-neutral-100"
                 >
                   <Download className="h-5 w-5" aria-hidden="true" />
                   Download .txt
@@ -428,7 +428,7 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
               type="button"
               onClick={handleReset}
               disabled={!hasText && !result}
-              className="flex cursor-pointer items-center gap-1.5 text-body-sm font-bold text-neutral-600 transition-colors duration-200 hover:text-primary-600 disabled:cursor-not-allowed disabled:text-neutral-300"
+              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-1.5 py-2 text-body-sm font-bold text-neutral-600 transition-colors duration-200 hover:text-primary-600 disabled:cursor-not-allowed disabled:text-neutral-300"
             >
               <RotateCcw className="h-4 w-4" aria-hidden="true" />
               Reset

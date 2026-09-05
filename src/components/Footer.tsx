@@ -27,8 +27,8 @@ const companyLinks = [
 export default function Footer() {
   return (
     <footer className="border-t border-neutral-200 bg-neutral-50">
-      <div className="container mx-auto flex flex-col gap-10 px-6 py-12">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="container mx-auto flex flex-col gap-8 sm:gap-10 px-4 sm:px-6 py-8 sm:py-12">
+        <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           <div className="flex flex-col gap-3">
             <Link
               href="/"
