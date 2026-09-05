@@ -12,7 +12,7 @@ const mulish = Mulish({
   display: "swap",
 });
 
-const siteUrl = "https://ai-text-cleaner.com";
+const siteUrl = "https://text-cleaner-ai.com";
 const siteName = "AI Text Cleaner";
 const siteDescription =
   "Free tool to clean text from ChatGPT, Claude, and Gemini. Removes invisible characters, smart quotes, em dashes, non-breaking spaces, and Markdown leftovers, entirely in your browser. No signup.";
