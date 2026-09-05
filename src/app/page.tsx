@@ -11,7 +11,7 @@ const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   name: "AI Text Cleaner",
-  url: "https://text-clean-ai.com",
+  url: "https://www.text-cleaner-ai.com",
   description:
     "Paste AI-generated text and instantly remove hidden characters, formatting artifacts, and typography quirks, entirely in your browser.",
   applicationCategory: "UtilitiesApplication",

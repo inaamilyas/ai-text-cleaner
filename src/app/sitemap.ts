@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export const dynamic = "force-static";
 
-const siteUrl = "https://text-clean-ai.com";
+const siteUrl = "https://www.text-cleaner-ai.com";
 
 const languages = ["es", "de", "fr", "it", "pt", "ar", "ja", "nl", "tr", "id"];
 
