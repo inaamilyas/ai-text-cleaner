@@ -14,6 +14,7 @@ const utilityLinks = [
   { href: "/remove-invisible-characters", label: "Invisible Character Remover" },
   { href: "/markdown-to-plain-text", label: "Markdown to Plain Text" },
   { href: "/smart-quotes-to-straight-quotes", label: "Smart Quotes Fixer" },
+  { href: "/remove-ai-image-metadata", label: "AI Image Metadata Stripper" },
 ];
 
 const companyLinks = [

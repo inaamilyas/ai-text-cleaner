@@ -54,16 +54,26 @@ export const faqs = [
   },
 ];
 
-export default function FAQ() {
+interface FAQProps {
+  customFaqs?: Array<{ question: string; answer: string }>;
+  customTitle?: string;
+  customSubtitle?: string;
+}
+
+export default function FAQ({ customFaqs, customTitle, customSubtitle }: FAQProps = {}) {
+  const items = customFaqs || faqs;
+  const title = customTitle || "Frequently Asked Questions";
+  const subtitle = customSubtitle || "Everything you need to know about AI text formatting, invisible unicode characters, and privacy.";
+
   return (
     <section className="bg-neutral-0">
       <div className="container mx-auto flex flex-col gap-12 px-6 py-20">
         <SectionHeading
-          title="Frequently Asked Questions"
-          subtitle="Everything you need to know about AI text formatting, invisible unicode characters, and privacy."
+          title={title}
+          subtitle={subtitle}
         />
         <div className="mx-auto flex w-full max-w-3xl flex-col">
-          {faqs.map((faq) => (
+          {items.map((faq) => (
             <details
               key={faq.question}
               className="group border-b border-neutral-200 py-5 first:pt-0 last:border-b-0"
