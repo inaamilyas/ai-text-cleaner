@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import WhyCleanAIText from "@/components/WhyCleanAIText";
 import WhatMakesDifferent from "@/components/WhatMakesDifferent";
+import CompetitorComparison from "@/components/CompetitorComparison";
 import HowItWorks from "@/components/HowItWorks";
 import WhatWeClean from "@/components/WhatWeClean";
 import WhoItsFor, { audiences } from "@/components/WhoItsFor";
@@ -16,6 +17,15 @@ const websiteJsonLd = {
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Any",
   browserRequirements: "Requires JavaScript",
+  author: {
+    "@type": "Person",
+    name: "Inam Ilyas",
+    url: "https://www.linkedin.com/in/inam-ilyas/",
+    sameAs: [
+      "https://www.linkedin.com/in/inam-ilyas/",
+      "https://github.com/inaamilyas/",
+    ],
+  },
   offers: {
     "@type": "Offer",
     price: "0",
@@ -54,6 +64,7 @@ export default function Home() {
       <Hero />
       <WhyCleanAIText />
       <WhatMakesDifferent />
+      <CompetitorComparison />
       <HowItWorks />
       <WhatWeClean />
       <WhoItsFor />

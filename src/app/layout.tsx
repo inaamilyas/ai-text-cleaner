@@ -14,7 +14,7 @@ const mulish = Mulish({
 const siteUrl = "https://aitextcleaner.com";
 const siteName = "AI Text Cleaner";
 const siteDescription =
-  "Paste AI-generated text and instantly remove hidden characters, formatting artifacts, and typography quirks, entirely in your browser.";
+  "Free tool to clean text from ChatGPT, Claude, and Gemini. Removes invisible characters, smart quotes, em dashes, non-breaking spaces, and Markdown leftovers, entirely in your browser. No signup.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     description: siteDescription,
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: `${siteName} - Clean AI Text Instantly`,
     description: siteDescription,
   },

@@ -23,6 +23,10 @@ export const cleaningOptionsList = [
   { key: "normalizeUnicode", label: "Normalize Unicode forms" },
   { key: "removeEmoji", label: "Remove emoji" },
   { key: "removeDecorativeSymbols", label: "Remove decorative symbols" },
+  { key: "removeAIWords", label: "Remove AI buzzwords (delve, tapestry...)" },
+  { key: "removeLaTeX", label: "Remove LaTeX math markup" },
+  { key: "removeHTML", label: "Strip HTML tags" },
+  { key: "removeAIFluff", label: "Strip AI conversational intro/outro" },
 ] as const;
 
 export type CleaningOptionKey = (typeof cleaningOptionsList)[number]["key"];
@@ -30,7 +34,7 @@ export type CleaningOptions = Record<CleaningOptionKey, boolean>;
 
 export const defaultCleaningOptions: CleaningOptions = cleaningOptionsList.reduce(
   (options, { key }) => {
-    options[key] = true;
+    options[key] = key !== "removeAIWords" && key !== "removeEmoji" && key !== "removeDecorativeSymbols" ? true : false;
     return options;
   },
   {} as CleaningOptions
@@ -86,14 +90,20 @@ const MULTI_SPACE_REGEX = / {2,}/g;
 const TRAILING_SPACE_REGEX = /[ \t]+$/;
 const EXCESS_BLANK_LINES_REGEX = /\n{3,}/g;
 
+// AI Buzzwords heavily complained about on Reddit
+const AI_WORDS_REGEX = /\b(?:delve into|delve|tapestry|testament|pivotal|beacon|foster|realm|crucial|seamless|bustling|harness|leverage|holistic|bespoke|cutting-edge|game-changer|paramount|unprecedented|embark|navigate|in today's digital landscape|it's important to note|it is important to note|furthermore|moreover|in conclusion)\b/gi;
+
+// LaTeX & HTML regexes
+const LATEX_DELIMITER_REGEX = /\\\(|\\\)|\\\[|\\\]|\$([^$\n]+)\$/g;
+const HTML_TAG_REGEX = /<[^>]+>/g;
+const AI_FLUFF_INTRO_REGEX = /^(?:Sure|Certainly|Here is|Here's|Of course)[!.,].*?\n+/gi;
+const AI_FLUFF_OUTRO_REGEX = /\n+.*?(?:Hope this helps|Let me know if you need|Feel free to ask).*?$/gi;
+
 function countMatches(text: string, regex: RegExp): number {
   const matches = text.match(regex);
   return matches ? matches.length : 0;
 }
 
-// remove-markdown does the actual stripping (handles nested/edge cases far
-// more robustly than a hand-rolled regex pipeline); these counts are only
-// for the "what we changed" summary shown to the user.
 function countMarkdownArtifacts(text: string): number {
   return (
     countMatches(text, MARKDOWN_HEADING_REGEX) +
@@ -152,11 +162,54 @@ export function cleanText(
   let text = input;
   const summary: CleaningSummaryItem[] = [];
 
+  if (options.removeAIFluff) {
+    const introMatches = countMatches(text, AI_FLUFF_INTRO_REGEX);
+    const outroMatches = countMatches(text, AI_FLUFF_OUTRO_REGEX);
+    text = text.replace(AI_FLUFF_INTRO_REGEX, "").replace(AI_FLUFF_OUTRO_REGEX, "");
+    if (introMatches + outroMatches > 0) {
+      summary.push({ label: "AI conversational fluff removed", count: introMatches + outroMatches });
+    }
+  }
+
   if (options.removeHiddenCharacters) {
     const invisibleCount = countMatches(text, INVISIBLE_CHARS_REGEX);
     text = text.replace(INVISIBLE_CHARS_REGEX, "");
     if (invisibleCount > 0) {
       summary.push({ label: "invisible characters removed", count: invisibleCount });
+    }
+  }
+
+  if (options.removeHTML) {
+    const htmlCount = countMatches(text, HTML_TAG_REGEX);
+    text = text.replace(HTML_TAG_REGEX, "")
+      .replace(/&nbsp;/g, " ")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">");
+    if (htmlCount > 0) {
+      summary.push({ label: "HTML tags stripped", count: htmlCount });
+    }
+  }
+
+  if (options.removeLaTeX) {
+    const latexCount = countMatches(text, LATEX_DELIMITER_REGEX);
+    text = text
+      .replace(/\\\(|\\\)|\\\[|\\\]/g, "")
+      .replace(/\$([^$\n]+)\$/g, "$1")
+      .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, "$1/$2")
+      .replace(/\\rightarrow/g, "→")
+      .replace(/\\times/g, "×")
+      .replace(/\\pm/g, "±");
+    if (latexCount > 0) {
+      summary.push({ label: "LaTeX math delimiters cleaned", count: latexCount });
+    }
+  }
+
+  if (options.removeAIWords) {
+    const aiWordCount = countMatches(text, AI_WORDS_REGEX);
+    text = text.replace(AI_WORDS_REGEX, "").replace(/\s{2,}/g, " ");
+    if (aiWordCount > 0) {
+      summary.push({ label: "AI buzzwords (delve, tapestry, etc.) removed", count: aiWordCount });
     }
   }
 
@@ -230,4 +283,18 @@ export function cleanText(
   const totalChanges = summary.reduce((sum, item) => sum + item.count, 0);
 
   return { cleaned: text, summary, totalChanges };
+}
+
+export function getSampleText(): string {
+  return (
+    "Sure! Here is your AI generated analysis:\n\n" +
+    "In today's digital landscape, we must delve into this rich tapestry of modern web tools.\u200B " +
+    "It is a testament to how LLMs—such as ChatGPT, Claude, and Gemini—foster seamless innovation.\u200B " +
+    "Notice how math formulas like \\(x^2 + y^2 = z^2\\) contain LaTeX markup, and code has <b>HTML tags</b>.\n\n" +
+    "# Key Features:\n" +
+    "* Instant 100% client-side\u200B cleaning.\n" +
+    "* Remove overused AI words (delve, tapestry, realm).\n" +
+    "* Remove zero-width\u200B spaces (U+200B) and Markdown bold **asterisks**.\n\n" +
+    "Hope this helps! Let me know if you need anything else."
+  );
 }

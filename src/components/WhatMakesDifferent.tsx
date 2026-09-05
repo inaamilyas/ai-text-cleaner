@@ -1,21 +1,27 @@
+import { Laptop, Zap, Eye, Gift } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
+import IconBadge from "@/components/IconBadge";
 
 const differentiators = [
   {
+    icon: Laptop,
     title: "100% browser-based",
     description:
       "Your text is cleaned directly in your browser. Nothing is uploaded, stored, or sent to a server.",
   },
   {
+    icon: Zap,
     title: "No signup required",
     description: "Paste, clean, and copy immediately. No account, no email.",
   },
   {
+    icon: Eye,
     title: "Transparent by default",
     description:
       "See exactly what was changed, and how many issues were found, every time you clean.",
   },
   {
+    icon: Gift,
     title: "Free to use",
     description: "No paywall and no usage limits.",
   },
@@ -31,11 +37,14 @@ export default function WhatMakesDifferent() {
         />
         <div className="mx-auto grid w-full max-w-4xl gap-8 sm:grid-cols-2">
           {differentiators.map((item) => (
-            <div key={item.title} className="flex flex-col gap-2">
-              <h5>{item.title}</h5>
-              <p className="text-body-sm text-neutral-700">
-                {item.description}
-              </p>
+            <div key={item.title} className="flex gap-4">
+              <IconBadge icon={item.icon} />
+              <div className="flex flex-col gap-2">
+                <h5>{item.title}</h5>
+                <p className="text-body-sm text-neutral-700">
+                  {item.description}
+                </p>
+              </div>
             </div>
           ))}
         </div>
