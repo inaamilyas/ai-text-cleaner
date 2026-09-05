@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Mulish } from "next/font/google";
+import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LanguageDetector from "@/components/LanguageDetector";
 import "./globals.css";
+
+const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
 const mulish = Mulish({
   variable: "--font-mulish",
@@ -71,6 +74,22 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${mulish.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaId}');
+              `}
+            </Script>
+          </>
+        )}
         <LanguageDetector />
         <Navbar />
         <main className="flex flex-1 flex-col">{children}</main>
