@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import LanguageDetector from "@/components/LanguageDetector";
 import "./globals.css";
 
-const gaId = process.env.NEXT_PUBLIC_GA_ID;
+const gaId = process.env.NEXT_PUBLIC_GA_ID || "G-V235VSWPT4";
 
 const mulish = Mulish({
   variable: "--font-mulish",
