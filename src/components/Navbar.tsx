@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Logo from "@/components/Logo";
+import LanguageSelector from "@/components/LanguageSelector";
 
 const navLinks = [
   { href: "/about", label: "About Us" },
@@ -28,6 +29,7 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          <LanguageSelector />
         </nav>
       </div>
     </header>

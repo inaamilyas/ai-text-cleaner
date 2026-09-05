@@ -4,58 +4,63 @@ export const dynamic = "force-static";
 
 const siteUrl = "https://aitextcleaner.com";
 
+const languages = ["es", "de", "fr", "it", "pt", "ar", "ja", "nl", "tr", "id"];
+
+const baseSubRoutes = [
+  "",
+  "/about",
+  "/contact",
+  "/privacy",
+  "/terms",
+  "/remove-ai-words",
+  "/remove-zero-width-space",
+  "/clean-chatgpt-text",
+  "/clean-claude-text",
+  "/clean-gemini-text",
+  "/clean-copilot-text",
+  "/remove-invisible-characters",
+  "/markdown-to-plain-text",
+  "/smart-quotes-to-straight-quotes",
+];
+
+const blogRoutes = [
+  "/blog",
+  "/blog/why-ai-text-has-invisible-characters",
+  "/blog/how-to-clean-chatgpt-text-for-publishing",
+  "/blog/understanding-zero-width-spaces-and-unicode-artifacts",
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date("2026-09-05");
 
-  const routes = [
-    "/about",
-    "/blog",
-    "/blog/why-ai-text-has-invisible-characters",
-    "/blog/how-to-clean-chatgpt-text-for-publishing",
-    "/blog/understanding-zero-width-spaces-and-unicode-artifacts",
-    "/remove-ai-words",
-    "/remove-zero-width-space",
-    "/clean-chatgpt-text",
-    "/clean-claude-text",
-    "/clean-gemini-text",
-    "/clean-copilot-text",
-    "/remove-invisible-characters",
-    "/markdown-to-plain-text",
-    "/smart-quotes-to-straight-quotes",
-  ];
+  // English base routes
+  const englishEntries: MetadataRoute.Sitemap = baseSubRoutes.map((path) => ({
+    url: `${siteUrl}${path || "/"}`,
+    lastModified,
+    changeFrequency: path === "" ? "daily" : "weekly",
+    priority: path === "" ? 1.0 : 0.8,
+  }));
 
-  const routeEntries: MetadataRoute.Sitemap = routes.map((path) => ({
+  // Blog entries
+  const blogEntries: MetadataRoute.Sitemap = blogRoutes.map((path) => ({
     url: `${siteUrl}${path}`,
     lastModified,
     changeFrequency: "weekly",
-    priority: path.startsWith("/blog") || path === "/about" ? 0.8 : 0.9,
+    priority: 0.7,
   }));
 
-  return [
-    {
-      url: siteUrl,
-      lastModified,
-      changeFrequency: "daily",
-      priority: 1.0,
-    },
-    ...routeEntries,
-    {
-      url: `${siteUrl}/privacy`,
-      lastModified,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: `${siteUrl}/terms`,
-      lastModified,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: `${siteUrl}/contact`,
-      lastModified,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-  ];
+  // Localized entries for 10 target languages across all sub-routes
+  const localizedEntries: MetadataRoute.Sitemap = [];
+  languages.forEach((lang) => {
+    baseSubRoutes.forEach((subRoute) => {
+      localizedEntries.push({
+        url: `${siteUrl}/${lang}${subRoute}`,
+        lastModified,
+        changeFrequency: subRoute === "" ? "daily" : "weekly",
+        priority: subRoute === "" ? 0.9 : 0.7,
+      });
+    });
+  });
+
+  return [...englishEntries, ...blogEntries, ...localizedEntries];
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Mulish } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import LanguageDetector from "@/components/LanguageDetector";
 import "./globals.css";
 
 const mulish = Mulish({
@@ -34,6 +35,19 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/",
+    languages: {
+      en: "/",
+      es: "/es",
+      de: "/de",
+      fr: "/fr",
+      it: "/it",
+      pt: "/pt",
+      ar: "/ar",
+      ja: "/ja",
+      nl: "/nl",
+      tr: "/tr",
+      id: "/id",
+    },
   },
   openGraph: {
     type: "website",
@@ -57,6 +71,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${mulish.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
+        <LanguageDetector />
         <Navbar />
         <main className="flex flex-1 flex-col">{children}</main>
         <Footer />

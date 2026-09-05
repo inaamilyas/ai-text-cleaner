@@ -1,0 +1,865 @@
+export interface SubToolTranslation {
+  title: string;
+  description: string;
+  heading: string;
+  subheading: string;
+}
+
+export interface LocalizedContent {
+  code: string;
+  name: string;
+  nativeName: string;
+  flag: string;
+  dir?: 'ltr' | 'rtl';
+  title: string;
+  description: string;
+  heading: string;
+  subheading: string;
+  badge: string;
+  heroPresets: {
+    chatgpt: string;
+    aiBuzzwords: string;
+    codeJson: string;
+    publishing: string;
+    stripAll: string;
+  };
+  subtools: {
+    cleanChatGPT: SubToolTranslation;
+    cleanClaude: SubToolTranslation;
+    cleanGemini: SubToolTranslation;
+    cleanCopilot: SubToolTranslation;
+    removeAIWords: SubToolTranslation;
+    removeZeroWidthSpace: SubToolTranslation;
+    removeInvisibleCharacters: SubToolTranslation;
+    markdownToPlainText: SubToolTranslation;
+    smartQuotesToStraightQuotes: SubToolTranslation;
+  };
+}
+
+export const LANGUAGES: Record<string, LocalizedContent> = {
+  en: {
+    code: 'en',
+    name: 'English',
+    nativeName: 'English',
+    flag: '🇺🇸',
+    dir: 'ltr',
+    title: 'AI Text Cleaner & Sanitizer - Remove AI Traces & Invisible Characters',
+    description: 'Free browser-based AI text cleaner. Instantly strip hidden Unicode spaces, zero-width joiners, ChatGPT markdown artifacts, and AI buzzwords.',
+    heading: 'Clean & Sanitize AI Text Instantly',
+    subheading: '100% Client-Side Privacy. Remove hidden zero-width characters, AI buzzwords (delve, tapestry), LaTeX, HTML, and ChatGPT/Claude formatting artifacts with one click.',
+    badge: '100% Free & Private • Browser-Based',
+    heroPresets: {
+      chatgpt: '⚡ ChatGPT & Claude Clean',
+      aiBuzzwords: '🤖 Remove AI Buzzwords',
+      codeJson: '💻 Code & JSON Safe',
+      publishing: '📝 Publishing & Docs',
+      stripAll: '🧹 Strip Everything',
+    },
+    subtools: {
+      cleanChatGPT: {
+        title: 'Clean ChatGPT Text - Remove Markdown & Hidden Characters',
+        description: 'Strip ChatGPT formatting artifacts, asterisks, zero-width spaces, and AI fluff words instantly.',
+        heading: 'Clean ChatGPT Text Instantly',
+        subheading: 'Remove bold asterisks, backticks, hidden zero-width spaces, and overused ChatGPT words.',
+      },
+      cleanClaude: {
+        title: 'Clean Claude AI Text - Strip Anthropic Formatting',
+        description: 'Remove Claude text artifacts, bullet symbols, zero-width spaces, and XML tag leftovers.',
+        heading: 'Clean Claude AI Text',
+        subheading: 'Sanitize Anthropic Claude responses for clean publishing.',
+      },
+      cleanGemini: {
+        title: 'Clean Google Gemini Text - Sanitize Output',
+        description: 'Strip Google Gemini text formatting quirks, Unicode spaces, and extra line breaks.',
+        heading: 'Clean Google Gemini Text',
+        subheading: 'Instantly clean text copied from Google Gemini AI.',
+      },
+      cleanCopilot: {
+        title: 'Clean Microsoft Copilot Text - Remove Formatting',
+        description: 'Strip Microsoft Copilot artifacts, reference brackets, and hidden control characters.',
+        heading: 'Clean Microsoft Copilot Text',
+        subheading: 'Sanitize Copilot outputs for clean docs and code.',
+      },
+      removeAIWords: {
+        title: 'Remove AI Buzzwords - Delve, Tapestry & Clichés',
+        description: 'Filter out overused AI words like delve, tapestry, realm, and testaments instantly.',
+        heading: 'Remove AI Buzzwords & Clichés',
+        subheading: 'Make your AI text sound natural by stripping robotic vocabulary.',
+      },
+      removeZeroWidthSpace: {
+        title: 'Remove Zero-Width Space (U+200B) & Hidden Characters',
+        description: 'Detect and remove invisible zero-width spaces, non-breaking spaces, and hidden Unicode marks.',
+        heading: 'Remove Zero-Width Spaces (U+200B)',
+        subheading: 'Instantly eliminate hidden Unicode control characters breaking your code or copy.',
+      },
+      removeInvisibleCharacters: {
+        title: 'Invisible Character Remover - Clean Hidden Unicode',
+        description: 'Find and strip hidden characters, soft hyphens, and invisible spaces.',
+        heading: 'Invisible Character Remover',
+        subheading: 'Expose and erase hidden Unicode characters in browser.',
+      },
+      markdownToPlainText: {
+        title: 'Markdown to Plain Text Converter',
+        description: 'Convert markdown headers, bold, italics, links, and lists into pure clean plain text.',
+        heading: 'Markdown to Plain Text',
+        subheading: 'Strip markdown syntax while preserving clean paragraph structure.',
+      },
+      smartQuotesToStraightQuotes: {
+        title: 'Smart Quotes to Straight Quotes Fixer',
+        description: 'Convert curly smart quotes and em dashes into straight ASCII quotes and standard dashes.',
+        heading: 'Smart Quotes to Straight Quotes',
+        subheading: 'Fix code-breaking curly quotes and em-dashes for developers and publishing.',
+      },
+    },
+  },
+  es: {
+    code: 'es',
+    name: 'Spanish',
+    nativeName: 'Español',
+    flag: '🇪🇸',
+    dir: 'ltr',
+    title: 'Limpiador de Texto IA - Eliminar Caracteres Invisibles y Huellas de IA',
+    description: 'Limpiador de texto IA gratuito en el navegador. Elimine al instante espacios Unicode ocultos, formateo de ChatGPT y palabras cliché de IA.',
+    heading: 'Limpie y Sanitice Texto de IA al Instante',
+    subheading: 'Privacidad 100% en el cliente. Elimine caracteres invisibles de ancho cero, palabras cliché de IA (profundizar, tapiz), LaTeX y formatos de ChatGPT/Claude.',
+    badge: '100% Gratis y Privado • En el Navegador',
+    heroPresets: {
+      chatgpt: '⚡ Limpiar ChatGPT y Claude',
+      aiBuzzwords: '🤖 Quitar Palabras IA',
+      codeJson: '💻 Código y JSON Seguro',
+      publishing: '📝 Publicación y Docs',
+      stripAll: '🧹 Borrar Todo',
+    },
+    subtools: {
+      cleanChatGPT: {
+        title: 'Limpiar Texto de ChatGPT - Quitar Caracteres Invisibles y Formato',
+        description: 'Elimine asteriscos, comillas inclinadas y caracteres ocultos de ChatGPT al instante.',
+        heading: 'Limpiar Texto de ChatGPT al Instante',
+        subheading: 'Elimine formatos de ChatGPT, asteriscos y espacios invisibles de ancho cero.',
+      },
+      cleanClaude: {
+        title: 'Limpiar Texto de Claude IA - Eliminar Formatos de Anthropic',
+        description: 'Elimine artefactos de texto de Claude, viñetas y espacios ocultos de ancho cero.',
+        heading: 'Limpiar Texto de Claude IA',
+        subheading: 'Sanitice respuestas de Claude para publicaciones limpias.',
+      },
+      cleanGemini: {
+        title: 'Limpiar Texto de Google Gemini - Sanitizar Salida',
+        description: 'Elimine rarezas de formato de Google Gemini y saltos de línea adicionales.',
+        heading: 'Limpiar Texto de Google Gemini',
+        subheading: 'Limpie al instante texto copiado de Google Gemini IA.',
+      },
+      cleanCopilot: {
+        title: 'Limpiar Texto de Microsoft Copilot - Quitar Formato',
+        description: 'Elimine artefactos de Microsoft Copilot y caracteres de control ocultos.',
+        heading: 'Limpiar Texto de Microsoft Copilot',
+        subheading: 'Sanitice respuestas de Copilot para documentos y código limpios.',
+      },
+      removeAIWords: {
+        title: 'Quitar Palabras Cliché de IA - Profundizar, Tapiz y Más',
+        description: 'Filtre palabras sobreutilizadas por IA como profundizar, tapiz y reino al instante.',
+        heading: 'Quitar Palabras Cliché de IA',
+        subheading: 'Haga que su texto de IA suene natural eliminando vocabulario robótico.',
+      },
+      removeZeroWidthSpace: {
+        title: 'Eliminar Espacio de Ancho Cero (U+200B) y Caracteres Ocultos',
+        description: 'Detecte y elimine espacios de ancho cero e invisibles espacios Unicode.',
+        heading: 'Eliminar Espacios de Ancho Cero (U+200B)',
+        subheading: 'Elimine caracteres de control ocultos que rompen su código o texto.',
+      },
+      removeInvisibleCharacters: {
+        title: 'Eliminador de Caracteres Invisibles - Limpiar Unicode Oculto',
+        description: 'Encuentre y elimine caracteres ocultos, guiones blandos y espacios invisibles.',
+        heading: 'Eliminador de Caracteres Invisibles',
+        subheading: 'Exponga y borre caracteres Unicode ocultos en el navegador.',
+      },
+      markdownToPlainText: {
+        title: 'Convertidor de Markdown a Texto Plano',
+        description: 'Convierta encabezados Markdown, negritas, enlaces y listas en texto plano limpio.',
+        heading: 'Markdown a Texto Plano',
+        subheading: 'Elimine la sintaxis Markdown manteniendo la estructura del párrafo.',
+      },
+      smartQuotesToStraightQuotes: {
+        title: 'Convertir Comillas Tipográficas a Comillas Rectas',
+        description: 'Convierta comillas tipográficas y guiones largos en comillas ASCII rectas.',
+        heading: 'Comillas Tipográficas a Comillas Rectas',
+        subheading: 'Corrija comillas curvas que rompen el código para desarrolladores y editores.',
+      },
+    },
+  },
+  de: {
+    code: 'de',
+    name: 'German',
+    nativeName: 'Deutsch',
+    flag: '🇩🇪',
+    dir: 'ltr',
+    title: 'KI-Text-Reiniger - Unsichtbare Zeichen & KI-Spuren Entfernen',
+    description: 'Kostenloser Browser-KI-Textreiniger. Entfernen Sie versteckte Unicode-Leerzeichen, ChatGPT-Formatierungen und KI-Modewörter sofort.',
+    heading: 'KI-Text Sofort Reinigen & Bereinigen',
+    subheading: '100% Clientseitige Privatsphäre. Entfernen Sie versteckte Nullbreite-Zeichen, KI-Floskeln (eintauchen, Wandteppich) und ChatGPT-Artefakte.',
+    badge: '100% Kostenlos & Privat • Im Browser',
+    heroPresets: {
+      chatgpt: '⚡ ChatGPT & Claude Bereinigen',
+      aiBuzzwords: '🤖 KI-Floskeln Entfernen',
+      codeJson: '💻 Code & JSON Sicher',
+      publishing: '📝 Publikation & Dokumente',
+      stripAll: '🧹 Alles Entfernen',
+    },
+    subtools: {
+      cleanChatGPT: {
+        title: 'ChatGPT-Text Bereinigen - Unsichtbare Zeichen Entfernen',
+        description: 'Entfernen Sie ChatGPT-Formatierungen, Sternchen und Nullbreite-Leerzeichen sofort.',
+        heading: 'ChatGPT-Text Sofort Bereinigen',
+        subheading: 'Entfernen Sie fette Sternchen, Markdown und versteckte Nullbreite-Zeichen.',
+      },
+      cleanClaude: {
+        title: 'Claude KI-Text Bereinigen - Anthropic Formatierung Entfernen',
+        description: 'Entfernen Sie Claude-Artefakte, Aufzählungssymbole und unsichtbare Leerzeichen.',
+        heading: 'Claude KI-Text Bereinigen',
+        subheading: 'Bereinigen Sie Antworten von Anthropic Claude für Publikationen.',
+      },
+      cleanGemini: {
+        title: 'Google Gemini Text Bereinigen',
+        description: 'Entfernen Sie Google Gemini Formatierungsfehler und extra Zeilenumbrüche.',
+        heading: 'Google Gemini Text Bereinigen',
+        subheading: 'Bereinigen Sie kopierten Text aus Google Gemini KI sofort.',
+      },
+      cleanCopilot: {
+        title: 'Microsoft Copilot Text Bereinigen',
+        description: 'Entfernen Sie Copilot-Artefakte und versteckte Steuerzeichen.',
+        heading: 'Microsoft Copilot Text Bereinigen',
+        subheading: 'Säubern Sie Copilot-Ausgaben für Code und Dokumente.',
+      },
+      removeAIWords: {
+        title: 'KI-Floskeln Entfernen - Eintauchen & Klischees',
+        description: 'Filtern Sie übernutzte KI-Wörter wie eintauchen, Wandteppich und Reich heraus.',
+        heading: 'KI-Floskeln & Klischees Entfernen',
+        subheading: 'Lassen Sie Ihren KI-Text natürlich klingen, indem Sie Roboter-Vokabular entfernen.',
+      },
+      removeZeroWidthSpace: {
+        title: 'Nullbreite-Leerzeichen (U+200B) Entfernen',
+        description: 'Erkennen und entfernen Sie unsichtbare Nullbreite-Leerzeichen und Unicode-Zeichen.',
+        heading: 'Nullbreite-Leerzeichen (U+200B) Entfernen',
+        subheading: 'Eliminieren Sie versteckte Steuerzeichen, die Ihren Code beschädigen.',
+      },
+      removeInvisibleCharacters: {
+        title: 'Entferner für Unsichtbare Zeichen',
+        description: 'Finden und entfernen Sie versteckte Zeichen, weiche Bindestriche und Leerzeichen.',
+        heading: 'Entferner für Unsichtbare Zeichen',
+        subheading: 'Versteckte Unicode-Zeichen im Browser aufdecken und löschen.',
+      },
+      markdownToPlainText: {
+        title: 'Markdown in Klartext Konverter',
+        description: 'Konvertieren Sie Markdown-Überschriften, Fett- und Kursivdruck in reinen Klartext.',
+        heading: 'Markdown in Klartext',
+        subheading: 'Entfernen Sie Markdown-Syntax bei Erhalt der Absatzstruktur.',
+      },
+      smartQuotesToStraightQuotes: {
+        title: 'Typografische Anführungszeichen in Gerade Umwandeln',
+        description: 'Konvertieren Sie typografische Anführungszeichen in gerade ASCII-Anführungszeichen.',
+        heading: 'Typografische in Gerade Anführungszeichen',
+        subheading: 'Korrigieren Sie geschwungene Anführungszeichen für Entwickler.',
+      },
+    },
+  },
+  fr: {
+    code: 'fr',
+    name: 'French',
+    nativeName: 'Français',
+    flag: '🇫🇷',
+    dir: 'ltr',
+    title: 'Nettoyeur de Texte IA - Supprimer les Caractères Invisibles et Traces IA',
+    description: 'Nettoyeur de texte IA gratuit dans le navigateur. Supprimez instantanément les espaces invisibles Unicode et le formatage ChatGPT.',
+    heading: 'Nettoyez et Sanitizez le Texte IA Instantanément',
+    subheading: 'Confidentialité 100% côté client. Supprimez les caractères invisibles de largeur nulle, le jargon IA et le formatage ChatGPT/Claude.',
+    badge: '100% Gratuit et Privé • Basé sur le Navigateur',
+    heroPresets: {
+      chatgpt: '⚡ Nettoyer ChatGPT & Claude',
+      aiBuzzwords: '🤖 Supprimer Mots Clichés IA',
+      codeJson: '💻 Sécurisé Code & JSON',
+      publishing: '📝 Édition & Documents',
+      stripAll: '🧹 Tout Supprimer',
+    },
+    subtools: {
+      cleanChatGPT: {
+        title: 'Nettoyer le Texte ChatGPT - Supprimer Caractères Invisibles',
+        description: 'Supprimez le formatage ChatGPT, astérisques et espaces de largeur nulle.',
+        heading: 'Nettoyer le Texte ChatGPT Instantanément',
+        subheading: 'Supprimez les astérisques gras et les espaces invisibles de largeur nulle.',
+      },
+      cleanClaude: {
+        title: 'Nettoyer le Texte Claude IA',
+        description: 'Supprimez les artefacts de texte Claude et les espaces de largeur nulle.',
+        heading: 'Nettoyer le Texte Claude IA',
+        subheading: 'Assainissez les réponses d\'Anthropic Claude pour une publication propre.',
+      },
+      cleanGemini: {
+        title: 'Nettoyer le Texte Google Gemini',
+        description: 'Supprimez les bizarreries de formatage de Google Gemini.',
+        heading: 'Nettoyer le Texte Google Gemini',
+        subheading: 'Nettoyez instantanément le texte copié depuis Google Gemini.',
+      },
+      cleanCopilot: {
+        title: 'Nettoyer le Texte Microsoft Copilot',
+        description: 'Supprimez les artefacts Microsoft Copilot et caractères de contrôle cachés.',
+        heading: 'Nettoyer le Texte Microsoft Copilot',
+        subheading: 'Nettoyez les réponses Copilot pour le code et les documents.',
+      },
+      removeAIWords: {
+        title: 'Supprimer les Mots Clichés IA',
+        description: 'Filtrez les mots IA surutilisés comme pléthore, écosystème et au-delà.',
+        heading: 'Supprimer les Mots Clichés IA',
+        subheading: 'Rendez votre texte IA naturel en supprimant le vocabulaire robotique.',
+      },
+      removeZeroWidthSpace: {
+        title: 'Supprimer l\'Espace de Largeur Nulle (U+200B)',
+        description: 'Détectez et supprimez les espaces invisibles de largeur nulle.',
+        heading: 'Supprimer l\'Espaces de Largeur Nulle (U+200B)',
+        subheading: 'Éliminez les caractères de contrôle cachés qui cassent votre code.',
+      },
+      removeInvisibleCharacters: {
+        title: 'Suppresseur de Caractères Invisibles',
+        description: 'Trouvez et supprimez les caractères cachés et espaces invisibles.',
+        heading: 'Suppresseur de Caractères Invisibles',
+        subheading: 'Exposez et effacez les caractères Unicode cachés dans le navigateur.',
+      },
+      markdownToPlainText: {
+        title: 'Convertisseur Markdown en Texte Brut',
+        description: 'Convertissez la syntaxe Markdown en texte brut et propre.',
+        heading: 'Markdown en Texte Brut',
+        subheading: 'Supprimez la balise Markdown en préservant les paragraphes.',
+      },
+      smartQuotesToStraightQuotes: {
+        title: 'Guillemets Typographiques en Guillemets Droit',
+        description: 'Convertissez les guillemets typographiques en guillemets droits ASCII.',
+        heading: 'Guillemets Typographiques en Guillemets Droit',
+        subheading: 'Corrigez les guillemets courbes qui cassent le code.',
+      },
+    },
+  },
+  it: {
+    code: 'it',
+    name: 'Italian',
+    nativeName: 'Italiano',
+    flag: '🇮🇹',
+    dir: 'ltr',
+    title: 'Pulitore Testo IA - Rimuovi Caratteri Invisibili e Tracce IA',
+    description: 'Pulitore di testo IA gratuito per browser. Rimuovi all\'istante spazi Unicode nascosti, formattazione ChatGPT e parole chiave IA.',
+    heading: 'Pulisci e Sanitizza il Testo IA All\'Istante',
+    subheading: 'Privacy 100% lato client. Rimuovi caratteri invisibili a larghezza zero, frasi fatte IA e artefatti di formattazione ChatGPT/Claude.',
+    badge: '100% Gratuito e Privato • Nel Browser',
+    heroPresets: {
+      chatgpt: '⚡ Pulisci ChatGPT e Claude',
+      aiBuzzwords: '🤖 Rimuovi Parole IA',
+      codeJson: '💻 Sicuro per Codice e JSON',
+      publishing: '📝 Pubblicazione e Doc',
+      stripAll: '🧹 Rimuovi Tutto',
+    },
+    subtools: {
+      cleanChatGPT: {
+        title: 'Pulisci Testo ChatGPT - Rimuovi Caratteri Nascosti',
+        description: 'Rimuovi formattazione ChatGPT, asterischi e spazi a larghezza zero.',
+        heading: 'Pulisci Testo ChatGPT All\'Istante',
+        subheading: 'Rimuovi asterischi e spazi invisibili a larghezza zero.',
+      },
+      cleanClaude: {
+        title: 'Pulisci Testo Claude IA',
+        description: 'Rimuovi artefatti di testo da Claude e spazi nascosti.',
+        heading: 'Pulisci Testo Claude IA',
+        subheading: 'Sanitizza le risposte di Anthropic Claude.',
+      },
+      cleanGemini: {
+        title: 'Pulisci Testo Google Gemini',
+        description: 'Rimuovi formattazione indesiderata da Google Gemini.',
+        heading: 'Pulisci Testo Google Gemini',
+        subheading: 'Pulisci all\'istante il testo copiato da Google Gemini.',
+      },
+      cleanCopilot: {
+        title: 'Pulisci Testo Microsoft Copilot',
+        description: 'Rimuovi artefatti e caratteri di controllo nascosti da Copilot.',
+        heading: 'Pulisci Testo Microsoft Copilot',
+        subheading: 'Sanitizza il testo di Copilot per codice e documenti.',
+      },
+      removeAIWords: {
+        title: 'Rimuovi Parole Cliché IA',
+        description: 'Filtra parole abusate dall\'IA per rendere il testo naturale.',
+        heading: 'Rimuovi Parole Cliché IA',
+        subheading: 'Rendi il testo naturale rimuovendo il vocabolario robotico.',
+      },
+      removeZeroWidthSpace: {
+        title: 'Rimuovi Spazio a Larghezza Zero (U+200B)',
+        description: 'Rileva e rimuovi spazi invisibili a larghezza zero.',
+        heading: 'Rimuovi Spazio a Larghezza Zero (U+200B)',
+        subheading: 'Elimina caratteri di controllo nascosti che bloccano il codice.',
+      },
+      removeInvisibleCharacters: {
+        title: 'Rimozione Caratteri Invisibili',
+        description: 'Trova e rimuovi caratteri nascosti e spazi invisibili Unicode.',
+        heading: 'Rimozione Caratteri Invisibili',
+        subheading: 'Esponi ed elimina caratteri Unicode nascosti nel browser.',
+      },
+      markdownToPlainText: {
+        title: 'Convertitore da Markdown a Testo Semplice',
+        description: 'Converti la sintassi Markdown in testo semplice e pulito.',
+        heading: 'Da Markdown a Testo Semplice',
+        subheading: 'Rimuovi la sintassi Markdown mantenendo la struttura.',
+      },
+      smartQuotesToStraightQuotes: {
+        title: 'Da Virgolette Tipografiche a Virgolette Dritte',
+        description: 'Converti virgolette曲线 in virgolette dritte ASCII.',
+        heading: 'Da Virgolette Tipografiche a Virgolette Dritte',
+        subheading: 'Correggi virgolette che interrompono il codice.',
+      },
+    },
+  },
+  pt: {
+    code: 'pt',
+    name: 'Portuguese',
+    nativeName: 'Português',
+    flag: '🇧🇷',
+    dir: 'ltr',
+    title: 'Limpador de Texto IA - Remover Caracteres Invisíveis e Marcas de IA',
+    description: 'Limpador de texto IA gratuito no navegador. Remova instantaneamente espaços ocultos Unicode, formatação do ChatGPT e clichês de IA.',
+    heading: 'Limpe e Higienize Texto de IA Instantaneamente',
+    subheading: 'Privacidade 100% no cliente. Remova caracteres invisíveis de largura zero, palavras clichê de IA e marcação de ChatGPT/Claude.',
+    badge: '100% Grátis e Privado • No Navegador',
+    heroPresets: {
+      chatgpt: '⚡ Limpar ChatGPT & Claude',
+      aiBuzzwords: '🤖 Remover Palavras IA',
+      codeJson: '💻 Código & JSON Seguro',
+      publishing: '📝 Publicação & Documentos',
+      stripAll: '🧹 Limpar Tudo',
+    },
+    subtools: {
+      cleanChatGPT: {
+        title: 'Limpar Texto do ChatGPT - Remover Caracteres Ocultos',
+        description: 'Remova formatação do ChatGPT, asteriscos e espaços de largura zero.',
+        heading: 'Limpar Texto do ChatGPT Instantaneamente',
+        subheading: 'Remova asteriscos em negrito e espaços ocultos de largura zero.',
+      },
+      cleanClaude: {
+        title: 'Limpar Texto do Claude IA',
+        description: 'Remova artefatos de texto do Claude e espaços oculta.',
+        heading: 'Limpar Texto do Claude IA',
+        subheading: 'Higienize respostas do Anthropic Claude.',
+      },
+      cleanGemini: {
+        title: 'Limpar Texto do Google Gemini',
+        description: 'Remova formatações indesejadas do Google Gemini.',
+        heading: 'Limpar Texto do Google Gemini',
+        subheading: 'Limpe instantaneamente texto copiado do Google Gemini.',
+      },
+      cleanCopilot: {
+        title: 'Limpar Texto do Microsoft Copilot',
+        description: 'Remova artefatos do Copilot e caracteres de controle ocultos.',
+        heading: 'Limpar Texto do Microsoft Copilot',
+        subheading: 'Higienize saídas do Copilot para código e documentos.',
+      },
+      removeAIWords: {
+        title: 'Remover Palavras Clichê de IA',
+        description: 'Filtre palavras excessivamente usadas por IA.',
+        heading: 'Remover Palavras Clichê de IA',
+        subheading: 'Deixe seu texto de IA natural removendo vocabulário robótico.',
+      },
+      removeZeroWidthSpace: {
+        title: 'Remover Espaço de Largura Zero (U+200B)',
+        description: 'Detecte e remova espaços invisíveis de largura zero.',
+        heading: 'Remover Espaço de Largura Zero (U+200B)',
+        subheading: 'Elimine caracteres de controle ocultos que quebram o código.',
+      },
+      removeInvisibleCharacters: {
+        title: 'Removedor de Caracteres Invisíveis',
+        description: 'Encontre e remova caracteres ocultos e espaços invisíveis.',
+        heading: 'Removedor de Caracteres Invisíveis',
+        subheading: 'Exponha e apague caracteres Unicode ocultos no navegador.',
+      },
+      markdownToPlainText: {
+        title: 'Conversor de Markdown para Texto Puro',
+        description: 'Converta sintaxe Markdown em texto puro e limpo.',
+        heading: 'Markdown para Texto Puro',
+        subheading: 'Remova sintaxe Markdown mantendo a estrutura de parágrafos.',
+      },
+      smartQuotesToStraightQuotes: {
+        title: 'Aspas Tipográficas para Aspas Retas',
+        description: 'Converta aspas curvas em aspas retas ASCII.',
+        heading: 'Aspas Tipográficas para Aspas Retas',
+        subheading: 'Corrija aspas curvas que quebram código.',
+      },
+    },
+  },
+  ar: {
+    code: 'ar',
+    name: 'Arabic',
+    nativeName: 'العربية',
+    flag: '🇸🇦',
+    dir: 'rtl',
+    title: 'مُنظّف نصوص الذكاء الاصطناعي - إزالة الأحرف المخفية وآثار الذكاء الاصطناعي',
+    description: 'أداة مجانية لتنظيف نصوص الذكاء الاصطناعي في المتصفح. تخلص فوراً من المسافات المخفية وتنسيقات ChatGPT والكلمات المكررة.',
+    heading: 'تنظيف وتطهير نصوص الذكاء الاصطناعي فوراً',
+    subheading: 'خصوصية 100% في المتصفح. إزالة الأحرف المخفية صفرية العرض، والكلمات المكررة في الذكاء الاصطناعي، وتنسيقات ChatGPT وClaude بنقرة واحدة.',
+    badge: 'مجاني وخاص 100% • يعمل في المتصفح',
+    heroPresets: {
+      chatgpt: '⚡ تنظيف ChatGPT وClaude',
+      aiBuzzwords: '🤖 إزالة كلمات الذكاء الاصطناعي',
+      codeJson: '💻 آمن للكود وJSON',
+      publishing: '📝 النشر والمستندات',
+      stripAll: '🧹 مسح كل شيء',
+    },
+    subtools: {
+      cleanChatGPT: {
+        title: 'تنظيف نصوص ChatGPT - إزالة الأحرف المخفية والتنسيق',
+        description: 'إزالة نجوم التنسيق والمسافات صفرية العرض من ChatGPT فوراً.',
+        heading: 'تنظيف نصوص ChatGPT فوراً',
+        subheading: 'إزالة النجوم والمسافات المخفية صفرية العرض.',
+      },
+      cleanClaude: {
+        title: 'تنظيف نصوص Claude AI - تطهير مخرجات Anthropic',
+        description: 'إزالة رموز وتنسيقات Claude والمسافات المخفية.',
+        heading: 'تنظيف نصوص Claude AI',
+        subheading: 'تطهير نصوص Anthropic Claude للنشر بشكل نظيف.',
+      },
+      cleanGemini: {
+        title: 'تنظيف نصوص Google Gemini',
+        description: 'تطهير نصوص Google Gemini وإزالة الفواصل الزائدة.',
+        heading: 'تنظيف نصوص Google Gemini',
+        subheading: 'تنظيف النصوص المنسوخة من Google Gemini فوراً.',
+      },
+      cleanCopilot: {
+        title: 'تنظيف نصوص Microsoft Copilot',
+        description: 'إزالة رموز وتنسيقات Copilot والأحرف المخفية.',
+        heading: 'تنظيف نصوص Microsoft Copilot',
+        subheading: 'تطهير مخرجات Copilot للكود والمستندات.',
+      },
+      removeAIWords: {
+        title: 'إزالة كلمات الذكاء الاصطناعي المكررة',
+        description: 'تصفية الكلمات المكررة في نصوص الذكاء الاصطناعي.',
+        heading: 'إزالة كلمات الذكاء الاصطناعي المكررة',
+        subheading: 'اجعل نصك يبدو طبيعياً بإزالة المفردات الآلية.',
+      },
+      removeZeroWidthSpace: {
+        title: 'إزالة المسافة صفرية العرض (U+200B)',
+        description: 'كشف وإزالة المسافات المخفية صفرية العرض.',
+        heading: 'إزالة المسافة صفرية العرض (U+200B)',
+        subheading: 'التخلص من الأحرف المخفية التي تعطّل البرمجة.',
+      },
+      removeInvisibleCharacters: {
+        title: 'مُزيل الأحرف المخفية',
+        description: 'البحث عن الأحرف المخفية والمسافات الشفافة وإزالتها.',
+        heading: 'مُزيل الأحرف المخفية',
+        subheading: 'كشف ومسح أحرف يونيكود المخفية في المتصفح.',
+      },
+      markdownToPlainText: {
+        title: 'محول Markdown إلى نص عادي',
+        description: 'تحويل تنسيقات Markdown إلى نص عادي نظيف.',
+        heading: 'محول Markdown إلى نص عادي',
+        subheading: 'إزالة رموز Markdown مع الحفاظ على الفقرات.',
+      },
+      smartQuotesToStraightQuotes: {
+        title: 'تحويل علامات التنصيص المائلة إلى مستقيمة',
+        description: 'تحويل علامات التنصيص المنحنية إلى ASCII مستقيمة.',
+        heading: 'تحويل علامات التنصيص إلى مستقيمة',
+        subheading: 'إصلاح علامات التنصيص المائلة التي تعطّل الكود.',
+      },
+    },
+  },
+  ja: {
+    code: 'ja',
+    name: 'Japanese',
+    nativeName: '日本語',
+    flag: '🇯🇵',
+    dir: 'ltr',
+    title: 'AIテキストクリーナー - 不可視文字・AI痕跡の即時削除',
+    description: 'ブラウザで使える無料のAIテキストクリーナー。隠れたUnicodeスペース、ChatGPTのマークダウン整形、AI特有の定型句を即座に除去。',
+    heading: 'AIテキストを即座にクリーンアップ＆衛生化',
+    subheading: '100%クライアントサイドのプライバシー保護。ゼロ幅文字、AI特有の定型表現、LaTeX、ChatGPT/Claudeのフォーマット痕跡をワンクリックで削除。',
+    badge: '100% 無料＆プライベート • ブラウザ処理',
+    heroPresets: {
+      chatgpt: '⚡ ChatGPT・Claude クリーニング',
+      aiBuzzwords: '🤖 AI定型句を削除',
+      codeJson: '💻 コード＆JSON安全化',
+      publishing: '📝 出版・ドキュメント用',
+      stripAll: '🧹 すべて削除',
+    },
+    subtools: {
+      cleanChatGPT: {
+        title: 'ChatGPTテキストクリーンアップ - マークダウン・不可視文字削除',
+        description: 'ChatGPTの太字・アスタリスク・ゼロ幅スペースを即座に除去。',
+        heading: 'ChatGPTテキストを即座にクリーンアップ',
+        subheading: 'ChatGPTのフォーマット痕跡と隠れた不可視文字を削除。',
+      },
+      cleanClaude: {
+        title: 'Claude AIテキストクリーンアップ',
+        description: 'Claude AIのテキスト痕跡や箇条書き文字をクリーン化。',
+        heading: 'Claude AIテキストクリーンアップ',
+        subheading: 'Anthropic Claudeの出力テキストを綺麗に整形。',
+      },
+      cleanGemini: {
+        title: 'Google Geminiテキストクリーンアップ',
+        description: 'Google Geminiからコピーしたテキストの整形くせを除去。',
+        heading: 'Google Geminiテキストクリーンアップ',
+        subheading: 'Gemini AIのテキスト痕跡を瞬時に削除。',
+      },
+      cleanCopilot: {
+        title: 'Microsoft Copilotテキストクリーンアップ',
+        description: 'Microsoft Copilotの整形記号や不可視文字を除去。',
+        heading: 'Microsoft Copilotテキストクリーンアップ',
+        subheading: 'コードや文書用にCopilotの出力を衛生化。',
+      },
+      removeAIWords: {
+        title: 'AI定型句・頻出ワード削除',
+        description: 'AI特有の機械的な表現や定型句を除去して自然な文章に。',
+        heading: 'AI定型句・頻出ワード削除',
+        subheading: 'ロボットのような定型表現を消去して自然な文章に整形。',
+      },
+      removeZeroWidthSpace: {
+        title: 'ゼロ幅スペース(U+200B)・不可視文字削除',
+        description: '隠れたゼロ幅スペースや特殊Unicode制御文字を検出・削除。',
+        heading: 'ゼロ幅スペース(U+200B)削除',
+        subheading: 'コードエラーの原因となる隠れた制御文字を排除。',
+      },
+      removeInvisibleCharacters: {
+        title: '不可視文字リムーバー',
+        description: 'ブラウザ上で隠れたUnicode文字や制御スペースを検出・削除。',
+        heading: '不可視文字リムーバー',
+        subheading: '隠れたUnicode文字を可視化して削除。',
+      },
+      markdownToPlainText: {
+        title: 'Markdownテキストプレーン変換',
+        description: 'Markdown記法を段落構造を保ったままプレーンテキストに変換。',
+        heading: 'Markdownからプレーンテキストへ',
+        subheading: 'Markdown構文を除去して読みやすいテキストに。',
+      },
+      smartQuotesToStraightQuotes: {
+        title: 'スマートクォート(引用符)直線化ツール',
+        description: 'コードエラーを起こす曲がり引用符を直線ASCII引用符に変換。',
+        heading: 'スマートクォート直線化',
+        subheading: 'プログラミングや文書作成のための引用符修正。',
+      },
+    },
+  },
+  nl: {
+    code: 'nl',
+    name: 'Dutch',
+    nativeName: 'Nederlands',
+    flag: '🇳🇱',
+    dir: 'ltr',
+    title: 'AI Tekst Cleaner - Onzichtbare Tekens & AI Sporen Verwijderen',
+    description: 'Gratis browser AI tekst cleaner. Verwijder direct verborgen Unicode spaties, ChatGPT opmaak en AI jeukwoorden.',
+    heading: 'Schoon & Saniteer AI Tekst Direct',
+    subheading: '100% Client-side privacy. Verwijder verborgen zero-width tekens, AI jeukwoorden, LaTeX en ChatGPT/Claude opmaak artefacts.',
+    badge: '100% Gratis & Privé • In de Browser',
+    heroPresets: {
+      chatgpt: '⚡ ChatGPT & Claude Schoonmaken',
+      aiBuzzwords: '🤖 AI Woorden Verwijderen',
+      codeJson: '💻 Code & JSON Veilig',
+      publishing: '📝 Publicatie & Documenten',
+      stripAll: '🧹 Alles Verwijderen',
+    },
+    subtools: {
+      cleanChatGPT: {
+        title: 'ChatGPT Tekst Schoonmaken - Onzichtbare Tekens Verwijderen',
+        description: 'Verwijder ChatGPT opmaak, sterretjes en zero-width spaties direct.',
+        heading: 'ChatGPT Tekst Direct Schoonmaken',
+        subheading: 'Verwijder sterretjes en verborgen zero-width spaties.',
+      },
+      cleanClaude: {
+        title: 'Claude AI Tekst Schoonmaken',
+        description: 'Verwijder Claude opmaak artefacts en verborgen spaties.',
+        heading: 'Claude AI Tekst Schoonmaken',
+        subheading: 'Saniteer Anthropic Claude antwoorden voor publicatie.',
+      },
+      cleanGemini: {
+        title: 'Google Gemini Tekst Schoonmaken',
+        description: 'Verwijder Google Gemini opmaaksporen en extra alinea-einden.',
+        heading: 'Google Gemini Tekst Schoonmaken',
+        subheading: 'Maak gekopieerde tekst van Google Gemini direct schoon.',
+      },
+      cleanCopilot: {
+        title: 'Microsoft Copilot Tekst Schoonmaken',
+        description: 'Verwijder Copilot artefacts en verborgen stuurtekens.',
+        heading: 'Microsoft Copilot Tekst Schoonmaken',
+        subheading: 'Saniteer Copilot-tekst voor code en documenten.',
+      },
+      removeAIWords: {
+        title: 'AI Jeukwoorden Verwijderen',
+        description: 'Filter overmatig gebruikte AI-woorden voor natuurlijke tekst.',
+        heading: 'AI Jeukwoorden Verwijderen',
+        subheading: 'Laat uw tekst natuurlijk klinken zonder robotachtig vocabulaire.',
+      },
+      removeZeroWidthSpace: {
+        title: 'Zero-Width Spatie (U+200B) Verwijderen',
+        description: 'Detecteer en verwijder onzichtbare zero-width spaties.',
+        heading: 'Zero-Width Spatie (U+200B) Verwijderen',
+        subheading: 'Elimineer verborgen tekens die uw code breken.',
+      },
+      removeInvisibleCharacters: {
+        title: 'Onzichtbare Tekens Verwijderaar',
+        description: 'Vind en verwijder verborgen tekens en onzichtbare spaties.',
+        heading: 'Onzichtbare Tekens Verwijderaar',
+        subheading: 'Licht verborgen Unicode-tekens op in de browser.',
+      },
+      markdownToPlainText: {
+        title: 'Markdown naar Plat Tekst Converter',
+        description: 'Converteer Markdown syntaxis naar schone platte tekst.',
+        heading: 'Markdown naar Platte Tekst',
+        subheading: 'Verwijder Markdown opmaak met behoud van alinea\'s.',
+      },
+      smartQuotesToStraightQuotes: {
+        title: 'Slimme Anformatie en Citaattekens Rechtmaken',
+        description: 'Converteer krullende anhalingstekens naar rechte ASCII-tekens.',
+        heading: 'Slimme Citaattekens Rechtmaken',
+        subheading: 'Herstel krullende tekens die code verstoren.',
+      },
+    },
+  },
+  tr: {
+    code: 'tr',
+    name: 'Turkish',
+    nativeName: 'Türkçe',
+    flag: '🇹🇷',
+    dir: 'ltr',
+    title: 'Yapay Zeka Metin Temizleyici - Gizli Karakterleri ve Yapay Zeka İzlerini Temizleyin',
+    description: 'Tarayıcı tabanlı ücretsiz yapay zeka metin temizleyici. Gizli Unicode boşluklarını, ChatGPT biçimlendirmelerini ve AI kalıplarını anında temizleyin.',
+    heading: 'Yapay Zeka Metinlerini Anında Temizleyin',
+    subheading: '%100 İstemci Tarafı Gizlilik. Gizli sıfır genişlikli karakterleri, AI kalıp kelimelerini ve ChatGPT/Claude biçimlendirme izlerini tek tıkla kaldırın.',
+    badge: '%100 Ücretsiz ve Gizli • Tarayıcıda Çalışır',
+    heroPresets: {
+      chatgpt: '⚡ ChatGPT ve Claude Temizle',
+      aiBuzzwords: '🤖 Yapay Zeka Kelimelerini Sil',
+      codeJson: '💻 Kod ve JSON Güvenli',
+      publishing: '📝 Yayıncılık ve Belgeler',
+      stripAll: '🧹 Her Şeyi Temizle',
+    },
+    subtools: {
+      cleanChatGPT: {
+        title: 'ChatGPT Metnini Temizle - Gizli Karakterleri Kaldır',
+        description: 'ChatGPT yıldız işaretlerini ve sıfır genişlikli boşlukları temizleyin.',
+        heading: 'ChatGPT Metnini Anında Temizleyin',
+        subheading: 'ChatGPT biçimlendirme izlerini ve gizli karakterleri silin.',
+      },
+      cleanClaude: {
+        title: 'Claude AI Metnini Temizle',
+        description: 'Claude AI metin izlerini ve gizli boşlukları temizleyin.',
+        heading: 'Claude AI Metnini Temizleyin',
+        subheading: 'Anthropic Claude çıktılarını yayın için temizleyin.',
+      },
+      cleanGemini: {
+        title: 'Google Gemini Metnini Temizle',
+        description: 'Google Gemini biçimlendirme hatalarını anında silin.',
+        heading: 'Google Gemini Metnini Temizleyin',
+        subheading: 'Google Gemini\'den kopyalanan metinleri anında temizleyin.',
+      },
+      cleanCopilot: {
+        title: 'Microsoft Copilot Metnini Temizle',
+        description: 'Microsoft Copilot izlerini ve gizli kontrol karakterlerini temizleyin.',
+        heading: 'Microsoft Copilot Metnini Temizleyin',
+        subheading: 'Kod ve belgeler için Copilot çıktılarını arındırın.',
+      },
+      removeAIWords: {
+        title: 'Yapay Zeka Kalıp Kelimelerini Sil',
+        description: 'Yapay zeka tarafından aşırı kullanılan kalıp kelimeleri temizleyin.',
+        heading: 'Yapay Zeka Kalıp Kelimelerini Silin',
+        subheading: 'Robotik sözcükleri kaldırarak metninizin doğal duyulmasını sağlayın.',
+      },
+      removeZeroWidthSpace: {
+        title: 'Sıfır Genişlikli Boşluk (U+200B) Silme',
+        description: 'Gizli sıfır genişlikli boşlukları ve Unicode karakterlerini silin.',
+        heading: 'Sıfır Genişlikli Boşluk (U+200B) Silme',
+        subheading: 'Kodu bozan gizli denetim karakterlerini kaldırın.',
+      },
+      removeInvisibleCharacters: {
+        title: 'Görünmez Karakter Temizleyici',
+        description: 'Gizli karakterleri ve görünmez boşlukları tespit edin.',
+        heading: 'Görünmez Karakter Temizleyici',
+        subheading: 'Gizli Unicode karakterlerini tarayıcıda ortaya çıkarın.',
+      },
+      markdownToPlainText: {
+        title: 'Markdown\'ı Düz Metne Dönüştürücü',
+        description: 'Markdown biçimlendirmesini temiz düz metne dönüştürün.',
+        heading: 'Markdown\'dan Düz Metne',
+        subheading: 'Paragraf yapısını koruyarak Markdown izlerini silin.',
+      },
+      smartQuotesToStraightQuotes: {
+        title: 'Akıllı Tırnakları Düz Tırnağa Dönüştür',
+        description: 'Kıvrımlı tırnak işaretlerini düz ASCII tırnaklara dönüştürün.',
+        heading: 'Akıllı Tırnakları Düz Tırnağa Dönüştür',
+        subheading: 'Kodu bozan kıvrımlı tırnak işaretlerini düzeltin.',
+      },
+    },
+  },
+  id: {
+    code: 'id',
+    name: 'Indonesian',
+    nativeName: 'Bahasa Indonesia',
+    flag: '🇮🇩',
+    dir: 'ltr',
+    title: 'Pembersih Teks AI - Hapus Karakter Tersembunyi & Jejak AI',
+    description: 'Pembersih teks AI gratis di browser. Hapus spasi Unicode tersembunyi, format ChatGPT, dan kata-kata klise AI secara instan.',
+    heading: 'Bersihkan Teks AI Secara Instan',
+    subheading: 'Privasi 100% di Sisi Klien. Hapus karakter nol-lebar tersembunyi, kata klise AI, LaTeX, dan format ChatGPT/Claude dalam satu klik.',
+    badge: '100% Gratis & Privat • Berbasis Browser',
+    heroPresets: {
+      chatgpt: '⚡ Bersihkan ChatGPT & Claude',
+      aiBuzzwords: '🤖 Hapus Kata Klise AI',
+      codeJson: '💻 Aman untuk Kode & JSON',
+      publishing: '📝 Publikasi & Dokumen',
+      stripAll: '🧹 Hapus Semuanya',
+    },
+    subtools: {
+      cleanChatGPT: {
+        title: 'Bersihkan Teks ChatGPT - Hapus Karakter Tersembunyi',
+        description: 'Hapus format ChatGPT, tanda bintang, dan spasi nol-lebar.',
+        heading: 'Bersihkan Teks ChatGPT Seketika',
+        subheading: 'Hapus tanda bintang cetak tebal dan spasi nol-lebar tersembunyi.',
+      },
+      cleanClaude: {
+        title: 'Bersihkan Teks Claude AI',
+        description: 'Hapus format teks Claude AI dan spasi tersembunyi.',
+        heading: 'Bersihkan Teks Claude AI',
+        subheading: 'Sanitasi hasil teks Anthropic Claude untuk publikasi.',
+      },
+      cleanGemini: {
+        title: 'Bersihkan Teks Google Gemini',
+        description: 'Hapus keunikan format teks Google Gemini seketika.',
+        heading: 'Bersihkan Teks Google Gemini',
+        subheading: 'Bersihkan teks yang disalin dari Google Gemini secara instan.',
+      },
+      cleanCopilot: {
+        title: 'Bersihkan Teks Microsoft Copilot',
+        description: 'Hapus format Copilot dan karakter kontrol tersembunyi.',
+        heading: 'Bersihkan Teks Microsoft Copilot',
+        subheading: 'Sanitasi hasil Copilot untuk kode dan dokumen.',
+      },
+      removeAIWords: {
+        title: 'Hapus Kata-Kata Klise AI',
+        description: 'Filter kata-kata yang terlalu sering digunakan oleh AI.',
+        heading: 'Hapus Kata-Kata Klise AI',
+        subheading: 'Buat teks AI Anda terdengar alami dengan menghapus kosakata robotik.',
+      },
+      removeZeroWidthSpace: {
+        title: 'Hapus Spasi Nol-Lebar (U+200B)',
+        description: 'Deteksi dan hapus spasi nol-lebar tersembunyi.',
+        heading: 'Hapus Spasi Nol-Lebar (U+200B)',
+        subheading: 'Eliminasi karakter kontrol tersembunyi yang merusak kode.',
+      },
+      removeInvisibleCharacters: {
+        title: 'Pembersih Karakter Tak Terlihat',
+        description: 'Temukan dan hapus karakter tersembunyi di browser.',
+        heading: 'Pembersih Karakter Tak Terlihat',
+        subheading: 'Tampilkan dan hapus karakter Unicode tersembunyi.',
+      },
+      markdownToPlainText: {
+        title: 'Konverter Markdown ke Teks Polos',
+        description: 'Konversi sintaks Markdown menjadi teks polos yang bersih.',
+        heading: 'Markdown ke Teks Polos',
+        subheading: 'Hapus sintaks Markdown sambil mempertahankan struktur paragraf.',
+      },
+      smartQuotesToStraightQuotes: {
+        title: 'Konversi Tanda Petik Lengkung ke Petik Lurus',
+        description: 'Konversi tanda petik lengkung menjadi tanda petik lurus ASCII.',
+        heading: 'Tanda Petik Lengkung ke Petik Lurus',
+        subheading: 'Perbaiki tanda petik yang merusak kode pemrograman.',
+      },
+    },
+  },
+};

@@ -91,6 +91,22 @@ export default function Footer() {
           </div>
         </div>
 
+        <div className="border-t border-neutral-200 pt-6">
+          <p className="text-body-sm font-bold text-neutral-900 mb-3">Global Languages / Idiomas / Sprachen / اللغات</p>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-neutral-600">
+            <Link href="/es" className="hover:text-primary-600 transition-colors">🇪🇸 Español</Link>
+            <Link href="/de" className="hover:text-primary-600 transition-colors">🇩🇪 Deutsch</Link>
+            <Link href="/fr" className="hover:text-primary-600 transition-colors">🇫🇷 Français</Link>
+            <Link href="/it" className="hover:text-primary-600 transition-colors">🇮🇹 Italiano</Link>
+            <Link href="/pt" className="hover:text-primary-600 transition-colors">🇧🇷 Português</Link>
+            <Link href="/ar" className="hover:text-primary-600 transition-colors">🇸🇦 العربية</Link>
+            <Link href="/ja" className="hover:text-primary-600 transition-colors">🇯🇵 日本語</Link>
+            <Link href="/nl" className="hover:text-primary-600 transition-colors">🇳🇱 Nederlands</Link>
+            <Link href="/tr" className="hover:text-primary-600 transition-colors">🇹🇷 Türkçe</Link>
+            <Link href="/id" className="hover:text-primary-600 transition-colors">🇮🇩 Bahasa Indonesia</Link>
+          </div>
+        </div>
+
         <div className="flex flex-col items-center justify-between gap-4 border-t border-neutral-200 pt-6 sm:flex-row text-center sm:text-left">
           <p className="text-body-sm text-neutral-500">
             © 2026 AI Text Cleaner. 100% Client-Side & Privacy-First.
