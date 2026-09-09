@@ -40,7 +40,7 @@ export default function HowItWorks() {
               <p className="text-body-sm font-bold text-primary-600">
                 {step.number}
               </p>
-              <h4>{step.title}</h4>
+              <h3 className="text-h4 font-bold text-neutral-900">{step.title}</h3>
               <p className="text-body-md text-neutral-700">
                 {step.description}
               </p>

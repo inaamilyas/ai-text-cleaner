@@ -40,7 +40,7 @@ export default function WhatMakesDifferent() {
             <div key={item.title} className="flex gap-4">
               <IconBadge icon={item.icon} />
               <div className="flex flex-col gap-2">
-                <h5>{item.title}</h5>
+                <h3 className="text-h5 font-bold text-neutral-900">{item.title}</h3>
                 <p className="text-body-sm text-neutral-700">
                   {item.description}
                 </p>
