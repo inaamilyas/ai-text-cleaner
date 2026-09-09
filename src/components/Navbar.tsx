@@ -17,6 +17,13 @@ const tools = [
   { href: "/remove-zero-width-space", label: "Remove Zero-Width Space" },
   { href: "/smart-quotes-to-straight-quotes", label: "Smart Quotes to Straight Quotes" },
   { href: "/remove-ai-image-metadata", label: "AI Image Metadata Remover" },
+  { href: "/strip-ai-prompts", label: "AI Prompt Stripper" },
+  { href: "/visualize-invisible-characters", label: "Invisible Character Visualizer" },
+  { href: "/clean-unicode-homoglyphs", label: "Unicode Homoglyph Cleaner" },
+  { href: "/clean-pdf-metadata", label: "PDF Metadata Sanitizer" },
+  { href: "/case-converter", label: "Text Case Converter" },
+  { href: "/check-readability-score", label: "Readability & Grade Checker" },
+  { href: "/humanize-ai-text", label: "AI Text Humanizer" },
 ];
 
 const navLinks = [

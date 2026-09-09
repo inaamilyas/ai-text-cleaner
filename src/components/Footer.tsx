@@ -12,9 +12,17 @@ const utilityLinks = [
   { href: "/remove-ai-words", label: "Remove AI Buzzwords" },
   { href: "/remove-zero-width-space", label: "Zero-Width Space Remover" },
   { href: "/remove-invisible-characters", label: "Invisible Character Remover" },
+  { href: "/visualize-invisible-characters", label: "Invisible Character Visualizer" },
+  { href: "/strip-ai-prompts", label: "AI Prompt Parameter Stripper" },
+  { href: "/clean-unicode-homoglyphs", label: "Unicode Homoglyph Cleaner" },
   { href: "/markdown-to-plain-text", label: "Markdown to Plain Text" },
   { href: "/smart-quotes-to-straight-quotes", label: "Smart Quotes Fixer" },
   { href: "/remove-ai-image-metadata", label: "AI Image Metadata Stripper" },
+  { href: "/remove-ai-watermark", label: "AI Watermark Remover" },
+  { href: "/clean-pdf-metadata", label: "PDF Metadata Sanitizer" },
+  { href: "/case-converter", label: "Text Case Converter" },
+  { href: "/check-readability-score", label: "Readability & Grade Checker" },
+  { href: "/humanize-ai-text", label: "AI Text Humanizer" },
 ];
 
 const companyLinks = [

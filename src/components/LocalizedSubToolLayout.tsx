@@ -10,7 +10,8 @@ export interface LocalizedSubToolLayoutProps {
 
 export function generateSubToolMetadata(langCode: string, subToolKey: keyof typeof LANGUAGES['en']['subtools'], pathSlug: string) {
   const lang = LANGUAGES[langCode] || LANGUAGES.en;
-  const toolData = lang.subtools?.[subToolKey] || LANGUAGES.en.subtools[subToolKey];
+  const defaultTool = LANGUAGES.en.subtools[subToolKey] || { title: '', description: '', heading: '', subheading: '' };
+  const toolData = (lang.subtools && lang.subtools[subToolKey]) || defaultTool;
 
   return {
     title: `${toolData.title} | AI Text Cleaner`,
@@ -48,7 +49,8 @@ export default function LocalizedSubToolLayout({
 }: LocalizedSubToolLayoutProps) {
   const lang = LANGUAGES[langCode] || LANGUAGES.en;
   const isRtl = lang.dir === 'rtl';
-  const toolData = lang.subtools?.[subToolKey] || LANGUAGES.en.subtools[subToolKey];
+  const defaultTool = LANGUAGES.en.subtools[subToolKey] || { title: '', description: '', heading: '', subheading: '' };
+  const toolData = (lang.subtools && lang.subtools[subToolKey]) || defaultTool;
 
   const webAppJsonLd = {
     '@context': 'https://schema.org',

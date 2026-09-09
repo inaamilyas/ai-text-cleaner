@@ -33,6 +33,13 @@ export interface LocalizedContent {
     removeInvisibleCharacters: SubToolTranslation;
     markdownToPlainText: SubToolTranslation;
     smartQuotesToStraightQuotes: SubToolTranslation;
+    stripAIPrompts?: SubToolTranslation;
+    visualizeInvisibleCharacters?: SubToolTranslation;
+    cleanUnicodeHomoglyphs?: SubToolTranslation;
+    cleanPdfMetadata?: SubToolTranslation;
+    caseConverter?: SubToolTranslation;
+    checkReadabilityScore?: SubToolTranslation;
+    humanizeAIText?: SubToolTranslation;
   };
 }
 
@@ -109,6 +116,48 @@ export const LANGUAGES: Record<string, LocalizedContent> = {
         description: 'Convert curly smart quotes and em dashes into straight ASCII quotes and standard dashes.',
         heading: 'Smart Quotes to Straight Quotes',
         subheading: 'Fix code-breaking curly quotes and em-dashes for developers and publishing.',
+      },
+      stripAIPrompts: {
+        title: 'AI Prompt & Parameter Stripper',
+        description: 'Strip Midjourney parameters, LoRA tags, negative prompts, and weights from AI prompt text.',
+        heading: 'AI Prompt & Parameter Stripper',
+        subheading: 'Clean copied AI image prompts into natural language.',
+      },
+      visualizeInvisibleCharacters: {
+        title: 'Invisible Character Visualizer',
+        description: 'Highlight zero-width spaces (U+200B), non-breaking spaces (U+00A0), soft hyphens, and BOM markers.',
+        heading: 'Invisible Character Visualizer',
+        subheading: 'Inspect and see hidden Unicode characters with color-coded badges.',
+      },
+      cleanUnicodeHomoglyphs: {
+        title: 'Unicode Homoglyph Cleaner',
+        description: 'Detect and replace fake Cyrillic or Greek letters disguised in text with standard ASCII letters.',
+        heading: 'Unicode Homoglyph Cleaner',
+        subheading: 'Sanitize look-alike confusable characters to prevent security risks and text corruption.',
+      },
+      cleanPdfMetadata: {
+        title: 'PDF & Document Metadata Sanitizer',
+        description: 'Strip author names, creation timestamps, title, and producer metadata from PDF documents.',
+        heading: 'PDF & Document Metadata Sanitizer',
+        subheading: 'Remove hidden EXIF tags from PDF files completely in your browser.',
+      },
+      caseConverter: {
+        title: 'Text Case Converter & ASCII Normalizer',
+        description: 'Convert text to Title Case, UPPERCASE, lowercase, camelCase, snake_case, kebab-case, and URL Slugs.',
+        heading: 'Text Case Converter & ASCII Normalizer',
+        subheading: 'Change text casing and strip non-ASCII accents in one click.',
+      },
+      checkReadabilityScore: {
+        title: 'Readability & Flesch-Kincaid Grade Checker',
+        description: 'Calculate Flesch Reading Ease score, Flesch-Kincaid Grade Level, and highlight complex words.',
+        heading: 'Readability & Flesch-Kincaid Grade Checker',
+        subheading: 'Analyze readability scores and grade levels in real-time.',
+      },
+      humanizeAIText: {
+        title: 'AI Text Humanizer & Structure Optimizer',
+        description: 'Detect and replace repetitive AI transitions and robotic clichés for natural human flow.',
+        heading: 'AI Text Humanizer & Structure Optimizer',
+        subheading: 'Improve text flow by removing repetitive AI transition words.',
       },
     },
   },
