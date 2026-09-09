@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SubToolContent from "@/components/SubToolContent";
 
-const siteUrl = "https://aitextcleaner.com";
+const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
   title: "Remove Invisible Characters Online — Clean Hidden Unicode Control Marks",
@@ -17,6 +17,19 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/remove-invisible-characters",
+    languages: {
+      en: "/remove-invisible-characters",
+      es: "/es/remove-invisible-characters",
+      de: "/de/remove-invisible-characters",
+      fr: "/fr/remove-invisible-characters",
+      it: "/it/remove-invisible-characters",
+      pt: "/pt/remove-invisible-characters",
+      ar: "/ar/remove-invisible-characters",
+      ja: "/ja/remove-invisible-characters",
+      nl: "/nl/remove-invisible-characters",
+      tr: "/tr/remove-invisible-characters",
+      id: "/id/remove-invisible-characters",
+    },
   },
   openGraph: {
     title: "Remove Invisible Characters Online — Clean Hidden Unicode Control Marks",

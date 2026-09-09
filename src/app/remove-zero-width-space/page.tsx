@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SubToolContent from "@/components/SubToolContent";
 
-const siteUrl = "https://aitextcleaner.com";
+const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
   title: "Zero-Width Space Remover — Clean Hidden U+200B Characters Online",
@@ -17,6 +17,19 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/remove-zero-width-space",
+    languages: {
+      en: "/remove-zero-width-space",
+      es: "/es/remove-zero-width-space",
+      de: "/de/remove-zero-width-space",
+      fr: "/fr/remove-zero-width-space",
+      it: "/it/remove-zero-width-space",
+      pt: "/pt/remove-zero-width-space",
+      ar: "/ar/remove-zero-width-space",
+      ja: "/ja/remove-zero-width-space",
+      nl: "/nl/remove-zero-width-space",
+      tr: "/tr/remove-zero-width-space",
+      id: "/id/remove-zero-width-space",
+    },
   },
   openGraph: {
     title: "Zero-Width Space Remover — Clean Hidden U+200B Characters Online",

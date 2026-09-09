@@ -1,51 +1,80 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import { X } from 'lucide-react';
 import { LANGUAGES } from '@/lib/i18n/dictionaries';
 
 const SUPPORTED_CODES = Object.keys(LANGUAGES); // ['en', 'es', 'de', 'fr', 'it', 'pt', 'ar', 'ja', 'nl', 'tr', 'id']
+const DISMISS_KEY = 'aitextcleaner_lang_suggestion_dismissed';
 
 export default function LanguageDetector() {
   const pathname = usePathname();
   const router = useRouter();
+  const [suggestedCode, setSuggestedCode] = useState<string | null>(null);
 
   useEffect(() => {
-    // Extract language code currently in the URL
-    const urlLang = SUPPORTED_CODES.find(
-      (code) => code !== 'en' && (pathname === `/${code}` || pathname.startsWith(`/${code}/`))
-    ) || 'en';
+    // Only ever suggest a switch from the English homepage — never auto-redirect.
+    // Google explicitly discourages client-side redirects based on browser
+    // locale, since it can trap crawlers and users on the "wrong" language.
+    if (pathname !== '/') return;
+    if (sessionStorage.getItem(DISMISS_KEY)) return;
 
-    // 1. Check if user has an explicit saved preference in localStorage
+    let detected: string | undefined;
+
     const savedLang = localStorage.getItem('aitextcleaner_lang');
-
-    if (savedLang) {
-      if (SUPPORTED_CODES.includes(savedLang) && savedLang !== urlLang) {
-        // If user saved preference (e.g. 'es') and lands on root '/', auto-redirect to '/es'
-        if (urlLang === 'en' && pathname === '/') {
-          router.replace(`/${savedLang}`);
-        }
-      }
-      return;
+    if (savedLang && SUPPORTED_CODES.includes(savedLang) && savedLang !== 'en') {
+      detected = savedLang;
+    } else {
+      const browserLangs = navigator.languages || [navigator.language || ''];
+      detected = browserLangs
+        .map((bLang) => bLang.toLowerCase().split('-')[0])
+        .find((code) => SUPPORTED_CODES.includes(code) && code !== 'en');
     }
 
-    // 2. If no stored preference, detect browser language (navigator.language)
-    const browserLangs = navigator.languages || [navigator.language || ''];
-    let detectedCode: string | undefined;
+    // Reading localStorage/navigator (external browser APIs unavailable during
+    // static prerendering) and syncing the result into state is exactly the
+    // "subscribe to an external system" case React's effect docs sanction.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (detected) setSuggestedCode(detected);
+  }, [pathname]);
 
-    for (const bLang of browserLangs) {
-      const code = bLang.toLowerCase().split('-')[0];
-      if (SUPPORTED_CODES.includes(code) && code !== 'en') {
-        detectedCode = code;
-        break;
-      }
-    }
+  if (!suggestedCode) return null;
 
-    if (detectedCode && urlLang === 'en' && pathname === '/') {
-      localStorage.setItem('aitextcleaner_lang', detectedCode);
-      router.replace(`/${detectedCode}`);
-    }
-  }, [pathname, router]);
+  const lang = LANGUAGES[suggestedCode];
 
-  return null;
+  function handleAccept() {
+    if (!suggestedCode) return;
+    localStorage.setItem('aitextcleaner_lang', suggestedCode);
+    router.push(`/${suggestedCode}`);
+    setSuggestedCode(null);
+  }
+
+  function handleDismiss() {
+    sessionStorage.setItem(DISMISS_KEY, '1');
+    setSuggestedCode(null);
+  }
+
+  return (
+    <div className="flex items-center justify-center gap-3 bg-primary-50 px-4 py-2.5 text-center text-body-sm text-primary-900">
+      <span>
+        {lang.flag} This page is also available in {lang.nativeName}.
+      </span>
+      <button
+        type="button"
+        onClick={handleAccept}
+        className="cursor-pointer font-bold underline transition-colors duration-200 hover:text-primary-700"
+      >
+        Switch to {lang.nativeName}
+      </button>
+      <button
+        type="button"
+        onClick={handleDismiss}
+        aria-label="Dismiss language suggestion"
+        className="cursor-pointer text-primary-700 transition-colors duration-200 hover:text-primary-900"
+      >
+        <X className="h-4 w-4" />
+      </button>
+    </div>
+  );
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Calendar, User, ArrowLeft, Sparkles } from "lucide-react";
+import { Calendar, User, ArrowLeft } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Why ChatGPT & LLMs Inject Invisible Unicode Characters into Output",
@@ -73,7 +73,7 @@ export default function ArticleOnePage() {
           </ul>
 
           <h2>Why Do AI Models Generate Them?</h2>
-          <p>AI models do not intentionally "secretly watermark" text in most consumer interfaces. Instead, hidden characters enter AI output through three main channels:</p>
+          <p>AI models do not intentionally &quot;secretly watermark&quot; text in most consumer interfaces. Instead, hidden characters enter AI output through three main channels:</p>
           <ol className="list-decimal pl-6 space-y-3">
             <li>
               <strong>Training Data Artifacts:</strong> LLMs are trained on billions of scraped web pages, HTML documents, and e-books containing invisible layout formatting controls.

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SubToolContent from "@/components/SubToolContent";
 
-const siteUrl = "https://aitextcleaner.com";
+const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
   title: "Clean Google Gemini Text — Remove Gemini AI Formatting & Artifacts",
@@ -17,6 +17,19 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/clean-gemini-text",
+    languages: {
+      en: "/clean-gemini-text",
+      es: "/es/clean-gemini-text",
+      de: "/de/clean-gemini-text",
+      fr: "/fr/clean-gemini-text",
+      it: "/it/clean-gemini-text",
+      pt: "/pt/clean-gemini-text",
+      ar: "/ar/clean-gemini-text",
+      ja: "/ja/clean-gemini-text",
+      nl: "/nl/clean-gemini-text",
+      tr: "/tr/clean-gemini-text",
+      id: "/id/clean-gemini-text",
+    },
   },
   openGraph: {
     title: "Clean Google Gemini Text — Remove Gemini AI Formatting & Artifacts",

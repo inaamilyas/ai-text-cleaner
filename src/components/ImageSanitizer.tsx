@@ -51,7 +51,7 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
 
       const meta = await readImageMetadata(file);
       setMetadata(meta);
-    } catch (err) {
+    } catch {
       setError("Failed to read image headers. Please try another file.");
     } finally {
       setInspecting(false);
@@ -65,7 +65,7 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
       setError(null);
       const res = await cleanImageMetadata(currentFile, { disruptPatterns });
       setResult(res);
-    } catch (err) {
+    } catch {
       setError("Failed to clean image metadata. Please try again.");
     } finally {
       setLoading(false);
@@ -217,7 +217,7 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
                     <AlertTriangle className="h-3.5 w-3.5 text-amber-700" /> {t.promptFoundWarning}
                   </p>
                   <p className="text-body-xs text-amber-950 font-mono break-all line-clamp-3 bg-amber-100/60 p-2 rounded border border-amber-200">
-                    "{metadata.promptText}"
+                    &quot;{metadata.promptText}&quot;
                   </p>
                 </div>
               )}

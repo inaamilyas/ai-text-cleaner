@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SubToolContent from "@/components/SubToolContent";
 
-const siteUrl = "https://aitextcleaner.com";
+const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
   title: "Clean Claude Text — Remove Anthropic Claude Formatting & Artifacts",
@@ -17,6 +17,19 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/clean-claude-text",
+    languages: {
+      en: "/clean-claude-text",
+      es: "/es/clean-claude-text",
+      de: "/de/clean-claude-text",
+      fr: "/fr/clean-claude-text",
+      it: "/it/clean-claude-text",
+      pt: "/pt/clean-claude-text",
+      ar: "/ar/clean-claude-text",
+      ja: "/ja/clean-claude-text",
+      nl: "/nl/clean-claude-text",
+      tr: "/tr/clean-claude-text",
+      id: "/id/clean-claude-text",
+    },
   },
   openGraph: {
     title: "Clean Claude Text — Remove Anthropic Claude Formatting & Artifacts",

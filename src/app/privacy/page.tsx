@@ -6,6 +6,19 @@ export const metadata: Metadata = {
     "How AI Text Cleaner handles your data and respects your privacy. All text cleaning runs 100% locally inside your browser.",
   alternates: {
     canonical: "/privacy",
+    languages: {
+      en: "/privacy",
+      es: "/es/privacy",
+      de: "/de/privacy",
+      fr: "/fr/privacy",
+      it: "/it/privacy",
+      pt: "/pt/privacy",
+      ar: "/ar/privacy",
+      ja: "/ja/privacy",
+      nl: "/nl/privacy",
+      tr: "/tr/privacy",
+      id: "/id/privacy",
+    },
   },
 };
 
@@ -35,7 +48,7 @@ export default function PrivacyPage() {
       <div className="flex flex-col gap-3">
         <h2>2. Cookies and Advertising Disclosures</h2>
         <p className="text-body-md text-neutral-700 leading-relaxed">
-          AI Text Cleaner displays advertisements provided by Google AdSense and third-party advertising vendors to keep our utility tools free.
+          AI Text Cleaner may display advertisements provided by Google AdSense and third-party advertising vendors to keep our utility tools free. The disclosures below apply whenever such advertising is active on the site.
         </p>
         <ul className="list-disc pl-6 text-body-md text-neutral-700 space-y-2">
           <li>
@@ -69,9 +82,18 @@ export default function PrivacyPage() {
       </div>
 
       <div className="flex flex-col gap-3">
-        <h2>3. Log Files & Web Analytics</h2>
+        <h2>3. Web Analytics</h2>
         <p className="text-body-md text-neutral-700 leading-relaxed">
-          Like most web applications, standard web server log files automatically record IP addresses, browser types, internet service providers (ISPs), referring/exit pages, and timestamps. This information is used strictly for server diagnostics, security monitoring, and maintaining site performance.
+          We use Google Analytics to understand aggregate traffic patterns, such as which pages are visited and how long visitors stay. Google Analytics uses cookies and collects information such as your approximate location, browser type, device type, and referring pages. This data is used only to improve the site and is not linked to the text you clean, which is never transmitted anywhere. You can opt out of Google Analytics tracking using the{" "}
+          <a
+            href="https://tools.google.com/dlpage/gaoptout"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary-700 underline"
+          >
+            Google Analytics Opt-out Browser Add-on
+          </a>
+          .
         </p>
       </div>
 
@@ -86,8 +108,8 @@ export default function PrivacyPage() {
         <h2>5. Contact & Privacy Inquiries</h2>
         <p className="text-body-md text-neutral-700 leading-relaxed">
           If you have questions regarding this Privacy Policy or advertising disclosures, please email us at{" "}
-          <a href="mailto:support@aitextcleaner.com" className="text-primary-700 underline">
-            support@aitextcleaner.com
+          <a href="mailto:support@text-cleaner-ai.com" className="text-primary-700 underline">
+            support@text-cleaner-ai.com
           </a>
           .
         </p>

@@ -1,13 +1,12 @@
-import Metadata from 'next';
 import Hero from '@/components/Hero';
 import WhyCleanAIText from '@/components/WhyCleanAIText';
 import WhatMakesDifferent from '@/components/WhatMakesDifferent';
 import CompetitorComparison from '@/components/CompetitorComparison';
 import HowItWorks from '@/components/HowItWorks';
 import WhatWeClean from '@/components/WhatWeClean';
-import WhoItsFor, { audiences } from '@/components/WhoItsFor';
-import FAQ, { faqs } from '@/components/FAQ';
-import { LANGUAGES, LocalizedContent } from '@/lib/i18n/dictionaries';
+import WhoItsFor from '@/components/WhoItsFor';
+import FAQ from '@/components/FAQ';
+import { LANGUAGES } from '@/lib/i18n/dictionaries';
 
 export function generateLocalizedMetadata(langCode: string) {
   const lang = LANGUAGES[langCode] || LANGUAGES.en;

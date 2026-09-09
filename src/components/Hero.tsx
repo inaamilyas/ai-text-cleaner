@@ -189,7 +189,8 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
     const sample = getSampleText();
     setValue("input", sample);
     const values = control._getWatch();
-    const { input, ...options } = values;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { input: _input, ...options } = values;
     setResult(cleanText(sample, options as CleaningOptions));
   }
 

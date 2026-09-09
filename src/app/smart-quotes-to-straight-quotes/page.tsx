@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SubToolContent from "@/components/SubToolContent";
 
-const siteUrl = "https://aitextcleaner.com";
+const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
   title: "Smart Quotes to Straight Quotes Converter — Normalize Typography Online",
@@ -17,6 +17,19 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/smart-quotes-to-straight-quotes",
+    languages: {
+      en: "/smart-quotes-to-straight-quotes",
+      es: "/es/smart-quotes-to-straight-quotes",
+      de: "/de/smart-quotes-to-straight-quotes",
+      fr: "/fr/smart-quotes-to-straight-quotes",
+      it: "/it/smart-quotes-to-straight-quotes",
+      pt: "/pt/smart-quotes-to-straight-quotes",
+      ar: "/ar/smart-quotes-to-straight-quotes",
+      ja: "/ja/smart-quotes-to-straight-quotes",
+      nl: "/nl/smart-quotes-to-straight-quotes",
+      tr: "/tr/smart-quotes-to-straight-quotes",
+      id: "/id/smart-quotes-to-straight-quotes",
+    },
   },
   openGraph: {
     title: "Smart Quotes to Straight Quotes Converter — Normalize Typography Online",

@@ -5,13 +5,9 @@ import {
   Shield,
   Lock,
   EyeOff,
-  Sparkles,
   Zap,
-  CheckCircle2,
-  FileCode,
   Layers,
   Cpu,
-  Share2,
 } from "lucide-react";
 import ShareBar from "@/components/ShareBar";
 

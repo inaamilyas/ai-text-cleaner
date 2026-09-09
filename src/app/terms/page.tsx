@@ -6,6 +6,19 @@ export const metadata: Metadata = {
     "The terms that apply to using AI Text Cleaner, a free, browser-based text cleaning tool.",
   alternates: {
     canonical: "/terms",
+    languages: {
+      en: "/terms",
+      es: "/es/terms",
+      de: "/de/terms",
+      fr: "/fr/terms",
+      it: "/it/terms",
+      pt: "/pt/terms",
+      ar: "/ar/terms",
+      ja: "/ja/terms",
+      nl: "/nl/terms",
+      tr: "/tr/terms",
+      id: "/id/terms",
+    },
   },
 };
 
@@ -118,8 +131,8 @@ export default function TermsPage() {
         <h2>Contact us</h2>
         <p className="text-body-md text-neutral-700">
           Questions about these terms can be sent to{" "}
-          <a href="mailto:hello@aitextcleaner.com">
-            hello@aitextcleaner.com
+          <a href="mailto:hello@text-cleaner-ai.com">
+            hello@text-cleaner-ai.com
           </a>
           .
         </p>

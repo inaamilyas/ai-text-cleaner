@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SubToolContent from "@/components/SubToolContent";
 
-const siteUrl = "https://aitextcleaner.com";
+const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
   title: "Clean Microsoft Copilot Text — Remove Copilot AI Formatting & Quirks",
@@ -17,6 +17,19 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/clean-copilot-text",
+    languages: {
+      en: "/clean-copilot-text",
+      es: "/es/clean-copilot-text",
+      de: "/de/clean-copilot-text",
+      fr: "/fr/clean-copilot-text",
+      it: "/it/clean-copilot-text",
+      pt: "/pt/clean-copilot-text",
+      ar: "/ar/clean-copilot-text",
+      ja: "/ja/clean-copilot-text",
+      nl: "/nl/clean-copilot-text",
+      tr: "/tr/clean-copilot-text",
+      id: "/id/clean-copilot-text",
+    },
   },
   openGraph: {
     title: "Clean Microsoft Copilot Text — Remove Copilot AI Formatting & Quirks",

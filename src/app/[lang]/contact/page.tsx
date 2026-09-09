@@ -1,4 +1,4 @@
-import { Mail, Share2, Code2, UserCheck } from 'lucide-react';
+import { Mail, Share2, Code2 } from 'lucide-react';
 import { LANGUAGES } from '@/lib/i18n/dictionaries';
 
 export function generateStaticParams() {
@@ -14,7 +14,20 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     title: `Contact Us — AI Text Cleaner (${l.nativeName})`,
     description: `Get in touch with Inam Ilyas and the AI Text Cleaner team.`,
     alternates: {
-      canonical: `https://aitextcleaner.com/${lang}/contact`,
+      canonical: `https://www.text-cleaner-ai.com/${lang}/contact`,
+      languages: {
+        en: "https://www.text-cleaner-ai.com/contact",
+        es: "https://www.text-cleaner-ai.com/es/contact",
+        de: "https://www.text-cleaner-ai.com/de/contact",
+        fr: "https://www.text-cleaner-ai.com/fr/contact",
+        it: "https://www.text-cleaner-ai.com/it/contact",
+        pt: "https://www.text-cleaner-ai.com/pt/contact",
+        ar: "https://www.text-cleaner-ai.com/ar/contact",
+        ja: "https://www.text-cleaner-ai.com/ja/contact",
+        nl: "https://www.text-cleaner-ai.com/nl/contact",
+        tr: "https://www.text-cleaner-ai.com/tr/contact",
+        id: "https://www.text-cleaner-ai.com/id/contact",
+      },
     },
   };
 }

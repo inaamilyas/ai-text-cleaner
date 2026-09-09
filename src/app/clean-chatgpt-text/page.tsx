@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SubToolContent from "@/components/SubToolContent";
 
-const siteUrl = "https://aitextcleaner.com";
+const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
   title: "ChatGPT Text Cleaner — Remove AI Formatting & Markdown Artifacts",
@@ -17,6 +17,19 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/clean-chatgpt-text",
+    languages: {
+      en: "/clean-chatgpt-text",
+      es: "/es/clean-chatgpt-text",
+      de: "/de/clean-chatgpt-text",
+      fr: "/fr/clean-chatgpt-text",
+      it: "/it/clean-chatgpt-text",
+      pt: "/pt/clean-chatgpt-text",
+      ar: "/ar/clean-chatgpt-text",
+      ja: "/ja/clean-chatgpt-text",
+      nl: "/nl/clean-chatgpt-text",
+      tr: "/tr/clean-chatgpt-text",
+      id: "/id/clean-chatgpt-text",
+    },
   },
   openGraph: {
     title: "ChatGPT Text Cleaner — Remove AI Formatting & Markdown Artifacts",

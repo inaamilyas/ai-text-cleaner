@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ShieldCheck, Cpu, Zap, Lock, Sparkles, ArrowRight, Mail, Share2, Code2 } from "lucide-react";
+import { Cpu, Zap, Lock, Sparkles, ArrowRight, Mail, Share2, Code2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About Us — AI Text Cleaner",
@@ -8,6 +8,19 @@ export const metadata: Metadata = {
     "Learn about AI Text Cleaner, created by Inam Ilyas. Our mission is to sanitize AI text formatting with 100% client-side privacy.",
   alternates: {
     canonical: "/about",
+    languages: {
+      en: "/about",
+      es: "/es/about",
+      de: "/de/about",
+      fr: "/fr/about",
+      it: "/it/about",
+      pt: "/pt/about",
+      ar: "/ar/about",
+      ja: "/ja/about",
+      nl: "/nl/about",
+      tr: "/tr/about",
+      id: "/id/about",
+    },
   },
 };
 
@@ -16,7 +29,7 @@ const personJsonLd = {
   "@type": "Person",
   name: "Inam Ilyas",
   jobTitle: "Founder & Lead Engineer",
-  url: "https://aitextcleaner.com/about",
+  url: "https://www.text-cleaner-ai.com/about",
   sameAs: [
     "https://www.linkedin.com/in/inam-ilyas/",
     "https://github.com/inaamilyas/",

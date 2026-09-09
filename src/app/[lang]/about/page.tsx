@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { ShieldCheck, Cpu, Zap, Lock, Sparkles, ArrowRight, Mail, Share2, Code2 } from "lucide-react";
+import { Cpu, Zap, Lock, Sparkles, Mail, Share2, Code2 } from "lucide-react";
 import { LANGUAGES } from "@/lib/i18n/dictionaries";
 
 export function generateStaticParams() {
@@ -15,7 +14,20 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     title: `About Us — AI Text Cleaner (${l.nativeName})`,
     description: `Learn about AI Text Cleaner, created by Inam Ilyas. Privacy-first browser tool.`,
     alternates: {
-      canonical: `https://aitextcleaner.com/${lang}/about`,
+      canonical: `https://www.text-cleaner-ai.com/${lang}/about`,
+      languages: {
+        en: "https://www.text-cleaner-ai.com/about",
+        es: "https://www.text-cleaner-ai.com/es/about",
+        de: "https://www.text-cleaner-ai.com/de/about",
+        fr: "https://www.text-cleaner-ai.com/fr/about",
+        it: "https://www.text-cleaner-ai.com/it/about",
+        pt: "https://www.text-cleaner-ai.com/pt/about",
+        ar: "https://www.text-cleaner-ai.com/ar/about",
+        ja: "https://www.text-cleaner-ai.com/ja/about",
+        nl: "https://www.text-cleaner-ai.com/nl/about",
+        tr: "https://www.text-cleaner-ai.com/tr/about",
+        id: "https://www.text-cleaner-ai.com/id/about",
+      },
     },
   };
 }

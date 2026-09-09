@@ -12,7 +12,20 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     title: `Terms of Service — AI Text Cleaner (${lang.toUpperCase()})`,
     description: `Terms of service and usage conditions for AI Text Cleaner.`,
     alternates: {
-      canonical: `https://aitextcleaner.com/${lang}/terms`,
+      canonical: `https://www.text-cleaner-ai.com/${lang}/terms`,
+      languages: {
+        en: "https://www.text-cleaner-ai.com/terms",
+        es: "https://www.text-cleaner-ai.com/es/terms",
+        de: "https://www.text-cleaner-ai.com/de/terms",
+        fr: "https://www.text-cleaner-ai.com/fr/terms",
+        it: "https://www.text-cleaner-ai.com/it/terms",
+        pt: "https://www.text-cleaner-ai.com/pt/terms",
+        ar: "https://www.text-cleaner-ai.com/ar/terms",
+        ja: "https://www.text-cleaner-ai.com/ja/terms",
+        nl: "https://www.text-cleaner-ai.com/nl/terms",
+        tr: "https://www.text-cleaner-ai.com/tr/terms",
+        id: "https://www.text-cleaner-ai.com/id/terms",
+      },
     },
   };
 }
@@ -37,7 +50,7 @@ export default async function LocalizedTermsPage({ params }: { params: Promise<{
       <section className="flex flex-col gap-4">
         <h2>2. Disclaimer of Warranties</h2>
         <p className="text-body-md text-neutral-700">
-          AI Text Cleaner is provided "as is" without warranty of any kind. While we strive for 100% accuracy in text sanitization, we are not liable for any unintended modification of input text.
+          AI Text Cleaner is provided &quot;as is&quot; without warranty of any kind. While we strive for 100% accuracy in text sanitization, we are not liable for any unintended modification of input text.
         </p>
       </section>
 
