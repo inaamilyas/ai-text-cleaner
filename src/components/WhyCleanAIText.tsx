@@ -39,7 +39,7 @@ export default function WhyCleanAIText() {
                 aria-hidden="true"
               />
               <div className="flex flex-col gap-1">
-                <h6>{point.title}</h6>
+                <h3 className="text-h6 font-bold text-neutral-900">{point.title}</h3>
                 <p className="text-body-md text-neutral-700">
                   {point.description}
                 </p>

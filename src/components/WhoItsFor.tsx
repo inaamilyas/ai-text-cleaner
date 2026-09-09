@@ -43,7 +43,7 @@ export default function WhoItsFor() {
           {audiences.map((audience) => (
             <div key={audience.title} className="flex flex-col gap-3">
               <IconBadge icon={audience.icon} color={audience.color} />
-              <h5>{audience.title}</h5>
+              <h3 className="text-h5 font-bold text-neutral-900">{audience.title}</h3>
               <p className="text-body-sm text-neutral-700">
                 {audience.description}
               </p>
