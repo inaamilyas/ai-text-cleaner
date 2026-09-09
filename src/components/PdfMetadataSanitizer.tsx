@@ -1,10 +1,40 @@
 'use client';
 
 import { useState } from "react";
-import { FileText, ShieldCheck, Download, Trash2, AlertCircle, FileCheck, CheckCircle2 } from "lucide-react";
-import { inspectPdfMetadata, sanitizePdfMetadata, PdfMetadataReport } from "@/lib/cleanPdfMetadata";
+import {
+  FileText,
+  ShieldCheck,
+  Download,
+  RotateCcw,
+  Sparkles,
+  FileCheck,
+  Trash2,
+  Lock,
+} from "lucide-react";
+import { inspectPdfMetadata, sanitizePdfMetadata, type PdfMetadataReport } from "@/lib/cleanPdfMetadata";
+import { trackCleanTextRun, trackDownloadFile } from "@/lib/analytics";
 
-export default function PdfMetadataSanitizer() {
+const pdfPresets = [
+  {
+    id: "author",
+    label: "Author & Creator Wipe",
+  },
+  {
+    id: "timestamps",
+    label: "Timestamps & Producer Wipe",
+  },
+  {
+    id: "full",
+    label: "Full Metadata Wipe",
+  },
+];
+
+export interface PdfMetadataSanitizerProps {
+  heading?: string;
+  subheading?: string;
+}
+
+export default function PdfMetadataSanitizer({ heading, subheading }: PdfMetadataSanitizerProps = {}) {
   const [file, setFile] = useState<File | null>(null);
   const [report, setReport] = useState<PdfMetadataReport | null>(null);
   const [cleanedBlob, setCleanedBlob] = useState<Blob | null>(null);
@@ -26,6 +56,13 @@ export default function PdfMetadataSanitizer() {
 
       setReport(inspectedReport);
       setCleanedBlob(cleanResult.cleanedBlob);
+
+      trackCleanTextRun({
+        toolName: "clean_pdf_metadata",
+        inputWords: 0,
+        inputChars: selectedFile.size,
+        changesCount: inspectedReport.fieldsFoundCount,
+      });
     } catch (err) {
       console.error(err);
       alert("Error reading PDF file.");
@@ -36,10 +73,11 @@ export default function PdfMetadataSanitizer() {
 
   const handleDownload = () => {
     if (!cleanedBlob || !file) return;
+    trackDownloadFile({ toolName: "clean_pdf_metadata", fileType: "pdf" });
     const url = URL.createObjectURL(cleanedBlob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `cleaned-${file.name}`;
+    a.download = `sanitized-${file.name}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -53,148 +91,160 @@ export default function PdfMetadataSanitizer() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-8">
-      {/* Tool Header */}
-      <div className="text-center space-y-3">
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-          PDF & Document Metadata Sanitizer
-        </h1>
-        <p className="text-slate-600 max-w-2xl mx-auto text-base sm:text-lg">
-          Strip hidden author tags, creation timestamps, title, producer, and software metadata from PDF files in your browser. 
-          <span className="font-semibold text-emerald-600 block mt-1">100% Client-Side Privacy — Zero Server Uploads.</span>
+    <section className="bg-white">
+      <div className="container mx-auto flex flex-col items-center gap-6 px-4 sm:px-6 py-6 sm:py-10">
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="w-full rounded-lg border border-neutral-200 bg-white p-4 sm:p-8"
+        >
+          {/* Quick Presets Bar */}
+          <div className="mb-4 flex flex-wrap items-center gap-1.5 border-b border-neutral-200 pb-3">
+            <span className="text-body-xs font-bold uppercase text-neutral-500 mr-1.5">
+              Sanitization Modes:
+            </span>
+            {pdfPresets.map((preset) => (
+              <span
+                key={preset.id}
+                className="flex items-center gap-1 rounded-md border border-neutral-300 bg-neutral-50 px-2.5 py-1 text-body-xs font-medium text-neutral-700"
+              >
+                <Lock className="h-3 w-3 text-primary-600" aria-hidden="true" />
+                {preset.label}
+              </span>
+            ))}
+          </div>
+
+          {!file ? (
+            <div className="border-2 border-dashed border-neutral-300 hover:border-primary-500 transition-colors rounded-lg p-8 sm:p-12 text-center bg-neutral-0">
+              <label className="cursor-pointer flex flex-col items-center justify-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-primary-50 flex items-center justify-center text-primary-700 border border-primary-200">
+                  <FileText className="w-7 h-7" />
+                </div>
+                <div>
+                  <span className="text-body-md font-bold text-neutral-900 hover:text-primary-700">
+                    Click to select PDF file
+                  </span>
+                  <p className="text-body-sm text-neutral-500 mt-1">or drag and drop your PDF here</p>
+                </div>
+                <input
+                  type="file"
+                  accept=".pdf,application/pdf"
+                  className="hidden"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      handleFileSelect(e.target.files[0]);
+                    }
+                  }}
+                />
+              </label>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-6">
+              <div className="flex items-center justify-between bg-neutral-50 p-4 rounded-lg border border-neutral-200">
+                <div className="flex items-center gap-3 text-left">
+                  <FileCheck className="w-8 h-8 text-primary-700 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-bold text-neutral-900 truncate max-w-xs sm:max-w-md text-body-sm">{file.name}</h3>
+                    <p className="text-body-xs text-neutral-500">{(file.size / 1024).toFixed(1)} KB</p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  className="p-2 text-neutral-400 hover:text-danger-600 rounded-lg hover:bg-neutral-200 transition-colors cursor-pointer"
+                  title="Remove file"
+                >
+                  <Trash2 className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Metadata Audit Results */}
+              {report && (
+                <div className="flex flex-col gap-4 text-left border-t border-neutral-200 pt-6">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-body-sm font-bold text-neutral-900 flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-primary-600" /> Detected Metadata Properties
+                    </h4>
+                    <span className={`px-2.5 py-0.5 text-body-xs font-bold rounded ${
+                      report.fieldsFoundCount > 0
+                        ? "bg-amber-100 text-amber-900 border border-amber-200"
+                        : "bg-primary-100 text-primary-800"
+                    }`}>
+                      {report.fieldsFoundCount > 0
+                        ? `${report.fieldsFoundCount} Hidden Metadata Fields`
+                        : "Clean PDF (No Hidden Metadata)"}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-body-sm">
+                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
+                      <span className="text-body-xs text-neutral-500 block">Author Tag:</span>
+                      <span className="font-medium text-neutral-900">{report.author || "— Not Set —"}</span>
+                    </div>
+                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
+                      <span className="text-body-xs text-neutral-500 block">Creator App:</span>
+                      <span className="font-medium text-neutral-900">{report.creator || "— Not Set —"}</span>
+                    </div>
+                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
+                      <span className="text-body-xs text-neutral-500 block">PDF Producer:</span>
+                      <span className="font-medium text-neutral-900">{report.producer || "— Not Set —"}</span>
+                    </div>
+                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
+                      <span className="text-body-xs text-neutral-500 block">Creation Timestamp:</span>
+                      <span className="font-medium text-neutral-900">{report.creationDate || "— Not Set —"}</span>
+                    </div>
+                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
+                      <span className="text-body-xs text-neutral-500 block">Document Title:</span>
+                      <span className="font-medium text-neutral-900">{report.title || "— Not Set —"}</span>
+                    </div>
+                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
+                      <span className="text-body-xs text-neutral-500 block">Keywords / Subject:</span>
+                      <span className="font-medium text-neutral-900">{report.keywords || "— Not Set —"}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Action Buttons Bar */}
+          <div className="mt-6 flex flex-col sm:flex-row flex-wrap items-center gap-3 sm:gap-4 border-t border-neutral-200 pt-6">
+            {cleanedBlob ? (
+              <button
+                type="button"
+                onClick={handleDownload}
+                className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary-700 px-8 py-3.5 sm:py-4 text-button text-neutral-50 transition-colors duration-200 hover:bg-primary-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+              >
+                <Download className="h-5 w-5" aria-hidden="true" />
+                Download Sanitized PDF
+              </button>
+            ) : null}
+            <button
+              type="button"
+              onClick={handleReset}
+              disabled={!file}
+              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-1.5 py-2 text-body-sm font-bold text-neutral-600 transition-colors duration-200 hover:text-primary-600 disabled:cursor-not-allowed disabled:text-neutral-300"
+            >
+              <RotateCcw className="h-4 w-4" aria-hidden="true" />
+              Reset PDF
+            </button>
+          </div>
+        </form>
+
+        <div className="flex max-w-2xl flex-col items-center gap-2 text-center">
+          <h1 className="text-lg font-bold text-primary-900 sm:text-xl">
+            {heading ?? "Clean PDF Metadata & Author Info"}
+          </h1>
+          <p className="text-body-sm text-neutral-600">
+            {subheading ??
+              "Strip hidden author tags, creation timestamps, title, producer, and software metadata from PDF files in your browser."}
+          </p>
+        </div>
+
+        <p className="flex items-center gap-1.5 text-body-sm text-neutral-500">
+          <ShieldCheck className="h-4 w-4 text-primary-600" aria-hidden="true" />
+          Private. 100% Browser-based processing. Zero server storage.
         </p>
       </div>
-
-      {/* Main Upload Box */}
-      <div className="bg-white border-2 border-dashed border-slate-300 hover:border-emerald-500 transition-colors rounded-2xl p-8 text-center shadow-sm">
-        {!file ? (
-          <label className="cursor-pointer flex flex-col items-center justify-center space-y-4 py-8">
-            <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
-              <FileText className="w-8 h-8" />
-            </div>
-            <div>
-              <span className="text-lg font-bold text-slate-800 hover:text-emerald-600">
-                Click to upload PDF file
-              </span>
-              <p className="text-sm text-slate-500 mt-1">or drag and drop your PDF here</p>
-            </div>
-            <input
-              type="file"
-              accept=".pdf,application/pdf"
-              className="hidden"
-              onChange={(e) => {
-                if (e.target.files && e.target.files[0]) {
-                  handleFileSelect(e.target.files[0]);
-                }
-              }}
-            />
-          </label>
-        ) : (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between bg-slate-50 p-4 rounded-xl border border-slate-200">
-              <div className="flex items-center space-x-3 text-left">
-                <FileCheck className="w-8 h-8 text-emerald-600 flex-shrink-0" />
-                <div>
-                  <h3 className="font-bold text-slate-900 truncate max-w-xs sm:max-w-md">{file.name}</h3>
-                  <p className="text-xs text-slate-500">{(file.size / 1024).toFixed(1)} KB</p>
-                </div>
-              </div>
-              <button
-                onClick={handleReset}
-                className="p-2 text-slate-400 hover:text-red-500 rounded-lg hover:bg-slate-200 transition-colors"
-                title="Remove file"
-              >
-                <Trash2 className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Metadata Audit Results */}
-            {report && (
-              <div className="space-y-4 text-left">
-                <div className="flex items-center justify-between border-b pb-3 border-slate-200">
-                  <h4 className="font-bold text-slate-800 flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-emerald-600" /> Detected Metadata Fields
-                  </h4>
-                  <span className={`px-3 py-1 text-xs font-bold rounded-full ${
-                    report.fieldsFoundCount > 0
-                      ? "bg-amber-100 text-amber-800"
-                      : "bg-emerald-100 text-emerald-800"
-                  }`}>
-                    {report.fieldsFoundCount > 0
-                      ? `${report.fieldsFoundCount} Metadata Fields Found`
-                      : "Clean PDF (No Hidden EXIF)"}
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                    <span className="text-xs text-slate-500 block">Author:</span>
-                    <span className="font-medium text-slate-800">{report.author || "— Not Set —"}</span>
-                  </div>
-                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                    <span className="text-xs text-slate-500 block">Creator / Application:</span>
-                    <span className="font-medium text-slate-800">{report.creator || "— Not Set —"}</span>
-                  </div>
-                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                    <span className="text-xs text-slate-500 block">Producer:</span>
-                    <span className="font-medium text-slate-800">{report.producer || "— Not Set —"}</span>
-                  </div>
-                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                    <span className="text-xs text-slate-500 block">Creation Date:</span>
-                    <span className="font-medium text-slate-800">{report.creationDate || "— Not Set —"}</span>
-                  </div>
-                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                    <span className="text-xs text-slate-500 block">Document Title:</span>
-                    <span className="font-medium text-slate-800">{report.title || "— Not Set —"}</span>
-                  </div>
-                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                    <span className="text-xs text-slate-500 block">Keywords / Tags:</span>
-                    <span className="font-medium text-slate-800">{report.keywords || "— Not Set —"}</span>
-                  </div>
-                </div>
-
-                {/* Download Clean PDF Button */}
-                <div className="pt-4 flex flex-col sm:flex-row gap-3">
-                  <button
-                    onClick={handleDownload}
-                    className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all shadow-md hover:shadow-lg"
-                  >
-                    <Download className="w-5 h-5" />
-                    <span>Download Sanitized PDF</span>
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Feature Highlights */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
-          <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-            <CheckCircle2 className="w-5 h-5" />
-          </div>
-          <h3 className="font-bold text-slate-800">100% In-Browser Safety</h3>
-          <p className="text-xs text-slate-600">Your PDF files never leave your computer. Parsing and metadata stripping are executed in memory.</p>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
-          <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-            <ShieldCheck className="w-5 h-5" />
-          </div>
-          <h3 className="font-bold text-slate-800">Wipes Hidden Author Tags</h3>
-          <p className="text-xs text-slate-600">Eliminates author names, computer usernames, application versions, and PDF creation timestamps.</p>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
-          <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-            <AlertCircle className="w-5 h-5" />
-          </div>
-          <h3 className="font-bold text-slate-800">Preserves Visual Quality</h3>
-          <p className="text-xs text-slate-600">Only metadata header streams are neutralized. Page layouts, vector graphics, and fonts remain untouched.</p>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }

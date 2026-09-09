@@ -7,6 +7,7 @@ import Logo from "@/components/Logo";
 import LanguageSelector from "@/components/LanguageSelector";
 
 const tools = [
+  { href: "/ai-text-detector", label: "AI Text Detector" },
   { href: "/clean-chatgpt-text", label: "ChatGPT Text Cleaner" },
   { href: "/clean-claude-text", label: "Claude Text Cleaner" },
   { href: "/clean-copilot-text", label: "Copilot Text Cleaner" },

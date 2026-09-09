@@ -12,6 +12,7 @@ const baseSubRoutes = [
   "/contact",
   "/privacy",
   "/terms",
+  "/ai-text-detector",
   "/remove-ai-words",
   "/remove-zero-width-space",
   "/clean-chatgpt-text",

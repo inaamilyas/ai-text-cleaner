@@ -1,5 +1,9 @@
 import React from "react";
 import SectionHeading from "@/components/SectionHeading";
+import RelatedToolsGrid from "@/components/RelatedToolsGrid";
+import LightbulbSpotlight from "@/components/LightbulbSpotlight";
+import DarkCalloutBanner from "@/components/DarkCalloutBanner";
+import FeatureSixGrid from "@/components/FeatureSixGrid";
 import { Sparkles, HelpCircle } from "lucide-react";
 
 export interface SubToolContentProps {
@@ -24,30 +28,33 @@ export default function SubToolContent({
   faqs,
 }: SubToolContentProps) {
   return (
-    <div className="flex flex-col gap-20 py-16 bg-neutral-0">
-      {/* Direct Answer & Geo Section */}
-      <section className="container mx-auto px-6">
-        <div className="max-w-4xl mx-auto rounded-lg border border-primary-200 bg-primary-50 p-8 sm:p-10">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-700 text-neutral-50">
+    <div className="flex flex-col gap-16 py-12 bg-neutral-0">
+      {/* Related Tools Chip Grid */}
+      <RelatedToolsGrid />
+
+      {/* Direct Answer GEO Section */}
+      <section className="container mx-auto px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto rounded-lg border border-primary-200 bg-primary-50 p-6 sm:p-10">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-700 text-neutral-50 flex-shrink-0">
               <Sparkles className="h-5 w-5" />
             </span>
-            <h2 className="text-h4 text-neutral-900">{directAnswerTitle}</h2>
+            <h2 className="text-h4 text-neutral-900 font-bold">{directAnswerTitle}</h2>
           </div>
-          <p className="text-body-lg text-neutral-700 leading-relaxed">
+          <p className="text-body-md text-neutral-700 leading-relaxed pl-12">
             {directAnswerText}
           </p>
         </div>
       </section>
 
       {/* Before / After Comparison */}
-      <section className="container mx-auto px-6">
+      <section className="container mx-auto px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           <SectionHeading
-            title="See the Difference Before & After Cleaning"
+            title="See the Difference Before &amp; After Cleaning"
             subtitle="Hidden artifacts and zero-width characters cause unexpected layout shifts, regex crashes, and AI detector flags. Here is how clean text compares."
           />
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
             <div className="flex flex-col gap-3 rounded-lg border border-neutral-200 bg-white p-6">
               <span className="inline-flex w-fit items-center rounded-md bg-neutral-200 px-3 py-1 text-body-xs font-bold text-neutral-700">
                 BEFORE (Raw Text with Hidden Artifacts)
@@ -58,7 +65,7 @@ export default function SubToolContent({
             </div>
             <div className="flex flex-col gap-3 rounded-lg border border-primary-300 bg-primary-50 p-6">
               <span className="inline-flex w-fit items-center rounded-md bg-primary-700 px-3 py-1 text-body-xs font-bold text-neutral-50">
-                AFTER (Cleaned & Sanitized Output)
+                AFTER (Cleaned &amp; Sanitized Output)
               </span>
               <pre className="whitespace-pre-wrap font-mono text-body-sm text-neutral-900 bg-neutral-0 p-4 rounded-lg border border-primary-200 overflow-x-auto">
                 {afterExample}
@@ -68,21 +75,21 @@ export default function SubToolContent({
         </div>
       </section>
 
-      {/* Technical Unicode Hex Breakdown Table */}
+      {/* Technical Unicode / Feature Breakdown Table */}
       {removedItems.length > 0 && (
-        <section className="container mx-auto px-6">
+        <section className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <SectionHeading
-              title="Unicode Characters Removed & Filtered"
-              subtitle="Our browser engine detects and strips invisible formatting controls and non-printable unicode points automatically."
+              title="Technical Character &amp; Feature Breakdown"
+              subtitle="Our browser engine detects and strips non-printable unicode points, LLM clichés, and metadata streams automatically."
             />
-            <div className="mt-10 overflow-hidden rounded-lg border border-neutral-200">
+            <div className="mt-8 overflow-hidden rounded-lg border border-neutral-200">
               <table className="w-full text-left text-body-sm text-neutral-700">
                 <thead className="bg-neutral-100 text-body-xs uppercase font-bold text-neutral-600 border-b border-neutral-200">
                   <tr>
-                    <th scope="col" className="px-6 py-4">Character Name</th>
-                    <th scope="col" className="px-6 py-4">Unicode Hex</th>
-                    <th scope="col" className="px-6 py-4">Impact & Behavior</th>
+                    <th scope="col" className="px-6 py-4">Character / Flag Name</th>
+                    <th scope="col" className="px-6 py-4">Identifier / Sample</th>
+                    <th scope="col" className="px-6 py-4">Impact &amp; Behavior</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-neutral-200 bg-neutral-0">
@@ -102,14 +109,17 @@ export default function SubToolContent({
         </section>
       )}
 
-      {/* How To Steps */}
-      <section className="container mx-auto px-6">
+      {/* Lightbulb Spotlight Section */}
+      <LightbulbSpotlight />
+
+      {/* 3 Simple Steps */}
+      <section className="container mx-auto px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           <SectionHeading
             title={`3 Simple Steps to Use ${title}`}
             subtitle="No software installation, account registration, or cloud API keys required. Processed entirely inside your local browser."
           />
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
             {howToSteps.map((step, index) => (
               <div
                 key={index}
@@ -118,7 +128,7 @@ export default function SubToolContent({
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-700 text-button text-neutral-50 font-bold">
                   {index + 1}
                 </div>
-                <h3 className="text-h6 text-neutral-900">{step.title}</h3>
+                <h3 className="text-h6 text-neutral-900 font-bold">{step.title}</h3>
                 <p className="text-body-sm text-neutral-600">{step.description}</p>
               </div>
             ))}
@@ -126,21 +136,27 @@ export default function SubToolContent({
         </div>
       </section>
 
-      {/* FAQ Accordion */}
+      {/* Dark Callout Banner */}
+      <DarkCalloutBanner />
+
+      {/* 6-Card Feature Grid */}
+      <FeatureSixGrid />
+
+      {/* FAQ Accordion Section */}
       {faqs.length > 0 && (
-        <section className="container mx-auto px-6">
+        <section className="container mx-auto px-4 sm:px-6 py-8">
           <div className="max-w-4xl mx-auto">
             <SectionHeading
-              title="Frequently Asked Questions"
-              subtitle="Got questions about zero-width characters, AI formatting, or privacy? We have answers."
+              title="Your questions, answered"
+              subtitle="Got questions about zero-width characters, AI detection probability, or privacy? We have answers."
             />
-            <div className="mt-10 flex flex-col gap-4">
+            <div className="mt-8 flex flex-col gap-4">
               {faqs.map((faq, index) => (
                 <div
                   key={index}
-                  className="rounded-lg border border-neutral-200 bg-white p-6"
+                  className="rounded-lg border border-neutral-200 bg-white p-6 text-left"
                 >
-                  <h3 className="flex items-center gap-2 text-h6 text-neutral-900 mb-2">
+                  <h3 className="flex items-center gap-2 text-h6 text-neutral-900 font-bold mb-2">
                     <HelpCircle className="h-5 w-5 text-primary-600 flex-shrink-0" />
                     {faq.question}
                   </h3>

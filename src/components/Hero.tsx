@@ -142,6 +142,8 @@ const presets = [
   },
 ];
 
+import ToolDrawer from "@/components/ToolDrawer";
+
 export interface HeroProps {
   heading?: string;
   subheading?: string;
@@ -253,8 +255,12 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
       <div className="container mx-auto flex flex-col items-center gap-6 px-4 sm:px-6 py-6 sm:py-10">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full rounded-lg border border-neutral-200 bg-white p-4 sm:p-8"
+          className="w-full rounded-lg border border-neutral-200 bg-white shadow-xs overflow-hidden"
         >
+          {/* Top Tool Drawer Bar */}
+          <ToolDrawer />
+
+          <div className="p-4 sm:p-8">
           {/* Quick Presets Bar */}
           <div className="mb-4 flex flex-wrap items-center gap-1.5 border-b border-neutral-200 pb-3">
             <span className="text-body-xs font-bold uppercase text-neutral-500 mr-1.5">
@@ -470,6 +476,7 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
               <RotateCcw className="h-4 w-4" aria-hidden="true" />
               Reset
             </button>
+          </div>
           </div>
         </form>
 
