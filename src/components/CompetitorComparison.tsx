@@ -70,7 +70,7 @@ export default function CompetitorComparison() {
           subtitle="Compare AI Text Cleaner with AITextClean, CleanPaste, and basic unicode utility tools."
         />
 
-        <div className="mt-12 overflow-x-auto rounded-2xl border border-neutral-200 bg-neutral-0 shadow-sm">
+        <div className="mt-12 overflow-x-auto rounded-lg border border-neutral-200 bg-white">
           <table className="w-full text-left text-body-sm text-neutral-700">
             <thead className="bg-neutral-100 text-body-xs uppercase font-bold text-neutral-600 border-b border-neutral-200">
               <tr>
@@ -102,7 +102,7 @@ export default function CompetitorComparison() {
                   </td>
                   <td className="px-6 py-4 text-center bg-primary-50/30 font-bold">
                     {row.us ? (
-                      <span className="inline-flex items-center justify-center h-7 w-7 rounded-full bg-primary-600 text-neutral-50 mx-auto">
+                      <span className="inline-flex items-center justify-center h-7 w-7 rounded-md bg-primary-700 text-neutral-50 mx-auto">
                         <Check className="h-4 w-4" />
                       </span>
                     ) : (

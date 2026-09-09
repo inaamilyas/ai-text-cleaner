@@ -40,7 +40,7 @@ export default async function LocalizedAboutPage({ params }: { params: Promise<{
   return (
     <div dir={isRtl ? 'rtl' : 'ltr'} className="container mx-auto flex max-w-4xl flex-col gap-16 px-6 py-20">
       <div className="flex flex-col gap-4 text-center">
-        <span className="mx-auto inline-flex items-center gap-1.5 rounded-full bg-primary-50 px-4 py-1.5 text-body-xs font-bold text-primary-700 border border-primary-200">
+        <span className="mx-auto inline-flex items-center gap-1.5 rounded-md bg-primary-50 px-4 py-1.5 text-body-xs font-bold text-primary-700 border border-primary-200">
           <Sparkles className="h-4 w-4" /> About AI Text Cleaner ({l.nativeName})
         </span>
         <h1>Sanitizing AI Text for Writers & Developers</h1>
@@ -50,8 +50,8 @@ export default async function LocalizedAboutPage({ params }: { params: Promise<{
       </div>
 
       <div className="grid gap-8 md:grid-cols-3">
-        <div className="flex flex-col gap-3 rounded-xl border border-neutral-200 bg-neutral-50 p-6">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600 text-neutral-50">
+        <div className="flex flex-col gap-3 rounded-lg border border-neutral-200 bg-white p-6">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-700 text-neutral-50">
             <Lock className="h-5 w-5" />
           </div>
           <h3 className="text-h6 text-neutral-900">100% Private</h3>
@@ -60,8 +60,8 @@ export default async function LocalizedAboutPage({ params }: { params: Promise<{
           </p>
         </div>
 
-        <div className="flex flex-col gap-3 rounded-xl border border-neutral-200 bg-neutral-50 p-6">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600 text-neutral-50">
+        <div className="flex flex-col gap-3 rounded-lg border border-neutral-200 bg-white p-6">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-700 text-neutral-50">
             <Zap className="h-5 w-5" />
           </div>
           <h3 className="text-h6 text-neutral-900">Instant Performance</h3>
@@ -70,8 +70,8 @@ export default async function LocalizedAboutPage({ params }: { params: Promise<{
           </p>
         </div>
 
-        <div className="flex flex-col gap-3 rounded-xl border border-neutral-200 bg-neutral-50 p-6">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600 text-neutral-50">
+        <div className="flex flex-col gap-3 rounded-lg border border-neutral-200 bg-white p-6">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-700 text-neutral-50">
             <Cpu className="h-5 w-5" />
           </div>
           <h3 className="text-h6 text-neutral-900">Advanced Engine</h3>
@@ -81,7 +81,7 @@ export default async function LocalizedAboutPage({ params }: { params: Promise<{
         </div>
       </div>
 
-      <div className="flex flex-col gap-6 rounded-2xl border border-neutral-200 bg-neutral-50 p-8 sm:p-10">
+      <div className="flex flex-col gap-6 rounded-lg border border-neutral-200 bg-white p-8 sm:p-10">
         <h2>Leadership & Vision</h2>
         <p className="text-body-md text-neutral-700 leading-relaxed">
           Created by <strong>Inam Ilyas</strong> to give copywriters, developers, and creators a free, privacy-first tool to sanitize AI text with a single click.
@@ -89,7 +89,7 @@ export default async function LocalizedAboutPage({ params }: { params: Promise<{
 
         <div className="mt-4 flex flex-wrap items-center gap-6 border-t border-neutral-200 pt-6">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-600 text-h6 font-bold text-neutral-50">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-700 text-h6 font-bold text-neutral-50">
               II
             </div>
             <div>

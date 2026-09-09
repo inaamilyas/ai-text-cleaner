@@ -27,7 +27,7 @@ export default function ContactPage() {
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-4">
-        <div className="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-neutral-50 p-6 text-center">
+        <div className="flex flex-col gap-2 rounded-lg border border-neutral-200 bg-white p-6 text-center">
           <Mail className="h-6 w-6 text-primary-600 mx-auto" />
           <h3 className="text-h6 text-neutral-900">Direct Email</h3>
           <a
@@ -38,7 +38,7 @@ export default function ContactPage() {
           </a>
         </div>
 
-        <div className="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-neutral-50 p-6 text-center">
+        <div className="flex flex-col gap-2 rounded-lg border border-neutral-200 bg-white p-6 text-center">
           <Share2 className="h-6 w-6 text-primary-600 mx-auto" />
           <h3 className="text-h6 text-neutral-900">LinkedIn</h3>
           <a
@@ -51,7 +51,7 @@ export default function ContactPage() {
           </a>
         </div>
 
-        <div className="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-neutral-50 p-6 text-center">
+        <div className="flex flex-col gap-2 rounded-lg border border-neutral-200 bg-white p-6 text-center">
           <Code2 className="h-6 w-6 text-primary-600 mx-auto" />
           <h3 className="text-h6 text-neutral-900">GitHub</h3>
           <a
@@ -64,7 +64,7 @@ export default function ContactPage() {
           </a>
         </div>
 
-        <div className="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-neutral-50 p-6 text-center">
+        <div className="flex flex-col gap-2 rounded-lg border border-neutral-200 bg-white p-6 text-center">
           <UserCheck className="h-6 w-6 text-primary-600 mx-auto" />
           <h3 className="text-h6 text-neutral-900">Founder & Owner</h3>
           <p className="text-body-xs text-neutral-600">
@@ -73,7 +73,7 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-8 sm:p-10 shadow-sm">
+      <div className="rounded-lg border border-neutral-200 bg-white p-8 sm:p-10">
         {submitted ? (
           <div className="flex flex-col items-center gap-4 py-8 text-center">
             <CheckCircle2 className="h-12 w-12 text-primary-600" />
@@ -83,7 +83,7 @@ export default function ContactPage() {
             </p>
             <button
               onClick={() => setSubmitted(false)}
-              className="mt-4 rounded-lg bg-primary-600 px-6 py-3 text-button text-neutral-50 hover:bg-primary-700"
+              className="mt-4 rounded-lg bg-primary-700 px-6 py-3 text-button text-neutral-50 transition-colors duration-200 hover:bg-primary-800"
             >
               Send Another Message
             </button>
@@ -146,7 +146,7 @@ export default function ContactPage() {
 
             <button
               type="submit"
-              className="flex items-center justify-center gap-2 rounded-lg bg-primary-600 py-4 text-button font-bold text-neutral-50 transition-colors hover:bg-primary-700"
+              className="flex items-center justify-center gap-2 rounded-lg bg-primary-700 py-4 text-button font-bold text-neutral-50 transition-colors duration-200 hover:bg-primary-800"
             >
               <Send className="h-4 w-4" /> Send Message
             </button>

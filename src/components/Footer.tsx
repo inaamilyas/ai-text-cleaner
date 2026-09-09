@@ -15,7 +15,6 @@ const utilityLinks = [
   { href: "/markdown-to-plain-text", label: "Markdown to Plain Text" },
   { href: "/smart-quotes-to-straight-quotes", label: "Smart Quotes Fixer" },
   { href: "/remove-ai-image-metadata", label: "AI Image Metadata Stripper" },
-  { href: "/remove-ai-watermark", label: "AI Watermark Remover" },
 ];
 
 const companyLinks = [
@@ -28,7 +27,7 @@ const companyLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-neutral-200 bg-neutral-50">
+    <footer className="border-t border-neutral-200 bg-white">
       <div className="container mx-auto flex flex-col gap-8 sm:gap-10 px-4 sm:px-6 py-8 sm:py-12">
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           <div className="flex flex-col gap-3">

@@ -47,7 +47,7 @@ export default async function LocalizedContactPage({ params }: { params: Promise
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-        <div className="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-neutral-50 p-6 text-center">
+        <div className="flex flex-col gap-2 rounded-lg border border-neutral-200 bg-white p-6 text-center">
           <Mail className="h-6 w-6 text-primary-600 mx-auto" />
           <h3 className="text-h6 text-neutral-900">Direct Email</h3>
           <a
@@ -58,7 +58,7 @@ export default async function LocalizedContactPage({ params }: { params: Promise
           </a>
         </div>
 
-        <div className="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-neutral-50 p-6 text-center">
+        <div className="flex flex-col gap-2 rounded-lg border border-neutral-200 bg-white p-6 text-center">
           <Share2 className="h-6 w-6 text-primary-600 mx-auto" />
           <h3 className="text-h6 text-neutral-900">LinkedIn</h3>
           <a
@@ -71,7 +71,7 @@ export default async function LocalizedContactPage({ params }: { params: Promise
           </a>
         </div>
 
-        <div className="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-neutral-50 p-6 text-center">
+        <div className="flex flex-col gap-2 rounded-lg border border-neutral-200 bg-white p-6 text-center">
           <Code2 className="h-6 w-6 text-primary-600 mx-auto" />
           <h3 className="text-h6 text-neutral-900">GitHub</h3>
           <a

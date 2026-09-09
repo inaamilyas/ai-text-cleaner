@@ -27,7 +27,7 @@ export default function WhatWeClean() {
           {items.map((item) => (
             <span
               key={item}
-              className="flex items-center gap-1.5 rounded-full border border-neutral-300 bg-neutral-50 px-4 py-2 text-body-sm text-neutral-700"
+              className="flex items-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-4 py-2 text-body-sm text-neutral-700 transition-colors duration-200 hover:border-primary-300"
             >
               <CircleCheck
                 className="h-4 w-4 text-primary-600"

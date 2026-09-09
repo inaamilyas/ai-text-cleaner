@@ -31,6 +31,9 @@ import {
   Binary,
   Code2,
   MessageSquareOff,
+  Zap,
+  NotebookText,
+  Eraser,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -76,7 +79,8 @@ const cleaningOptionIcons: Record<CleaningOptionKey, LucideIcon> = {
 const presets = [
   {
     id: "chatgpt",
-    label: "⚡ ChatGPT & Claude",
+    label: "ChatGPT & Claude",
+    icon: Zap,
     options: {
       removeMarkdown: true,
       normalizeQuotes: true,
@@ -88,7 +92,8 @@ const presets = [
   },
   {
     id: "aibuzzwords",
-    label: "🤖 Remove AI Buzzwords",
+    label: "Remove AI Buzzwords",
+    icon: Bot,
     options: {
       removeAIWords: true,
       removeMarkdown: true,
@@ -99,7 +104,8 @@ const presets = [
   },
   {
     id: "code",
-    label: "💻 Code & JSON Safe",
+    label: "Code & JSON Safe",
+    icon: Code2,
     options: {
       normalizeQuotes: true,
       normalizeDashes: true,
@@ -111,7 +117,8 @@ const presets = [
   },
   {
     id: "docs",
-    label: "📝 Publishing & Docs",
+    label: "Publishing & Docs",
+    icon: NotebookText,
     options: {
       normalizeQuotes: true,
       normalizeDashes: true,
@@ -123,7 +130,8 @@ const presets = [
   },
   {
     id: "all",
-    label: "🧹 Strip Everything",
+    label: "Strip Everything",
+    icon: Eraser,
     options: defaultCleaningOptions,
   },
 ];
@@ -206,23 +214,15 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
   }
 
   return (
-    <section className="bg-primary-0">
-      <div className="container mx-auto flex flex-col items-center gap-8 sm:gap-10 px-4 sm:px-6 py-12 sm:py-20">
-        <div className="flex max-w-2xl flex-col items-center gap-3 sm:gap-4 text-center">
-          <h1 className="text-3xl sm:text-h1">{heading ?? "Paste AI text. Get clean text."}</h1>
-          <p className="text-body-md sm:text-body-lg text-neutral-700">
-            {subheading ??
-              "Remove invisible characters, unwanted formatting, AI cliché buzzwords (delve, tapestry), Markdown artifacts, and AI text quirks instantly."}
-          </p>
-        </div>
-
+    <section className="bg-white">
+      <div className="container mx-auto flex flex-col items-center gap-6 px-4 sm:px-6 py-6 sm:py-10">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full max-w-5xl rounded-2xl border border-neutral-200 bg-neutral-50 p-4 sm:p-8 shadow-sm"
+          className="w-full rounded-lg border border-neutral-200 bg-white p-4 sm:p-8"
         >
           {/* Quick Presets Bar */}
-          <div className="mb-6 flex flex-wrap items-center gap-2 border-b border-neutral-200 pb-5">
-            <span className="text-body-xs font-bold uppercase text-neutral-500 mr-2">
+          <div className="mb-4 flex flex-wrap items-center gap-1.5 border-b border-neutral-200 pb-3">
+            <span className="text-body-xs font-bold uppercase text-neutral-500 mr-1.5">
               Quick Presets:
             </span>
             {presets.map((preset) => (
@@ -230,8 +230,9 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
                 key={preset.id}
                 type="button"
                 onClick={() => applyPreset(preset.options)}
-                className="cursor-pointer rounded-full border border-neutral-300 bg-neutral-0 px-3.5 py-1.5 text-body-xs font-medium text-neutral-700 transition-all hover:border-primary-500 hover:bg-primary-50 hover:text-primary-700 focus-visible:outline-2"
+                className="flex cursor-pointer items-center gap-1 rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-body-xs font-medium text-neutral-700 transition-colors duration-200 hover:border-primary-500 hover:bg-primary-50 hover:text-primary-700 focus-visible:outline-2"
               >
+                <preset.icon className="h-3 w-3" aria-hidden="true" />
                 {preset.label}
               </button>
             ))}
@@ -264,7 +265,7 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
               <textarea
                 {...register("input")}
                 placeholder="Paste your AI-generated text here..."
-                rows={10}
+                rows={7}
                 className="w-full rounded-lg border border-neutral-300 bg-neutral-0 p-4 text-body-sm text-neutral-900 placeholder-neutral-400 transition-colors duration-200 focus:border-primary-500 focus:outline-none"
               />
             </div>
@@ -310,7 +311,7 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
                   readOnly
                   value={result?.cleaned ?? ""}
                   placeholder="Your cleaned text will appear here."
-                  rows={10}
+                  rows={7}
                   className="w-full rounded-lg border border-neutral-300 bg-neutral-0 p-4 text-body-sm text-neutral-900 placeholder-neutral-400"
                 />
               )}
@@ -396,7 +397,7 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
             <button
               type="submit"
               disabled={!hasText}
-              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary-600 px-8 py-3.5 sm:py-4 text-button text-neutral-50 transition-colors duration-200 hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-500"
+              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary-700 px-8 py-3.5 sm:py-4 text-button text-neutral-50 transition-colors duration-200 hover:bg-primary-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-500"
             >
               <Sparkles className="h-5 w-5" aria-hidden="true" />
               Clean Text
@@ -406,7 +407,7 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-300 px-8 py-3.5 sm:py-4 text-button text-neutral-900 transition-colors duration-200 hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-white px-8 py-3.5 sm:py-4 text-button text-neutral-800 transition-colors duration-200 hover:border-primary-600 hover:text-primary-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
                 >
                   {copied ? (
                     <Check className="h-5 w-5 text-primary-600" aria-hidden="true" />
@@ -418,7 +419,7 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-300 px-6 py-3.5 sm:py-4 text-button text-neutral-700 transition-colors duration-200 hover:bg-neutral-100"
+                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-white px-6 py-3.5 sm:py-4 text-button text-neutral-700 transition-colors duration-200 hover:border-primary-600 hover:text-primary-700"
                 >
                   <Download className="h-5 w-5" aria-hidden="true" />
                   Download .txt
@@ -436,6 +437,16 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
             </button>
           </div>
         </form>
+
+        <div className="flex max-w-2xl flex-col items-center gap-2 text-center">
+          <h1 className="text-lg font-bold text-primary-900 sm:text-xl">
+            {heading ?? "Paste AI text. Get clean text."}
+          </h1>
+          <p className="text-body-sm text-neutral-600">
+            {subheading ??
+              "Remove invisible characters, unwanted formatting, AI cliché buzzwords (delve, tapestry), Markdown artifacts, and AI text quirks instantly."}
+          </p>
+        </div>
 
         <p className="flex items-center gap-1.5 text-body-sm text-neutral-500">
           <ShieldCheck className="h-4 w-4 text-primary-600" aria-hidden="true" />

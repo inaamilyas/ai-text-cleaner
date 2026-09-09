@@ -101,9 +101,9 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
   }
 
   return (
-    <div dir={isRtl ? "rtl" : "ltr"} className={`w-full max-w-4xl mx-auto rounded-2xl border border-neutral-200 bg-neutral-50 p-6 sm:p-10 shadow-sm flex flex-col gap-6 ${isRtl ? "font-arabic" : ""}`}>
+    <div dir={isRtl ? "rtl" : "ltr"} className={`w-full max-w-4xl mx-auto rounded-lg border border-neutral-200 bg-white p-6 sm:p-10 flex flex-col gap-6 ${isRtl ? "font-arabic" : ""}`}>
       <div className="flex flex-col gap-2 text-center">
-        <span className="mx-auto inline-flex items-center gap-1.5 rounded-full bg-primary-50 px-3.5 py-1 text-body-xs font-bold text-primary-700 border border-primary-200">
+        <span className="mx-auto inline-flex items-center gap-1.5 rounded-md bg-primary-50 px-3.5 py-1 text-body-xs font-bold text-primary-700 border border-primary-200">
           <Sparkles className="h-3.5 w-3.5" /> {t.badge}
         </span>
         <h1 className="text-h3 text-neutral-900 font-bold">{t.heading}</h1>
@@ -114,8 +114,8 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
 
       {/* STEP 1: Upload Drop Area */}
       {!currentFile && !result && (
-        <label className="flex flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-neutral-300 bg-neutral-0 p-8 sm:p-12 text-center cursor-pointer hover:border-primary-500 hover:bg-primary-50/50 transition-all">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-100 text-primary-700">
+        <label className="flex flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed border-neutral-300 bg-white p-8 sm:p-12 text-center cursor-pointer hover:border-primary-500 hover:bg-primary-50/50 transition-colors duration-200">
+          <div className="flex h-14 w-14 items-center justify-center rounded-lg border border-neutral-200 bg-white text-primary-700">
             <UploadCloud className="h-7 w-7" />
           </div>
           <div>
@@ -138,9 +138,9 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
 
       {/* STEP 2: Detected Metadata & Confirmation View (Pre-Sanitization) */}
       {currentFile && metadata && !result && (
-        <div className="flex flex-col gap-6 rounded-xl border border-neutral-200 bg-neutral-0 p-6 sm:p-8">
+        <div className="flex flex-col gap-6 rounded-lg border border-neutral-200 bg-white p-6 sm:p-8">
           <div className="flex flex-col md:flex-row gap-6">
-            <div className="relative h-48 w-48 sm:h-56 sm:w-56 rounded-xl overflow-hidden border border-neutral-200 bg-neutral-100 shrink-0 mx-auto md:mx-0">
+            <div className="relative h-48 w-48 sm:h-56 sm:w-56 rounded-lg overflow-hidden border border-neutral-200 bg-neutral-100 shrink-0 mx-auto md:mx-0">
               {previewUrl && (
                 <img
                   src={previewUrl}
@@ -245,7 +245,7 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
               <button
                 onClick={handleSanitizeNow}
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-2 rounded-xl bg-primary-600 px-6 py-3.5 text-button font-bold text-neutral-50 hover:bg-primary-700 transition-colors shadow-md mt-2 disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-2 rounded-lg bg-primary-700 px-6 py-3.5 text-button font-bold text-neutral-50 hover:bg-primary-800 transition-colors duration-200 mt-2 disabled:opacity-50"
               >
                 <Sparkles className="h-5 w-5" />
                 {loading ? t.sanitizingText : t.sanitizeBtn}
@@ -257,9 +257,9 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
 
       {/* STEP 3: Cleaned Image Success View */}
       {result && (
-        <div className="flex flex-col gap-6 rounded-xl border border-primary-200 bg-neutral-0 p-6 sm:p-8">
+        <div className="flex flex-col gap-6 rounded-lg border border-primary-200 bg-white p-6 sm:p-8">
           <div className="flex flex-col sm:flex-row items-center gap-6">
-            <div className="relative h-44 w-44 rounded-xl overflow-hidden border border-neutral-200 bg-neutral-100 shrink-0">
+            <div className="relative h-44 w-44 rounded-lg overflow-hidden border border-neutral-200 bg-neutral-100 shrink-0">
               <img
                 src={result.previewUrl}
                 alt="Sanitized preview"
@@ -295,7 +295,7 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
           <div className="flex flex-wrap items-center justify-between gap-4 border-t border-neutral-200 pt-4">
             <button
               onClick={handleDownload}
-              className="flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3.5 text-button font-bold text-neutral-50 hover:bg-primary-700 transition-colors shadow-md"
+              className="flex items-center gap-2 rounded-lg bg-primary-700 px-6 py-3.5 text-button font-bold text-neutral-50 hover:bg-primary-800 transition-colors duration-200"
             >
               <Download className="h-5 w-5" /> {t.downloadBtn}
             </button>

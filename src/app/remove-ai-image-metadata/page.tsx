@@ -167,7 +167,7 @@ export default function RemoveAIImageMetadataPage({ langCode = "en" }: { langCod
         {/* Supported AI Generators Grid */}
         <section className="w-full max-w-5xl mx-auto flex flex-col gap-10">
           <div className="text-center flex flex-col gap-3">
-            <span className="mx-auto inline-flex items-center gap-1.5 rounded-full bg-primary-50 px-3 py-1 text-body-xs font-bold text-primary-700 border border-primary-200">
+            <span className="mx-auto inline-flex items-center gap-1.5 rounded-md bg-primary-50 px-3 py-1 text-body-xs font-bold text-primary-700 border border-primary-200">
               <Layers className="h-3.5 w-3.5" /> {t.platformsBadge}
             </span>
             <h2 className="text-h3 text-neutral-900 font-bold">{t.platformsTitle}</h2>
@@ -180,7 +180,7 @@ export default function RemoveAIImageMetadataPage({ langCode = "en" }: { langCod
             {supportedGenerators.map((gen) => (
               <div
                 key={gen.name}
-                className="flex flex-col gap-3 rounded-2xl border border-neutral-200 bg-neutral-0 p-6 shadow-sm hover:border-primary-300 transition-all"
+                className="flex flex-col gap-3 rounded-lg border border-neutral-200 bg-white p-6 hover:border-primary-300 transition-colors duration-200"
               >
                 <div className="flex items-center justify-between">
                   <h3 className="text-h6 text-neutral-900 font-bold">{gen.name}</h3>
@@ -197,9 +197,9 @@ export default function RemoveAIImageMetadataPage({ langCode = "en" }: { langCod
         </section>
 
         {/* Why Strip AI Image Metadata Section */}
-        <section className="w-full max-w-5xl mx-auto flex flex-col gap-10 bg-neutral-50 rounded-3xl p-8 sm:p-12 border border-neutral-200">
+        <section className="w-full max-w-5xl mx-auto flex flex-col gap-10 bg-neutral-50 rounded-lg p-8 sm:p-12 border border-neutral-200">
           <div className="text-center flex flex-col gap-3">
-            <span className="mx-auto inline-flex items-center gap-1.5 rounded-full bg-primary-100 px-3 py-1 text-body-xs font-bold text-primary-800">
+            <span className="mx-auto inline-flex items-center gap-1.5 rounded-md bg-primary-100 px-3 py-1 text-body-xs font-bold text-primary-800">
               <Shield className="h-3.5 w-3.5" /> {t.whyBadge}
             </span>
             <h2 className="text-h3 text-neutral-900 font-bold">{t.whyTitle}</h2>
@@ -213,7 +213,7 @@ export default function RemoveAIImageMetadataPage({ langCode = "en" }: { langCod
               const Icon = uc.icon;
               return (
                 <div key={uc.title} className="flex gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-600 text-neutral-50 shadow-sm">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary-700 text-neutral-50">
                     <Icon className="h-6 w-6" />
                   </div>
                   <div className={`flex flex-col gap-1 ${isRtl ? "text-right" : "text-left"}`}>
@@ -231,15 +231,15 @@ export default function RemoveAIImageMetadataPage({ langCode = "en" }: { langCod
         {/* How It Works Section */}
         <section className="w-full max-w-4xl mx-auto flex flex-col gap-10">
           <div className="text-center flex flex-col gap-3">
-            <span className="mx-auto inline-flex items-center gap-1.5 rounded-full bg-primary-50 px-3 py-1 text-body-xs font-bold text-primary-700 border border-primary-200">
+            <span className="mx-auto inline-flex items-center gap-1.5 rounded-md bg-primary-50 px-3 py-1 text-body-xs font-bold text-primary-700 border border-primary-200">
               <Cpu className="h-3.5 w-3.5" /> {t.workflowBadge}
             </span>
             <h2 className="text-h3 text-neutral-900 font-bold">{t.workflowTitle}</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="flex flex-col gap-3 rounded-2xl border border-neutral-200 bg-neutral-0 p-6 text-center">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-primary-100 text-primary-700 font-bold">
+            <div className="flex flex-col gap-3 rounded-lg border border-neutral-200 bg-white p-6 text-center">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-lg bg-primary-100 text-primary-700 font-bold">
                 1
               </div>
               <h3 className="text-h6 text-neutral-900 font-bold">{t.step1Title}</h3>
@@ -248,8 +248,8 @@ export default function RemoveAIImageMetadataPage({ langCode = "en" }: { langCod
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 rounded-2xl border border-neutral-200 bg-neutral-0 p-6 text-center">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-primary-100 text-primary-700 font-bold">
+            <div className="flex flex-col gap-3 rounded-lg border border-neutral-200 bg-white p-6 text-center">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-lg bg-primary-100 text-primary-700 font-bold">
                 2
               </div>
               <h3 className="text-h6 text-neutral-900 font-bold">{t.step2Title}</h3>
@@ -258,8 +258,8 @@ export default function RemoveAIImageMetadataPage({ langCode = "en" }: { langCod
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 rounded-2xl border border-neutral-200 bg-neutral-0 p-6 text-center">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-primary-100 text-primary-700 font-bold">
+            <div className="flex flex-col gap-3 rounded-lg border border-neutral-200 bg-white p-6 text-center">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-lg bg-primary-100 text-primary-700 font-bold">
                 3
               </div>
               <h3 className="text-h6 text-neutral-900 font-bold">{t.step3Title}</h3>

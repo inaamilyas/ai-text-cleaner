@@ -44,7 +44,7 @@ export default function ShareBar({ title, url }: ShareBarProps) {
   }
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-neutral-200 bg-neutral-0 p-5 shadow-sm">
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-lg border border-neutral-200 bg-white p-5">
       <div className="flex items-center gap-2 text-neutral-800 font-bold text-body-sm">
         <Share2 className="h-5 w-5 text-primary-600 shrink-0" />
         <span>Share this free tool with other creators:</span>
@@ -57,7 +57,7 @@ export default function ShareBar({ title, url }: ShareBarProps) {
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-body-xs font-bold transition-all ${link.bg}`}
+            className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-body-xs font-bold transition-colors duration-200 ${link.bg}`}
           >
             <span>{link.name}</span>
             <ExternalLink className="h-3 w-3 opacity-70" />

@@ -51,7 +51,7 @@ export default function BlogIndexPage() {
         {blogPosts.map((post) => (
           <article
             key={post.slug}
-            className="flex flex-col gap-4 rounded-2xl border border-neutral-200 bg-neutral-50 p-8 transition-all hover:border-primary-300 hover:shadow-md"
+            className="flex flex-col gap-4 rounded-lg border border-neutral-200 bg-white p-8 transition-colors duration-200 hover:border-primary-300"
           >
             <div className="flex items-center gap-3 text-body-xs font-bold text-neutral-500">
               <span className="rounded-md bg-primary-100 px-2.5 py-1 text-primary-800">
