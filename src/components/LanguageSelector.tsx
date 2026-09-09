@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Globe, ChevronDown } from 'lucide-react';
 import { LANGUAGES } from '@/lib/i18n/dictionaries';
+import { trackLanguageChange } from '@/lib/analytics';
 
 export default function LanguageSelector() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,6 +35,7 @@ export default function LanguageSelector() {
   }, []);
 
   function handleLanguageSelect(code: string) {
+    trackLanguageChange(code);
     try {
       localStorage.setItem('aitextcleaner_lang', code);
     } catch {

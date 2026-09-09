@@ -5,7 +5,8 @@ import CompetitorComparison from "@/components/CompetitorComparison";
 import HowItWorks from "@/components/HowItWorks";
 import WhatWeClean from "@/components/WhatWeClean";
 import WhoItsFor, { audiences } from "@/components/WhoItsFor";
-import FAQ, { faqs } from "@/components/FAQ";
+import FAQ from "@/components/FAQ";
+import { defaultFaqs } from "@/lib/faqData";
 
 const websiteJsonLd = {
   "@context": "https://schema.org",
@@ -40,7 +41,7 @@ const websiteJsonLd = {
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
+  mainEntity: defaultFaqs.map((faq) => ({
     "@type": "Question",
     name: faq.question,
     acceptedAnswer: {

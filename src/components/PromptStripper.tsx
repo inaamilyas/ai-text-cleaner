@@ -22,6 +22,7 @@ import {
   type PromptStripperOptions,
   type PromptStripperResult,
 } from "@/lib/stripPrompt";
+import { trackCleanTextRun, trackCopyText } from "@/lib/analytics";
 
 export default function PromptStripper() {
   const [input, setInput] = useState("");
@@ -34,6 +35,12 @@ export default function PromptStripper() {
     const res = stripAIPrompt(input, options);
     setResult(res);
     setCopied(false);
+    trackCleanTextRun({
+      toolName: "strip_ai_prompts",
+      inputWords: input.split(/\s+/).filter(Boolean).length,
+      inputChars: input.length,
+      changesCount: res.totalRemovedCount,
+    });
   }
 
   function handleSampleText() {
@@ -41,12 +48,19 @@ export default function PromptStripper() {
     setInput(sample);
     const res = stripAIPrompt(sample, options);
     setResult(res);
+    trackCleanTextRun({
+      toolName: "strip_ai_prompts_sample",
+      inputWords: sample.split(/\s+/).filter(Boolean).length,
+      inputChars: sample.length,
+      changesCount: res.totalRemovedCount,
+    });
   }
 
   function handleCopy() {
     if (!result) return;
     copy(result.cleanedText);
     setCopied(true);
+    trackCopyText({ toolName: "strip_ai_prompts", copyFormat: "plain_text" });
     setTimeout(() => setCopied(false), 1500);
   }
 

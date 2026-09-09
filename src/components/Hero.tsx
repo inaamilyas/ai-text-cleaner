@@ -46,6 +46,12 @@ import {
   type CleaningResult,
 } from "@/lib/cleanText";
 import { getTextStats } from "@/lib/textStats";
+import {
+  trackCleanTextRun,
+  trackCopyText,
+  trackDownloadFile,
+  trackPresetSelect,
+} from "@/lib/analytics";
 
 type FormValues = {
   input: string;
@@ -162,8 +168,16 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
 
   function onSubmit(values: FormValues) {
     const { input, ...options } = values;
-    setResult(cleanText(input, options));
+    const cleanResult = cleanText(input, options);
+    const inStats = getTextStats(input);
+    setResult(cleanResult);
     setCopied(false);
+    trackCleanTextRun({
+      toolName: "homepage_cleaner",
+      inputWords: inStats.words,
+      inputChars: inStats.characters,
+      changesCount: cleanResult.totalChanges,
+    });
   }
 
   function handleReset() {
@@ -177,11 +191,13 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
     if (!result) return;
     copy(result.cleaned);
     setCopied(true);
+    trackCopyText({ toolName: "homepage_cleaner", copyFormat: "plain_text" });
     setTimeout(() => setCopied(false), 1500);
   }
 
   function handleDownload() {
     if (!result) return;
+    trackDownloadFile({ toolName: "homepage_cleaner", fileType: "txt" });
     const blob = new Blob([result.cleaned], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -199,17 +215,36 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
     const values = control._getWatch();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { input: _input, ...options } = values;
-    setResult(cleanText(sample, options as CleaningOptions));
+    const cleanResult = cleanText(sample, options as CleaningOptions);
+    const sampleStats = getTextStats(sample);
+    setResult(cleanResult);
+    trackCleanTextRun({
+      toolName: "homepage_sample_text",
+      inputWords: sampleStats.words,
+      inputChars: sampleStats.characters,
+      changesCount: cleanResult.totalChanges,
+    });
   }
 
-  function applyPreset(presetOptions: Partial<CleaningOptions>) {
+  function applyPreset(presetOptions: Partial<CleaningOptions>, presetLabel?: string) {
+    if (presetLabel) {
+      trackPresetSelect(presetLabel);
+    }
     Object.entries(presetOptions).forEach(([key, val]) => {
       setValue(key as CleaningOptionKey, val as boolean);
     });
     if (hasText) {
       const values = control._getWatch();
       const { input, ...options } = values;
-      setResult(cleanText(input, options as CleaningOptions));
+      const cleanResult = cleanText(input, options as CleaningOptions);
+      const inStats = getTextStats(input);
+      setResult(cleanResult);
+      trackCleanTextRun({
+        toolName: `preset_${presetLabel || "custom"}`,
+        inputWords: inStats.words,
+        inputChars: inStats.characters,
+        changesCount: cleanResult.totalChanges,
+      });
     }
   }
 
@@ -229,7 +264,7 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
               <button
                 key={preset.id}
                 type="button"
-                onClick={() => applyPreset(preset.options)}
+                onClick={() => applyPreset(preset.options, preset.label)}
                 className="flex cursor-pointer items-center gap-1 rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-body-xs font-medium text-neutral-700 transition-colors duration-200 hover:border-primary-500 hover:bg-primary-50 hover:text-primary-700 focus-visible:outline-2"
               >
                 <preset.icon className="h-3 w-3" aria-hidden="true" />
