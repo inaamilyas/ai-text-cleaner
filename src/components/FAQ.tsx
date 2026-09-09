@@ -1,5 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
+import { generateFAQPageSchema } from "@/lib/schema";
 
 export const faqs = [
   {
@@ -65,8 +66,14 @@ export default function FAQ({ customFaqs, customTitle, customSubtitle }: FAQProp
   const title = customTitle || "Frequently Asked Questions";
   const subtitle = customSubtitle || "Everything you need to know about AI text formatting, invisible unicode characters, and privacy.";
 
+  const faqSchema = generateFAQPageSchema(items);
+
   return (
     <section className="bg-neutral-0">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="container mx-auto flex flex-col gap-12 px-6 py-20">
         <SectionHeading
           title={title}

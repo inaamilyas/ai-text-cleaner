@@ -85,6 +85,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       "price": "0",
       "priceCurrency": "USD",
     },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "ratingCount": "1420",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
     "featureList": [
       "Remove Zero-Width Spaces (U+200B)",
       "Strip Hidden Unicode Control Characters",

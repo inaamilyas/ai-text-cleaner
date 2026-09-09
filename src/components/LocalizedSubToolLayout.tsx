@@ -1,6 +1,7 @@
 import Hero from '@/components/Hero';
 import SubToolContent from '@/components/SubToolContent';
 import { LANGUAGES } from '@/lib/i18n/dictionaries';
+import { generateWebApplicationSchema, generateFAQPageSchema, generateBreadcrumbSchema } from '@/lib/schema';
 
 export interface LocalizedSubToolLayoutProps {
   langCode: string;
@@ -52,22 +53,46 @@ export default function LocalizedSubToolLayout({
   const defaultTool = LANGUAGES.en.subtools[subToolKey] || { title: '', description: '', heading: '', subheading: '' };
   const toolData = (lang.subtools && lang.subtools[subToolKey]) || defaultTool;
 
-  const webAppJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebApplication',
+  const currentUrl = langCode === 'en' ? 'https://www.text-cleaner-ai.com' : `https://www.text-cleaner-ai.com/${langCode}`;
+
+  const webAppJsonLd = generateWebApplicationSchema({
     name: toolData.heading,
-    url: langCode === 'en' ? 'https://www.text-cleaner-ai.com' : `https://www.text-cleaner-ai.com/${langCode}`,
     description: toolData.description,
-    applicationCategory: 'UtilitiesApplication',
-    operatingSystem: 'Any',
+    url: currentUrl,
     inLanguage: langCode,
-  };
+  });
+
+  const defaultFaqs = [
+    {
+      question: `How does ${toolData.heading} work?`,
+      answer: `${toolData.heading} runs 100% locally in your web browser. It scans pasted text, removes hidden control characters, zero-width spaces, and formatting artifacts instantly without sending your data to any server.`,
+    },
+    {
+      question: "Is my text data private?",
+      answer: "Yes, completely. Your text is processed in your local browser memory and is never uploaded or saved.",
+    },
+  ];
+
+  const faqJsonLd = generateFAQPageSchema(defaultFaqs);
+
+  const breadcrumbJsonLd = generateBreadcrumbSchema([
+    { name: "Home", url: currentUrl },
+    { name: toolData.heading, url: currentUrl },
+  ]);
 
   return (
     <div dir={isRtl ? 'rtl' : 'ltr'} className={isRtl ? 'font-arabic' : ''}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <Hero
         heading={toolData.heading}
