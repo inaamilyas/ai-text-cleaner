@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import HumanizeTextUI from "@/components/HumanizeTextUI";
 
 export const metadata: Metadata = {
@@ -10,12 +8,8 @@ export const metadata: Metadata = {
 
 export default function HumanizeAITextPage() {
   return (
-    <>
-      <Navbar />
-      <main className="flex-1 py-12 px-4 sm:px-6">
-        <HumanizeTextUI />
-      </main>
-      <Footer />
-    </>
+    <div className="py-12 px-4 sm:px-6">
+      <HumanizeTextUI />
+    </div>
   );
 }

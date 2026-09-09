@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import PromptStripper from "@/components/PromptStripper";
 
 export const dynamic = "force-static";
@@ -15,12 +13,8 @@ export const metadata: Metadata = {
 
 export default function StripAIPromptsPage() {
   return (
-    <>
-      <Navbar />
-      <main className="flex-1 py-12 px-4 sm:px-6">
-        <PromptStripper />
-      </main>
-      <Footer />
-    </>
+    <div className="py-12 px-4 sm:px-6">
+      <PromptStripper />
+    </div>
   );
 }

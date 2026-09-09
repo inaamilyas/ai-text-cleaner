@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import PdfMetadataSanitizer from "@/components/PdfMetadataSanitizer";
 
 export const dynamic = "force-static";
@@ -19,14 +17,10 @@ export function generateMetadata({ params }: { params: Promise<{ lang: string }>
 }
 
 export default async function LocalizedCleanPdfMetadataPage({ params }: { params: Promise<{ lang: string }> }) {
-  const { lang } = await params;
+  await params;
   return (
-    <>
-      <Navbar />
-      <main className="flex-1 py-12 px-4 sm:px-6">
-        <PdfMetadataSanitizer />
-      </main>
-      <Footer />
-    </>
+    <div className="py-12 px-4 sm:px-6">
+      <PdfMetadataSanitizer />
+    </div>
   );
 }
