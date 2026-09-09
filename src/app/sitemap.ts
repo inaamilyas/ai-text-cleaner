@@ -22,6 +22,7 @@ const baseSubRoutes = [
   "/markdown-to-plain-text",
   "/smart-quotes-to-straight-quotes",
   "/remove-ai-image-metadata",
+  "/remove-ai-watermark",
 ];
 
 const blogRoutes = [

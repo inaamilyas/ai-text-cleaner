@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mulish } from "next/font/google";
+import { Inter } from "next/font/google";
 import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,10 +8,10 @@ import "./globals.css";
 
 const gaId = process.env.NEXT_PUBLIC_GA_ID || "G-V235VSWPT4";
 
-const mulish = Mulish({
-  variable: "--font-mulish",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -71,8 +71,53 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "AI Text Cleaner & Image Metadata Sanitizer",
+    "url": siteUrl,
+    "description": siteDescription,
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript. Requires HTML5 Canvas & ArrayBuffer.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+    },
+    "featureList": [
+      "Remove Zero-Width Spaces (U+200B)",
+      "Strip Hidden Unicode Control Characters",
+      "Sanitize AI Buzzwords and Vocabulary",
+      "Strip EXIF, C2PA, and Prompt Headers from AI Images",
+      "100% In-Browser Local Memory Privacy",
+    ],
+  };
+
+  const orgSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": siteName,
+    "url": siteUrl,
+    "logo": `${siteUrl}/icon.svg`,
+    "sameAs": [
+      "https://github.com/inaamilyas/ai-text-cleaner",
+      "https://www.linkedin.com/in/inam-ilyas/",
+    ],
+  };
+
   return (
-    <html lang="en" className={`${mulish.variable} h-full antialiased`}>
+    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+        />
+      </head>
       <body className="min-h-full flex flex-col font-sans">
         {gaId && (
           <>
