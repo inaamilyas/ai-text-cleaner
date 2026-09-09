@@ -45,7 +45,7 @@ export interface HumanizeTextUIProps {
 }
 
 export default function HumanizeTextUI({ heading, subheading }: HumanizeTextUIProps = {}) {
-  const [inputText, setInputText] = useState(defaultSampleText);
+  const [inputText, setInputText] = useState("");
   const [copied, setCopied] = useState(false);
 
   const results = useMemo(() => humanizeText(inputText), [inputText]);

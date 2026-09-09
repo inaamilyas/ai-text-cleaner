@@ -24,7 +24,7 @@ export interface ReadabilityCheckerUIProps {
 }
 
 export default function ReadabilityCheckerUI({ heading, subheading }: ReadabilityCheckerUIProps = {}) {
-  const [text, setText] = useState(defaultSampleText);
+  const [text, setText] = useState("");
 
   const metrics = useMemo(() => analyzeReadability(text), [text]);
   const inputStats = useMemo(() => getTextStats(text), [text]);

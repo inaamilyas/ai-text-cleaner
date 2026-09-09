@@ -25,7 +25,7 @@ export interface CaseConverterUIProps {
 }
 
 export default function CaseConverterUI({ heading, subheading }: CaseConverterUIProps = {}) {
-  const [text, setText] = useState(defaultSampleText);
+  const [text, setText] = useState("");
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   const results = convertCase(text);

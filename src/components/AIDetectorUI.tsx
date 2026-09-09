@@ -30,8 +30,8 @@ export interface AIDetectorUIProps {
 }
 
 export default function AIDetectorUI({ heading, subheading }: AIDetectorUIProps = {}) {
-  const [input, setInput] = useState(defaultSample);
-  const [result, setResult] = useState<AIDetectionResult | null>(detectAIText(defaultSample));
+  const [input, setInput] = useState("");
+  const [result, setResult] = useState<AIDetectionResult | null>(null);
   const [copied, setCopied] = useState(false);
 
   const inputStats = useMemo(() => getTextStats(input), [input]);
