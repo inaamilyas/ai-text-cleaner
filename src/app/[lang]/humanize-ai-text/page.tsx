@@ -84,11 +84,11 @@ export default async function LocalizedHumanizeAITextPage({ params }: { params: 
   return (
     <>
       <HumanizeTextUI
-        heading="AI Text Humanizer & Structure Optimizer"
+        heading="Humanize AI Text Online"
         subheading="Detect and remove repetitive AI transitions, robotic clichés (delve, tapestry, realm), and monotonous sentence structures for natural human flow."
       />
       <SubToolContent
-        title="AI Text Humanizer & Structure Optimizer"
+        title="Humanize AI Text Online"
         directAnswerTitle="How to Humanize AI Text Without Losing Original Meaning"
         directAnswerText="AI text generators rely on statistical word patterns that create telltale markers: monotonous sentence lengths, passive voice constructions ('serves as a testament to'), and overused buzzwords ('delve into', 'vibrant tapestry', 'pivotal realm'). Our AI Text Humanizer strips these fluff patterns and optimizes your text for authentic human readability."
         beforeExample="In conclusion, it is important to note that artificial intelligence serves as a testament to human innovation. Furthermore, delving into this digital realm allows us to foster pivotal advancements."

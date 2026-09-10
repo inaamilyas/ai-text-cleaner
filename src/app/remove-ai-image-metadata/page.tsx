@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     canonical: "/remove-ai-image-metadata",
   },
   openGraph: {
-    title: "AI Image Metadata & EXIF Remover — Strip Prompts & Provenance",
+    title: "AI Image Metadata & EXIF Remover — Strip Prompts, C2PA & Provenance",
     description:
       "Clean hidden prompt metadata, EXIF tags, C2PA tracking, and AI software signatures from generated images.",
     url: `${siteUrl}/remove-ai-image-metadata`,
