@@ -22,7 +22,7 @@ export default function FeatureSixGrid() {
     },
     {
       title: "Advanced Heuristic Detection",
-      description: "Scans sentence length burstiness, perplexity variance, and overused LLM transition phrase clichés.",
+      description: "Scans sentence length burstiness, passive voice structure, and overused LLM transition phrase clichés.",
       icon: Cpu,
     },
     {

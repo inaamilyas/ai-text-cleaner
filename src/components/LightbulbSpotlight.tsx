@@ -18,7 +18,7 @@ export default function LightbulbSpotlight() {
               Understand how our AI detection &amp; text sanitization engine works
             </h3>
             <p className="text-body-sm text-neutral-600 leading-relaxed">
-              Unlike cloud-based checkers that upload your documents to external databases, our detection engine analyzes string perplexity, sentence length variance, and transition density 100% inside your browser memory. Your drafts remain confidential, safe from unauthorized data logging.
+              Unlike cloud-based checkers that upload your documents to external databases, our detection engine analyzes sentence length variance, passive voice structure, and transition density 100% inside your browser memory. Your drafts remain confidential, safe from unauthorized data logging.
             </p>
             <div className="flex flex-wrap gap-4 pt-2 text-body-xs font-bold text-neutral-700">
               <span className="flex items-center gap-1.5 text-primary-700">
