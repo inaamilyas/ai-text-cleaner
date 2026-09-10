@@ -5,7 +5,7 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "ChatGPT Text Cleaner — Remove AI Formatting & Markdown Artifacts",
+  title: "Free ChatGPT Text Cleaner — Remove AI Formatting & Markdown",
   description:
     "Clean text copied from ChatGPT, Claude, or Gemini. Remove unwanted asterisks, smart quotes, em dashes, and AI formatting quirks instantly.",
   keywords: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "ChatGPT Text Cleaner — Remove AI Formatting & Markdown Artifacts",
+    title: "Free ChatGPT Text Cleaner — Remove AI Formatting & Markdown",
     description:
       "Paste your ChatGPT responses to instantly strip unwanted markdown, bold asterisks, and hidden AI artifacts.",
     url: `${siteUrl}/clean-chatgpt-text`,

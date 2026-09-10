@@ -40,7 +40,7 @@ export interface ImageMetadataTranslation {
 
 export const IMAGE_METADATA_TRANSLATIONS: Record<string, ImageMetadataTranslation> = {
   en: {
-    title: "AI Image Metadata & EXIF Remover — Strip Prompts, C2PA & Provenance",
+    title: "Free AI Image Metadata & EXIF Remover — Strip Prompts & C2PA",
     description: "Free online tool to strip EXIF metadata, prompt text, seed parameters, and C2PA provenance headers from AI images (ChatGPT, Midjourney, DALL-E 3, Gemini, Stable Diffusion). 100% private in-browser canvas sanitizer.",
     heading: "AI Image Metadata & EXIF Remover",
     subheading: "Detect hidden prompt strings, DALL-E/Midjourney tags, EXIF headers, and C2PA provenance signatures before sanitizing.",

@@ -14,7 +14,7 @@ import ShareBar from "@/components/ShareBar";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "AI Image Metadata & EXIF Remover — Strip Prompts, C2PA & Provenance",
+  title: "Free AI Image Metadata & EXIF Remover — Strip Prompts & C2PA",
   description:
     "Free online tool to strip EXIF metadata, prompt text, seed parameters, and C2PA provenance headers from AI images (ChatGPT, Midjourney, DALL-E 3, Gemini, Stable Diffusion). 100% private in-browser canvas sanitizer.",
   keywords: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     canonical: "/remove-ai-image-metadata",
   },
   openGraph: {
-    title: "AI Image Metadata & EXIF Remover — Strip Prompts, C2PA & Provenance",
+    title: "Free AI Image Metadata & EXIF Remover — Strip Prompts & C2PA",
     description:
       "Clean hidden prompt metadata, EXIF tags, C2PA tracking, and AI software signatures from generated images.",
     url: `${siteUrl}/remove-ai-image-metadata`,
