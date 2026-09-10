@@ -60,7 +60,7 @@ const howToSteps = [
   },
   {
     title: "Download Sanitized PDF",
-    description: "Download your clean PDF file with all hidden metadata fields neutralized.",
+    description: "Download your sanitized PDF with the Info dictionary and embedded XMP metadata stream removed.",
   },
 ];
 

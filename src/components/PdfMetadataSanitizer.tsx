@@ -10,6 +10,7 @@ import {
   FileCheck,
   Trash2,
   Lock,
+  AlertTriangle,
 } from "lucide-react";
 import { inspectPdfMetadata, sanitizePdfMetadata, type PdfMetadataReport } from "@/lib/cleanPdfMetadata";
 import { trackCleanTextRun, trackDownloadFile } from "@/lib/analytics";
@@ -39,6 +40,7 @@ export default function PdfMetadataSanitizer({ heading, subheading }: PdfMetadat
   const [report, setReport] = useState<PdfMetadataReport | null>(null);
   const [cleanedBlob, setCleanedBlob] = useState<Blob | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [fullyCleaned, setFullyCleaned] = useState(true);
 
   const handleFileSelect = async (selectedFile: File) => {
     if (selectedFile.type !== "application/pdf" && !selectedFile.name.endsWith(".pdf")) {
@@ -51,11 +53,12 @@ export default function PdfMetadataSanitizer({ heading, subheading }: PdfMetadat
 
     try {
       const buffer = await selectedFile.arrayBuffer();
-      const inspectedReport = inspectPdfMetadata(selectedFile, buffer);
-      const cleanResult = sanitizePdfMetadata(selectedFile, buffer);
+      const inspectedReport = await inspectPdfMetadata(selectedFile, buffer);
+      const cleanResult = await sanitizePdfMetadata(selectedFile, buffer);
 
       setReport(inspectedReport);
       setCleanedBlob(cleanResult.cleanedBlob);
+      setFullyCleaned(cleanResult.fullyCleaned);
 
       trackCleanTextRun({
         toolName: "clean_pdf_metadata",
@@ -88,6 +91,7 @@ export default function PdfMetadataSanitizer({ heading, subheading }: PdfMetadat
     setFile(null);
     setReport(null);
     setCleanedBlob(null);
+    setFullyCleaned(true);
   };
 
   return (
@@ -156,6 +160,18 @@ export default function PdfMetadataSanitizer({ heading, subheading }: PdfMetadat
                   <Trash2 className="w-5 h-5" />
                 </button>
               </div>
+
+              {!fullyCleaned && (
+                <div className="flex items-start gap-2.5 rounded-lg border border-amber-300 bg-amber-50 p-3.5 text-left">
+                  <AlertTriangle className="h-5 w-5 flex-shrink-0 text-amber-600" aria-hidden="true" />
+                  <p className="text-body-xs text-amber-900">
+                    <span className="font-bold">This file couldn&apos;t be fully parsed.</span> We fell back to a
+                    basic text scan, which can miss metadata stored inside compressed PDF streams. Fields shown
+                    below were found and removed, but we can&apos;t guarantee nothing else remains — check the
+                    downloaded file&apos;s properties before sharing it if that matters for your use case.
+                  </p>
+                </div>
+              )}
 
               {/* Metadata Audit Results */}
               {report && (

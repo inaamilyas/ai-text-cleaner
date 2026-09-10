@@ -56,27 +56,74 @@ const HOMOGLYPH_MAP: Record<string, { ascii: string; script: string }> = {
   "\u03BD": { ascii: "v", script: "Greek Small Letter Nu" },
 };
 
+function codePointHex(ch: string): string {
+  const cp = ch.codePointAt(0) ?? 0;
+  return "U+" + cp.toString(16).toUpperCase().padStart(4, "0");
+}
+
+// Fullwidth Forms, Mathematical Alphanumeric Symbols, circled/enclosed
+// letters, and similar "styled" Unicode blocks all carry an official
+// Unicode compatibility decomposition straight back to a plain ASCII
+// letter/digit (that's what makes them <font>/<wide>/<circle> compat
+// characters rather than distinct letters). Genuine accented Latin text
+// doesn't qualify here: e.g. "é".normalize("NFKD") is two code points
+// (e + a combining acute), not a single bare ASCII character, so real
+// language diacritics are left untouched.
+function getCompatibilityAsciiEquivalent(ch: string): string | null {
+  const cp = ch.codePointAt(0) ?? 0;
+  if (cp < 0x80) return null;
+  const decomposed = ch.normalize("NFKD");
+  if (decomposed.length === 1 && decomposed !== ch && /[\x20-\x7E]/.test(decomposed)) {
+    return decomposed;
+  }
+  return null;
+}
+
+function scriptNameForCompatibilityChar(ch: string): string {
+  const cp = ch.codePointAt(0) ?? 0;
+  if (cp >= 0xff00 && cp <= 0xffef) return "Fullwidth Form";
+  if (cp >= 0x1d400 && cp <= 0x1d7ff) return "Mathematical Alphanumeric Symbol";
+  if (cp >= 0x2460 && cp <= 0x24ff) return "Circled / Enclosed Alphanumeric";
+  if (cp >= 0x2070 && cp <= 0x209f) return "Superscript / Subscript Form";
+  return "Unicode Compatibility Form";
+}
+
 export function cleanHomoglyphs(text: string): HomoglyphResult {
   const replacements: HomoglyphReplacement[] = [];
   let cleaned = "";
+  let pos = 0;
 
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-    const match = HOMOGLYPH_MAP[ch];
-
-    if (match) {
-      const codePoint = "U+" + ch.charCodeAt(0).toString(16).toUpperCase().padStart(4, "0");
+  // Iterate by code point, not UTF-16 code unit: Mathematical Alphanumeric
+  // Symbols live outside the Basic Multilingual Plane and are encoded as
+  // surrogate pairs, so indexing text[i] would only ever see half a
+  // character for those.
+  for (const ch of text) {
+    const curated = HOMOGLYPH_MAP[ch];
+    if (curated) {
       replacements.push({
-        index: i,
+        index: pos,
         originalChar: ch,
-        codePoint,
-        replacedChar: match.ascii,
-        scriptName: match.script,
+        codePoint: codePointHex(ch),
+        replacedChar: curated.ascii,
+        scriptName: curated.script,
       });
-      cleaned += match.ascii;
+      cleaned += curated.ascii;
     } else {
-      cleaned += ch;
+      const compatAscii = getCompatibilityAsciiEquivalent(ch);
+      if (compatAscii) {
+        replacements.push({
+          index: pos,
+          originalChar: ch,
+          codePoint: codePointHex(ch),
+          replacedChar: compatAscii,
+          scriptName: scriptNameForCompatibilityChar(ch),
+        });
+        cleaned += compatAscii;
+      } else {
+        cleaned += ch;
+      }
     }
+    pos += ch.length;
   }
 
   return {
@@ -89,5 +136,5 @@ export function cleanHomoglyphs(text: string): HomoglyphResult {
 
 export function getSampleHomoglyphText(): string {
   // Contains Cyrillic 'а', 'е', 'о', 'р' mixed into English words
-  return "Th\u0435 quick br\u043Ewn f\u043Ex jumps \u043Ev\u0435r th\u0435 l\u0430zy d\u043Eg.";
+  return "Th\u0435 quick br\u043Ewn f\u043Ex jumps \u043Ev\u0435r th\u0435 l\u0430zy d\u043Eg \u2014 \uFF34\uFF45\uFF53\uFF54 \uD835\uDC01\uD835\uDC28\uD835\uDC25\uD835\uDC1D.";
 }

@@ -47,6 +47,11 @@ const removedItems = [
     unicode: "U+FEFF",
     description: "Invisible character at document headers causing JSON parse and script syntax errors.",
   },
+  {
+    character: "Unicode Tag Characters",
+    unicode: "U+E0000-U+E007F",
+    description: "The mechanism behind \"ASCII smuggling\" — invisible characters used to hide instructions inside text that look blank to a human reader.",
+  },
 ];
 
 const howToSteps = [

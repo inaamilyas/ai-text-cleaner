@@ -47,6 +47,11 @@ const removedItems = [
     unicode: "U+FF01-U+FF5E",
     description: "Wide unicode symbols replacing standard ASCII characters that break database constraints.",
   },
+  {
+    character: "Mathematical Alphanumeric Symbols",
+    unicode: "U+1D400-U+1D7FF",
+    description: "The fake 𝗯𝗼𝗹𝗱 / 𝘪𝘵𝘢𝘭𝘪𝘤 styled letters some AI tools and chat apps generate instead of real formatting — converted back to plain ASCII.",
+  },
 ];
 
 const howToSteps = [

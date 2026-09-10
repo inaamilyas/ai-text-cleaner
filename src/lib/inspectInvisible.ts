@@ -2,7 +2,9 @@
  * Invisible Character Inspection & Visualization Utility.
  * Scans strings character by character and extracts hidden zero-width spaces (U+200B),
  * non-breaking spaces (U+00A0), soft hyphens (U+00AD), BOM markers (U+FEFF),
- * and directional Unicode controls.
+ * directional Unicode controls, C0 control characters, invisible math/word-joiner
+ * operators, and Unicode Tag characters (U+E0000-U+E007F) — the mechanism behind
+ * "ASCII smuggling" hidden-text/prompt-injection payloads.
  */
 
 export interface InvisibleCharSegment {
@@ -39,20 +41,50 @@ const INVISIBLE_MAP: Record<string, { name: string; color: string }> = {
   "\u202E": { name: "RTL Override", color: "bg-pink-700 text-white" },
 };
 
+// Ranges not covered by the named INVISIBLE_MAP above: C0 controls (tab/LF/CR
+// excluded \u2014 those are legitimate formatting), invisible math/word-joiner
+// operators, directional isolates, and the Unicode Tag block. Checked by code
+// point rather than UTF-16 code unit, since Tag characters live outside the
+// Basic Multilingual Plane and are encoded as surrogate pairs.
+function classifyChar(ch: string): { name: string; color: string } | null {
+  const named = INVISIBLE_MAP[ch];
+  if (named) return named;
+
+  const cp = ch.codePointAt(0) ?? 0;
+
+  if (cp <= 0x08 || cp === 0x0b || cp === 0x0c || (cp >= 0x0e && cp <= 0x1f) || cp === 0x7f) {
+    return { name: "Control Character", color: "bg-orange-600 text-white" };
+  }
+
+  if (cp >= 0x2060 && cp <= 0x2064) {
+    return { name: "Invisible Math / Word-Joiner Operator", color: "bg-fuchsia-600 text-white" };
+  }
+
+  if (cp >= 0x2066 && cp <= 0x2069) {
+    return { name: "Directional Isolate Control", color: "bg-cyan-800 text-white" };
+  }
+
+  if (cp >= 0xe0000 && cp <= 0xe007f) {
+    return { name: "Unicode Tag Character (hidden text / prompt injection)", color: "bg-red-800 text-white" };
+  }
+
+  return null;
+}
+
 export function inspectInvisibleCharacters(text: string): InvisibleInspectionResult {
   const segments: InvisibleCharSegment[] = [];
   const counts: Record<string, number> = {};
   let totalInvisibleCount = 0;
   let currentVisibleStr = "";
+  let idx = 0;
 
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-    const info = INVISIBLE_MAP[ch];
+  for (const ch of text) {
+    const info = classifyChar(ch);
 
     if (info) {
       if (currentVisibleStr) {
         segments.push({
-          id: `vis-${i}-${Math.random()}`,
+          id: `vis-${idx}-${Math.random()}`,
           char: currentVisibleStr,
           name: "Visible Text",
           codePoint: "",
@@ -62,12 +94,13 @@ export function inspectInvisibleCharacters(text: string): InvisibleInspectionRes
         currentVisibleStr = "";
       }
 
-      const hexCode = "U+" + ch.charCodeAt(0).toString(16).toUpperCase().padStart(4, "0");
+      const cp = ch.codePointAt(0) ?? 0;
+      const hexCode = "U+" + cp.toString(16).toUpperCase().padStart(4, "0");
       counts[info.name] = (counts[info.name] || 0) + 1;
       totalInvisibleCount++;
 
       segments.push({
-        id: `invis-${i}-${Math.random()}`,
+        id: `invis-${idx}-${Math.random()}`,
         char: ch,
         name: info.name,
         codePoint: hexCode,
@@ -77,6 +110,7 @@ export function inspectInvisibleCharacters(text: string): InvisibleInspectionRes
     } else {
       currentVisibleStr += ch;
     }
+    idx++;
   }
 
   if (currentVisibleStr) {
@@ -90,7 +124,9 @@ export function inspectInvisibleCharacters(text: string): InvisibleInspectionRes
     });
   }
 
-  const cleanedText = text.replace(/[\u200B-\u200D\uFEFF\u00A0\u00AD\u2028\u2029\u200E\u200F\u202A-\u202E]/g, "");
+  const cleanedText = Array.from(text)
+    .filter((ch) => !classifyChar(ch))
+    .join("");
 
   return {
     segments,
@@ -101,5 +137,5 @@ export function inspectInvisibleCharacters(text: string): InvisibleInspectionRes
 }
 
 export function getSampleInvisibleText(): string {
-  return "Here\u200Bis\u200Ba\u00A0sample\u200Ctext\uFEFFwith\u200Dhidden\u00ADunicode\u200Bspaces injected by ChatGPT!";
+  return "Here\u200Bis\u200Ba\u00A0sample\u200Ctext\uFEFFwith\u200Dhidden\u00ADunicode\u200Bspaces\u2060and\u200Ba hidden \u{E0001}\u{E0074}\u{E0061}\u{E0067}\u{E007F} tag payload injected by ChatGPT!";
 }
