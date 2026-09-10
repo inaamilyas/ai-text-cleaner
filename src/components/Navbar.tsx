@@ -10,6 +10,7 @@ const tools = [
   { href: "/ai-text-detector", label: "AI Text Detector" },
   { href: "/clean-chatgpt-text", label: "ChatGPT Text Cleaner" },
   { href: "/clean-claude-text", label: "Claude Text Cleaner" },
+  { href: "/clean-claude-code", label: "Claude Code Output Cleaner" },
   { href: "/clean-copilot-text", label: "Copilot Text Cleaner" },
   { href: "/clean-gemini-text", label: "Gemini Text Cleaner" },
   { href: "/markdown-to-plain-text", label: "Markdown to Plain Text" },

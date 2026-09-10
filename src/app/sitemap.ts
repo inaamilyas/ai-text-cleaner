@@ -33,6 +33,9 @@ const baseSubRoutes = [
   "/humanize-ai-text",
 ];
 
+// English-only routes: not yet translated, so excluded from the localized loop below.
+const englishOnlySubRoutes = ["/clean-claude-code"];
+
 const blogRoutes = [
   "/blog",
   "/blog/why-ai-text-has-invisible-characters",
@@ -49,6 +52,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified,
     changeFrequency: path === "" ? "daily" : "weekly",
     priority: path === "" ? 1.0 : 0.8,
+  }));
+
+  // English-only routes (no localized equivalents yet)
+  const englishOnlyEntries: MetadataRoute.Sitemap = englishOnlySubRoutes.map((path) => ({
+    url: `${siteUrl}${path}`,
+    lastModified,
+    changeFrequency: "weekly",
+    priority: 0.8,
   }));
 
   // Blog entries
@@ -72,5 +83,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   });
 
-  return [...englishEntries, ...blogEntries, ...localizedEntries];
+  return [...englishEntries, ...englishOnlyEntries, ...blogEntries, ...localizedEntries];
 }

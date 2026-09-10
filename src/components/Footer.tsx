@@ -4,6 +4,7 @@ import Logo from "@/components/Logo";
 const aiToolLinks = [
   { href: "/clean-chatgpt-text", label: "Clean ChatGPT Text" },
   { href: "/clean-claude-text", label: "Clean Claude Text" },
+  { href: "/clean-claude-code", label: "Clean Claude Code Output" },
   { href: "/clean-gemini-text", label: "Clean Google Gemini Text" },
   { href: "/clean-copilot-text", label: "Clean Copilot Text" },
 ];
