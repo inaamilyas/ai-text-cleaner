@@ -47,6 +47,12 @@ const removedItems = [
     unicode: "/Keywords /Subject",
     description: "Contains internal project codes or hidden categorizations.",
   },
+  {
+    character: "Embedded Attachments & C2PA Content Credentials",
+    unicode: "/AF /Names /EmbeddedFiles",
+    description:
+      "Some AI tools (like ChatGPT's PDF export) attach a separate, cryptographically-signed manifest naming the generating app and model — invisible in normal viewers, but detected and removed here.",
+  },
 ];
 
 const howToSteps = [

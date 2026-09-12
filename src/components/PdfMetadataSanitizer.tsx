@@ -11,6 +11,7 @@ import {
   Trash2,
   Lock,
   AlertTriangle,
+  Paperclip,
 } from "lucide-react";
 import { inspectPdfMetadata, sanitizePdfMetadata, type PdfMetadataReport } from "@/lib/cleanPdfMetadata";
 import { trackCleanTextRun, trackDownloadFile } from "@/lib/analytics";
@@ -174,19 +175,22 @@ export default function PdfMetadataSanitizer({ heading, subheading }: PdfMetadat
               )}
 
               {/* Metadata Audit Results */}
-              {report && (
+              {report && (() => {
+                const totalFieldsFound =
+                  report.fieldsFoundCount + (report.hasEmbeddedXmp ? 1 : 0) + report.attachmentsFoundCount;
+                return (
                 <div className="flex flex-col gap-4 text-left border-t border-neutral-200 pt-6">
                   <div className="flex items-center justify-between">
                     <h4 className="text-body-sm font-bold text-neutral-900 flex items-center gap-2">
                       <Sparkles className="w-4 h-4 text-primary-600" /> Detected Metadata Properties
                     </h4>
                     <span className={`px-2.5 py-0.5 text-body-xs font-bold rounded ${
-                      report.fieldsFoundCount > 0
+                      totalFieldsFound > 0
                         ? "bg-amber-100 text-amber-900 border border-amber-200"
                         : "bg-primary-100 text-primary-800"
                     }`}>
-                      {report.fieldsFoundCount > 0
-                        ? `${report.fieldsFoundCount} Hidden Metadata Fields`
+                      {totalFieldsFound > 0
+                        ? `${totalFieldsFound} Hidden Metadata Fields`
                         : "Clean PDF (No Hidden Metadata)"}
                     </span>
                   </div>
@@ -217,8 +221,24 @@ export default function PdfMetadataSanitizer({ heading, subheading }: PdfMetadat
                       <span className="font-medium text-neutral-900">{report.keywords || "— Not Set —"}</span>
                     </div>
                   </div>
+
+                  {report.attachmentsFoundCount > 0 && (
+                    <div className="flex items-start gap-2.5 rounded-lg border border-danger-200 bg-danger-0 p-3.5">
+                      <Paperclip className="h-5 w-5 flex-shrink-0 text-danger-600" aria-hidden="true" />
+                      <div className="text-body-xs text-danger-900">
+                        <span className="font-bold">
+                          {report.attachmentsFoundCount} Embedded Attachment
+                          {report.attachmentsFoundCount > 1 ? "s" : ""} Found:
+                        </span>{" "}
+                        {report.attachmentNames.join(", ")}. This can include C2PA &quot;Content
+                        Credentials&quot; — a signed record some AI tools embed that names the
+                        generating app/model. Removed on download.
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
+                );
+              })()}
             </div>
           )}
 
