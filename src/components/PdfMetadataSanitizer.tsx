@@ -12,9 +12,19 @@ import {
   Lock,
   AlertTriangle,
   Paperclip,
+  Loader2,
+  Wand2,
+  CheckCircle2,
 } from "lucide-react";
 import { inspectPdfMetadata, sanitizePdfMetadata, type PdfMetadataReport } from "@/lib/cleanPdfMetadata";
 import { trackCleanTextRun, trackDownloadFile } from "@/lib/analytics";
+
+type Phase = "analyzing" | "analyzed" | "cleaning" | "cleaned";
+
+/** Keeps the "Analyzing.../Cleaning..." state on screen long enough to read, even though the actual work is near-instant. */
+function minDelay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 const pdfPresets = [
   {
@@ -40,8 +50,7 @@ export default function PdfMetadataSanitizer({ heading, subheading }: PdfMetadat
   const [file, setFile] = useState<File | null>(null);
   const [report, setReport] = useState<PdfMetadataReport | null>(null);
   const [cleanedBlob, setCleanedBlob] = useState<Blob | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [fullyCleaned, setFullyCleaned] = useState(true);
+  const [phase, setPhase] = useState<Phase>("analyzing");
 
   const handleFileSelect = async (selectedFile: File) => {
     if (selectedFile.type !== "application/pdf" && !selectedFile.name.endsWith(".pdf")) {
@@ -50,28 +59,42 @@ export default function PdfMetadataSanitizer({ heading, subheading }: PdfMetadat
     }
 
     setFile(selectedFile);
-    setIsProcessing(true);
+    setReport(null);
+    setCleanedBlob(null);
+    setPhase("analyzing");
 
     try {
       const buffer = await selectedFile.arrayBuffer();
-      const inspectedReport = await inspectPdfMetadata(selectedFile, buffer);
-      const cleanResult = await sanitizePdfMetadata(selectedFile, buffer);
-
+      const [inspectedReport] = await Promise.all([inspectPdfMetadata(selectedFile, buffer), minDelay(700)]);
       setReport(inspectedReport);
+      setPhase("analyzed");
+    } catch (err) {
+      console.error(err);
+      alert("Error reading PDF file.");
+      setFile(null);
+    }
+  };
+
+  const handleClean = async () => {
+    if (!file) return;
+    setPhase("cleaning");
+
+    try {
+      const buffer = await file.arrayBuffer();
+      const [cleanResult] = await Promise.all([sanitizePdfMetadata(file, buffer), minDelay(900)]);
       setCleanedBlob(cleanResult.cleanedBlob);
-      setFullyCleaned(cleanResult.fullyCleaned);
+      setPhase("cleaned");
 
       trackCleanTextRun({
         toolName: "clean_pdf_metadata",
         inputWords: 0,
-        inputChars: selectedFile.size,
-        changesCount: inspectedReport.fieldsFoundCount,
+        inputChars: file.size,
+        changesCount: report?.fieldsFoundCount ?? 0,
       });
     } catch (err) {
       console.error(err);
-      alert("Error reading PDF file.");
-    } finally {
-      setIsProcessing(false);
+      alert("Error cleaning PDF file.");
+      setPhase("analyzed");
     }
   };
 
@@ -92,8 +115,10 @@ export default function PdfMetadataSanitizer({ heading, subheading }: PdfMetadat
     setFile(null);
     setReport(null);
     setCleanedBlob(null);
-    setFullyCleaned(true);
+    setPhase("analyzing");
   };
+
+  const reducedConfidence = report?.parseMethod === "fallback-text-scan";
 
   return (
     <section className="bg-white">
@@ -162,14 +187,35 @@ export default function PdfMetadataSanitizer({ heading, subheading }: PdfMetadat
                 </button>
               </div>
 
-              {!fullyCleaned && (
+              {phase === "analyzing" && (
+                <div className="flex flex-col items-center justify-center gap-3 border-t border-neutral-200 py-10 text-center">
+                  <Loader2 className="h-8 w-8 animate-spin text-primary-600" aria-hidden="true" />
+                  <p className="text-body-sm font-bold text-neutral-900">Analyzing PDF for hidden metadata&hellip;</p>
+                  <p className="text-body-xs text-neutral-500">
+                    Scanning the Info dictionary, XMP stream, and embedded attachments — all in your browser.
+                  </p>
+                </div>
+              )}
+
+              {phase === "cleaning" && (
+                <div className="flex flex-col items-center justify-center gap-3 border-t border-neutral-200 py-10 text-center">
+                  <Loader2 className="h-8 w-8 animate-spin text-primary-600" aria-hidden="true" />
+                  <p className="text-body-sm font-bold text-neutral-900">Cleaning detected metadata&hellip;</p>
+                  <p className="text-body-xs text-neutral-500">
+                    Rewriting the PDF without the fields found above.
+                  </p>
+                </div>
+              )}
+
+              {reducedConfidence && phase !== "analyzing" && (
                 <div className="flex items-start gap-2.5 rounded-lg border border-amber-300 bg-amber-50 p-3.5 text-left">
                   <AlertTriangle className="h-5 w-5 flex-shrink-0 text-amber-600" aria-hidden="true" />
                   <p className="text-body-xs text-amber-900">
                     <span className="font-bold">This file couldn&apos;t be fully parsed.</span> We fell back to a
                     basic text scan, which can miss metadata stored inside compressed PDF streams. Fields shown
-                    below were found and removed, but we can&apos;t guarantee nothing else remains — check the
-                    downloaded file&apos;s properties before sharing it if that matters for your use case.
+                    below were found{phase === "cleaned" ? " and removed" : ""}, but we can&apos;t guarantee
+                    nothing else remains — check the downloaded file&apos;s properties before sharing it if that
+                    matters for your use case.
                   </p>
                 </div>
               )}
@@ -287,31 +333,61 @@ export default function PdfMetadataSanitizer({ heading, subheading }: PdfMetadat
                 </div>
                 );
               })()}
+
+              {phase === "cleaned" && (
+                <div className="flex items-center gap-2 rounded-lg border border-primary-200 bg-primary-50 p-3.5 text-left">
+                  <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-primary-700" aria-hidden="true" />
+                  <p className="text-body-sm font-bold text-primary-900">
+                    Cleaned — the fields above have been stripped from the file below.
+                  </p>
+                </div>
+              )}
             </div>
           )}
 
           {/* Action Buttons Bar */}
-          <div className="mt-6 flex flex-col sm:flex-row flex-wrap items-center gap-3 sm:gap-4 border-t border-neutral-200 pt-6">
-            {cleanedBlob ? (
+          {file && (
+            <div className="mt-6 flex flex-col sm:flex-row flex-wrap items-center gap-3 sm:gap-4 border-t border-neutral-200 pt-6">
+              {phase === "analyzed" && (
+                <button
+                  type="button"
+                  onClick={handleClean}
+                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary-700 px-8 py-3.5 sm:py-4 text-button text-neutral-50 transition-colors duration-200 hover:bg-primary-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+                >
+                  <Wand2 className="h-5 w-5" aria-hidden="true" />
+                  Clean PDF
+                </button>
+              )}
+              {phase === "cleaning" && (
+                <button
+                  type="button"
+                  disabled
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-lg bg-neutral-300 px-8 py-3.5 sm:py-4 text-button text-neutral-500 cursor-not-allowed"
+                >
+                  <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                  Cleaning&hellip;
+                </button>
+              )}
+              {phase === "cleaned" && cleanedBlob && (
+                <button
+                  type="button"
+                  onClick={handleDownload}
+                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary-700 px-8 py-3.5 sm:py-4 text-button text-neutral-50 transition-colors duration-200 hover:bg-primary-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+                >
+                  <Download className="h-5 w-5" aria-hidden="true" />
+                  Download Sanitized PDF
+                </button>
+              )}
               <button
                 type="button"
-                onClick={handleDownload}
-                className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary-700 px-8 py-3.5 sm:py-4 text-button text-neutral-50 transition-colors duration-200 hover:bg-primary-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+                onClick={handleReset}
+                className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-1.5 py-2 text-body-sm font-bold text-neutral-600 transition-colors duration-200 hover:text-primary-600"
               >
-                <Download className="h-5 w-5" aria-hidden="true" />
-                Download Sanitized PDF
+                <RotateCcw className="h-4 w-4" aria-hidden="true" />
+                Reset PDF
               </button>
-            ) : null}
-            <button
-              type="button"
-              onClick={handleReset}
-              disabled={!file}
-              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-1.5 py-2 text-body-sm font-bold text-neutral-600 transition-colors duration-200 hover:text-primary-600 disabled:cursor-not-allowed disabled:text-neutral-300"
-            >
-              <RotateCcw className="h-4 w-4" aria-hidden="true" />
-              Reset PDF
-            </button>
-          </div>
+            </div>
+          )}
         </form>
 
         <div className="flex max-w-2xl flex-col items-center gap-2 text-center">
