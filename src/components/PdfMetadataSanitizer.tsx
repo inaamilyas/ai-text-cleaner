@@ -213,26 +213,74 @@ export default function PdfMetadataSanitizer({ heading, subheading }: PdfMetadat
                       <span className="font-medium text-neutral-900">{report.creationDate || "— Not Set —"}</span>
                     </div>
                     <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
+                      <span className="text-body-xs text-neutral-500 block">Modification Timestamp:</span>
+                      <span className="font-medium text-neutral-900">{report.modDate || "— Not Set —"}</span>
+                    </div>
+                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
                       <span className="text-body-xs text-neutral-500 block">Document Title:</span>
                       <span className="font-medium text-neutral-900">{report.title || "— Not Set —"}</span>
                     </div>
                     <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
-                      <span className="text-body-xs text-neutral-500 block">Keywords / Subject:</span>
+                      <span className="text-body-xs text-neutral-500 block">Subject:</span>
+                      <span className="font-medium text-neutral-900">{report.subject || "— Not Set —"}</span>
+                    </div>
+                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
+                      <span className="text-body-xs text-neutral-500 block">Keywords:</span>
                       <span className="font-medium text-neutral-900">{report.keywords || "— Not Set —"}</span>
+                    </div>
+                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
+                      <span className="text-body-xs text-neutral-500 block">XMP Metadata Stream:</span>
+                      <span className="font-medium text-neutral-900">
+                        {report.hasEmbeddedXmp ? "Present" : "Not Present"}
+                      </span>
                     </div>
                   </div>
 
                   {report.attachmentsFoundCount > 0 && (
                     <div className="flex items-start gap-2.5 rounded-lg border border-danger-200 bg-danger-0 p-3.5">
                       <Paperclip className="h-5 w-5 flex-shrink-0 text-danger-600" aria-hidden="true" />
-                      <div className="text-body-xs text-danger-900">
-                        <span className="font-bold">
-                          {report.attachmentsFoundCount} Embedded Attachment
-                          {report.attachmentsFoundCount > 1 ? "s" : ""} Found:
-                        </span>{" "}
-                        {report.attachmentNames.join(", ")}. This can include C2PA &quot;Content
-                        Credentials&quot; — a signed record some AI tools embed that names the
-                        generating app/model. Removed on download.
+                      <div className="flex flex-col gap-2 text-body-xs text-danger-900">
+                        <p>
+                          <span className="font-bold">
+                            {report.attachmentsFoundCount} Embedded Attachment
+                            {report.attachmentsFoundCount > 1 ? "s" : ""} Found:
+                          </span>{" "}
+                          {report.attachmentNames.join(", ")}. This is a C2PA &quot;Content
+                          Credentials&quot; manifest — a signed record some AI tools embed that
+                          names the generating app/model. Removed on download.
+                        </p>
+                        {report.aiProvenance && (
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 rounded-md border border-danger-200 bg-white p-2.5">
+                            {report.aiProvenance.generatorName && (
+                              <div>
+                                <span className="text-neutral-500 block">Declared Generator App:</span>
+                                <span className="font-bold text-danger-900">{report.aiProvenance.generatorName}</span>
+                              </div>
+                            )}
+                            {report.aiProvenance.softwareAgentName && (
+                              <div>
+                                <span className="text-neutral-500 block">Declared Model / Software Agent:</span>
+                                <span className="font-bold text-danger-900">
+                                  {report.aiProvenance.softwareAgentName}
+                                </span>
+                              </div>
+                            )}
+                            {report.aiProvenance.digitalSourceType && (
+                              <div>
+                                <span className="text-neutral-500 block">Declared Source Type:</span>
+                                <span className="font-bold text-danger-900">
+                                  {report.aiProvenance.digitalSourceType}
+                                </span>
+                              </div>
+                            )}
+                            {report.aiProvenance.createdAt && (
+                              <div>
+                                <span className="text-neutral-500 block">Signed At:</span>
+                                <span className="font-bold text-danger-900">{report.aiProvenance.createdAt}</span>
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}

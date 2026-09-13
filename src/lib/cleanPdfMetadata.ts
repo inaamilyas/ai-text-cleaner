@@ -24,7 +24,15 @@
  * claim, so it must be found and removed just like the standard fields.
  */
 
-import { PDFDocument, PDFName, PDFDict, PDFArray, PDFRef, PDFString, PDFHexString } from "pdf-lib";
+import { PDFDocument, PDFName, PDFDict, PDFArray, PDFRef, PDFString, PDFHexString, PDFStream } from "pdf-lib";
+
+export interface C2paProvenanceSummary {
+  generatorName?: string;
+  softwareAgentName?: string;
+  softwareAgentVersion?: string;
+  digitalSourceType?: string;
+  createdAt?: string;
+}
 
 export interface PdfMetadataReport {
   fileName: string;
@@ -42,6 +50,8 @@ export interface PdfMetadataReport {
   hasEmbeddedXmp: boolean;
   attachmentsFoundCount: number;
   attachmentNames: string[];
+  /** Best-effort readable summary pulled from a C2PA attachment's own bytes, if present. */
+  aiProvenance?: C2paProvenanceSummary;
   parseMethod: "structured" | "fallback-text-scan";
 }
 
@@ -109,6 +119,104 @@ function findAssociatedFileSpecs(pdfDoc: PDFDocument): { fileSpecRefs: Set<PDFRe
   return { fileSpecRefs, names };
 }
 
+function isPrintableAsciiRange(bytes: Uint8Array, start: number, len: number): boolean {
+  for (let k = 0; k < len; k++) {
+    const c = bytes[start + k];
+    if (c < 0x20 || c > 0x7e) return false;
+  }
+  return true;
+}
+
+/**
+ * Pulls out CBOR text-string values (major type 3) from raw bytes without a
+ * full CBOR parser: a definite-length text string is either a single header
+ * byte 0x60-0x77 encoding its own length (0-23), or 0x78 followed by a
+ * 1-byte length. Both forms are common for the short field names/values a
+ * C2PA manifest's CBOR-encoded assertions use (claim_generator_info,
+ * softwareAgent, digitalSourceType, timestamps, etc.), so this recovers a
+ * readable, ordered token stream good enough to summarize the manifest's
+ * human-relevant claims — it is not a general CBOR decoder and does not
+ * attempt to reconstruct map/array structure.
+ */
+function extractCborTextTokens(bytes: Uint8Array, maxTokens = 500): string[] {
+  const tokens: string[] = [];
+  let i = 0;
+  while (i < bytes.length && tokens.length < maxTokens) {
+    const b = bytes[i];
+    if (b >= 0x60 && b <= 0x77) {
+      const len = b - 0x60;
+      if (len >= 3 && i + 1 + len <= bytes.length && isPrintableAsciiRange(bytes, i + 1, len)) {
+        tokens.push(String.fromCharCode(...bytes.subarray(i + 1, i + 1 + len)));
+        i += 1 + len;
+        continue;
+      }
+    } else if (b === 0x78 && i + 1 < bytes.length) {
+      const len = bytes[i + 1];
+      if (len >= 3 && i + 2 + len <= bytes.length && isPrintableAsciiRange(bytes, i + 2, len)) {
+        tokens.push(String.fromCharCode(...bytes.subarray(i + 2, i + 2 + len)));
+        i += 2 + len;
+        continue;
+      }
+    }
+    i++;
+  }
+  return tokens;
+}
+
+/** Looks up `key`, then returns the value of the next occurrence of `subKey` within a short lookahead window. */
+function findNestedValue(tokens: string[], key: string, subKey: string, window = 6): string | undefined {
+  const start = tokens.indexOf(key);
+  if (start === -1) return undefined;
+  for (let i = start + 1; i < Math.min(start + 1 + window, tokens.length - 1); i++) {
+    if (tokens[i] === subKey) return tokens[i + 1];
+  }
+  return undefined;
+}
+
+function humanizeDigitalSourceType(uri?: string): string | undefined {
+  if (!uri) return undefined;
+  const last = uri.split("/").filter(Boolean).pop() ?? uri;
+  // "trainedAlgorithmicMedia" -> "Trained Algorithmic Media"
+  return last.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, (c) => c.toUpperCase());
+}
+
+function summarizeC2paTokens(tokens: string[]): C2paProvenanceSummary | undefined {
+  const generatorName = findNestedValue(tokens, "claim_generator_info", "name");
+  const softwareAgentName = findNestedValue(tokens, "softwareAgent", "name");
+  const softwareAgentVersion = findNestedValue(tokens, "softwareAgent", "version");
+  const digitalSourceTypeIdx = tokens.indexOf("digitalSourceType");
+  const digitalSourceType =
+    digitalSourceTypeIdx !== -1 ? humanizeDigitalSourceType(tokens[digitalSourceTypeIdx + 1]) : undefined;
+  const whenIdx = tokens.indexOf("when");
+  const createdAt = whenIdx !== -1 ? tokens[whenIdx + 1] : undefined;
+
+  if (!generatorName && !softwareAgentName && !digitalSourceType && !createdAt) return undefined;
+  return { generatorName, softwareAgentName, softwareAgentVersion, digitalSourceType, createdAt };
+}
+
+/**
+ * Reads the raw bytes of every embedded-file stream referenced by the given
+ * Filespecs and, if any of them look like a C2PA manifest, extracts a small
+ * human-readable summary (generator app, software agent/model, source type,
+ * timestamp) so the UI can show users what the attachment actually claims
+ * before it gets stripped.
+ */
+function summarizeAssociatedFiles(pdfDoc: PDFDocument, fileSpecRefs: Set<PDFRef>): C2paProvenanceSummary | undefined {
+  for (const fileSpecRef of fileSpecRefs) {
+    const fileSpecDict = pdfDoc.context.lookupMaybe(fileSpecRef, PDFDict);
+    const efDict = pdfDoc.context.lookupMaybe(fileSpecDict?.get(PDFName.of("EF")), PDFDict);
+    const streamRefs = efDict?.entries().map(([, value]) => value).filter((v): v is PDFRef => v instanceof PDFRef) ?? [];
+    for (const streamRef of streamRefs) {
+      const stream = pdfDoc.context.lookupMaybe(streamRef, PDFStream);
+      if (!stream) continue;
+      const tokens = extractCborTextTokens(stream.getContents());
+      const summary = summarizeC2paTokens(tokens);
+      if (summary) return summary;
+    }
+  }
+  return undefined;
+}
+
 function extractReportFromDoc(file: File, pdfDoc: PDFDocument): PdfMetadataReport {
   const title = pdfDoc.getTitle();
   const author = pdfDoc.getAuthor();
@@ -120,6 +228,7 @@ function extractReportFromDoc(file: File, pdfDoc: PDFDocument): PdfMetadataRepor
   const modDate = pdfDoc.getModificationDate()?.toISOString();
   const hasEmbeddedXmp = pdfDoc.catalog.get(PDFName.of("Metadata")) !== undefined;
   const { fileSpecRefs, names } = findAssociatedFileSpecs(pdfDoc);
+  const aiProvenance = fileSpecRefs.size > 0 ? summarizeAssociatedFiles(pdfDoc, fileSpecRefs) : undefined;
 
   const fieldsFoundCount = [title, author, subject, keywords, creator, producer, creationDate, modDate].filter(
     (v) => !!v
@@ -141,6 +250,7 @@ function extractReportFromDoc(file: File, pdfDoc: PDFDocument): PdfMetadataRepor
     hasEmbeddedXmp,
     attachmentsFoundCount: fileSpecRefs.size,
     attachmentNames: names,
+    aiProvenance,
     parseMethod: "structured",
   };
 }
@@ -205,7 +315,16 @@ export async function sanitizePdfMetadata(file: File, buffer: ArrayBuffer): Prom
       }
     }
 
-    const cleanedBytes = await pdfDoc.save();
+    // useObjectStreams: false — pdf-lib's compressed cross-reference/object
+    // stream writer has been observed to corrupt the /Pages tree on PDFs
+    // that already mix an incremental update with object streams (e.g.
+    // ChatGPT's ReportLab-generated + C2PA-signed exports): the "sanitized"
+    // output still opened in pdf-lib itself, but a stricter parser saw the
+    // page tree get lost — some viewers then report the file as damaged
+    // even though the standard/XMP fields were correctly wiped. The classic
+    // xref-table writer avoids that failure mode entirely and produces a
+    // more universally-compatible file at the cost of a slightly larger size.
+    const cleanedBytes = await pdfDoc.save({ useObjectStreams: false });
     const cleanedBlob = new Blob([cleanedBytes as BlobPart], { type: "application/pdf" });
 
     return {
