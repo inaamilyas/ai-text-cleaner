@@ -63,7 +63,7 @@ export default function PdfMetadataSanitizer({
 }: PdfMetadataSanitizerProps = {}) {
   const [activeMode, setActiveMode] = useState<Mode>("full");
   const [file, setFile] = useState<File | null>(null);
-  const [isSampleLoaded, setIsSampleLoaded] = useState(true);
+  const [isSampleLoaded, setIsSampleLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [report, setReport] = useState<PdfMetadataReport | null>(null);
   const [cleanedBlob, setCleanedBlob] = useState<Blob | null>(null);
@@ -152,6 +152,7 @@ export default function PdfMetadataSanitizer({
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
+  const hasTarget = !!file || isSampleLoaded;
   const currentTargetName = file
     ? `${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB)`
     : isSampleLoaded
@@ -353,14 +354,20 @@ export default function PdfMetadataSanitizer({
                 </div>
                 <div
                   className={`flex items-center gap-space-xs font-code-stat text-code-stat px-2 py-1 rounded font-semibold ${
-                    isCleaned
+                    !hasTarget
+                      ? "bg-surface-container text-on-surface-variant"
+                      : isCleaned
                       ? "bg-primary-fixed text-on-primary-fixed"
                       : "bg-error-container text-on-error-container"
                   }`}
                 >
-                  <span className={`w-2 h-2 rounded-full ${isCleaned ? "bg-primary" : "bg-error"}`}></span>
+                  <span className={`w-2 h-2 rounded-full ${!hasTarget ? "bg-outline" : isCleaned ? "bg-primary" : "bg-error"}`}></span>
                   <span>
-                    {isCleaned ? "0 RESIDUALS // 100% SANITIZED" : `${totalLeaks} SENSITIVE TAGS DETECTED`}
+                    {!hasTarget
+                      ? "AWAITING FILE // 0 LEAKS"
+                      : isCleaned
+                      ? "0 RESIDUALS // 100% SANITIZED"
+                      : `${totalLeaks} SENSITIVE TAGS DETECTED`}
                   </span>
                 </div>
               </div>
@@ -505,8 +512,8 @@ export default function PdfMetadataSanitizer({
                 <button
                   type="button"
                   onClick={handleSanitize}
-                  disabled={loading}
-                  className="w-full sm:w-auto px-space-lg py-2.5 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md font-semibold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                  disabled={loading || !hasTarget}
+                  className="w-full sm:w-auto px-space-lg py-2.5 rounded-lg bg-primary-container hover:bg-primary disabled:opacity-40 disabled:cursor-not-allowed text-on-primary font-label-md text-label-md font-semibold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {loading ? (
                     <>
@@ -516,7 +523,7 @@ export default function PdfMetadataSanitizer({
                   ) : (
                     <>
                       <span className="material-symbols-outlined text-[18px]">auto_fix_high</span>
-                      <span>{isCleaned ? "Download Clean PDF Again" : "Sanitize & Download PDF"}</span>
+                      <span>{!hasTarget ? "Select or Load PDF First" : isCleaned ? "Download Clean PDF Again" : "Sanitize & Download PDF"}</span>
                     </>
                   )}
                 </button>

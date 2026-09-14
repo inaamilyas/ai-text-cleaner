@@ -10,11 +10,18 @@ export interface ReadabilityCheckerUIProps {
   subheading?: string;
 }
 
-export default function ReadabilityCheckerUI({ heading, subheading }: ReadabilityCheckerUIProps = {}) {
-  const [text, setText] = useState(
-    "Artificial intelligence text generators create fluent paragraphs by analyzing probability patterns. However, complex vocabulary and repetitive transitions can reduce reading ease for general audiences. Simplifying multi-syllabic jargon ensures higher engagement and optimal comprehension across diverse reader demographics."
-  );
+const DEMO_SAMPLE_TEXT =
+  "Artificial intelligence text generators create fluent paragraphs by analyzing probability patterns. However, complex vocabulary and repetitive transitions can reduce reading ease for general audiences. Simplifying multi-syllabic jargon ensures higher engagement and optimal comprehension across diverse reader demographics.";
 
+export interface ReadabilityCheckerUIProps {
+  heading?: string;
+  subheading?: string;
+}
+
+export default function ReadabilityCheckerUI({ heading, subheading }: ReadabilityCheckerUIProps = {}) {
+  const [text, setText] = useState("");
+
+  const hasText = text.trim().length > 0;
   const metrics = useMemo(() => analyzeReadability(text), [text]);
   const inputStats = useMemo(() => getTextStats(text), [text]);
 
@@ -35,7 +42,9 @@ export default function ReadabilityCheckerUI({ heading, subheading }: Readabilit
   // Color logic for Flesch Reading Ease
   const easeScore = Math.max(0, Math.min(100, Math.round(metrics.fleschReadingEase)));
   const easeColor =
-    easeScore >= 70
+    !hasText
+      ? "text-on-surface-variant"
+      : easeScore >= 70
       ? "text-primary"
       : easeScore >= 50
       ? "text-on-surface"
@@ -181,11 +190,21 @@ export default function ReadabilityCheckerUI({ heading, subheading }: Readabilit
               <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={handleReset}
-                  className="px-3 py-1.5 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm font-medium shadow-xs transition-colors cursor-pointer"
+                  onClick={() => handlePreset(DEMO_SAMPLE_TEXT)}
+                  className="px-3 py-1.5 rounded bg-primary text-on-primary hover:bg-primary/90 font-body-sm text-body-sm font-medium shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
-                  Reset Text
+                  <span className="material-symbols-outlined text-[16px]">play_circle</span>
+                  <span>Try Demo Sample</span>
                 </button>
+                {hasText && (
+                  <button
+                    type="button"
+                    onClick={handleReset}
+                    className="px-3 py-1.5 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm font-medium shadow-xs transition-colors cursor-pointer"
+                  >
+                    Reset Text
+                  </button>
+                )}
               </div>
               <div className="flex items-center gap-1.5 font-code-stat text-code-stat text-on-surface-variant">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block animate-pulse" />
@@ -205,7 +224,7 @@ export default function ReadabilityCheckerUI({ heading, subheading }: Readabilit
                 </span>
               </div>
               <span className="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-code-stat text-code-stat uppercase font-semibold">
-                Live Audit
+                {hasText ? "Live Audit" : "Awaiting Input"}
               </span>
             </div>
 
@@ -221,18 +240,18 @@ export default function ReadabilityCheckerUI({ heading, subheading }: Readabilit
                   <div className="my-2">
                     <div className="flex items-baseline gap-2">
                       <span className={`font-headline-lg text-[32px] leading-[36px] font-bold ${easeColor}`}>
-                        {metrics.fleschReadingEase.toFixed(1)}
+                        {hasText ? metrics.fleschReadingEase.toFixed(1) : "—"}
                       </span>
                       <span className="font-label-sm text-label-sm text-on-surface-variant">/ 100</span>
                     </div>
                     <p className="font-label-sm text-label-sm text-primary font-medium mt-0.5">
-                      {metrics.fleschInterpretation}
+                      {hasText ? metrics.fleschInterpretation : "Enter or paste text to audit"}
                     </p>
                   </div>
                   <div className="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
                     <div
                       className="bg-primary h-full rounded-full transition-all duration-500"
-                      style={{ width: `${Math.min(100, Math.max(0, metrics.fleschReadingEase))}%` }}
+                      style={{ width: hasText ? `${Math.min(100, Math.max(0, metrics.fleschReadingEase))}%` : "0%" }}
                     />
                   </div>
                 </div>
@@ -246,17 +265,17 @@ export default function ReadabilityCheckerUI({ heading, subheading }: Readabilit
                   <div className="my-2">
                     <div className="flex items-baseline gap-2">
                       <span className="font-headline-lg text-[32px] leading-[36px] font-bold text-on-surface">
-                        Grade {metrics.fleschKincaidGrade.toFixed(1)}
+                        {hasText ? `Grade ${metrics.fleschKincaidGrade.toFixed(1)}` : "—"}
                       </span>
                     </div>
                     <p className="font-label-sm text-label-sm text-on-surface-variant mt-0.5">
-                      US Grade {Math.round(metrics.fleschKincaidGrade)} Level
+                      {hasText ? `US Grade ${Math.round(metrics.fleschKincaidGrade)} Level` : "Awaiting text input"}
                     </p>
                   </div>
                   <div className="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
                     <div
                       className="bg-secondary h-full rounded-full transition-all duration-500"
-                      style={{ width: `${Math.min(100, (metrics.fleschKincaidGrade / 16) * 100)}%` }}
+                      style={{ width: hasText ? `${Math.min(100, (metrics.fleschKincaidGrade / 16) * 100)}%` : "0%" }}
                     />
                   </div>
                 </div>
@@ -270,18 +289,18 @@ export default function ReadabilityCheckerUI({ heading, subheading }: Readabilit
                   <div className="my-2">
                     <div className="flex items-baseline gap-2">
                       <span className="font-headline-lg text-[32px] leading-[36px] font-bold text-on-surface">
-                        {metrics.gunningFogIndex.toFixed(1)}
+                        {hasText ? metrics.gunningFogIndex.toFixed(1) : "—"}
                       </span>
-                      <span className="font-label-sm text-label-sm text-on-surface-variant">Years of Ed.</span>
+                      <span className="font-label-sm text-label-sm text-on-surface-variant">{hasText ? "Years of Ed." : ""}</span>
                     </div>
                     <p className="font-label-sm text-label-sm text-on-surface-variant mt-0.5">
-                      Ideal Target: 7 — 9 (General)
+                      {hasText ? "Ideal Target: 7 — 9 (General)" : "Awaiting text input"}
                     </p>
                   </div>
                   <div className="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
                     <div
                       className="bg-tertiary h-full rounded-full transition-all duration-500"
-                      style={{ width: `${Math.min(100, (metrics.gunningFogIndex / 18) * 100)}%` }}
+                      style={{ width: hasText ? `${Math.min(100, (metrics.gunningFogIndex / 18) * 100)}%` : "0%" }}
                     />
                   </div>
                 </div>
@@ -295,18 +314,18 @@ export default function ReadabilityCheckerUI({ heading, subheading }: Readabilit
                   <div className="my-2">
                     <div className="flex items-baseline gap-2">
                       <span className="font-headline-lg text-[32px] leading-[36px] font-bold text-on-surface">
-                        {metrics.averageWordsPerSentence.toFixed(1)}
+                        {hasText ? metrics.averageWordsPerSentence.toFixed(1) : "—"}
                       </span>
-                      <span className="font-label-sm text-label-sm text-on-surface-variant">Words / Sent</span>
+                      <span className="font-label-sm text-label-sm text-on-surface-variant">{hasText ? "Words / Sent" : ""}</span>
                     </div>
                     <p className="font-label-sm text-label-sm text-on-surface-variant mt-0.5">
-                      Target: 14 — 18 words
+                      {hasText ? "Target: 14 — 18 words" : "Awaiting text input"}
                     </p>
                   </div>
                   <div className="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
                     <div
                       className="bg-primary-container h-full rounded-full transition-all duration-500"
-                      style={{ width: `${Math.min(100, (metrics.averageWordsPerSentence / 25) * 100)}%` }}
+                      style={{ width: hasText ? `${Math.min(100, (metrics.averageWordsPerSentence / 25) * 100)}%` : "0%" }}
                     />
                   </div>
                 </div>
@@ -314,11 +333,11 @@ export default function ReadabilityCheckerUI({ heading, subheading }: Readabilit
 
               {/* Syllables and Reading Time Summary */}
               <div className="p-3 rounded-lg bg-surface-container-low flex flex-wrap items-center justify-between gap-2 text-label-sm font-label-sm text-on-surface-variant">
-                <span>Total Syllables: <strong className="text-on-surface">{metrics.syllableCount}</strong></span>
+                <span>Total Syllables: <strong className="text-on-surface">{hasText ? metrics.syllableCount : 0}</strong></span>
                 <span>•</span>
-                <span>Sentences: <strong className="text-on-surface">{metrics.sentenceCount}</strong></span>
+                <span>Sentences: <strong className="text-on-surface">{hasText ? metrics.sentenceCount : 0}</strong></span>
                 <span>•</span>
-                <span>Est. Reading Time: <strong className="text-on-surface">{Math.ceil(metrics.wordCount / 200) || 1} min</strong></span>
+                <span>Est. Reading Time: <strong className="text-on-surface">{hasText ? `${Math.ceil(metrics.wordCount / 200) || 1} min` : "0 min"}</strong></span>
               </div>
             </div>
 

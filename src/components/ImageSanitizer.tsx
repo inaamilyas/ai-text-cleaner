@@ -542,106 +542,124 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
                     </span>
                     <span
                       className={`font-code-stat text-code-stat px-2 py-0.5 rounded font-semibold ${
-                        isCleaned
+                        !hasFileLoaded
+                          ? "bg-surface-container text-on-surface-variant"
+                          : isCleaned
                           ? "bg-primary-fixed text-on-primary-fixed"
                           : "bg-error-container text-on-error-container"
                       }`}
                     >
-                      {isCleaned ? "0 LEAKS DETECTED (SECURE)" : "6 THREAT LEAKS DETECTED"}
+                      {!hasFileLoaded
+                        ? "AWAITING FILE"
+                        : isCleaned
+                        ? "0 LEAKS DETECTED (SECURE)"
+                        : "6 THREAT LEAKS DETECTED"}
                     </span>
                   </div>
 
-                  {/* Parsed Tags Scroll Container */}
-                  <div className="space-y-space-xs font-body-sm text-body-sm">
-                    {/* Generator Card */}
-                    <div className="p-space-sm rounded-lg bg-surface-container-lowest shadow-xs flex flex-col gap-1">
-                      <div className="flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
-                        <span className="uppercase tracking-wide font-medium">Model / Platform Signatures</span>
-                        <span
-                          className={
-                            isCleaned
-                              ? "text-primary font-semibold flex items-center gap-1"
-                              : "text-error font-semibold flex items-center gap-1"
-                          }
-                        >
-                          <span className="material-symbols-outlined text-[14px]">
-                            {isCleaned ? "verified" : "warning"}
+                  {/* Parsed Tags or Empty State */}
+                  {!hasFileLoaded ? (
+                    <div className="py-16 text-center text-on-surface-variant flex flex-col items-center justify-center gap-3">
+                      <span className="material-symbols-outlined text-[42px] text-outline">image_search</span>
+                      <p className="font-headline-sm text-headline-sm text-on-surface font-semibold">
+                        No Image or Document Loaded
+                      </p>
+                      <p className="font-body-md text-body-md max-w-sm">
+                        Upload a file or click <strong className="text-on-surface">&quot;Try Sample AI Image&quot;</strong> on the left to inspect raw header tags.
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-space-xs font-body-sm text-body-sm">
+                      {/* Generator Card */}
+                      <div className="p-space-sm rounded-lg bg-surface-container-lowest shadow-xs flex flex-col gap-1">
+                        <div className="flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
+                          <span className="uppercase tracking-wide font-medium">Model / Platform Signatures</span>
+                          <span
+                            className={
+                              isCleaned
+                                ? "text-primary font-semibold flex items-center gap-1"
+                                : "text-error font-semibold flex items-center gap-1"
+                            }
+                          >
+                            <span className="material-symbols-outlined text-[14px]">
+                              {isCleaned ? "verified" : "warning"}
+                            </span>
+                            {isCleaned ? "PURGED" : "FOUND"}
                           </span>
-                          {isCleaned ? "PURGED" : "FOUND"}
-                        </span>
+                        </div>
+                        <div className="font-headline-sm text-headline-sm text-on-surface font-semibold">
+                          {isCleaned ? "Clean Visual Buffer (Signature Zeroed)" : metaInfo.generator}
+                        </div>
+                        <div className="font-code-stat text-code-stat text-on-surface-variant">
+                          {isCleaned ? "Pure RGBA8 raster stream. Auxiliary binary tags dropped." : metaInfo.headerChunk}
+                        </div>
                       </div>
-                      <div className="font-headline-sm text-headline-sm text-on-surface font-semibold">
-                        {isCleaned ? "Clean Visual Buffer (Signature Zeroed)" : metaInfo.generator}
-                      </div>
-                      <div className="font-code-stat text-code-stat text-on-surface-variant">
-                        {isCleaned ? "Pure RGBA8 raster stream. Auxiliary binary tags dropped." : metaInfo.headerChunk}
-                      </div>
-                    </div>
 
-                    {/* Hidden Prompt String */}
-                    <div className="p-space-sm rounded-lg bg-surface-container-lowest shadow-xs flex flex-col gap-1">
-                      <div className="flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
-                        <span className="uppercase tracking-wide font-medium">Hidden Prompt String &amp; Parameters</span>
-                        <span className={isCleaned ? "text-primary font-semibold" : "text-error font-semibold"}>
-                          {isCleaned ? "ZEROED" : "LEAKED RAW TEXT"}
-                        </span>
-                      </div>
-                      <div className="font-code-stat text-code-stat p-2 rounded bg-surface-container text-on-surface break-all leading-relaxed">
-                        {isCleaned
-                          ? "[Zeroed // 0 Prompt or Parameter Bytes Retained in Local Heap]"
-                          : metaInfo.prompt}
-                      </div>
-                    </div>
-
-                    {/* C2PA Manifest */}
-                    <div className="p-space-sm rounded-lg bg-surface-container-lowest shadow-xs flex flex-col gap-1">
-                      <div className="flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
-                        <span className="uppercase tracking-wide font-medium">C2PA Manifest &amp; Provenance Cert</span>
-                        <span className={isCleaned ? "text-primary font-semibold" : "text-error font-semibold"}>
-                          {isCleaned ? "STRIPPED" : "ACTIVE PROVENANCE"}
-                        </span>
-                      </div>
-                      <div className="font-code-stat text-code-stat text-on-surface flex items-center gap-2">
-                        <span className="material-symbols-outlined text-[16px] text-primary">verified</span>
-                        <span className="truncate">
+                      {/* Hidden Prompt String */}
+                      <div className="p-space-sm rounded-lg bg-surface-container-lowest shadow-xs flex flex-col gap-1">
+                        <div className="flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
+                          <span className="uppercase tracking-wide font-medium">Hidden Prompt String &amp; Parameters</span>
+                          <span className={isCleaned ? "text-primary font-semibold" : "text-error font-semibold"}>
+                            {isCleaned ? "ZEROED" : "LEAKED RAW TEXT"}
+                          </span>
+                        </div>
+                        <div className="font-code-stat text-code-stat p-2 rounded bg-surface-container text-on-surface break-all leading-relaxed">
                           {isCleaned
-                            ? "Manifest removed (JUMBF container and CAWG signature purged)"
-                            : metaInfo.c2pa}
-                        </span>
+                            ? "[Zeroed // 0 Prompt or Parameter Bytes Retained in Local Heap]"
+                            : metaInfo.prompt}
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Camera / EXIF & Seeds */}
-                    <div className="grid grid-cols-2 gap-space-xs">
+                      {/* C2PA Manifest */}
                       <div className="p-space-sm rounded-lg bg-surface-container-lowest shadow-xs flex flex-col gap-1">
-                        <span className="font-code-stat text-code-stat text-on-surface-variant uppercase">Camera / EXIF</span>
-                        <span className="font-code-stat text-code-stat text-on-surface truncate">
-                          {isCleaned ? "EXIF Nulled" : metaInfo.camera}
-                        </span>
+                        <div className="flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
+                          <span className="uppercase tracking-wide font-medium">C2PA Manifest &amp; Provenance Cert</span>
+                          <span className={isCleaned ? "text-primary font-semibold" : "text-error font-semibold"}>
+                            {isCleaned ? "STRIPPED" : "ACTIVE PROVENANCE"}
+                          </span>
+                        </div>
+                        <div className="font-code-stat text-code-stat text-on-surface flex items-center gap-2">
+                          <span className="material-symbols-outlined text-[16px] text-primary">verified</span>
+                          <span className="truncate">
+                            {isCleaned
+                              ? "Manifest removed (JUMBF container and CAWG signature purged)"
+                              : metaInfo.c2pa}
+                          </span>
+                        </div>
                       </div>
-                      <div className="p-space-sm rounded-lg bg-surface-container-lowest shadow-xs flex flex-col gap-1">
-                        <span className="font-code-stat text-code-stat text-on-surface-variant uppercase">Seed &amp; Sampler</span>
-                        <span className="font-code-stat text-code-stat text-on-surface truncate">
-                          {isCleaned ? "Sanitized" : metaInfo.seed}
-                        </span>
-                      </div>
-                    </div>
 
-                    {/* PDF & Document Deep Metadata (Enhanced) */}
-                    <div className="p-space-sm rounded-lg bg-surface-container-lowest shadow-xs flex flex-col gap-1">
-                      <div className="flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
-                        <span className="uppercase tracking-wide font-medium">PDF Document Object Streams &amp; XMP</span>
-                        <span className="text-primary font-semibold">
-                          {isCleaned ? "CLEARED" : "XMP LEAKS"}
-                        </span>
+                      {/* Camera / EXIF & Seeds */}
+                      <div className="grid grid-cols-2 gap-space-xs">
+                        <div className="p-space-sm rounded-lg bg-surface-container-lowest shadow-xs flex flex-col gap-1">
+                          <span className="font-code-stat text-code-stat text-on-surface-variant uppercase">Camera / EXIF</span>
+                          <span className="font-code-stat text-code-stat text-on-surface truncate">
+                            {isCleaned ? "EXIF Nulled" : metaInfo.camera}
+                          </span>
+                        </div>
+                        <div className="p-space-sm rounded-lg bg-surface-container-lowest shadow-xs flex flex-col gap-1">
+                          <span className="font-code-stat text-code-stat text-on-surface-variant uppercase">Seed &amp; Sampler</span>
+                          <span className="font-code-stat text-code-stat text-on-surface truncate">
+                            {isCleaned ? "Sanitized" : metaInfo.seed}
+                          </span>
+                        </div>
                       </div>
-                      <div className="font-code-stat text-code-stat text-on-surface-variant leading-relaxed">
-                        {isCleaned
-                          ? "Object streams rebuilt: Trailer metadata and author dictionary sanitized."
-                          : metaInfo.pdfInfo}
+
+                      {/* PDF & Document Deep Metadata (Enhanced) */}
+                      <div className="p-space-sm rounded-lg bg-surface-container-lowest shadow-xs flex flex-col gap-1">
+                        <div className="flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
+                          <span className="uppercase tracking-wide font-medium">PDF Document Object Streams &amp; XMP</span>
+                          <span className="text-primary font-semibold">
+                            {isCleaned ? "CLEARED" : "XMP LEAKS"}
+                          </span>
+                        </div>
+                        <div className="font-code-stat text-code-stat text-on-surface-variant leading-relaxed">
+                          {isCleaned
+                            ? "Object streams rebuilt: Trailer metadata and author dictionary sanitized."
+                            : metaInfo.pdfInfo}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
 
                 {/* Toggles Drawer & Execution Controls */}
@@ -709,16 +727,17 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
                     <button
                       type="button"
                       onClick={handleSanitizeNow}
-                      disabled={loading}
-                      className="w-full sm:flex-1 h-11 px-space-md rounded-lg bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-headline-sm font-semibold flex items-center justify-center gap-2 shadow-sm transition-all duration-150 active:scale-[0.99] cursor-pointer"
+                      disabled={loading || !hasFileLoaded}
+                      className="w-full sm:flex-1 h-11 px-space-md rounded-lg bg-primary hover:bg-primary-container disabled:opacity-40 disabled:cursor-not-allowed text-on-primary font-headline-sm text-headline-sm font-semibold flex items-center justify-center gap-2 shadow-sm transition-all duration-150 active:scale-[0.99] cursor-pointer"
                     >
                       <span className="material-symbols-outlined text-[20px]">auto_fix_high</span>
-                      <span>{loading ? "Sanitizing Pixels..." : "Sanitize & Strip Metadata"}</span>
+                      <span>{loading ? "Sanitizing Pixels..." : !hasFileLoaded ? "Select or Load Image First" : "Sanitize & Strip Metadata"}</span>
                     </button>
                     <button
                       type="button"
                       onClick={handleDownload}
-                      className="w-full sm:w-auto h-11 px-space-md rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-md text-body-md flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                      disabled={!hasFileLoaded}
+                      className="w-full sm:w-auto h-11 px-space-md rounded-lg bg-surface-container hover:bg-surface-container-high disabled:opacity-40 disabled:cursor-not-allowed text-on-surface font-body-md text-body-md flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                     >
                       <span className="material-symbols-outlined text-[18px]">download</span>
                       <span>Download Clean File</span>

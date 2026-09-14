@@ -15,7 +15,7 @@ export interface HumanizeTextUIProps {
 }
 
 export default function HumanizeTextUI({ heading, subheading }: HumanizeTextUIProps = {}) {
-  const [inputText, setInputText] = useState(defaultSampleText);
+  const [inputText, setInputText] = useState("");
   const [copied, setCopied] = useState(false);
 
   // Configurator options state
@@ -26,6 +26,7 @@ export default function HumanizeTextUI({ heading, subheading }: HumanizeTextUIPr
   const [breakLongClauses, setBreakLongClauses] = useState(true);
   const [normalizeWhitespace, setNormalizeWhitespace] = useState(true);
 
+  const hasText = inputText.trim().length > 0;
   const results = useMemo(() => humanizeText(inputText), [inputText]);
   const inputStats = useMemo(() => getTextStats(inputText), [inputText]);
   const outputStats = useMemo(
@@ -117,9 +118,10 @@ export default function HumanizeTextUI({ heading, subheading }: HumanizeTextUIPr
           <button
             type="button"
             onClick={handleLoadSample}
-            className="px-space-md py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-md text-label-md transition-all cursor-pointer"
+            className="px-space-md py-1.5 rounded-lg bg-primary text-on-primary hover:bg-primary/90 font-label-md text-label-md transition-all cursor-pointer flex items-center gap-1.5 shadow-xs"
           >
-            Natural Human Rhythm
+            <span className="material-symbols-outlined text-[15px]">play_circle</span>
+            <span>Try Demo AI Sample</span>
           </button>
           <button
             type="button"
@@ -194,17 +196,18 @@ export default function HumanizeTextUI({ heading, subheading }: HumanizeTextUIPr
           <div className="lg:col-span-6 bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col min-h-[460px] justify-between">
             <div className="h-10 bg-surface-container-low px-space-md flex items-center justify-between border-b border-surface-container-highest">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-primary" />
+                <span className={`w-2 h-2 rounded-full ${hasText ? "bg-primary" : "bg-outline"}`} />
                 <span className="font-label-md text-label-md text-on-surface font-semibold">Humanized Output</span>
-                <span className="px-1.5 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-code-stat text-code-stat">
-                  0% AI DENSITY
+                <span className={`px-1.5 py-0.5 rounded font-code-stat text-code-stat ${hasText ? "bg-primary-fixed text-on-primary-fixed" : "bg-surface-container text-on-surface-variant"}`}>
+                  {hasText ? "0% AI DENSITY" : "READY"}
                 </span>
               </div>
               <div className="flex items-center gap-1.5">
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="px-2 py-1 bg-surface-container hover:bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface transition-colors flex items-center gap-1 cursor-pointer"
+                  disabled={!hasText}
+                  className="px-2 py-1 bg-surface-container hover:bg-surface-container-high disabled:opacity-40 disabled:cursor-not-allowed rounded text-label-sm font-label-sm text-on-surface transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[13px]">
                     {copied ? "check" : "content_copy"}
@@ -214,7 +217,8 @@ export default function HumanizeTextUI({ heading, subheading }: HumanizeTextUIPr
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="px-2 py-1 bg-surface-container hover:bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface transition-colors flex items-center gap-1 cursor-pointer"
+                  disabled={!hasText}
+                  className="px-2 py-1 bg-surface-container hover:bg-surface-container-high disabled:opacity-40 disabled:cursor-not-allowed rounded text-label-sm font-label-sm text-on-surface transition-colors flex items-center gap-1 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[13px]">download</span>
                   <span>.txt</span>
@@ -222,29 +226,41 @@ export default function HumanizeTextUI({ heading, subheading }: HumanizeTextUIPr
               </div>
             </div>
             <div className="p-space-md flex-1 flex flex-col justify-between">
-              <div className="font-body-md text-body-md text-on-surface leading-relaxed whitespace-pre-wrap">
-                {results.humanizedText || "Your humanized text will appear here..."}
-              </div>
+              {hasText ? (
+                <div className="font-body-md text-body-md text-on-surface leading-relaxed whitespace-pre-wrap">
+                  {results.humanizedText}
+                </div>
+              ) : (
+                <div className="py-12 text-center text-on-surface-variant flex flex-col items-center justify-center gap-2">
+                  <span className="material-symbols-outlined text-[36px] text-outline">auto_fix_high</span>
+                  <p className="font-body-md text-body-md">
+                    Your humanized output will appear here.
+                  </p>
+                  <p className="text-body-sm text-outline">
+                    Paste text on the left or click <strong className="text-on-surface">&quot;Try Demo AI Sample&quot;</strong> above.
+                  </p>
+                </div>
+              )}
               {/* Health & Rhythm Diagnostics Block */}
               <div className="pt-space-md mt-space-lg bg-surface-container-low/60 -mx-space-md px-space-md pb-space-sm flex flex-col gap-2 border-t border-surface-container-highest">
                 <div className="flex items-center justify-between">
                   <span className="font-label-sm text-label-sm text-outline uppercase tracking-wider">Syntactic Metrics</span>
-                  <span className="font-code-stat text-code-stat text-primary font-medium">
-                    PASS: Natural Varied Flow
+                  <span className={`font-code-stat text-code-stat font-medium ${hasText ? "text-primary" : "text-outline"}`}>
+                    {hasText ? "PASS: Natural Varied Flow" : "AWAITING INPUT"}
                   </span>
                 </div>
                 <div className="grid grid-cols-3 gap-space-xs text-center">
                   <div className="bg-surface-container-lowest p-1.5 rounded">
                     <span className="font-label-sm text-label-sm text-on-surface-variant block">Burstiness</span>
-                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">94%</span>
+                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">{hasText ? "94%" : "—"}</span>
                   </div>
                   <div className="bg-surface-container-lowest p-1.5 rounded">
                     <span className="font-label-sm text-label-sm text-on-surface-variant block">Perplexity</span>
-                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">Optimal</span>
+                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">{hasText ? "Optimal" : "—"}</span>
                   </div>
                   <div className="bg-surface-container-lowest p-1.5 rounded">
                     <span className="font-label-sm text-label-sm text-on-surface-variant block">AI Buzzwords</span>
-                    <span className="font-headline-sm text-headline-sm text-primary font-semibold">0</span>
+                    <span className="font-headline-sm text-headline-sm text-primary font-semibold">{hasText ? "0" : "—"}</span>
                   </div>
                 </div>
               </div>
