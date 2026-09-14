@@ -139,7 +139,7 @@ export default function CleanPdfMetadataPage() {
   return (
     <div className="flex flex-col w-full">
       <span className="sr-only">
-        Clean PDF Metadata &amp; Author Info | AI Text Cleaner
+        Clean PDF Metadata &amp; Author Info | Text Cleaner AI
       </span>
       <script
         type="application/ld+json"
@@ -582,11 +582,11 @@ export default function CleanPdfMetadataPage() {
           </div>
         </section>
 
-        {/* Why Choose AI Text Cleaner (6-card grid) */}
+        {/* Why Choose Text Cleaner AI (6-card grid) */}
         <section className="flex flex-col gap-space-md">
           <div className="flex flex-col gap-1 text-center max-w-xl mx-auto">
             <h3 className="font-headline-lg text-headline-lg text-on-surface font-semibold">
-              Why Choose AI Text Cleaner
+              Why Choose Text Cleaner AI
             </h3>
             <p className="font-body-md text-body-md text-on-surface-variant">
               Engineered from the ground up for strict confidentiality, forensic cleanliness, and speed.

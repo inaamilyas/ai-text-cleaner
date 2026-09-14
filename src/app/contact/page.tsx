@@ -64,11 +64,11 @@ export default function ContactPage() {
         "@type": "ContactPage",
         "@id": "https://www.text-cleaner-ai.com/contact#webpage",
         "url": "https://www.text-cleaner-ai.com/contact",
-        "name": "Contact & Engineering Support | AI Text Cleaner",
-        "description": "Direct communication channel to the founder and engineering team of AI Text Cleaner for bug reports, unicode regex submissions, and feature suggestions.",
+        "name": "Contact & Engineering Support | Text Cleaner AI",
+        "description": "Direct communication channel to the founder and engineering team of Text Cleaner AI for bug reports, unicode regex submissions, and feature suggestions.",
         "publisher": {
           "@type": "Organization",
-          "name": "AI Text Cleaner",
+          "name": "Text Cleaner AI",
           "url": "https://www.text-cleaner-ai.com",
         },
         "mainEntity": {
@@ -106,12 +106,12 @@ export default function ContactPage() {
             "name": "Interested in commercial licensing or API access?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "AI Text Cleaner is completely free for both personal and enterprise use. All operations run 100% locally in your browser's V8 engine with zero network roundtrips. Self-hosted npm packages are available upon request.",
+              "text": "Text Cleaner AI is completely free for both personal and enterprise use. All operations run 100% locally in your browser's V8 engine with zero network roundtrips. Self-hosted npm packages are available upon request.",
             },
           },
           {
             "@type": "Question",
-            "name": "Does AI Text Cleaner store my submitted form data?",
+            "name": "Does Text Cleaner AI store my submitted form data?",
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "No telemetry or message payloads are monetized, syndicated, or retained on shared staging servers. All communications go straight to Inam's private secure inbox and are purged after issue resolution.",
@@ -619,7 +619,7 @@ export default function ContactPage() {
                         Interested in commercial licensing or API access?
                       </h4>
                       <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                        AI Text Cleaner is completely free for both personal and enterprise use. All operations run 100% locally in your browser&apos;s V8 engine with zero network roundtrips. Self-hosted npm packages are available upon request.
+                        Text Cleaner AI is completely free for both personal and enterprise use. All operations run 100% locally in your browser&apos;s V8 engine with zero network roundtrips. Self-hosted npm packages are available upon request.
                       </p>
                     </div>
                   </div>
@@ -633,7 +633,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="font-headline-sm text-headline-sm font-semibold text-on-surface mb-1">
-                        Does AI Text Cleaner store my submitted form data?
+                        Does Text Cleaner AI store my submitted form data?
                       </h4>
                       <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
                         No telemetry or message payloads are monetized, syndicated, or retained on shared staging servers. All communications go straight to Inam&apos;s private secure inbox and are purged after issue resolution.

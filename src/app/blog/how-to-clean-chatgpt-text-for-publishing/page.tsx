@@ -26,7 +26,7 @@ const articleJsonLd = {
   },
   publisher: {
     "@type": "Organization",
-    name: "AI Text Cleaner",
+    name: "Text Cleaner AI",
     url: "https://aitextcleaner.com",
   },
 };
@@ -212,7 +212,7 @@ export default function ArticleTwoPage() {
                 &quot;Content publishing is an art of trust. Readers forgive simple typos, but they quickly discount articles cluttered with raw markdown tags and mechanical AI clichés.&quot;
               </p>
               <span className="font-mono text-xs text-white/80 block font-medium">
-                — Editorial Team, AI Text Cleaner
+                — Editorial Team, Text Cleaner AI
               </span>
             </div>
           </div>

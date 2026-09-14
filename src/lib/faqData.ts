@@ -1,8 +1,8 @@
 export const defaultFaqs = [
   {
-    question: "Does AI Text Cleaner upload or store my text on any server?",
+    question: "Does Text Cleaner AI upload or store my text on any server?",
     answer:
-      "No, absolutely not. AI Text Cleaner operates 100% locally inside your web browser using client-side JavaScript. Your text is never sent over the internet to cloud servers, databases, or third-party APIs. Your data remains completely private on your device.",
+      "No, absolutely not. Text Cleaner AI operates 100% locally inside your web browser using client-side JavaScript. Your text is never sent over the internet to cloud servers, databases, or third-party APIs. Your data remains completely private on your device.",
   },
   {
     question: "Why does text copied from ChatGPT, Claude, or Gemini have invisible characters?",
@@ -15,14 +15,14 @@ export const defaultFaqs = [
       "Our AI Buzzword Stripper scans your text for overused, repetitive AI vocabulary heavily flagged by readers and AI detectors (such as 'delve', 'tapestry', 'testament', 'pivotal', 'foster', 'realm', 'in today's digital landscape'). It strips or normalizes these cliché phrases so your writing sounds authentic and human.",
   },
   {
-    question: "Will using AI Text Cleaner change the meaning of my content?",
+    question: "Will using Text Cleaner AI change the meaning of my content?",
     answer:
-      "No. AI Text Cleaner is a technical formatting sanitizer, not an AI rewriter or spinner. It removes hidden unicode control codes, raw Markdown tags, smart quotes, and optional cliché buzzwords while preserving your core ideas and message.",
+      "No. Text Cleaner AI is a technical formatting sanitizer, not an AI rewriter or spinner. It removes hidden unicode control codes, raw Markdown tags, smart quotes, and optional cliché buzzwords while preserving your core ideas and message.",
   },
   {
-    question: "Does AI Text Cleaner help bypass AI detectors?",
+    question: "Does Text Cleaner AI help bypass AI detectors?",
     answer:
-      "While AI Text Cleaner is not an AI humanizer or evasion tool, removing invisible unicode tracking marks, raw Markdown formatting, and predictable AI buzzwords ('delve', 'tapestry') significantly reduces the structural and vocabulary patterns that AI detectors look for.",
+      "While Text Cleaner AI is not an AI humanizer or evasion tool, removing invisible unicode tracking marks, raw Markdown formatting, and predictable AI buzzwords ('delve', 'tapestry') significantly reduces the structural and vocabulary patterns that AI detectors look for.",
   },
   {
     question: "Does it work with code snippets and JSON data?",
@@ -35,9 +35,9 @@ export const defaultFaqs = [
       "Our cleaner strips raw LaTeX math delimiters (\\[...\\], \\(...\\), $...$) and converts common mathematical symbols (such as \\rightarrow to →, \\times to ×) into clean plain text math unicode.",
   },
   {
-    question: "Is AI Text Cleaner free to use for commercial projects?",
+    question: "Is Text Cleaner AI free to use for commercial projects?",
     answer:
-      "Yes. AI Text Cleaner is 100% free for writers, developers, agencies, and students. There are no usage limits, word caps, or forced paid tiers.",
+      "Yes. Text Cleaner AI is 100% free for writers, developers, agencies, and students. There are no usage limits, word caps, or forced paid tiers.",
   },
   {
     question: "How do I use the Quick Presets?",

@@ -83,14 +83,14 @@ export default function Navbar() {
           <Link className="flex items-center gap-2.5 group no-underline" href="/">
             <Image
               src="/logo.png"
-              alt="AI Text Cleaner Logo"
+              alt="Text Cleaner AI Logo"
               width={36}
               height={36}
               priority
               className="w-9 h-9 rounded-lg object-contain shadow-xs transition-transform group-hover:scale-105"
             />
             <span className="font-semibold text-lg md:text-[19px] tracking-tight text-on-surface">
-              AI Text Cleaner
+              Text Cleaner AI
             </span>
           </Link>
 

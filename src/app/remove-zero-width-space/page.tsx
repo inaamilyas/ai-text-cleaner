@@ -137,7 +137,7 @@ const faqs = [
   {
     question: "Is my text uploaded to a server when cleaning?",
     answer:
-      "No. AI Text Cleaner processes all text entirely within your local browser JavaScript engine. No data is transmitted to external servers.",
+      "No. Text Cleaner AI processes all text entirely within your local browser JavaScript engine. No data is transmitted to external servers.",
   },
   {
     question: "How can I detect if text contains U+200B zero-width spaces?",
@@ -194,7 +194,7 @@ export default function RemoveZeroWidthSpacePage() {
   return (
     <div className="container mx-auto px-4 md:px-8 py-space-lg flex flex-col w-full space-y-12 md:space-y-16">
       <span className="sr-only">
-        Zero-Width Space Remover — Clean Hidden U+200B Characters Online | AI Text Cleaner
+        Zero-Width Space Remover — Clean Hidden U+200B Characters Online | Text Cleaner AI
       </span>
       <script
         type="application/ld+json"

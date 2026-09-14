@@ -136,7 +136,7 @@ export default function HumanizeAITextPage() {
   return (
     <div className="w-full flex flex-col">
       <span className="sr-only">
-        Humanize AI Text Online | AI Text Cleaner
+        Humanize AI Text Online | Text Cleaner AI
       </span>
       <script
         type="application/ld+json"

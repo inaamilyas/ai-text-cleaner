@@ -221,7 +221,7 @@ export default function RemoveAIImageMetadataPage({
   return (
     <div className="flex flex-col w-full">
       <span className="sr-only">
-        AI Image Metadata &amp; EXIF Remover | AI Text Cleaner
+        AI Image Metadata &amp; EXIF Remover | Text Cleaner AI
       </span>
       <script
         type="application/ld+json"

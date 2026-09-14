@@ -3,7 +3,7 @@ import Link from "next/link";
 import BlogDetailTemplate from "@/components/BlogDetailTemplate";
 
 export const metadata: Metadata = {
-  title: "How PDF Metadata Exposes Your Real Identity & Location — AI Text Cleaner Blog",
+  title: "How PDF Metadata Exposes Your Real Identity & Location — Text Cleaner AI Blog",
   description:
     "Learn how PDF exports embed operating system usernames, author stamps, print queues, and Adobe XMP schema logs, and how client-side scrubbing eliminates forensic footprints.",
   alternates: {
@@ -26,7 +26,7 @@ const articleJsonLd = {
   },
   publisher: {
     "@type": "Organization",
-    name: "AI Text Cleaner",
+    name: "Text Cleaner AI",
     url: "https://aitextcleaner.com",
   },
 };
@@ -144,7 +144,7 @@ export default function PdfMetadataArticlePage() {
                 &quot;Redacting the visible visual canvas does not protect you. True anonymity requires forensic scrubbing of the underlying binary metadata dictionaries.&quot;
               </p>
               <span className="font-mono text-xs text-white/80 block font-medium">
-                — Privacy Engineering Team, AI Text Cleaner
+                — Privacy Engineering Team, Text Cleaner AI
               </span>
             </div>
           </div>

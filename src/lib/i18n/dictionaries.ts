@@ -50,7 +50,7 @@ export const LANGUAGES: Record<string, LocalizedContent> = {
     nativeName: 'English',
     flag: '🇺🇸',
     dir: 'ltr',
-    title: 'AI Text Cleaner & Sanitizer - Remove AI Traces & Invisible Characters',
+    title: 'Text Cleaner AI & Sanitizer - Remove AI Traces & Invisible Characters',
     description: 'Free browser-based AI text cleaner. Instantly strip hidden Unicode spaces, zero-width joiners, ChatGPT markdown artifacts, and AI buzzwords.',
     heading: 'Clean & Sanitize AI Text Instantly',
     subheading: '100% Client-Side Privacy. Remove hidden zero-width characters, AI buzzwords (delve, tapestry), LaTeX, HTML, and ChatGPT/Claude formatting artifacts with one click.',

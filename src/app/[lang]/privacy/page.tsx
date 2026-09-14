@@ -9,7 +9,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   return {
-    title: `Privacy Policy — AI Text Cleaner (${lang.toUpperCase()})`,
+    title: `Privacy Policy — Text Cleaner AI (${lang.toUpperCase()})`,
     description: `Read our privacy policy. 100% browser-based text sanitization with zero server storage.`,
     alternates: {
       canonical: `https://www.text-cleaner-ai.com/${lang}/privacy`,
@@ -43,7 +43,7 @@ export default async function LocalizedPrivacyPage({ params }: { params: Promise
       <section className="flex flex-col gap-4">
         <h2>1. 100% Local Browser Processing Guarantee</h2>
         <p className="text-body-md text-neutral-700">
-          AI Text Cleaner operates completely inside your browser using client-side JavaScript. Any text you paste into our tool is processed locally on your device. We do not transmit, copy, log, or store your text on any external servers.
+          Text Cleaner AI operates completely inside your browser using client-side JavaScript. Any text you paste into our tool is processed locally on your device. We do not transmit, copy, log, or store your text on any external servers.
         </p>
       </section>
 

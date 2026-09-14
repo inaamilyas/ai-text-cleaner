@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About Us — AI Text Cleaner",
+  title: "About Us — Text Cleaner AI",
   description:
-    "Learn about AI Text Cleaner, created by Inam Ilyas. Our mission is to sanitize AI text formatting with 100% client-side privacy.",
+    "Learn about Text Cleaner AI, created by Inam Ilyas. Our mission is to sanitize AI text formatting with 100% client-side privacy.",
   alternates: {
     canonical: "/about",
     languages: {
@@ -46,21 +46,21 @@ export default function AboutPage() {
       />
       <div className="w-full flex flex-col">
         <span className="sr-only">
-          About Us | AI Text Cleaner
+          About Us | Text Cleaner AI
         </span>
         <div className="container mx-auto px-4 md:px-8 py-space-xl flex flex-col gap-space-xl">
           {/*  1. Hero Section  */}
           <section className="flex flex-col items-center text-center gap-space-sm relative overflow-hidden py-space-sm">
           <div className="flex flex-col gap-space-xs max-w-4xl md:max-w-5xl">
           <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">
-                    About AI Text Cleaner
+                    About Text Cleaner AI
                   </h1>
           <p className="font-headline-md text-headline-md text-primary font-medium">
                     Sanitizing AI Text for Writers, Developers &amp; Creators
                   </p>
           </div>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl md:max-w-4xl text-center leading-relaxed">
-                  AI Text Cleaner was built by <span className="text-on-surface font-semibold">Inam Ilyas</span> to solve a universal problem in modern publishing: hidden unicode artifacts, zero-width spaces, and raw Markdown clutter in AI-generated text.
+                  Text Cleaner AI was built by <span className="text-on-surface font-semibold">Inam Ilyas</span> to solve a universal problem in modern publishing: hidden unicode artifacts, zero-width spaces, and raw Markdown clutter in AI-generated text.
                 </p>
           <div className="flex flex-wrap items-center justify-center gap-space-sm pt-space-xs">
           <div className="flex items-center gap-space-xs px-space-sm py-1.5 rounded-xl bg-surface-container-low text-on-surface-variant font-label-md text-label-md shadow-sm">
@@ -157,7 +157,7 @@ export default function AboutPage() {
                     Architectural sovereignty for modern content pipelines.
                   </h3>
           <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                    AI Text Cleaner was created to give content creators, technical writers, software engineers, and researchers a rapid, cost-free, and privacy-first tool to sanitize AI text with a single click.
+                    Text Cleaner AI was created to give content creators, technical writers, software engineers, and researchers a rapid, cost-free, and privacy-first tool to sanitize AI text with a single click.
                   </p>
           <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
                     Unlike cloud SaaS providers that store and run training pipelines against submitted payloads, our browser-native model guarantees proprietary manuscripts and internal codebases remain quarantined on your physical machine.
@@ -376,7 +376,7 @@ export default function AboutPage() {
           <span className="material-symbols-outlined text-[14px]">bolt</span>
           <span className="">Zero Configuration Needed</span>
           </div>
-          <h2 className="font-headline-lg text-headline-lg font-bold">Try AI Text Cleaner Now</h2>
+          <h2 className="font-headline-lg text-headline-lg font-bold">Try Text Cleaner AI Now</h2>
           <p className="font-body-md text-body-md text-on-primary-container">
                     Sanitize copy from ChatGPT, Claude, and Gemini in one click. Free forever, with no registration or credit card required.
                   </p>

@@ -81,7 +81,7 @@ const faqs = [
   {
     question: "Does this work on mobile and desktop?",
     answer:
-      "Yes! AI Text Cleaner runs in any web browser on desktop, tablet, or smartphone.",
+      "Yes! Text Cleaner AI runs in any web browser on desktop, tablet, or smartphone.",
   },
   {
     question: "How do I remove conversational fluff from Copilot output?",

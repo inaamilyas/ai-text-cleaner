@@ -46,7 +46,7 @@ export default function LocalizedPageLayout({ langCode }: { langCode: string }) 
   const websiteJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: `AI Text Cleaner - ${lang.name}`,
+    name: `Text Cleaner AI - ${lang.name}`,
     url: langCode === 'en' ? 'https://www.text-cleaner-ai.com' : `https://www.text-cleaner-ai.com/${langCode}`,
     description: lang.description,
     applicationCategory: 'UtilitiesApplication',

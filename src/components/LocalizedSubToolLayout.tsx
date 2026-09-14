@@ -15,7 +15,7 @@ export function generateSubToolMetadata(langCode: string, subToolKey: keyof type
   const toolData = (lang.subtools && lang.subtools[subToolKey]) || defaultTool;
 
   return {
-    title: `${toolData.title} | AI Text Cleaner`,
+    title: `${toolData.title} | Text Cleaner AI`,
     description: toolData.description,
     alternates: {
       canonical: langCode === 'en' ? `https://www.text-cleaner-ai.com/${pathSlug}` : `https://www.text-cleaner-ai.com/${langCode}/${pathSlug}`,

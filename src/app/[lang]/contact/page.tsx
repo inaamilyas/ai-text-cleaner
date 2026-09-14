@@ -11,8 +11,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const l = LANGUAGES[lang] || LANGUAGES.en;
   return {
-    title: `Contact Us — AI Text Cleaner (${l.nativeName})`,
-    description: `Get in touch with Inam Ilyas and the AI Text Cleaner team.`,
+    title: `Contact Us — Text Cleaner AI (${l.nativeName})`,
+    description: `Get in touch with Inam Ilyas and the Text Cleaner AI team.`,
     alternates: {
       canonical: `https://www.text-cleaner-ai.com/${lang}/contact`,
       languages: {
@@ -40,7 +40,7 @@ export default async function LocalizedContactPage({ params }: { params: Promise
   return (
     <div dir={isRtl ? 'rtl' : 'ltr'} className="container mx-auto flex max-w-3xl flex-col gap-12 px-6 py-20">
       <div className="flex flex-col gap-3 text-center">
-        <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">Contact AI Text Cleaner ({l.nativeName})</h1>
+        <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">Contact Text Cleaner AI ({l.nativeName})</h1>
         <p className="text-body-lg text-neutral-600 max-w-xl mx-auto">
           Have questions, bug reports, or feature requests? Contact Founder & Developer <strong>Inam Ilyas</strong>.
         </p>

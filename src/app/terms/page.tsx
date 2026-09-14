@@ -18,12 +18,12 @@ export default function TermsPage() {
   const termsSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Terms of Service | AI Text Cleaner",
+    "name": "Terms of Service | Text Cleaner AI",
     "url": "https://www.text-cleaner-ai.com/terms",
-    "description": "User agreement, acceptable use terms, and commercial rights for AI Text Cleaner.",
+    "description": "User agreement, acceptable use terms, and commercial rights for Text Cleaner AI.",
     "publisher": {
       "@type": "Organization",
-      "name": "AI Text Cleaner",
+      "name": "Text Cleaner AI",
       "url": "https://www.text-cleaner-ai.com",
     },
   };
@@ -83,7 +83,7 @@ export default function TermsPage() {
               </div>
               <div className="flex flex-col justify-center">
                 <p className="font-body-md text-body-md text-on-surface leading-relaxed">
-                  By using <span className="font-semibold text-primary">AI Text Cleaner</span>, you agree to the terms below. If you do not agree, please do not use the service. All tools operate fully inside your browser engine with absolute privacy.
+                  By using <span className="font-semibold text-primary">Text Cleaner AI</span>, you agree to the terms below. If you do not agree, please do not use the service. All tools operate fully inside your browser engine with absolute privacy.
                 </p>
               </div>
             </div>
@@ -99,7 +99,7 @@ export default function TermsPage() {
                 </div>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface font-semibold">Free &amp; Local Execution</h3>
                 <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                  AI Text Cleaner is a free, browser-based utility. All text processing and sanitization happen 100% locally in your web browser memory without account signups.
+                  Text Cleaner AI is a free, browser-based utility. All text processing and sanitization happen 100% locally in your web browser memory without account signups.
                 </p>
               </div>
               <div className="pt-space-xs">
@@ -117,7 +117,7 @@ export default function TermsPage() {
                 </div>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface font-semibold">Commercial Use Allowed</h3>
                 <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                  You may use AI Text Cleaner for any lawful purpose, including commercial use of the cleaned output. You retain complete, unrestricted ownership of your content.
+                  You may use Text Cleaner AI for any lawful purpose, including commercial use of the cleaned output. You retain complete, unrestricted ownership of your content.
                 </p>
               </div>
               <div className="pt-space-xs">
@@ -155,7 +155,7 @@ export default function TermsPage() {
                 <span className="font-code-stat text-code-stat uppercase px-2 py-0.5 rounded bg-surface-container text-primary font-semibold">BROWSER UTILITY</span>
               </div>
               <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                AI Text Cleaner is a free, browser-based tool that removes invisible characters, formatting artifacts, markdown cruft, and other text quirks from pasted content. All processing happens locally in your browser; no account is required.
+                Text Cleaner AI is a free, browser-based tool that removes invisible characters, formatting artifacts, markdown cruft, and other text quirks from pasted content. All processing happens locally in your browser; no account is required.
               </p>
               <div className="flex flex-wrap gap-space-xs pt-space-xs">
                 <span className="font-label-sm text-label-sm px-2.5 py-1 rounded bg-surface-container-low text-on-surface-variant">Zero-Width Removal</span>
@@ -172,7 +172,7 @@ export default function TermsPage() {
                 <span className="font-code-stat text-code-stat uppercase px-2 py-0.5 rounded bg-surface-container text-primary font-semibold">PERMITTED USAGE</span>
               </div>
               <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                You may use AI Text Cleaner for any lawful purpose, including commercial use of the cleaned output. You are solely responsible for the content you paste into and process with the tool, and for how you use the cleaned output.
+                You may use Text Cleaner AI for any lawful purpose, including commercial use of the cleaned output. You are solely responsible for the content you paste into and process with the tool, and for how you use the cleaned output.
               </p>
               <div className="p-space-md rounded-lg bg-surface-container-low text-on-surface flex items-start gap-space-sm">
                 <span className="material-symbols-outlined text-[18px] text-primary shrink-0 mt-0.5">assignment_turned_in</span>
@@ -189,7 +189,7 @@ export default function TermsPage() {
                 <span className="font-code-stat text-code-stat uppercase px-2 py-0.5 rounded bg-surface-container text-error font-semibold">PROHIBITED ACTIVITIES</span>
               </div>
               <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                You agree not to misuse the interface or bypass system operational intents. Specifically, you agree not to use AI Text Cleaner to:
+                You agree not to misuse the interface or bypass system operational intents. Specifically, you agree not to use Text Cleaner AI to:
               </p>
               <div className="grid grid-cols-1 gap-2 pt-space-xs">
                 <div className="flex items-center gap-space-sm p-3 rounded-lg bg-surface-container-low">
@@ -222,7 +222,7 @@ export default function TermsPage() {
                 <span className="font-code-stat text-code-stat uppercase px-2 py-0.5 rounded bg-surface-container text-primary font-semibold">CLIENT-SIDE PRIVACY</span>
               </div>
               <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                The text you paste into AI Text Cleaner stays on your device and is never uploaded to a server. We make no ownership claim over your content, and cleaning it does not transfer any rights to us. You are responsible for reviewing the cleaned output before relying on it.
+                The text you paste into Text Cleaner AI stays on your device and is never uploaded to a server. We make no ownership claim over your content, and cleaning it does not transfer any rights to us. You are responsible for reviewing the cleaned output before relying on it.
               </p>
               {/* Memory Isolation Diagram */}
               <div className="p-space-md rounded-xl bg-surface-container-high flex flex-col gap-space-sm">
@@ -259,7 +259,7 @@ export default function TermsPage() {
                 <span className="font-code-stat text-code-stat uppercase px-2 py-0.5 rounded bg-surface-container text-outline font-semibold">DISCLAIMER</span>
               </div>
               <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                AI Text Cleaner is provided <span className="font-semibold text-on-surface">&quot;as is&quot;</span> and <span className="font-semibold text-on-surface">&quot;as available,&quot;</span> without warranties of any kind, express or implied. We do not guarantee that the service will be error-free, uninterrupted, or fit for any particular purpose.
+                Text Cleaner AI is provided <span className="font-semibold text-on-surface">&quot;as is&quot;</span> and <span className="font-semibold text-on-surface">&quot;as available,&quot;</span> without warranties of any kind, express or implied. We do not guarantee that the service will be error-free, uninterrupted, or fit for any particular purpose.
               </p>
             </article>
 
@@ -270,7 +270,7 @@ export default function TermsPage() {
                 <span className="font-code-stat text-code-stat uppercase px-2 py-0.5 rounded bg-surface-container text-outline font-semibold">LIABILITY EXCLUSION</span>
               </div>
               <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                To the fullest extent permitted by law, AI Text Cleaner and its operator are not liable for any direct, indirect, incidental, special, consequential, or punitive damages or losses arising from your use of, or inability to use, the service or any cleaned text generated through the application.
+                To the fullest extent permitted by law, Text Cleaner AI and its operator are not liable for any direct, indirect, incidental, special, consequential, or punitive damages or losses arising from your use of, or inability to use, the service or any cleaned text generated through the application.
               </p>
             </article>
 
@@ -281,7 +281,7 @@ export default function TermsPage() {
                 <span className="font-code-stat text-code-stat uppercase px-2 py-0.5 rounded bg-surface-container text-outline font-semibold">OWNERSHIP</span>
               </div>
               <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                The AI Text Cleaner name, trademarks, graphic interface design, logos, and underlying source code belong exclusively to their respective owners. Content submitted by users remains strictly the intellectual property of the respective submitters.
+                The Text Cleaner AI name, trademarks, graphic interface design, logos, and underlying source code belong exclusively to their respective owners. Content submitted by users remains strictly the intellectual property of the respective submitters.
               </p>
             </article>
 

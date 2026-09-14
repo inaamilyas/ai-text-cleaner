@@ -9,8 +9,8 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   return {
-    title: `Terms of Service — AI Text Cleaner (${lang.toUpperCase()})`,
-    description: `Terms of service and usage conditions for AI Text Cleaner.`,
+    title: `Terms of Service — Text Cleaner AI (${lang.toUpperCase()})`,
+    description: `Terms of service and usage conditions for Text Cleaner AI.`,
     alternates: {
       canonical: `https://www.text-cleaner-ai.com/${lang}/terms`,
       languages: {
@@ -43,21 +43,21 @@ export default async function LocalizedTermsPage({ params }: { params: Promise<{
       <section className="flex flex-col gap-4">
         <h2>1. Acceptance of Terms</h2>
         <p className="text-body-md text-neutral-700">
-          By accessing AI Text Cleaner, you agree to comply with these terms of service. Our tool is provided free of charge for personal and commercial use.
+          By accessing Text Cleaner AI, you agree to comply with these terms of service. Our tool is provided free of charge for personal and commercial use.
         </p>
       </section>
 
       <section className="flex flex-col gap-4">
         <h2>2. Disclaimer of Warranties</h2>
         <p className="text-body-md text-neutral-700">
-          AI Text Cleaner is provided &quot;as is&quot; without warranty of any kind. While we strive for 100% accuracy in text sanitization, we are not liable for any unintended modification of input text.
+          Text Cleaner AI is provided &quot;as is&quot; without warranty of any kind. While we strive for 100% accuracy in text sanitization, we are not liable for any unintended modification of input text.
         </p>
       </section>
 
       <section className="flex flex-col gap-4">
         <h2>3. Intellectual Property</h2>
         <p className="text-body-md text-neutral-700">
-          AI Text Cleaner is created and owned by Inam Ilyas. You retain full ownership of all text processed through the utility.
+          Text Cleaner AI is created and owned by Inam Ilyas. You retain full ownership of all text processed through the utility.
         </p>
       </section>
     </div>

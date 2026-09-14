@@ -96,7 +96,7 @@ const faqs = [
   {
     question: "Is there any cost to clean Gemini text?",
     answer:
-      "No. AI Text Cleaner is 100% free with no account creation or subscription required.",
+      "No. Text Cleaner AI is 100% free with no account creation or subscription required.",
   },
 ];
 

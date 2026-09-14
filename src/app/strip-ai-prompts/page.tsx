@@ -130,7 +130,7 @@ const faqs = [
   {
     question: "Is my prompt text stored on any server?",
     answer:
-      "No. AI Text Cleaner operates exclusively client-side via JavaScript running directly in your browser tab. Your prompts, artistic concepts, and proprietary keywords are never transmitted to any external server, database, or analytics platform.",
+      "No. Text Cleaner AI operates exclusively client-side via JavaScript running directly in your browser tab. Your prompts, artistic concepts, and proprietary keywords are never transmitted to any external server, database, or analytics platform.",
   },
   {
     question: "Can I copy the cleaned prompt with one click?",
@@ -171,7 +171,7 @@ export default function StripAIPromptsPage() {
   return (
     <div className="container mx-auto px-4 md:px-8 py-space-lg flex flex-col w-full space-y-12 md:space-y-16">
       <span className="sr-only">
-        AI Prompt &amp; Parameter Stripper | AI Text Cleaner
+        AI Prompt &amp; Parameter Stripper | Text Cleaner AI
       </span>
       <script
         type="application/ld+json"

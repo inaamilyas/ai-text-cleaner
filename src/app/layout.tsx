@@ -23,7 +23,7 @@ const robotoMono = Roboto_Mono({
 });
 
 const siteUrl = "https://www.text-cleaner-ai.com";
-const siteName = "AI Text Cleaner";
+const siteName = "Text Cleaner AI";
 const siteDescription =
   "Free tool to clean text from ChatGPT, Claude, and Gemini. Removes invisible characters, smart quotes, em dashes, non-breaking spaces, and Markdown leftovers, entirely in your browser. No signup.";
 
@@ -85,7 +85,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "AI Text Cleaner & Image Metadata Sanitizer",
+    "name": "Text Cleaner AI & Image Metadata Sanitizer",
     "url": siteUrl,
     "description": siteDescription,
     "applicationCategory": "UtilityApplication",

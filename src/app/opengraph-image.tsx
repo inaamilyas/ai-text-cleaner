@@ -45,7 +45,7 @@ export default function OpengraphImage() {
               display: "flex",
             }}
           >
-            AI Text Cleaner
+            Text Cleaner AI
           </div>
         </div>
         <div

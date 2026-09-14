@@ -59,7 +59,7 @@ export function generateWebApplicationSchema({
     },
     author: {
       "@type": "Organization",
-      name: "AI Text Cleaner",
+      name: "Text Cleaner AI",
       url: "https://www.text-cleaner-ai.com",
     },
   };

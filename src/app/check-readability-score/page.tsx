@@ -136,7 +136,7 @@ export default function CheckReadabilityScorePage() {
   return (
     <div className="w-full flex flex-col">
       <span className="sr-only">
-        Readability &amp; Flesch-Kincaid Grade Checker | AI Text Cleaner
+        Readability &amp; Flesch-Kincaid Grade Checker | Text Cleaner AI
       </span>
       <script
         type="application/ld+json"

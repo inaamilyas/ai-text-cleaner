@@ -26,7 +26,7 @@ const articleJsonLd = {
   },
   publisher: {
     "@type": "Organization",
-    name: "AI Text Cleaner",
+    name: "Text Cleaner AI",
     url: "https://aitextcleaner.com",
   },
 };
@@ -193,7 +193,7 @@ export default function ArticleThreePage() {
                 &quot;What you cannot see in your editor can still break your parser. Explicit byte-level inspection is the only true defense against phantom unicode bugs.&quot;
               </p>
               <span className="font-mono text-xs text-white/80 block font-medium">
-                — Developer Tools Team, AI Text Cleaner
+                — Developer Tools Team, Text Cleaner AI
               </span>
             </div>
           </div>

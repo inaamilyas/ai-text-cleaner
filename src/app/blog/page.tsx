@@ -168,7 +168,7 @@ export default function BlogIndexPage() {
   return (
     <div className="w-full bg-background min-h-screen py-space-lg">
       <span className="sr-only">
-        Guides &amp; Articles — AI Text Cleaner Blog | AI Text Cleaner
+        Guides &amp; Articles — Text Cleaner AI Blog | Text Cleaner AI
       </span>
       <div className="container mx-auto px-4 md:px-8 flex flex-col w-full">
         {/* Sub-nav Context Ribbon */}

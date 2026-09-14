@@ -186,7 +186,7 @@ export default function SmartQuotesToStraightQuotesPage() {
   return (
     <div className="container mx-auto px-4 md:px-8 py-space-lg flex flex-col w-full space-y-12 md:space-y-16">
       <span className="sr-only">
-        Smart Quotes to Straight Quotes Converter — Normalize Typography Online | AI Text Cleaner
+        Smart Quotes to Straight Quotes Converter — Normalize Typography Online | Text Cleaner AI
       </span>
       <script
         type="application/ld+json"

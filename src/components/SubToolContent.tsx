@@ -510,7 +510,7 @@ export default function SubToolContent({
         <div className="flex flex-col">
           <span className="font-code-stat text-code-stat text-primary uppercase font-semibold">Architectural Principles</span>
           <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold">
-            Why Choose AI Text Cleaner
+            Why Choose Text Cleaner AI
           </h2>
           <p className="font-body-md text-body-md text-on-surface-variant">
             Engineered without compromises on security, fidelity, or execution overhead.

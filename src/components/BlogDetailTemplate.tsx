@@ -251,7 +251,7 @@ export default function BlogDetailTemplate({
 
           {/* Sticky Sidebar (4 cols) */}
           <aside className="lg:col-span-4 space-y-6">
-            {/* Try AI Text Cleaner Quick Widget */}
+            {/* Try Text Cleaner AI Quick Widget */}
             <div className="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant/40 shadow-sm">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-7 h-7 rounded-md bg-primary text-on-primary flex items-center justify-center">

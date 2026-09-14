@@ -25,7 +25,7 @@ const articleJsonLd = {
   },
   publisher: {
     "@type": "Organization",
-    name: "AI Text Cleaner",
+    name: "Text Cleaner AI",
     url: "https://aitextcleaner.com",
   },
 };
@@ -321,7 +321,7 @@ export default function ArticleOnePage() {
                 &quot;The best AI-assisted writing never looks or behaves like AI output. It is mechanically clean, typographically sound, and edited with deliberate human judgment.&quot;
               </p>
               <span className="font-mono text-xs text-white/80 block font-medium">
-                — Engineering Team, AI Text Cleaner
+                — Engineering Team, Text Cleaner AI
               </span>
             </div>
           </div>

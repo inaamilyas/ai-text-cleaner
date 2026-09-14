@@ -232,12 +232,12 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-1.5 no-underline text-neutral-800">
               <Image
                 src="/logo.png"
-                alt="AI Text Cleaner"
+                alt="Text Cleaner AI"
                 width={20}
                 height={20}
                 className="w-5 h-5 rounded object-contain"
               />
-              <span className="font-semibold text-neutral-800">AI Text Cleaner</span>
+              <span className="font-semibold text-neutral-800">Text Cleaner AI</span>
             </Link>
             <span>© 2026.</span>
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-neutral-200/60 font-code-stat text-neutral-600 border border-neutral-300/60">

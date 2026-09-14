@@ -11,8 +11,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   const l = LANGUAGES[lang] || LANGUAGES.en;
   return {
-    title: `About Us — AI Text Cleaner (${l.nativeName})`,
-    description: `Learn about AI Text Cleaner, created by Inam Ilyas. Privacy-first browser tool.`,
+    title: `About Us — Text Cleaner AI (${l.nativeName})`,
+    description: `Learn about Text Cleaner AI, created by Inam Ilyas. Privacy-first browser tool.`,
     alternates: {
       canonical: `https://www.text-cleaner-ai.com/${lang}/about`,
       languages: {
@@ -42,7 +42,7 @@ export default async function LocalizedAboutPage({ params }: { params: Promise<{
       <div className="flex flex-col gap-4 text-center">
         <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">Sanitizing AI Text for Writers &amp; Developers</h1>
         <p className="text-body-lg text-neutral-600 max-w-2xl mx-auto">
-          AI Text Cleaner was created by <strong>Inam Ilyas</strong> to remove hidden zero-width characters, AI clichés, and raw Markdown clutter in AI-generated text.
+          Text Cleaner AI was created by <strong>Inam Ilyas</strong> to remove hidden zero-width characters, AI clichés, and raw Markdown clutter in AI-generated text.
         </p>
       </div>
 

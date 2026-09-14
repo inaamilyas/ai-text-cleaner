@@ -15,12 +15,12 @@ export default function PrivacyPage() {
   const privacySchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Privacy Policy | AI Text Cleaner",
+    "name": "Privacy Policy | Text Cleaner AI",
     "url": "https://www.text-cleaner-ai.com/privacy",
-    "description": "Privacy policy and client-side data isolation architecture for AI Text Cleaner.",
+    "description": "Privacy policy and client-side data isolation architecture for Text Cleaner AI.",
     "publisher": {
       "@type": "Organization",
-      "name": "AI Text Cleaner",
+      "name": "Text Cleaner AI",
       "url": "https://www.text-cleaner-ai.com",
     },
   };
@@ -60,7 +60,7 @@ export default function PrivacyPage() {
                   </div>
                 </div>
                 <p className="font-body-lg text-body-lg text-on-surface-variant max-w-4xl pt-space-xs leading-relaxed">
-                  AI Text Cleaner is committed to protecting your privacy. This Privacy Policy explains our data practices, local browser-based execution model, and disclosures regarding third-party advertising partners like Google AdSense.
+                  Text Cleaner AI is committed to protecting your privacy. This Privacy Policy explains our data practices, local browser-based execution model, and disclosures regarding third-party advertising partners like Google AdSense.
                 </p>
               </div>
             </div>
@@ -133,7 +133,7 @@ export default function PrivacyPage() {
                     <span className="font-code-stat text-code-stat px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant">SANDBOXED V8</span>
                   </div>
                   <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                    We do not collect, upload, transmit, or store the text you paste into AI Text Cleaner. All text sanitization, zero-width space removal, and formatting normalization run 100% locally inside your web browser using client-side JavaScript. Your text never leaves your device.
+                    We do not collect, upload, transmit, or store the text you paste into Text Cleaner AI. All text sanitization, zero-width space removal, and formatting normalization run 100% locally inside your web browser using client-side JavaScript. Your text never leaves your device.
                   </p>
                   {/* Technical Isolation Terminal Terminal / Callout */}
                   <div className="rounded-xl bg-inverse-surface text-inverse-on-surface p-space-md font-body-sm text-body-sm flex flex-col gap-space-xs shadow-md">
@@ -172,7 +172,7 @@ export default function PrivacyPage() {
                     <span className="font-code-stat text-code-stat px-2 py-0.5 rounded bg-surface-container-high text-secondary">ADSENSE COMPLIANCE</span>
                   </div>
                   <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                    AI Text Cleaner may display advertisements provided by Google AdSense and third-party advertising vendors to keep our utility tools free. The disclosures below apply whenever such advertising is active on the site.
+                    Text Cleaner AI may display advertisements provided by Google AdSense and third-party advertising vendors to keep our utility tools free. The disclosures below apply whenever such advertising is active on the site.
                   </p>
                   <ul className="space-y-space-sm pl-2">
                     <li className="flex items-start gap-3">

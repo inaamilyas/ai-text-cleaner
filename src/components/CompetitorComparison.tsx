@@ -3,10 +3,10 @@ export default function CompetitorComparison() {
     <section className="w-full py-12 md:py-16 flex flex-col space-y-space-md">
       <div className="space-y-space-xs">
         <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold">
-          Why Choose AI Text Cleaner?
+          Why Choose Text Cleaner AI?
         </h2>
         <p className="font-body-lg text-body-lg text-on-surface-variant">
-          Compare AI Text Cleaner with AITextClean, CleanPaste, and basic unicode utility tools.
+          Compare Text Cleaner AI with AITextClean, CleanPaste, and basic unicode utility tools.
         </p>
       </div>
 
@@ -20,7 +20,7 @@ export default function CompetitorComparison() {
               </th>
               <th className="py-3 px-space-md font-headline-sm text-headline-sm font-semibold bg-primary-fixed/30 text-primary">
                 <div className="flex items-center gap-1.5">
-                  <span>AI Text Cleaner</span>
+                  <span>Text Cleaner AI</span>
                   <span className="px-1.5 py-0.5 rounded text-[10px] font-code-stat bg-primary text-on-primary">
                     ACTIVE
                   </span>

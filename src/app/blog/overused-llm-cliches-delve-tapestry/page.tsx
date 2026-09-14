@@ -3,7 +3,7 @@ import Link from "next/link";
 import BlogDetailTemplate from "@/components/BlogDetailTemplate";
 
 export const metadata: Metadata = {
-  title: "Overused LLM Clichés: Why AI Models Love Delve, Tapestry, and Testament — AI Text Cleaner Blog",
+  title: "Overused LLM Clichés: Why AI Models Love Delve, Tapestry, and Testament — Text Cleaner AI Blog",
   description:
     "An empirical analysis of RLHF reward models and frequency optimization biases that lead Claude and ChatGPT to generate predictable transitional structures and decorative filler phrases.",
   alternates: {
@@ -26,7 +26,7 @@ const articleJsonLd = {
   },
   publisher: {
     "@type": "Organization",
-    name: "AI Text Cleaner",
+    name: "Text Cleaner AI",
     url: "https://aitextcleaner.com",
   },
 };
@@ -156,7 +156,7 @@ export default function OverusedClichesArticlePage() {
                 &quot;Elegance in writing is not about using the most complex words; it is about choosing the clearest, most concise word that communicates the idea directly.&quot;
               </p>
               <span className="font-mono text-xs text-white/80 block font-medium">
-                — Editorial Review Board, AI Text Cleaner
+                — Editorial Review Board, Text Cleaner AI
               </span>
             </div>
           </div>
