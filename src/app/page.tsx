@@ -63,7 +63,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <main className="w-full pt-14 bg-background flex-1">
+      <div className="w-full bg-background flex-1">
         <div className="container mx-auto px-4 md:px-8 py-space-lg">
           <div className="flex flex-col w-full">
             <Hero />
@@ -77,7 +77,7 @@ export default function Home() {
             <FAQ />
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

@@ -167,7 +167,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         )}
         <LanguageDetector />
         <Navbar />
-        <main className="w-full pt-14 bg-background flex flex-1 flex-col">{children}</main>
+        <main className="w-full pt-16 md:pt-[68px] bg-background flex flex-1 flex-col">{children}</main>
         <Footer />
       </body>
     </html>

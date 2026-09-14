@@ -446,33 +446,33 @@
   line-height: 1.7 !important;
 }
 
-/* Header / Navbar Isolation */
+/* Header / Navbar Isolation & Sizing (increased text sizing) */
 header .font-label-md,
 header .text-label-md,
 nav .font-label-md,
 nav .text-label-md {
-  font-size: 13px !important;
-  line-height: 18px !important;
+  font-size: 15px !important;
+  line-height: 22px !important;
 }
 
 header .font-label-sm,
 header .text-label-sm,
 nav .font-label-sm,
 nav .text-label-sm {
-  font-size: 12px !important;
-  line-height: 16px !important;
+  font-size: 14px !important;
+  line-height: 18px !important;
 }
 
 header .text-xs,
 nav .text-xs {
-  font-size: 12px !important;
-  line-height: 16px !important;
+  font-size: 13px !important;
+  line-height: 18px !important;
 }
 
 header .font-headline-sm,
 header .text-headline-sm {
-  font-size: 16px !important;
-  line-height: 24px !important;
+  font-size: 18px !important;
+  line-height: 26px !important;
 }
 
 

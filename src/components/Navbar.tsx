@@ -77,40 +77,40 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md border-b border-surface-container-highest">
-      <div className="container mx-auto px-4 md:px-6 h-14 flex items-center justify-between gap-space-md">
+      <div className="container mx-auto px-4 md:px-6 h-16 md:h-[68px] flex items-center justify-between gap-space-md">
         <div className="flex items-center gap-space-lg">
 
-          <Link className="flex items-center gap-2 group no-underline" href="/">
+          <Link className="flex items-center gap-2.5 group no-underline" href="/">
             <Image
               src="/logo.png"
               alt="AI Text Cleaner Logo"
-              width={32}
-              height={32}
+              width={36}
+              height={36}
               priority
-              className="w-8 h-8 rounded-lg object-contain shadow-xs transition-transform group-hover:scale-105"
+              className="w-9 h-9 rounded-lg object-contain shadow-xs transition-transform group-hover:scale-105"
             />
-            <span className="font-headline-sm text-headline-sm font-semibold tracking-tight text-on-surface">
+            <span className="font-semibold text-lg md:text-[19px] tracking-tight text-on-surface">
               AI Text Cleaner
             </span>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-space-xs">
+          <nav className="hidden md:flex items-center gap-1">
             <div className="relative" ref={toolsMenuRef}>
               <button
                 type="button"
                 onClick={() => setToolsMenuOpen((open) => !open)}
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors font-label-md text-label-md cursor-pointer"
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors font-medium text-[15px] cursor-pointer"
               >
-                <span className="material-symbols-outlined text-[15px]">tune</span>
+                <span className="material-symbols-outlined text-[16px]">tune</span>
                 <span>Tools</span>
-                <span className={`material-symbols-outlined text-[14px] transition-transform duration-200 ${toolsMenuOpen ? "rotate-180" : ""}`}>
+                <span className={`material-symbols-outlined text-[15px] transition-transform duration-200 ${toolsMenuOpen ? "rotate-180" : ""}`}>
                   expand_more
                 </span>
               </button>
 
               {toolsMenuOpen && (
-                <div className="absolute top-full left-0 pt-1.5 w-[720px] max-w-[90vw] z-50 animate-in fade-in duration-100">
+                <div className="absolute top-full left-0 pt-2 w-[720px] max-w-[90vw] z-50 animate-in fade-in duration-100">
                   <div className="p-4 rounded-2xl bg-surface-container-lowest border border-surface-container-highest/80 shadow-2xl grid grid-cols-3 gap-4">
                     {toolCategories.map((col) => (
                       <div key={col.category} className="flex flex-col gap-1">
@@ -141,7 +141,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors font-label-md text-label-md no-underline"
+                className="px-3.5 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors font-medium text-[15px] no-underline"
               >
                 {link.label}
               </Link>
@@ -152,7 +152,7 @@ export default function Navbar() {
         {/* Right Controls: Language Selector + Avatar / Hamburger */}
         <div className="flex items-center gap-space-sm">
           <LanguageSelector />
-          <div className="hidden sm:flex w-8 h-8 rounded-full bg-primary items-center justify-center shadow-xs">
+          <div className="hidden sm:flex w-9 h-9 rounded-full bg-primary items-center justify-center shadow-xs">
             <span className="material-symbols-outlined text-on-primary text-[18px]">person</span>
           </div>
 
@@ -160,7 +160,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-1.5 rounded-lg border border-surface-container-highest bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-colors"
+            className="md:hidden p-2 rounded-lg border border-surface-container-highest bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-colors"
             aria-label="Toggle Menu"
           >
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}

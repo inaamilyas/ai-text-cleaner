@@ -48,17 +48,17 @@ export default function LanguageSelector() {
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex items-center justify-between gap-1.5 px-3 py-1.5 text-xs font-semibold text-neutral-700 bg-white hover:border-primary-500 hover:text-primary-700 border border-neutral-300 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500/40"
+        className="inline-flex items-center justify-between gap-1.5 px-3 py-1.5 text-sm font-medium text-neutral-700 bg-white hover:border-primary-500 hover:text-primary-700 border border-neutral-300 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500/40"
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <Globe className="w-3.5 h-3.5 text-neutral-500" />
-        <span className="flex items-center gap-1">
+        <Globe className="w-4 h-4 text-neutral-500" />
+        <span className="flex items-center gap-1.5">
           <span>{currentLang.flag}</span>
           <span className="hidden sm:inline">{currentLang.nativeName}</span>
           <span className="sm:hidden">{currentLang.code.toUpperCase()}</span>
         </span>
-        <ChevronDown className={`w-3 h-3 text-neutral-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-3.5 h-3.5 text-neutral-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (
