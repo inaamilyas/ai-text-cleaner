@@ -317,7 +317,7 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
   return (
     <div className="flex flex-col w-full">
       {/* 1. TOP HERO SECTION */}
-      <section className="w-full bg-surface pb-space-lg">
+      <section className="w-full bg-surface pb-space-lg hero-section">
         <div className="max-w-[1140px] mx-auto px-space-md flex flex-col items-center text-center">
           {/* Privacy Badge Cluster */}
           <div className="flex flex-wrap items-center justify-center gap-space-xs mb-space-md">

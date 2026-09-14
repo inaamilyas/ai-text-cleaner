@@ -195,7 +195,7 @@ export default function PdfMetadataSanitizer({
       </div>
 
       {/* Primary Workstation Container */}
-      <div className="w-full max-w-[1140px] mx-auto px-space-md pt-space-xl pb-space-lg flex flex-col gap-space-xl">
+      <div className="w-full max-w-[1140px] mx-auto px-space-md pt-space-xl pb-space-lg flex flex-col gap-space-xl hero-section">
         {/* Hero Header Zone */}
         <div className="flex flex-col items-center text-center gap-space-sm max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-code-stat text-code-stat">

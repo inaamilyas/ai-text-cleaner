@@ -216,7 +216,7 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full hero-section" id="hero">
       {/* SECTION 1: HERO & WORKSPACE HUB */}
       <section className="flex flex-col items-center text-center space-y-space-md mb-space-xl relative">
         {/* Main Headline & Copy */}

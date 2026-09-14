@@ -141,7 +141,7 @@
   --color-info-800: #0d2954;
   --color-info-900: #07162c;
 
-  /* Stitch Exact Type Scale */
+  /* Stitch Type Scale (Headings at original size, Text & Paragraphs +2px) */
   --text-display-lg: 2.5rem;
   --text-display-lg--line-height: 3rem;
   --text-display-lg--letter-spacing: -0.03em;
@@ -152,6 +152,7 @@
   --text-display-lg-mobile--letter-spacing: -0.025em;
   --text-display-lg-mobile--font-weight: 600;
 
+  /* Headings: strictly preserved at original Stitch sizes */
   --text-headline-lg: 1.5rem;
   --text-headline-lg--line-height: 2rem;
   --text-headline-lg--letter-spacing: -0.02em;
@@ -167,8 +168,9 @@
   --text-headline-sm--letter-spacing: -0.01em;
   --text-headline-sm--font-weight: 600;
 
-  --text-body-lg: 1.0625rem;
-  --text-body-lg--line-height: 1.75rem;
+  /* Text & Paragraphs: +2px increase for enhanced body legibility */
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.875rem;
   --text-body-lg--letter-spacing: -0.01em;
   --text-body-lg--font-weight: 400;
 
@@ -177,33 +179,33 @@
   --text-body-md--letter-spacing: 0em;
   --text-body-md--font-weight: 400;
 
-  --text-body-sm: 0.875rem;
-  --text-body-sm--line-height: 1.25rem;
+  --text-body-sm: 0.9375rem;
+  --text-body-sm--line-height: 1.5rem;
   --text-body-sm--letter-spacing: 0em;
   --text-body-sm--font-weight: 400;
 
-  --text-label-md: 0.75rem;
-  --text-label-md--line-height: 1rem;
+  --text-label-md: 0.9375rem;
+  --text-label-md--line-height: 1.375rem;
   --text-label-md--letter-spacing: 0.02em;
   --text-label-md--font-weight: 500;
 
-  --text-label-sm: 0.6875rem;
-  --text-label-sm--line-height: 0.875rem;
+  --text-label-sm: 0.875rem;
+  --text-label-sm--line-height: 1.25rem;
   --text-label-sm--letter-spacing: 0.04em;
   --text-label-sm--font-weight: 500;
 
-  --text-code-stat: 0.6875rem;
-  --text-code-stat--line-height: 0.875rem;
+  --text-code-stat: 0.8125rem;
+  --text-code-stat--line-height: 1.125rem;
   --text-code-stat--letter-spacing: 0.05em;
   --text-code-stat--font-weight: 600;
 
-  --text-button: 0.875rem;
-  --text-button--line-height: 1.25rem;
+  --text-button: 0.9375rem;
+  --text-button--line-height: 1.375rem;
   --text-button--letter-spacing: -0.01em;
   --text-button--font-weight: 600;
 
-  --text-link: 0.875rem;
-  --text-link--line-height: 1.25rem;
+  --text-link: 0.9375rem;
+  --text-link--line-height: 1.375rem;
   --text-link--letter-spacing: -0.01em;
   --text-link--font-weight: 600;
 }
@@ -254,44 +256,206 @@
   }
 }
 
-/* Exact Typography Utility Classes (Roboto) */
+/* =========================================================================
+   Typography Scale: Headings At Original Size, Text & Paragraphs +2px
+   ========================================================================= */
+/* Headings (Strictly Original Sizes - NOT increased) */
 .font-display-lg { font-family: 'Roboto', sans-serif; font-size: 40px; line-height: 48px; letter-spacing: -0.02em; font-weight: 700; }
 .font-headline-lg { font-family: 'Roboto', sans-serif; font-size: 24px; line-height: 32px; letter-spacing: -0.015em; font-weight: 700; }
 .font-headline-md { font-family: 'Roboto', sans-serif; font-size: 20px; line-height: 28px; letter-spacing: -0.01em; font-weight: 500; }
 .font-headline-sm { font-family: 'Roboto', sans-serif; font-size: 16px; line-height: 24px; letter-spacing: -0.005em; font-weight: 500; }
-.font-body-lg { font-family: 'Roboto', sans-serif; font-size: 16px; line-height: 26px; letter-spacing: -0.01em; font-weight: 400; }
-.font-body-md { font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 22px; letter-spacing: 0em; font-weight: 400; }
-.font-body-sm { font-family: 'Roboto', sans-serif; font-size: 13px; line-height: 20px; letter-spacing: 0em; font-weight: 400; }
-.font-label-md { font-family: 'Roboto', sans-serif; font-size: 13px; line-height: 18px; letter-spacing: 0.01em; font-weight: 500; }
-.font-label-sm { font-family: 'Roboto', sans-serif; font-size: 12px; line-height: 16px; letter-spacing: 0.02em; font-weight: 500; }
-.font-code-stat { font-family: 'Roboto Mono', 'JetBrains Mono', monospace; font-size: 11px; line-height: 14px; letter-spacing: 0.05em; font-weight: 600; }
 
-/* Responsive Main Text Enhancement for Desktop Screens (14px mobile -> 16px desktop) */
+/* Text & Paragraphs (+2px Increase across non-hero content sections) */
+.font-body-lg { font-family: 'Roboto', sans-serif; font-size: 18px; line-height: 28px; letter-spacing: -0.01em; font-weight: 400; }
+.font-body-md { font-family: 'Roboto', sans-serif; font-size: 16px; line-height: 24px; letter-spacing: 0em; font-weight: 400; }
+.font-body-sm { font-family: 'Roboto', sans-serif; font-size: 15px; line-height: 22px; letter-spacing: 0em; font-weight: 400; }
+.font-label-md { font-family: 'Roboto', sans-serif; font-size: 15px; line-height: 20px; letter-spacing: 0.01em; font-weight: 500; }
+.font-label-sm { font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 18px; letter-spacing: 0.02em; font-weight: 500; }
+.font-code-stat { font-family: 'Roboto Mono', 'JetBrains Mono', monospace; font-size: 13px; line-height: 16px; letter-spacing: 0.05em; font-weight: 600; }
+
+/* Responsive Main Text Enhancement for Desktop Screens outside Hero */
 @media (min-width: 768px) {
-  .font-body-md,
-  .text-body-md {
-    font-size: 15px !important;
-    line-height: 24px !important;
-  }
-  .font-body-lg,
-  .text-body-lg {
+  :not(.hero-section) .font-body-md,
+  :not(.hero-section) .text-body-md {
     font-size: 17px !important;
-    line-height: 28px !important;
+    line-height: 26px !important;
+  }
+  :not(.hero-section) .font-body-lg,
+  :not(.hero-section) .text-body-lg {
+    font-size: 19px !important;
+    line-height: 30px !important;
   }
 }
 
 @media (min-width: 1024px) {
-  .font-body-md,
-  .text-body-md {
-    font-size: 16px !important;
-    line-height: 26px !important;
-  }
-  #raw-input,
-  #clean-output {
-    font-size: 16px !important;
-    line-height: 1.7 !important;
+  :not(.hero-section) .font-body-md,
+  :not(.hero-section) .text-body-md {
+    font-size: 18px !important;
+    line-height: 28px !important;
   }
 }
+
+/* Tailwind utility text scaling (+2px) for text and paragraphs outside hero and nav */
+:not(.hero-section):not(header):not(nav) p.text-xs,
+:not(.hero-section):not(header):not(nav) span.text-xs:not(.material-symbols-outlined),
+:not(.hero-section):not(header):not(nav) div.text-xs,
+:not(.hero-section):not(header):not(nav) li.text-xs {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+:not(.hero-section):not(header):not(nav) p.text-sm,
+:not(.hero-section):not(header):not(nav) span.text-sm:not(.material-symbols-outlined),
+:not(.hero-section):not(header):not(nav) div.text-sm,
+:not(.hero-section):not(header):not(nav) li.text-sm {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+:not(.hero-section):not(header):not(nav) p.text-base,
+:not(.hero-section):not(header):not(nav) span.text-base:not(.material-symbols-outlined),
+:not(.hero-section):not(header):not(nav) div.text-base,
+:not(.hero-section):not(header):not(nav) li.text-base {
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+/* =========================================================================
+   Hero Section Isolation (Strict Preservation of Original Type Scale)
+   ========================================================================= */
+.hero-section .font-display-lg,
+#hero .font-display-lg {
+  font-size: 40px !important;
+  line-height: 48px !important;
+  letter-spacing: -0.02em !important;
+}
+
+.hero-section .font-headline-lg,
+#hero .font-headline-lg,
+.hero-section .text-headline-lg,
+#hero .text-headline-lg {
+  font-size: 24px !important;
+  line-height: 32px !important;
+}
+
+.hero-section .font-headline-md,
+#hero .font-headline-md,
+.hero-section .text-headline-md,
+#hero .text-headline-md {
+  font-size: 20px !important;
+  line-height: 28px !important;
+}
+
+.hero-section .font-headline-sm,
+#hero .font-headline-sm,
+.hero-section .text-headline-sm,
+#hero .text-headline-sm {
+  font-size: 16px !important;
+  line-height: 24px !important;
+}
+
+.hero-section .font-body-lg,
+#hero .font-body-lg,
+.hero-section .text-body-lg,
+#hero .text-body-lg {
+  font-size: 16px !important;
+  line-height: 26px !important;
+}
+
+.hero-section .font-body-md,
+#hero .font-body-md,
+.hero-section .text-body-md,
+#hero .text-body-md {
+  font-size: 14px !important;
+  line-height: 22px !important;
+}
+
+.hero-section .font-body-sm,
+#hero .font-body-sm,
+.hero-section .text-body-sm,
+#hero .text-body-sm {
+  font-size: 13px !important;
+  line-height: 20px !important;
+}
+
+.hero-section .font-label-md,
+#hero .font-label-md,
+.hero-section .text-label-md,
+#hero .text-label-md {
+  font-size: 13px !important;
+  line-height: 18px !important;
+}
+
+.hero-section .font-label-sm,
+#hero .font-label-sm,
+.hero-section .text-label-sm,
+#hero .text-label-sm {
+  font-size: 12px !important;
+  line-height: 16px !important;
+}
+
+.hero-section .font-code-stat,
+#hero .font-code-stat,
+.hero-section .text-code-stat,
+#hero .text-code-stat {
+  font-size: 11px !important;
+  line-height: 14px !important;
+}
+
+.hero-section .text-xs,
+#hero .text-xs {
+  font-size: 12px !important;
+  line-height: 16px !important;
+}
+
+.hero-section .text-sm,
+#hero .text-sm {
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
+
+.hero-section .text-base,
+#hero .text-base {
+  font-size: 16px !important;
+  line-height: 24px !important;
+}
+
+/* Dual Textareas remain strictly 16px */
+#raw-input,
+#clean-output {
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+}
+
+/* Header / Navbar Isolation */
+header .font-label-md,
+header .text-label-md,
+nav .font-label-md,
+nav .text-label-md {
+  font-size: 13px !important;
+  line-height: 18px !important;
+}
+
+header .font-label-sm,
+header .text-label-sm,
+nav .font-label-sm,
+nav .text-label-sm {
+  font-size: 12px !important;
+  line-height: 16px !important;
+}
+
+header .text-xs,
+nav .text-xs {
+  font-size: 12px !important;
+  line-height: 16px !important;
+}
+
+header .font-headline-sm,
+header .text-headline-sm {
+  font-size: 16px !important;
+  line-height: 24px !important;
+}
+
 
 .material-symbols-outlined {
   font-family: 'Material Symbols Outlined';
