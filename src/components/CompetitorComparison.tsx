@@ -1,140 +1,155 @@
-import React from "react";
-import SectionHeading from "@/components/SectionHeading";
-import { Check, X, Sparkles } from "lucide-react";
-
 export default function CompetitorComparison() {
-  const comparisonMatrix = [
-    {
-      feature: "100% Client-Side Privacy (Zero Server Storage)",
-      us: true,
-      aiTextClean: true,
-      cleanPaste: true,
-      generic: false,
-    },
-    {
-      feature: "1-Click Preset Chips (ChatGPT, Code, Docs)",
-      us: true,
-      aiTextClean: false,
-      cleanPaste: false,
-      generic: false,
-    },
-    {
-      feature: "Interactive 1-Click Sample Text Demo",
-      us: true,
-      aiTextClean: false,
-      cleanPaste: false,
-      generic: false,
-    },
-    {
-      feature: "Visual Diff View & Character Inspector",
-      us: true,
-      aiTextClean: false,
-      cleanPaste: false,
-      generic: false,
-    },
-    {
-      feature: "Zero Ad Clutter & Popups",
-      us: true,
-      aiTextClean: true,
-      cleanPaste: false,
-      generic: false,
-    },
-    {
-      feature: "Download Clean Output as .txt File",
-      us: true,
-      aiTextClean: false,
-      cleanPaste: false,
-      generic: false,
-    },
-    {
-      feature: "Zero-Width Space & Unicode Hex Filter",
-      us: true,
-      aiTextClean: true,
-      cleanPaste: true,
-      generic: true,
-    },
-    {
-      feature: "Markdown & Smart Quote Normalizer",
-      us: true,
-      aiTextClean: true,
-      cleanPaste: false,
-      generic: false,
-    },
-  ];
-
   return (
-    <section className="bg-neutral-50 py-20 border-t border-neutral-200">
-      <div className="container mx-auto px-6">
-        <SectionHeading
-          title="Why Choose AI Text Cleaner?"
-          subtitle="Compare AI Text Cleaner with AITextClean, CleanPaste, and basic unicode utility tools."
-        />
+    <section className="w-full py-12 md:py-16 flex flex-col space-y-space-md">
+      <div className="space-y-space-xs">
+        <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold">
+          Why Choose AI Text Cleaner?
+        </h2>
+        <p className="font-body-lg text-body-lg text-on-surface-variant">
+          Compare AI Text Cleaner with AITextClean, CleanPaste, and basic unicode utility tools.
+        </p>
+      </div>
 
-        <div className="mt-12 overflow-x-auto rounded-lg border border-neutral-200 bg-white">
-          <table className="w-full text-left text-body-sm text-neutral-700">
-            <thead className="bg-neutral-100 text-body-xs uppercase font-bold text-neutral-600 border-b border-neutral-200">
-              <tr>
-                <th scope="col" className="px-6 py-5">
-                  Feature / Capability
-                </th>
-                <th scope="col" className="px-6 py-5 text-center font-extrabold text-primary-700 bg-primary-50/50">
-                  <div className="flex items-center justify-center gap-1.5">
-                    <Sparkles className="h-4 w-4 text-primary-600" />
-                    AI Text Cleaner
-                  </div>
-                </th>
-                <th scope="col" className="px-6 py-5 text-center text-neutral-600">
-                  AITextClean
-                </th>
-                <th scope="col" className="px-6 py-5 text-center text-neutral-600">
-                  CleanPaste
-                </th>
-                <th scope="col" className="px-6 py-5 text-center text-neutral-600">
-                  Generic Tools
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-neutral-200">
-              {comparisonMatrix.map((row, idx) => (
-                <tr key={idx} className="hover:bg-neutral-50 transition-colors">
-                  <td className="px-6 py-4 font-medium text-neutral-900">
-                    {row.feature}
-                  </td>
-                  <td className="px-6 py-4 text-center bg-primary-50/30 font-bold">
-                    {row.us ? (
-                      <span className="inline-flex items-center justify-center h-7 w-7 rounded-md bg-primary-700 text-neutral-50 mx-auto">
-                        <Check className="h-4 w-4" />
-                      </span>
-                    ) : (
-                      <X className="h-5 w-5 text-neutral-300 mx-auto" />
-                    )}
-                  </td>
-                  <td className="px-6 py-4 text-center">
-                    {row.aiTextClean ? (
-                      <Check className="h-5 w-5 text-primary-600 mx-auto" />
-                    ) : (
-                      <X className="h-5 w-5 text-neutral-300 mx-auto" />
-                    )}
-                  </td>
-                  <td className="px-6 py-4 text-center">
-                    {row.cleanPaste ? (
-                      <Check className="h-5 w-5 text-primary-600 mx-auto" />
-                    ) : (
-                      <X className="h-5 w-5 text-neutral-300 mx-auto" />
-                    )}
-                  </td>
-                  <td className="px-6 py-4 text-center">
-                    {row.generic ? (
-                      <Check className="h-5 w-5 text-primary-600 mx-auto" />
-                    ) : (
-                      <X className="h-5 w-5 text-neutral-300 mx-auto" />
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+      {/* Table Wrapper */}
+      <div className="w-full bg-surface-container-lowest rounded-xl shadow-sm overflow-x-auto">
+        <table className="w-full text-left font-body-md text-body-md">
+          <thead>
+            <tr className="bg-surface-container-low text-on-surface">
+              <th className="py-3 px-space-md font-headline-sm text-headline-sm font-semibold">
+                Feature / Capability
+              </th>
+              <th className="py-3 px-space-md font-headline-sm text-headline-sm font-semibold bg-primary-fixed/30 text-primary">
+                <div className="flex items-center gap-1.5">
+                  <span>AI Text Cleaner</span>
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-code-stat bg-primary text-on-primary">
+                    ACTIVE
+                  </span>
+                </div>
+              </th>
+              <th className="py-3 px-space-md font-headline-sm text-headline-sm font-semibold text-secondary">
+                AITextClean
+              </th>
+              <th className="py-3 px-space-md font-headline-sm text-headline-sm font-semibold text-secondary">
+                CleanPaste
+              </th>
+              <th className="py-3 px-space-md font-headline-sm text-headline-sm font-semibold text-secondary">
+                Generic Tools
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-surface-container">
+            {/* Row 1 */}
+            <tr className="hover:bg-surface-container-lowest transition-colors">
+              <td className="py-3 px-space-md text-on-surface font-medium">
+                100% Client-Side Privacy (Zero Server Storage)
+              </td>
+              <td className="py-3 px-space-md bg-primary-fixed/10 text-primary font-semibold">
+                <span className="flex items-center gap-1">
+                  <span className="material-symbols-outlined text-[16px]">check_circle</span> Yes
+                </span>
+              </td>
+              <td className="py-3 px-space-md text-secondary">Partial (API)</td>
+              <td className="py-3 px-space-md text-secondary">No (Server)</td>
+              <td className="py-3 px-space-md text-outline">Unverified</td>
+            </tr>
+            {/* Row 2 */}
+            <tr className="hover:bg-surface-container-lowest transition-colors">
+              <td className="py-3 px-space-md text-on-surface font-medium">
+                1-Click Preset Chips (ChatGPT, Code, Docs)
+              </td>
+              <td className="py-3 px-space-md bg-primary-fixed/10 text-primary font-semibold">
+                <span className="material-symbols-outlined text-[18px]">check</span>
+              </td>
+              <td className="py-3 px-space-md text-outline">—</td>
+              <td className="py-3 px-space-md text-outline">—</td>
+              <td className="py-3 px-space-md text-outline">—</td>
+            </tr>
+            {/* Row 3 */}
+            <tr className="hover:bg-surface-container-lowest transition-colors">
+              <td className="py-3 px-space-md text-on-surface font-medium">
+                Interactive 1-Click Sample Text Demo
+              </td>
+              <td className="py-3 px-space-md bg-primary-fixed/10 text-primary font-semibold">
+                <span className="material-symbols-outlined text-[18px]">check</span>
+              </td>
+              <td className="py-3 px-space-md text-outline">—</td>
+              <td className="py-3 px-space-md text-outline">—</td>
+              <td className="py-3 px-space-md text-outline">—</td>
+            </tr>
+            {/* Row 4 */}
+            <tr className="hover:bg-surface-container-lowest transition-colors">
+              <td className="py-3 px-space-md text-on-surface font-medium">
+                Visual Diff View &amp; Character Inspector
+              </td>
+              <td className="py-3 px-space-md bg-primary-fixed/10 text-primary font-semibold">
+                <span className="material-symbols-outlined text-[18px]">check</span>
+              </td>
+              <td className="py-3 px-space-md text-outline">
+                <span className="material-symbols-outlined text-[16px]">close</span>
+              </td>
+              <td className="py-3 px-space-md text-outline">
+                <span className="material-symbols-outlined text-[16px]">close</span>
+              </td>
+              <td className="py-3 px-space-md text-outline">
+                <span className="material-symbols-outlined text-[16px]">close</span>
+              </td>
+            </tr>
+            {/* Row 5 */}
+            <tr className="hover:bg-surface-container-lowest transition-colors">
+              <td className="py-3 px-space-md text-on-surface font-medium">
+                Zero Ad Clutter &amp; Popups
+              </td>
+              <td className="py-3 px-space-md bg-primary-fixed/10 text-primary font-semibold">
+                <span className="material-symbols-outlined text-[18px]">check</span>
+              </td>
+              <td className="py-3 px-space-md text-secondary">Ads</td>
+              <td className="py-3 px-space-md text-secondary">Ads</td>
+              <td className="py-3 px-space-md text-secondary">Ads</td>
+            </tr>
+            {/* Row 6 */}
+            <tr className="hover:bg-surface-container-lowest transition-colors">
+              <td className="py-3 px-space-md text-on-surface font-medium">
+                Download Clean Output as .txt File
+              </td>
+              <td className="py-3 px-space-md bg-primary-fixed/10 text-primary font-semibold">
+                <span className="material-symbols-outlined text-[18px]">check</span>
+              </td>
+              <td className="py-3 px-space-md text-secondary">
+                <span className="material-symbols-outlined text-[18px]">check</span>
+              </td>
+              <td className="py-3 px-space-md text-outline">—</td>
+              <td className="py-3 px-space-md text-outline">—</td>
+            </tr>
+            {/* Row 7 */}
+            <tr className="hover:bg-surface-container-lowest transition-colors">
+              <td className="py-3 px-space-md text-on-surface font-medium">
+                Zero-Width Space &amp; Unicode Hex Filter
+              </td>
+              <td className="py-3 px-space-md bg-primary-fixed/10 text-primary font-semibold">
+                <span className="material-symbols-outlined text-[18px]">check</span>
+              </td>
+              <td className="py-3 px-space-md text-secondary">
+                <span className="material-symbols-outlined text-[18px]">check</span>
+              </td>
+              <td className="py-3 px-space-md text-secondary">Partial</td>
+              <td className="py-3 px-space-md text-secondary">Partial</td>
+            </tr>
+            {/* Row 8 */}
+            <tr className="hover:bg-surface-container-lowest transition-colors">
+              <td className="py-3 px-space-md text-on-surface font-medium">
+                Markdown &amp; Smart Quote Normalizer
+              </td>
+              <td className="py-3 px-space-md bg-primary-fixed/10 text-primary font-semibold">
+                <span className="material-symbols-outlined text-[18px]">check</span>
+              </td>
+              <td className="py-3 px-space-md text-secondary">Partial</td>
+              <td className="py-3 px-space-md text-secondary">
+                <span className="material-symbols-outlined text-[18px]">check</span>
+              </td>
+              <td className="py-3 px-space-md text-secondary">Partial</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
   );

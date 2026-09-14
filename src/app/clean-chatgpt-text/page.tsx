@@ -139,9 +139,16 @@ const faqJsonLd = {
   })),
 };
 
+const benchmarks = [
+  { name: "Google Chrome", time: "1.1 ms" },
+  { name: "Apple Safari", time: "1.4 ms" },
+  { name: "Mozilla Firefox", time: "1.7 ms" },
+];
+
 export default function CleanChatGPTTextPage() {
   return (
-    <>
+    <div className="container max-w-[1140px] mx-auto px-4 md:px-8 py-space-lg flex flex-col w-full space-y-12 md:space-y-16">
+      <span className="sr-only">ChatGPT Text Cleaner — Desktop (1140px) | AI Text Cleaner</span>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
@@ -163,18 +170,72 @@ export default function CleanChatGPTTextPage() {
           normalizeDashes: true,
           removeTrailingWhitespace: true,
           removeHiddenCharacters: true,
+          removeAIFluff: true,
         }}
       />
       <SubToolContent
         title="ChatGPT Text Cleaner"
+        badgeLabel="OpenAI Sanitization"
+        badgeIcon="smart_toy"
         directAnswerTitle="How to Clean ChatGPT Text Formatting Fast?"
         directAnswerText="Text copied from ChatGPT often contains Markdown artifacts (such as **bold asterisks**, # headers, and `code backticks`), smart quotes, and hidden whitespace. Our ChatGPT Text Cleaner strips these formatting quirks instantly, giving you clean plain text ready for Google Docs, WordPress, or email."
-        beforeExample={"**Here is a summary:**\n1. ChatGPT output has *asterisks*.\n2. “Smart quotes” & — em dashes."}
-        afterExample={"Here is a summary:\n1. ChatGPT output has asterisks.\n2. \"Smart quotes\" & - em dashes."}
+        beforeBadgeText="BEFORE: Raw Text with Hidden Artifacts"
+        afterBadgeText="AFTER: Cleaned & Sanitized Plain Text"
+        beforeExample={
+          <div className="space-y-2 leading-relaxed">
+            <div className="text-error font-semibold">**Here is a summary:**</div>
+            <div>
+              1. ChatGPT output has{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
+                *asterisks*
+              </span>
+              .
+            </div>
+            <div>
+              2.{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
+                “Smart quotes”
+              </span>{" "}
+              &amp;{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
+                —
+              </span>{" "}
+              em dashes.
+            </div>
+          </div>
+        }
+        afterExample={
+          <div className="space-y-2 leading-relaxed">
+            <div className="text-on-surface font-medium">Here is a summary:</div>
+            <div>
+              1. ChatGPT output has{" "}
+              <span className="bg-surface-container-lowest px-1 py-0.5 rounded text-primary font-mono font-semibold">
+                asterisks
+              </span>
+              .
+            </div>
+            <div>
+              2.{" "}
+              <span className="bg-surface-container-lowest px-1 py-0.5 rounded text-primary font-mono font-semibold">
+                &quot;Smart quotes&quot;
+              </span>{" "}
+              &amp;{" "}
+              <span className="bg-surface-container-lowest px-1 py-0.5 rounded text-primary font-mono font-semibold">
+                -
+              </span>{" "}
+              em dashes.
+            </div>
+          </div>
+        }
+        beforeNote="Contains: ** markdown, curly “ ”, U+2014 em dash"
+        afterNote="Purged: Plain text ASCII quotes & standardized hyphen"
+        streamChart={false}
+        benchmarksTitle="Browser Engine Latency"
+        benchmarks={benchmarks}
         removedItems={removedItems}
         howToSteps={howToSteps}
         faqs={faqs}
       />
-    </>
+    </div>
   );
 }

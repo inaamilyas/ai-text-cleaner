@@ -156,223 +156,233 @@ export default function PromptStripper({ heading, subheading }: PromptStripperPr
   }
 
   return (
-    <section className="bg-white">
-      <div className="container mx-auto flex flex-col items-center gap-6 px-4 sm:px-6 py-6 sm:py-10">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleCleanPrompt();
-          }}
-          className="w-full rounded-lg border border-neutral-200 bg-white shadow-xs overflow-hidden"
-        >
-          {/* Top Tool Drawer Bar */}
-          <ToolDrawer />
-
-          <div className="p-4 sm:p-8">
-          {/* Quick Presets Bar */}
-          <div className="mb-4 flex flex-wrap items-center gap-1.5 border-b border-neutral-200 pb-3">
-            <span className="text-body-xs font-bold uppercase text-neutral-500 mr-1.5">
-              Quick Presets:
-            </span>
-            {promptPresets.map((preset) => (
-              <button
-                key={preset.id}
-                type="button"
-                onClick={() => applyPreset(preset.options)}
-                className="flex cursor-pointer items-center gap-1 rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-body-xs font-medium text-neutral-700 transition-colors duration-200 hover:border-primary-500 hover:bg-primary-50 hover:text-primary-700 focus-visible:outline-2"
-              >
-                <preset.icon className="h-3 w-3" aria-hidden="true" />
-                {preset.label}
-              </button>
-            ))}
+    <section className="bg-surface py-8 md:py-12">
+      <div className="container mx-auto flex flex-col items-center gap-6 px-4 md:px-6">
+        {/* Top Header */}
+        <div className="flex max-w-3xl flex-col items-center gap-2 text-center">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-primary font-code-stat text-code-stat shadow-sm mb-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+            <span>CLIENT RUNTIME • 100% PRIVATE</span>
           </div>
-
-          <div className="grid gap-6 sm:grid-cols-2">
-            {/* Input Card */}
-            <div className="flex flex-col gap-2 text-left">
-              <div className="flex items-center justify-between">
-                <p className="flex items-center gap-1.5 text-body-sm font-bold text-neutral-700">
-                  <FileText className="h-4 w-4 text-neutral-500" aria-hidden="true" />
-                  Raw AI Prompt Input
-                </p>
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={handleSampleText}
-                    className="flex cursor-pointer items-center gap-1 text-body-xs font-bold text-primary-700 hover:underline"
-                  >
-                    <Wand2 className="h-3.5 w-3.5" />
-                    Try Sample Prompt
-                  </button>
-                  <p className="text-body-sm text-neutral-500">
-                    {inputStats.words} words, {inputStats.characters} chars
-                  </p>
-                </div>
-              </div>
-              <textarea
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Paste raw AI prompt with --ar 16:9, <lora:...>, or Negative prompt parameters..."
-                rows={7}
-                className="w-full rounded-lg border border-neutral-300 bg-neutral-0 p-4 text-body-sm text-neutral-900 placeholder-neutral-400 transition-colors duration-200 focus:border-primary-500 focus:outline-none"
-              />
-            </div>
-
-            {/* Output Card */}
-            <div className="flex flex-col gap-2 text-left">
-              <div className="flex items-center justify-between">
-                <p className="flex items-center gap-1.5 text-body-sm font-bold text-neutral-700">
-                  <Sparkles className="h-4 w-4 text-primary-600" aria-hidden="true" />
-                  Cleaned Prompt Output
-                </p>
-                <div className="flex items-center gap-3">
-                  {result && (
-                    <span className="text-body-xs font-bold text-primary-800 bg-primary-100 px-2 py-0.5 rounded">
-                      ✓ {result.totalRemovedCount} Parameters Stripped
-                    </span>
-                  )}
-                  <p className="text-body-sm text-neutral-500">
-                    {outputStats.words} words, {outputStats.characters} chars
-                  </p>
-                </div>
-              </div>
-              <textarea
-                readOnly
-                value={result?.cleanedText ?? ""}
-                placeholder="Cleaned prompt text without flags or tags will appear here..."
-                rows={7}
-                className="w-full rounded-lg border border-neutral-300 bg-neutral-0 p-4 text-body-sm text-neutral-900 placeholder-neutral-400"
-              />
-            </div>
-          </div>
-
-          {/* Options controls */}
-          <div className="mt-6 flex flex-col gap-3 border-t border-neutral-200 pt-6 text-left">
-            <p className="flex items-center gap-1.5 text-body-sm font-bold text-neutral-700">
-              <SlidersHorizontal className="h-4 w-4 text-neutral-500" aria-hidden="true" />
-              Prompt Stripping Rules
-            </p>
-            <div className="flex flex-wrap gap-x-6 gap-y-3">
-              <label className="flex cursor-pointer items-center gap-2 text-body-sm text-neutral-700 hover:text-primary-700 transition-colors">
-                <input
-                  type="checkbox"
-                  checked={options.stripMidjourneyParams}
-                  onChange={(e) => setOptions({ ...options, stripMidjourneyParams: e.target.checked })}
-                  className="h-4 w-4 cursor-pointer accent-primary-600"
-                />
-                Midjourney Flags (--ar, --v, --stylize, --seed)
-              </label>
-              <label className="flex cursor-pointer items-center gap-2 text-body-sm text-neutral-700 hover:text-primary-700 transition-colors">
-                <input
-                  type="checkbox"
-                  checked={options.stripLoRATags}
-                  onChange={(e) => setOptions({ ...options, stripLoRATags: e.target.checked })}
-                  className="h-4 w-4 cursor-pointer accent-primary-600"
-                />
-                LoRA &amp; Network Tags (&lt;lora:...&gt;)
-              </label>
-              <label className="flex cursor-pointer items-center gap-2 text-body-sm text-neutral-700 hover:text-primary-700 transition-colors">
-                <input
-                  type="checkbox"
-                  checked={options.stripNegativePrompts}
-                  onChange={(e) => setOptions({ ...options, stripNegativePrompts: e.target.checked })}
-                  className="h-4 w-4 cursor-pointer accent-primary-600"
-                />
-                Negative Prompt Chunks &amp; SD Parameters
-              </label>
-              <label className="flex cursor-pointer items-center gap-2 text-body-sm text-neutral-700 hover:text-primary-700 transition-colors">
-                <input
-                  type="checkbox"
-                  checked={options.stripWeights}
-                  onChange={(e) => setOptions({ ...options, stripWeights: e.target.checked })}
-                  className="h-4 w-4 cursor-pointer accent-primary-600"
-                />
-                Prompt Weight Multipliers ((word:1.3))
-              </label>
-            </div>
-          </div>
-
-          {/* Parameter Summary Pill Bar */}
-          {result && result.removedItems.length > 0 && (
-            <div className="mt-6 flex flex-col gap-2 border-t border-neutral-200 pt-6 text-left">
-              <p className="text-body-sm font-bold text-neutral-700">
-                Stripped Parameters Summary ({result.removedItems.length}):
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {result.removedItems.map((item, idx) => (
-                  <span
-                    key={idx}
-                    className="inline-flex items-center gap-1 rounded-md bg-primary-100 px-2.5 py-1 text-body-xs font-bold text-primary-800"
-                    title={item.item}
-                  >
-                    ✂️ {item.type}: {item.item.slice(0, 30)}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Action Buttons Bar */}
-          <div className="mt-6 flex flex-col sm:flex-row flex-wrap items-center gap-3 sm:gap-4 border-t border-neutral-200 pt-6">
-            <button
-              type="submit"
-              disabled={!hasText}
-              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary-700 px-8 py-3.5 sm:py-4 text-button text-neutral-50 transition-colors duration-200 hover:bg-primary-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-500"
-            >
-              <Scissors className="h-5 w-5" aria-hidden="true" />
-              Strip Parameters &amp; Clean Prompt
-            </button>
-            {result ? (
-              <>
-                <button
-                  type="button"
-                  onClick={handleCopy}
-                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-white px-8 py-3.5 sm:py-4 text-button text-neutral-800 transition-colors duration-200 hover:border-primary-600 hover:text-primary-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
-                >
-                  {copied ? (
-                    <Check className="h-5 w-5 text-primary-600" aria-hidden="true" />
-                  ) : (
-                    <Copy className="h-5 w-5" aria-hidden="true" />
-                  )}
-                  {copied ? "Copied" : "Copy Clean Prompt"}
-                </button>
-                <button
-                  type="button"
-                  onClick={handleDownload}
-                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-white px-6 py-3.5 sm:py-4 text-button text-neutral-700 transition-colors duration-200 hover:border-primary-600 hover:text-primary-700"
-                >
-                  <Download className="h-5 w-5" aria-hidden="true" />
-                  Download .txt
-                </button>
-              </>
-            ) : null}
-            <button
-              type="button"
-              onClick={handleReset}
-              disabled={!hasText && !result}
-              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-1.5 py-2 text-body-sm font-bold text-neutral-600 transition-colors duration-200 hover:text-primary-600 disabled:cursor-not-allowed disabled:text-neutral-300"
-            >
-              <RotateCcw className="h-4 w-4" aria-hidden="true" />
-              Reset
-            </button>
-          </div>
-          </div>
-        </form>
-
-        <div className="flex max-w-2xl flex-col items-center gap-2 text-center">
-          <h1 className="text-lg font-bold text-primary-900 sm:text-xl">
+          <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">
             {heading ?? "Strip Midjourney, ChatGPT & SD Prompt Parameters"}
           </h1>
-          <p className="text-body-sm text-neutral-600">
+          <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
             {subheading ??
               "Remove Midjourney flags (--ar 16:9, --v 6.0), LoRA tags (<lora:...>), negative prompts, and weights instantly."}
           </p>
         </div>
 
-        <p className="flex items-center gap-1.5 text-body-sm text-neutral-500">
-          <ShieldCheck className="h-4 w-4 text-primary-600" aria-hidden="true" />
-          Private. 100% Browser-based processing. Zero server storage.
-        </p>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleCleanPrompt();
+          }}
+          className="w-full rounded-xl border border-surface-container-highest/80 bg-surface-container-lowest shadow-md overflow-hidden"
+        >
+          {/* Top Tool Drawer Bar */}
+          <ToolDrawer />
+
+          <div className="p-6 sm:p-8">
+            {/* Quick Presets Bar */}
+            <div className="mb-6 flex flex-wrap items-center gap-2 border-b border-surface-container-highest/80 pb-4">
+              <span className="font-code-stat text-code-stat uppercase text-outline mr-1">
+                Quick Presets:
+              </span>
+              {promptPresets.map((preset) => (
+                <button
+                  key={preset.id}
+                  type="button"
+                  onClick={() => applyPreset(preset.options)}
+                  className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-surface-container-highest/80 bg-surface-container-low px-3 py-1.5 font-label-sm text-label-sm text-on-surface hover:bg-surface-container transition-colors"
+                >
+                  <preset.icon className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+                  {preset.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-2">
+              {/* Input Card */}
+              <div className="flex flex-col gap-2 text-left">
+                <div className="flex items-center justify-between pb-1">
+                  <p className="flex items-center gap-1.5 font-headline-sm text-headline-sm text-on-surface font-medium">
+                    <FileText className="h-4 w-4 text-secondary" aria-hidden="true" />
+                    Raw AI Prompt Input
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={handleSampleText}
+                      className="flex cursor-pointer items-center gap-1 font-code-stat text-code-stat text-primary hover:underline"
+                    >
+                      <Wand2 className="h-3.5 w-3.5" />
+                      Try Sample Prompt
+                    </button>
+                    <p className="font-code-stat text-code-stat text-outline">
+                      {inputStats.words} words, {inputStats.characters} chars
+                    </p>
+                  </div>
+                </div>
+                <textarea
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Paste raw AI prompt with --ar 16:9, <lora:...>, or Negative prompt parameters..."
+                  rows={8}
+                  className="w-full rounded-xl border border-surface-container-highest/80 bg-surface-container-low p-4 font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary transition-colors leading-relaxed"
+                />
+              </div>
+
+              {/* Output Card */}
+              <div className="flex flex-col gap-2 text-left">
+                <div className="flex items-center justify-between pb-1">
+                  <p className="flex items-center gap-1.5 font-headline-sm text-headline-sm text-on-surface font-medium">
+                    <Sparkles className="h-4 w-4 text-primary" aria-hidden="true" />
+                    Cleaned Prompt Output
+                  </p>
+                  <div className="flex items-center gap-3">
+                    {result && (
+                      <span className="font-code-stat text-xs font-bold text-primary bg-primary-fixed/30 border border-primary-fixed px-2 py-0.5 rounded">
+                        ✓ {result.totalRemovedCount} Parameters Stripped
+                      </span>
+                    )}
+                    <p className="font-code-stat text-code-stat text-outline">
+                      {outputStats.words} words, {outputStats.characters} chars
+                    </p>
+                  </div>
+                </div>
+                <textarea
+                  readOnly
+                  value={result?.cleanedText ?? ""}
+                  placeholder="Cleaned prompt text without flags or tags will appear here..."
+                  rows={8}
+                  className="w-full rounded-xl border border-surface-container-highest/80 bg-surface-container-low p-4 font-body-md text-body-md text-on-surface placeholder:text-outline leading-relaxed"
+                />
+              </div>
+            </div>
+
+            {/* Options controls */}
+            <div className="mt-6 flex flex-col gap-3 border-t border-surface-container-highest/80 pt-6 text-left">
+              <p className="font-headline-sm text-sm font-semibold text-on-surface flex items-center gap-1.5">
+                <SlidersHorizontal className="h-4 w-4 text-secondary" aria-hidden="true" />
+                Prompt Stripping Rules
+              </p>
+              <div className="flex flex-wrap gap-x-6 gap-y-3 font-body-md text-body-md text-on-surface">
+                <label className="flex cursor-pointer items-center gap-2 hover:text-primary transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={options.stripMidjourneyParams}
+                    onChange={(e) => setOptions({ ...options, stripMidjourneyParams: e.target.checked })}
+                    className="h-4 w-4 rounded accent-primary cursor-pointer"
+                  />
+                  Midjourney Flags (--ar, --v, --stylize, --seed)
+                </label>
+                <label className="flex cursor-pointer items-center gap-2 hover:text-primary transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={options.stripLoRATags}
+                    onChange={(e) => setOptions({ ...options, stripLoRATags: e.target.checked })}
+                    className="h-4 w-4 rounded accent-primary cursor-pointer"
+                  />
+                  LoRA &amp; Network Tags (&lt;lora:...&gt;)
+                </label>
+                <label className="flex cursor-pointer items-center gap-2 hover:text-primary transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={options.stripNegativePrompts}
+                    onChange={(e) => setOptions({ ...options, stripNegativePrompts: e.target.checked })}
+                    className="h-4 w-4 rounded accent-primary cursor-pointer"
+                  />
+                  Negative Prompt Chunks &amp; SD Parameters
+                </label>
+                <label className="flex cursor-pointer items-center gap-2 hover:text-primary transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={options.stripWeights}
+                    onChange={(e) => setOptions({ ...options, stripWeights: e.target.checked })}
+                    className="h-4 w-4 rounded accent-primary cursor-pointer"
+                  />
+                  Prompt Weight Multipliers ((word:1.3))
+                </label>
+              </div>
+            </div>
+
+            {/* Parameter Summary Pill Bar */}
+            {result && result.removedItems.length > 0 && (
+              <div className="mt-6 flex flex-col gap-2 border-t border-surface-container-highest/80 pt-6 text-left">
+                <p className="font-headline-sm text-sm font-semibold text-on-surface">
+                  Stripped Parameters Summary ({result.removedItems.length}):
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {result.removedItems.map((item, idx) => (
+                    <span
+                      key={idx}
+                      className="inline-flex items-center gap-1 rounded-lg bg-primary-fixed/20 border border-primary-fixed/60 px-2.5 py-1 font-code-stat text-xs text-primary"
+                      title={item.item}
+                    >
+                      ✂️ {item.type}: {item.item.slice(0, 30)}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Action Buttons Bar */}
+            <div className="mt-6 flex flex-col sm:flex-row flex-wrap items-center justify-between gap-3 border-t border-surface-container-highest/80 pt-4">
+              <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                <button
+                  type="submit"
+                  disabled={!hasText}
+                  className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Scissors className="h-4 w-4" aria-hidden="true" />
+                  Strip Parameters &amp; Clean Prompt
+                </button>
+                {result ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={handleCopy}
+                      className="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-all border border-surface-container-highest/80 flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      {copied ? (
+                        <Check className="h-4 w-4 text-primary" aria-hidden="true" />
+                      ) : (
+                        <Copy className="h-4 w-4" aria-hidden="true" />
+                      )}
+                      {copied ? "Copied" : "Copy Clean Prompt"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleDownload}
+                      className="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-all border border-surface-container-highest/80 flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <Download className="h-4 w-4" aria-hidden="true" />
+                      Download .txt
+                    </button>
+                  </>
+                ) : null}
+              </div>
+
+              <div className="flex items-center gap-4">
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  disabled={!hasText && !result}
+                  className="flex cursor-pointer items-center gap-1.5 font-label-md text-label-md text-secondary hover:text-error transition-colors disabled:cursor-not-allowed disabled:text-outline"
+                >
+                  <RotateCcw className="h-4 w-4" aria-hidden="true" />
+                  Reset
+                </button>
+
+                <div className="hidden md:flex items-center gap-1.5 font-label-md text-label-md text-secondary">
+                  <ShieldCheck className="h-4 w-4 text-primary" aria-hidden="true" />
+                  <span>100% Client-Side</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </section>
   );

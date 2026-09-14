@@ -5,6 +5,7 @@ import CompetitorComparison from "@/components/CompetitorComparison";
 import HowItWorks from "@/components/HowItWorks";
 import WhatWeClean from "@/components/WhatWeClean";
 import WhoItsFor, { audiences } from "@/components/WhoItsFor";
+import ToolsSuiteShowcase from "@/components/ToolsSuiteShowcase";
 import FAQ from "@/components/FAQ";
 import { defaultFaqs } from "@/lib/faqData";
 
@@ -62,14 +63,21 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <Hero />
-      <WhyCleanAIText />
-      <WhatMakesDifferent />
-      <CompetitorComparison />
-      <HowItWorks />
-      <WhatWeClean />
-      <WhoItsFor />
-      <FAQ />
+      <main className="w-full pt-14 bg-background flex-1">
+        <div className="container max-w-[1140px] mx-auto px-4 md:px-8 py-space-lg">
+          <div className="flex flex-col w-full">
+            <Hero />
+            <WhyCleanAIText />
+            <WhatMakesDifferent />
+            <CompetitorComparison />
+            <HowItWorks />
+            <WhatWeClean />
+            <WhoItsFor />
+            <ToolsSuiteShowcase />
+            <FAQ />
+          </div>
+        </div>
+      </main>
     </>
   );
 }

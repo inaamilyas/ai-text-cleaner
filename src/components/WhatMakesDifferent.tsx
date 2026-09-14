@@ -1,52 +1,62 @@
-import { Laptop, Zap, Eye, Gift } from "lucide-react";
-import SectionHeading from "@/components/SectionHeading";
-import IconBadge from "@/components/IconBadge";
-
-const differentiators = [
-  {
-    icon: Laptop,
-    title: "100% browser-based",
-    description:
-      "Your text is cleaned directly in your browser. Nothing is uploaded, stored, or sent to a server.",
-  },
-  {
-    icon: Zap,
-    title: "No signup required",
-    description: "Paste, clean, and copy immediately. No account, no email.",
-  },
-  {
-    icon: Eye,
-    title: "Transparent by default",
-    description:
-      "See exactly what was changed, and how many issues were found, every time you clean.",
-  },
-  {
-    icon: Gift,
-    title: "Free to use",
-    description: "No paywall and no usage limits.",
-  },
-];
-
 export default function WhatMakesDifferent() {
   return (
-    <section id="privacy" className="bg-neutral-0">
-      <div className="container mx-auto flex flex-col gap-10 px-6 py-20">
-        <SectionHeading
-          title="What makes this different"
-          subtitle="Built to be trustworthy, not just functional."
-        />
-        <div className="mx-auto grid w-full max-w-4xl gap-8 sm:grid-cols-2">
-          {differentiators.map((item) => (
-            <div key={item.title} className="flex gap-4">
-              <IconBadge icon={item.icon} />
-              <div className="flex flex-col gap-2">
-                <h3 className="text-h5 font-bold text-neutral-900">{item.title}</h3>
-                <p className="text-body-sm text-neutral-700">
-                  {item.description}
-                </p>
-              </div>
-            </div>
-          ))}
+    <section className="w-full py-12 md:py-16 flex flex-col space-y-space-md">
+      <div className="space-y-space-xs">
+        <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold">
+          What makes this different
+        </h2>
+        <p className="font-body-lg text-body-lg text-on-surface-variant">
+          Built to be trustworthy, not just functional.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+        {/* 1 */}
+        <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm space-y-space-sm hover:shadow-md transition-shadow">
+          <div className="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+            <span className="material-symbols-outlined text-[20px]">laptop_mac</span>
+          </div>
+          <h3 className="font-headline-sm text-headline-sm text-on-surface font-semibold">
+            100% browser-based
+          </h3>
+          <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Your text is cleaned directly in your browser. Nothing is uploaded, stored, or sent to a server.
+          </p>
+        </div>
+        {/* 2 */}
+        <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm space-y-space-sm hover:shadow-md transition-shadow">
+          <div className="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+            <span className="material-symbols-outlined text-[20px]">person_off</span>
+          </div>
+          <h3 className="font-headline-sm text-headline-sm text-on-surface font-semibold">
+            No signup required
+          </h3>
+          <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Paste, clean, and copy immediately. No account, no email.
+          </p>
+        </div>
+        {/* 3 */}
+        <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm space-y-space-sm hover:shadow-md transition-shadow">
+          <div className="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+            <span className="material-symbols-outlined text-[20px]">visibility</span>
+          </div>
+          <h3 className="font-headline-sm text-headline-sm text-on-surface font-semibold">
+            Transparent by default
+          </h3>
+          <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            See exactly what was changed, and how many issues were found, every time you clean.
+          </p>
+        </div>
+        {/* 4 */}
+        <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm space-y-space-sm hover:shadow-md transition-shadow">
+          <div className="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+            <span className="material-symbols-outlined text-[20px]">lock_open</span>
+          </div>
+          <h3 className="font-headline-sm text-headline-sm text-on-surface font-semibold">
+            Free to use
+          </h3>
+          <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            No paywall and no usage limits.
+          </p>
         </div>
       </div>
     </section>

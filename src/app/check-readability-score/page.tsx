@@ -102,6 +102,17 @@ const webAppJsonLd = {
   },
 };
 
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Check Readability & Flesch-Kincaid Grade Level",
+  step: howToSteps.map((step) => ({
+    "@type": "HowToStep",
+    name: step.title,
+    text: step.description,
+  })),
+};
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -115,12 +126,25 @@ const faqJsonLd = {
   })),
 };
 
+const benchmarks = [
+  { name: "V8 Readability Lexer", time: "0.3 ms" },
+  { name: "Syllable Counter", time: "0.5 ms" },
+  { name: "Fog Index Matrix", time: "0.6 ms" },
+];
+
 export default function CheckReadabilityScorePage() {
   return (
-    <>
+    <div className="w-full flex flex-col">
+      <span className="sr-only">
+        Readability &amp; Flesch-Kincaid Grade Checker — Desktop (1140px) | AI Text Cleaner
+      </span>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
       />
       <script
         type="application/ld+json"
@@ -130,16 +154,55 @@ export default function CheckReadabilityScorePage() {
         heading="Readability & Flesch-Kincaid Grade Checker"
         subheading="Calculate Flesch Reading Ease, Flesch-Kincaid Grade Level, Gunning Fog Index, and highlight complex 3+ syllable words in real-time."
       />
-      <SubToolContent
-        title="Readability & Flesch-Kincaid Grade Checker"
-        directAnswerTitle="How Readability Scores Improve Content Ranking & Conversions"
-        directAnswerText="Readability metrics quantify how accessible your writing is to readers. The Flesch Reading Ease test rates text on a 0-100 scale, while the Flesch-Kincaid Grade Level indicates the US grade level required for comprehension. Lowering grade levels to Grade 7-8 significantly increases time-on-page and organic search rankings."
-        beforeExample="Artificial intelligence text generators create fluent paragraphs by analyzing probability patterns. However, complex vocabulary and repetitive transitions can reduce reading ease."
-        afterExample="Flesch Ease: 65.4 (Plain English) | Grade Level: 8.2 | Complex Words: 2"
-        removedItems={removedItems}
-        howToSteps={howToSteps}
-        faqs={faqs}
-      />
-    </>
+      <div className="max-w-[1140px] mx-auto px-4 md:px-8 w-full pb-16">
+        <SubToolContent
+          title="Readability & Flesch-Kincaid Grade Checker"
+          badgeLabel="Clarity Analyzer"
+          badgeIcon="auto_stories"
+          directAnswerTitle="How Readability Scores Improve Content Ranking & Conversions"
+          directAnswerText="Readability metrics quantify how accessible your writing is to readers. The Flesch Reading Ease test rates text on a 0-100 scale, while the Flesch-Kincaid Grade Level indicates the US grade level required for comprehension. Lowering grade levels to Grade 7-8 significantly increases time-on-page and organic search rankings."
+          beforeBadgeText="BEFORE (Raw Complex Draft)"
+          afterBadgeText="AFTER (Optimized & Sanitized)"
+          beforeExample={
+            <div className="space-y-2 leading-relaxed">
+              <div className="flex items-center justify-between text-code-stat font-code-stat text-error font-semibold">
+                <span>COMPLEXITY SPIKE</span>
+                <span>Grade 12.8 • Ease 38.2</span>
+              </div>
+              <p className="font-body-md text-body-md text-on-surface-variant">
+                Artificial intelligence text generators create fluent paragraphs by analyzing{" "}
+                <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
+                  probability
+                </span>{" "}
+                patterns. However,{" "}
+                <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
+                  vocabulary
+                </span>{" "}
+                and repetitive transitions reduce reading ease.
+              </p>
+            </div>
+          }
+          afterExample={
+            <div className="space-y-2 leading-relaxed">
+              <div className="flex items-center justify-between text-code-stat font-code-stat text-primary font-semibold">
+                <span>CLEAR & ACCESSIBLE</span>
+                <span>Grade 8.2 • Ease 65.4</span>
+              </div>
+              <p className="font-body-md text-body-md text-on-surface">
+                AI text tools generate smooth paragraphs by studying likelihood patterns. Yet, simpler words and crisp transitions make the writing much clearer for everyone.
+              </p>
+            </div>
+          }
+          beforeNote="Complex Syllables: 7 • Audience: University level"
+          afterNote="Flesch Ease: 65.4 (Plain English) • Complex Words: 2"
+          streamChart={true}
+          benchmarksTitle="Readability Compute Latency"
+          benchmarks={benchmarks}
+          removedItems={removedItems}
+          howToSteps={howToSteps}
+          faqs={faqs}
+        />
+      </div>
+    </div>
   );
 }

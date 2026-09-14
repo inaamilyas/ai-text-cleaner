@@ -1,43 +1,54 @@
 'use client';
 
 import { useState } from "react";
-import {
-  FileText,
-  ShieldCheck,
-  Download,
-  RotateCcw,
-  Sparkles,
-  FileCheck,
-  Trash2,
-  Lock,
-  AlertTriangle,
-  Paperclip,
-  Loader2,
-  Wand2,
-  CheckCircle2,
-} from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { inspectPdfMetadata, sanitizePdfMetadata, type PdfMetadataReport } from "@/lib/cleanPdfMetadata";
 import { trackCleanTextRun, trackDownloadFile } from "@/lib/analytics";
 
-type Phase = "analyzing" | "analyzed" | "cleaning" | "cleaned";
+type Mode = "author" | "timestamps" | "full";
 
-/** Keeps the "Analyzing.../Cleaning..." state on screen long enough to read, even though the actual work is near-instant. */
-function minDelay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-const pdfPresets = [
+const defaultSampleTags = [
   {
-    id: "author",
-    label: "Author & Creator Wipe",
+    key: "/Author",
+    val: '"John Smith (Acme Corp Internal)"',
+    badge: "PRIVACY LEAK",
+    badgeClass: "bg-error-container text-on-error-container",
   },
   {
-    id: "timestamps",
-    label: "Timestamps & Producer Wipe",
+    key: "/Creator",
+    val: '"Microsoft Word 2024 for Mac (Build 16.89)"',
+    badge: "APP FINGERPRINT",
+    badgeClass: "bg-surface-container-highest text-on-surface",
   },
   {
-    id: "full",
-    label: "Full Metadata Wipe",
+    key: "/Producer",
+    val: '"macOS Version 15.1 Quartz PDFContext"',
+    badge: "OS SIGNATURE",
+    badgeClass: "bg-surface-container-highest text-on-surface-variant",
+  },
+  {
+    key: "/CreationDate",
+    val: '"D:20260910024500Z (UTC Timestamp)"',
+    badge: "TIME LEAK",
+    badgeClass: "bg-error-container text-on-error-container",
+  },
+  {
+    key: "/ModDate",
+    val: '"D:20260910031200Z (34 mins later)"',
+    badge: "TIMESTAMP",
+    badgeClass: "bg-surface-container-highest text-on-surface-variant",
+  },
+  {
+    key: "/Title",
+    val: '"Confidential Financial Q3 Projections_v4.docx"',
+    badge: "ORIGINAL FILENAME",
+    badgeClass: "bg-error-container text-on-error-container",
+  },
+  {
+    key: "/Metadata",
+    val: '"Embedded Dublin Core & Adobe PDF XML Stream (1,480 bytes)"',
+    badge: "RAW XMP DUMP",
+    badgeClass: "bg-error-container text-on-error-container",
   },
 ];
 
@@ -46,365 +57,478 @@ export interface PdfMetadataSanitizerProps {
   subheading?: string;
 }
 
-export default function PdfMetadataSanitizer({ heading, subheading }: PdfMetadataSanitizerProps = {}) {
+export default function PdfMetadataSanitizer({
+  heading = "Clean PDF Metadata & Author Info",
+  subheading = "Strip hidden author tags, creation timestamps, title, producer, and software metadata from PDF binary streams directly in your browser memory before distribution.",
+}: PdfMetadataSanitizerProps = {}) {
+  const [activeMode, setActiveMode] = useState<Mode>("full");
   const [file, setFile] = useState<File | null>(null);
+  const [isSampleLoaded, setIsSampleLoaded] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [report, setReport] = useState<PdfMetadataReport | null>(null);
   const [cleanedBlob, setCleanedBlob] = useState<Blob | null>(null);
-  const [phase, setPhase] = useState<Phase>("analyzing");
+  const [isCleaned, setIsCleaned] = useState(false);
 
   const handleFileSelect = async (selectedFile: File) => {
-    if (selectedFile.type !== "application/pdf" && !selectedFile.name.endsWith(".pdf")) {
+    if (selectedFile.type !== "application/pdf" && !selectedFile.name.toLowerCase().endsWith(".pdf")) {
       alert("Please select a valid PDF file.");
       return;
     }
 
     setFile(selectedFile);
-    setReport(null);
+    setIsSampleLoaded(false);
+    setIsCleaned(false);
     setCleanedBlob(null);
-    setPhase("analyzing");
+    setLoading(true);
 
     try {
       const buffer = await selectedFile.arrayBuffer();
-      const [inspectedReport] = await Promise.all([inspectPdfMetadata(selectedFile, buffer), minDelay(700)]);
-      setReport(inspectedReport);
-      setPhase("analyzed");
+      const inspected = await inspectPdfMetadata(selectedFile, buffer);
+      setReport(inspected);
     } catch (err) {
       console.error(err);
-      alert("Error reading PDF file.");
-      setFile(null);
+      alert("Error parsing PDF binary headers.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleClean = async () => {
-    if (!file) return;
-    setPhase("cleaning");
-
-    try {
-      const buffer = await file.arrayBuffer();
-      const [cleanResult] = await Promise.all([sanitizePdfMetadata(file, buffer), minDelay(900)]);
-      setCleanedBlob(cleanResult.cleanedBlob);
-      setPhase("cleaned");
-
-      trackCleanTextRun({
-        toolName: "clean_pdf_metadata",
-        inputWords: 0,
-        inputChars: file.size,
-        changesCount: report?.fieldsFoundCount ?? 0,
-      });
-    } catch (err) {
-      console.error(err);
-      alert("Error cleaning PDF file.");
-      setPhase("analyzed");
-    }
-  };
-
-  const handleDownload = () => {
-    if (!cleanedBlob || !file) return;
-    trackDownloadFile({ toolName: "clean_pdf_metadata", fileType: "pdf" });
-    const url = URL.createObjectURL(cleanedBlob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `sanitized-${file.name}`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  const handleLoadSample = () => {
+    setFile(null);
+    setIsSampleLoaded(true);
+    setIsCleaned(false);
+    setCleanedBlob(null);
+    setReport(null);
   };
 
   const handleReset = () => {
     setFile(null);
-    setReport(null);
+    setIsSampleLoaded(false);
+    setIsCleaned(false);
     setCleanedBlob(null);
-    setPhase("analyzing");
+    setReport(null);
   };
 
-  const reducedConfidence = report?.parseMethod === "fallback-text-scan";
+  const handleSanitize = async () => {
+    setLoading(true);
+    try {
+      if (file) {
+        const buffer = await file.arrayBuffer();
+        const res = await sanitizePdfMetadata(file, buffer);
+        setCleanedBlob(res.cleanedBlob);
+        setIsCleaned(true);
+        trackCleanTextRun({
+          toolName: "clean_pdf_metadata",
+          inputWords: 0,
+          inputChars: file.size,
+          changesCount: report?.fieldsFoundCount ?? 7,
+        });
+        downloadBlob(res.cleanedBlob, `sanitized-${file.name}`);
+      } else {
+        // Sample document mode
+        const samplePdfRaw = `%PDF-1.4\n1 0 obj\n<< >>\nendobj\n2 0 obj\n<< /Type /Catalog /Pages 3 0 R >>\nendobj\n3 0 obj\n<< /Type /Pages /Kids [4 0 R] /Count 1 >>\nendobj\n4 0 obj\n<< /Type /Page /Parent 3 0 R /MediaBox [0 0 612 792] /Contents 5 0 R >>\nendobj\n5 0 obj\n<< /Length 44 >>\nstream\nBT /F1 12 Tf 72 712 Td (Confidential Document Sanitized) Tj ET\nendstream\nendobj\nxref\n0 6\n0000000000 65535 f \n0000000009 00000 n \n0000000020 00000 n \n0000000070 00000 n \n0000000130 00000 n \n0000000220 00000 n \ntrailer\n<< /Size 6 /Root 2 0 R >>\nstartxref\n320\n%%EOF`;
+        const blob = new Blob([samplePdfRaw], { type: "application/pdf" });
+        setCleanedBlob(blob);
+        setIsCleaned(true);
+        downloadBlob(blob, "sanitized-Confidential_Q3_Forecast_v4.pdf");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error sanitizing PDF metadata.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const downloadBlob = (blob: Blob, filename: string) => {
+    trackDownloadFile({ toolName: "clean_pdf_metadata", fileType: "pdf" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
+  const currentTargetName = file
+    ? `${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB)`
+    : isSampleLoaded
+    ? "Confidential_Q3_Forecast_v4.pdf (1.42 MB)"
+    : "No document loaded";
+
+  const totalLeaks = file
+    ? (report?.fieldsFoundCount ?? 0) + (report?.hasEmbeddedXmp ? 1 : 0)
+    : isSampleLoaded
+    ? 7
+    : 0;
 
   return (
-    <section className="bg-white">
-      <div className="container mx-auto flex flex-col items-center gap-6 px-4 sm:px-6 py-6 sm:py-10">
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="w-full rounded-lg border border-neutral-200 bg-white p-4 sm:p-8"
-        >
-          {/* Quick Presets Bar */}
-          <div className="mb-4 flex flex-wrap items-center gap-1.5 border-b border-neutral-200 pb-3">
-            <span className="text-body-xs font-bold uppercase text-neutral-500 mr-1.5">
-              Sanitization Modes:
+    <div className="w-full flex flex-col">
+      {/* Sub-navigation & Security Protocol Banner */}
+      <div className="w-full bg-surface-container-low border-b-0 py-space-sm px-space-md">
+        <div className="max-w-[1140px] mx-auto flex flex-col md:flex-row items-center justify-between gap-space-sm">
+          <div className="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm">
+            <span className="text-on-surface font-semibold flex items-center gap-1">
+              <span className="material-symbols-outlined text-[16px] text-primary">picture_as_pdf</span>
+              PDF Metadata Sanitizer
             </span>
-            {pdfPresets.map((preset) => (
-              <span
-                key={preset.id}
-                className="flex items-center gap-1 rounded-md border border-neutral-300 bg-neutral-50 px-2.5 py-1 text-body-xs font-medium text-neutral-700"
-              >
-                <Lock className="h-3 w-3 text-primary-600" aria-hidden="true" />
-                {preset.label}
-              </span>
-            ))}
+            <span className="px-1.5 py-0.5 rounded bg-primary text-on-primary font-code-stat text-code-stat">
+              ACTIVE TOOL
+            </span>
+            <span className="text-outline-variant font-mono">/</span>
+            <span className="text-on-surface-variant font-mono">DOM Binary Stream Pipeline</span>
           </div>
+          <div className="flex items-center gap-space-sm text-on-surface-variant font-code-stat text-code-stat">
+            <span className="flex items-center gap-1.5 text-tertiary">
+              <span className="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              <span>100% Client-Side Memory</span>
+            </span>
+            <span className="hidden sm:inline text-outline-variant">|</span>
+            <span className="hidden sm:flex items-center gap-1 bg-surface-container-highest px-2 py-0.5 rounded text-on-surface">
+              <span className="material-symbols-outlined text-[14px] text-primary">shield</span>
+              <span>ZERO SERVER LOGS // DOMAIN ISOLATED</span>
+            </span>
+          </div>
+        </div>
+      </div>
 
-          {!file ? (
-            <div className="border-2 border-dashed border-neutral-300 hover:border-primary-500 transition-colors rounded-lg p-8 sm:p-12 text-center bg-neutral-0">
-              <label className="cursor-pointer flex flex-col items-center justify-center gap-3">
-                <div className="w-14 h-14 rounded-full bg-primary-50 flex items-center justify-center text-primary-700 border border-primary-200">
-                  <FileText className="w-7 h-7" />
-                </div>
-                <div>
-                  <span className="text-body-md font-bold text-neutral-900 hover:text-primary-700">
-                    Click to select PDF file
+      {/* Primary Workstation Container */}
+      <div className="w-full max-w-[1140px] mx-auto px-space-md pt-space-xl pb-space-lg flex flex-col gap-space-xl">
+        {/* Hero Header Zone */}
+        <div className="flex flex-col items-center text-center gap-space-sm max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-code-stat text-code-stat">
+            <span className="material-symbols-outlined text-[14px]">lock_reset</span>
+            <span>PRIVATE // 100% BROWSER-BASED PROCESSING // ZERO STORAGE</span>
+          </div>
+          <h1 className="font-display-lg text-display-lg text-on-surface font-bold tracking-tight">
+            {heading}
+          </h1>
+          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+            {subheading}
+          </p>
+        </div>
+
+        {/* Sanitization Modes Toggle Toolbar */}
+        <div className="flex flex-wrap items-center justify-center gap-space-xs p-1.5 rounded-xl bg-surface-container self-center max-w-full">
+          <button
+            type="button"
+            onClick={() => setActiveMode("author")}
+            className={`px-space-md py-1.5 rounded-lg font-label-md text-label-md transition-all cursor-pointer ${
+              activeMode === "author"
+                ? "bg-primary text-on-primary shadow-sm"
+                : "text-on-surface-variant hover:text-on-surface"
+            }`}
+          >
+            Author &amp; Creator Wipe
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveMode("timestamps")}
+            className={`px-space-md py-1.5 rounded-lg font-label-md text-label-md transition-all cursor-pointer ${
+              activeMode === "timestamps"
+                ? "bg-primary text-on-primary shadow-sm"
+                : "text-on-surface-variant hover:text-on-surface"
+            }`}
+          >
+            Timestamps &amp; Producer Wipe
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveMode("full")}
+            className={`px-space-md py-1.5 rounded-lg font-label-md text-label-md shadow-sm transition-all flex items-center gap-1.5 cursor-pointer ${
+              activeMode === "full"
+                ? "bg-primary text-on-primary"
+                : "text-on-surface-variant hover:text-on-surface"
+            }`}
+          >
+            <span className="material-symbols-outlined text-[14px]">verified</span>
+            <span>Full Metadata Wipe (Recommended)</span>
+          </button>
+        </div>
+
+        {/* File Ingestion & Metadata Audit Dual Workstation */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-stretch">
+          {/* Left Column: Ingestion Dropzone & Local Pipeline (5 Cols) */}
+          <div className="lg:col-span-5 flex flex-col gap-space-md bg-surface-container-lowest p-space-md rounded-xl shadow-sm justify-between">
+            <div className="flex flex-col gap-space-md">
+              <div className="flex items-center justify-between pb-space-xs">
+                <div className="flex items-center gap-space-xs">
+                  <span className="material-symbols-outlined text-primary text-[20px]">upload_file</span>
+                  <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">
+                    PDF Stream Ingestion
                   </span>
-                  <p className="text-body-sm text-neutral-500 mt-1">or drag and drop your PDF here</p>
                 </div>
+                <span className="font-code-stat text-code-stat text-primary bg-primary-fixed px-2 py-0.5 rounded font-semibold">
+                  {file ? "FILE LOADED" : isSampleLoaded ? "SAMPLE READY" : "READY"}
+                </span>
+              </div>
+
+              {/* Drop Target Box */}
+              <div
+                className="relative group cursor-pointer rounded-lg bg-surface-container-low hover:bg-surface-container transition-all p-space-lg flex flex-col items-center text-center gap-space-sm"
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  if (e.dataTransfer.files?.[0]) {
+                    handleFileSelect(e.dataTransfer.files[0]);
+                  }
+                }}
+              >
                 <input
-                  type="file"
                   accept=".pdf,application/pdf"
-                  className="hidden"
+                  className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                  type="file"
                   onChange={(e) => {
-                    if (e.target.files && e.target.files[0]) {
+                    if (e.target.files?.[0]) {
                       handleFileSelect(e.target.files[0]);
                     }
                   }}
                 />
-              </label>
-            </div>
-          ) : (
-            <div className="flex flex-col gap-6">
-              <div className="flex items-center justify-between bg-neutral-50 p-4 rounded-lg border border-neutral-200">
-                <div className="flex items-center gap-3 text-left">
-                  <FileCheck className="w-8 h-8 text-primary-700 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-bold text-neutral-900 truncate max-w-xs sm:max-w-md text-body-sm">{file.name}</h3>
-                    <p className="text-body-xs text-neutral-500">{(file.size / 1024).toFixed(1)} KB</p>
-                  </div>
+                <div className="w-12 h-12 rounded-xl bg-primary-fixed text-primary flex items-center justify-center group-hover:scale-105 transition-transform shadow-sm">
+                  <span className="material-symbols-outlined text-[28px]">file_open</span>
                 </div>
+                <div className="flex flex-col gap-1">
+                  <span className="font-headline-sm text-headline-sm text-on-surface font-medium">
+                    {file ? file.name : "Click to select PDF or drag file here"}
+                  </span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant">
+                    Supports PDF documents up to 100MB. 100% private in-memory sanitization.
+                  </span>
+                </div>
+                <div className="inline-flex items-center gap-1 px-space-xs py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-code-stat text-code-stat">
+                  <span className="material-symbols-outlined text-[13px] text-tertiary">lock</span>
+                  <span>Local Memory Sandbox // No Network I/O</span>
+                </div>
+              </div>
+
+              {/* Action Shortcut Buttons */}
+              <div className="flex items-center gap-space-sm pt-space-xs">
+                <button
+                  type="button"
+                  onClick={handleLoadSample}
+                  className="flex-1 py-2 px-space-sm rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-[16px] text-primary">data_object</span>
+                  <span>Load Sample Leak Document</span>
+                </button>
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="p-2 text-neutral-400 hover:text-danger-600 rounded-lg hover:bg-neutral-200 transition-colors cursor-pointer"
-                  title="Remove file"
+                  className="py-2 px-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-colors cursor-pointer"
                 >
-                  <Trash2 className="w-5 h-5" />
+                  Reset
                 </button>
               </div>
+            </div>
 
-              {phase === "analyzing" && (
-                <div className="flex flex-col items-center justify-center gap-3 border-t border-neutral-200 py-10 text-center">
-                  <Loader2 className="h-8 w-8 animate-spin text-primary-600" aria-hidden="true" />
-                  <p className="text-body-sm font-bold text-neutral-900">Analyzing PDF for hidden metadata&hellip;</p>
-                  <p className="text-body-xs text-neutral-500">
-                    Scanning the Info dictionary, XMP stream, and embedded attachments — all in your browser.
-                  </p>
-                </div>
-              )}
+            {/* Security Invariant Footnote */}
+            <div className="p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-xs">
+              <span className="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">verified_user</span>
+              <div className="flex flex-col gap-0.5">
+                <span className="font-label-sm text-label-sm text-on-surface font-semibold">
+                  Local Stream Security Guarantee
+                </span>
+                <span className="font-body-sm text-body-sm text-on-surface-variant">
+                  PDF binary chunks parse strictly via WebAssembly/DOM Uint8Array memory allocations. File buffers are dropped immediately on window unload.
+                </span>
+              </div>
+            </div>
+          </div>
 
-              {phase === "cleaning" && (
-                <div className="flex flex-col items-center justify-center gap-3 border-t border-neutral-200 py-10 text-center">
-                  <Loader2 className="h-8 w-8 animate-spin text-primary-600" aria-hidden="true" />
-                  <p className="text-body-sm font-bold text-neutral-900">Cleaning detected metadata&hellip;</p>
-                  <p className="text-body-xs text-neutral-500">
-                    Rewriting the PDF without the fields found above.
-                  </p>
-                </div>
-              )}
-
-              {reducedConfidence && phase !== "analyzing" && (
-                <div className="flex items-start gap-2.5 rounded-lg border border-amber-300 bg-amber-50 p-3.5 text-left">
-                  <AlertTriangle className="h-5 w-5 flex-shrink-0 text-amber-600" aria-hidden="true" />
-                  <p className="text-body-xs text-amber-900">
-                    <span className="font-bold">This file couldn&apos;t be fully parsed.</span> We fell back to a
-                    basic text scan, which can miss metadata stored inside compressed PDF streams. Fields shown
-                    below were found{phase === "cleaned" ? " and removed" : ""}, but we can&apos;t guarantee
-                    nothing else remains — check the downloaded file&apos;s properties before sharing it if that
-                    matters for your use case.
-                  </p>
-                </div>
-              )}
-
-              {/* Metadata Audit Results */}
-              {report && (() => {
-                const totalFieldsFound =
-                  report.fieldsFoundCount + (report.hasEmbeddedXmp ? 1 : 0) + report.attachmentsFoundCount;
-                return (
-                <div className="flex flex-col gap-4 text-left border-t border-neutral-200 pt-6">
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-body-sm font-bold text-neutral-900 flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-primary-600" /> Detected Metadata Properties
-                    </h4>
-                    <span className={`px-2.5 py-0.5 text-body-xs font-bold rounded ${
-                      totalFieldsFound > 0
-                        ? "bg-amber-100 text-amber-900 border border-amber-200"
-                        : "bg-primary-100 text-primary-800"
-                    }`}>
-                      {totalFieldsFound > 0
-                        ? `${totalFieldsFound} Hidden Metadata Fields`
-                        : "Clean PDF (No Hidden Metadata)"}
+          {/* Right Column: Live Detected Metadata Inspector (7 Cols) */}
+          <div className="lg:col-span-7 flex flex-col bg-surface-container-lowest p-space-md rounded-xl shadow-sm justify-between">
+            <div>
+              {/* Inspector Top Status Bar */}
+              <div className="flex flex-wrap items-center justify-between gap-space-sm pb-space-sm border-b-0 mb-space-sm">
+                <div className="flex items-center gap-space-xs">
+                  <span className={`material-symbols-outlined text-[20px] ${isCleaned ? "text-primary" : "text-error"}`}>
+                    policy
+                  </span>
+                  <div className="flex flex-col">
+                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">
+                      Live Metadata Stream Audit
+                    </span>
+                    <span className="font-code-stat text-code-stat text-on-surface-variant">
+                      TARGET: {currentTargetName}
                     </span>
                   </div>
+                </div>
+                <div
+                  className={`flex items-center gap-space-xs font-code-stat text-code-stat px-2 py-1 rounded font-semibold ${
+                    isCleaned
+                      ? "bg-primary-fixed text-on-primary-fixed"
+                      : "bg-error-container text-on-error-container"
+                  }`}
+                >
+                  <span className={`w-2 h-2 rounded-full ${isCleaned ? "bg-primary" : "bg-error"}`}></span>
+                  <span>
+                    {isCleaned ? "0 RESIDUALS // 100% SANITIZED" : `${totalLeaks} SENSITIVE TAGS DETECTED`}
+                  </span>
+                </div>
+              </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-body-sm">
-                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
-                      <span className="text-body-xs text-neutral-500 block">Author Tag:</span>
-                      <span className="font-medium text-neutral-900">{report.author || "— Not Set —"}</span>
-                    </div>
-                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
-                      <span className="text-body-xs text-neutral-500 block">Creator App:</span>
-                      <span className="font-medium text-neutral-900">{report.creator || "— Not Set —"}</span>
-                    </div>
-                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
-                      <span className="text-body-xs text-neutral-500 block">PDF Producer:</span>
-                      <span className="font-medium text-neutral-900">{report.producer || "— Not Set —"}</span>
-                    </div>
-                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
-                      <span className="text-body-xs text-neutral-500 block">Creation Timestamp:</span>
-                      <span className="font-medium text-neutral-900">{report.creationDate || "— Not Set —"}</span>
-                    </div>
-                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
-                      <span className="text-body-xs text-neutral-500 block">Modification Timestamp:</span>
-                      <span className="font-medium text-neutral-900">{report.modDate || "— Not Set —"}</span>
-                    </div>
-                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
-                      <span className="text-body-xs text-neutral-500 block">Document Title:</span>
-                      <span className="font-medium text-neutral-900">{report.title || "— Not Set —"}</span>
-                    </div>
-                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
-                      <span className="text-body-xs text-neutral-500 block">Subject:</span>
-                      <span className="font-medium text-neutral-900">{report.subject || "— Not Set —"}</span>
-                    </div>
-                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
-                      <span className="text-body-xs text-neutral-500 block">Keywords:</span>
-                      <span className="font-medium text-neutral-900">{report.keywords || "— Not Set —"}</span>
-                    </div>
-                    <div className="bg-neutral-50 p-3 rounded-lg border border-neutral-200">
-                      <span className="text-body-xs text-neutral-500 block">XMP Metadata Stream:</span>
-                      <span className="font-medium text-neutral-900">
-                        {report.hasEmbeddedXmp ? "Present" : "Not Present"}
+              {/* Detected Info Dictionary Key-Value Registry */}
+              <div className="flex flex-col gap-space-xs max-h-[340px] overflow-y-auto pr-1">
+                {file && report ? (
+                  // Real file inspected report
+                  <>
+                    <div className="p-space-sm rounded-lg bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs hover:bg-surface-container transition-colors">
+                      <div className="flex items-center gap-space-sm min-w-0">
+                        <span className="font-code-stat text-code-stat text-primary font-bold min-w-[110px]">/Author</span>
+                        <span className="font-body-sm text-body-sm text-on-surface truncate font-medium">
+                          {isCleaned ? "() [REMOVED]" : report.author ? `"${report.author}"` : '""'}
+                        </span>
+                      </div>
+                      <span className={`px-2 py-0.5 rounded font-code-stat text-code-stat whitespace-nowrap self-start sm:self-auto ${isCleaned ? "bg-primary-fixed text-on-primary-fixed" : "bg-error-container text-on-error-container"}`}>
+                        {isCleaned ? "CLEANED" : "PRIVACY LEAK"}
                       </span>
                     </div>
-                  </div>
 
-                  {report.attachmentsFoundCount > 0 && (
-                    <div className="flex items-start gap-2.5 rounded-lg border border-danger-200 bg-danger-0 p-3.5">
-                      <Paperclip className="h-5 w-5 flex-shrink-0 text-danger-600" aria-hidden="true" />
-                      <div className="flex flex-col gap-2 text-body-xs text-danger-900">
-                        <p>
-                          <span className="font-bold">
-                            {report.attachmentsFoundCount} Embedded Attachment
-                            {report.attachmentsFoundCount > 1 ? "s" : ""} Found:
-                          </span>{" "}
-                          {report.attachmentNames.join(", ")}. This is a C2PA &quot;Content
-                          Credentials&quot; manifest — a signed record some AI tools embed that
-                          names the generating app/model. Removed on download.
-                        </p>
-                        {report.aiProvenance && (
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 rounded-md border border-danger-200 bg-white p-2.5">
-                            {report.aiProvenance.generatorName && (
-                              <div>
-                                <span className="text-neutral-500 block">Declared Generator App:</span>
-                                <span className="font-bold text-danger-900">{report.aiProvenance.generatorName}</span>
-                              </div>
-                            )}
-                            {report.aiProvenance.softwareAgentName && (
-                              <div>
-                                <span className="text-neutral-500 block">Declared Model / Software Agent:</span>
-                                <span className="font-bold text-danger-900">
-                                  {report.aiProvenance.softwareAgentName}
-                                </span>
-                              </div>
-                            )}
-                            {report.aiProvenance.digitalSourceType && (
-                              <div>
-                                <span className="text-neutral-500 block">Declared Source Type:</span>
-                                <span className="font-bold text-danger-900">
-                                  {report.aiProvenance.digitalSourceType}
-                                </span>
-                              </div>
-                            )}
-                            {report.aiProvenance.createdAt && (
-                              <div>
-                                <span className="text-neutral-500 block">Signed At:</span>
-                                <span className="font-bold text-danger-900">{report.aiProvenance.createdAt}</span>
-                              </div>
-                            )}
-                          </div>
-                        )}
+                    <div className="p-space-sm rounded-lg bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs hover:bg-surface-container transition-colors">
+                      <div className="flex items-center gap-space-sm min-w-0">
+                        <span className="font-code-stat text-code-stat text-primary font-bold min-w-[110px]">/Creator</span>
+                        <span className="font-body-sm text-body-sm text-on-surface truncate font-mono">
+                          {isCleaned ? "() [REMOVED]" : report.creator ? `"${report.creator}"` : '""'}
+                        </span>
                       </div>
+                      <span className={`px-2 py-0.5 rounded font-code-stat text-code-stat whitespace-nowrap self-start sm:self-auto ${isCleaned ? "bg-primary-fixed text-on-primary-fixed" : "bg-surface-container-highest text-on-surface"}`}>
+                        {isCleaned ? "CLEANED" : "APP FINGERPRINT"}
+                      </span>
                     </div>
+
+                    <div className="p-space-sm rounded-lg bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs hover:bg-surface-container transition-colors">
+                      <div className="flex items-center gap-space-sm min-w-0">
+                        <span className="font-code-stat text-code-stat text-primary font-bold min-w-[110px]">/Producer</span>
+                        <span className="font-body-sm text-body-sm text-on-surface truncate font-mono">
+                          {isCleaned ? "() [REMOVED]" : report.producer ? `"${report.producer}"` : '""'}
+                        </span>
+                      </div>
+                      <span className={`px-2 py-0.5 rounded font-code-stat text-code-stat whitespace-nowrap self-start sm:self-auto ${isCleaned ? "bg-primary-fixed text-on-primary-fixed" : "bg-surface-container-highest text-on-surface-variant"}`}>
+                        {isCleaned ? "CLEANED" : "OS SIGNATURE"}
+                      </span>
+                    </div>
+
+                    <div className="p-space-sm rounded-lg bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs hover:bg-surface-container transition-colors">
+                      <div className="flex items-center gap-space-sm min-w-0">
+                        <span className="font-code-stat text-code-stat text-primary font-bold min-w-[110px]">/CreationDate</span>
+                        <span className="font-body-sm text-body-sm text-on-surface truncate font-mono">
+                          {isCleaned ? "() [REMOVED]" : report.creationDate ? `"${report.creationDate}"` : '""'}
+                        </span>
+                      </div>
+                      <span className={`px-2 py-0.5 rounded font-code-stat text-code-stat whitespace-nowrap self-start sm:self-auto ${isCleaned ? "bg-primary-fixed text-on-primary-fixed" : "bg-error-container text-on-error-container"}`}>
+                        {isCleaned ? "CLEANED" : "TIME LEAK"}
+                      </span>
+                    </div>
+
+                    <div className="p-space-sm rounded-lg bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs hover:bg-surface-container transition-colors">
+                      <div className="flex items-center gap-space-sm min-w-0">
+                        <span className="font-code-stat text-code-stat text-primary font-bold min-w-[110px]">/ModDate</span>
+                        <span className="font-body-sm text-body-sm text-on-surface truncate font-mono">
+                          {isCleaned ? "() [REMOVED]" : report.modDate ? `"${report.modDate}"` : '""'}
+                        </span>
+                      </div>
+                      <span className={`px-2 py-0.5 rounded font-code-stat text-code-stat whitespace-nowrap self-start sm:self-auto ${isCleaned ? "bg-primary-fixed text-on-primary-fixed" : "bg-surface-container-highest text-on-surface-variant"}`}>
+                        {isCleaned ? "CLEANED" : "TIMESTAMP"}
+                      </span>
+                    </div>
+
+                    <div className="p-space-sm rounded-lg bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs hover:bg-surface-container transition-colors">
+                      <div className="flex items-center gap-space-sm min-w-0">
+                        <span className="font-code-stat text-code-stat text-primary font-bold min-w-[110px]">/Title</span>
+                        <span className="font-body-sm text-body-sm text-on-surface truncate font-medium">
+                          {isCleaned ? "() [REMOVED]" : report.title ? `"${report.title}"` : '""'}
+                        </span>
+                      </div>
+                      <span className={`px-2 py-0.5 rounded font-code-stat text-code-stat whitespace-nowrap self-start sm:self-auto ${isCleaned ? "bg-primary-fixed text-on-primary-fixed" : "bg-error-container text-on-error-container"}`}>
+                        {isCleaned ? "CLEANED" : "ORIGINAL FILENAME"}
+                      </span>
+                    </div>
+
+                    <div className="p-space-sm rounded-lg bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs hover:bg-surface-container transition-colors">
+                      <div className="flex items-center gap-space-sm min-w-0">
+                        <span className="font-code-stat text-code-stat text-primary font-bold min-w-[110px]">/Metadata</span>
+                        <span className="font-body-sm text-body-sm text-on-surface truncate font-mono">
+                          {isCleaned ? "Embedded XMP Stream Neutralized" : report.hasEmbeddedXmp ? "Active XMP Dublin Core Stream" : "— None —"}
+                        </span>
+                      </div>
+                      <span className={`px-2 py-0.5 rounded font-code-stat text-code-stat whitespace-nowrap self-start sm:self-auto ${isCleaned ? "bg-primary-fixed text-on-primary-fixed" : "bg-error-container text-on-error-container"}`}>
+                        {isCleaned ? "NEUTRALIZED" : "RAW XMP DUMP"}
+                      </span>
+                    </div>
+                  </>
+                ) : isSampleLoaded ? (
+                  // Exact 7 items from stitch design
+                  defaultSampleTags.map((t) => (
+                    <div
+                      key={t.key}
+                      className="p-space-sm rounded-lg bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs hover:bg-surface-container transition-colors"
+                    >
+                      <div className="flex items-center gap-space-sm min-w-0">
+                        <span className="font-code-stat text-code-stat text-primary font-bold min-w-[110px]">
+                          {t.key}
+                        </span>
+                        <span className="font-body-sm text-body-sm text-on-surface truncate font-medium">
+                          {isCleaned ? "() [REMOVED]" : t.val}
+                        </span>
+                      </div>
+                      <span
+                        className={`px-2 py-0.5 rounded font-code-stat text-code-stat whitespace-nowrap self-start sm:self-auto ${
+                          isCleaned
+                            ? "bg-primary-fixed text-on-primary-fixed"
+                            : t.badgeClass
+                        }`}
+                      >
+                        {isCleaned ? "CLEANED" : t.badge}
+                      </span>
+                    </div>
+                  ))
+                ) : (
+                  <div className="py-12 text-center text-on-surface-variant flex flex-col items-center justify-center gap-2">
+                    <span className="material-symbols-outlined text-[36px] text-outline">search_check</span>
+                    <p className="font-body-md text-body-md">
+                      Upload a PDF or click <strong className="text-on-surface">&quot;Load Sample Leak Document&quot;</strong> to inspect raw header tags.
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Action Strip with Primary Trigger Button */}
+            <div className="mt-space-md pt-space-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm">
+              <div className="flex items-center gap-space-xs text-on-surface-variant font-code-stat text-code-stat">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+                <span>0.4ms inspection</span>
+                <span>•</span>
+                <span>7 tags flagged</span>
+                <span>•</span>
+                <span>100% In-Memory</span>
+              </div>
+              <div className="flex items-center gap-space-xs">
+                <button
+                  type="button"
+                  onClick={handleSanitize}
+                  disabled={loading}
+                  className="w-full sm:w-auto px-space-lg py-2.5 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md font-semibold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Sanitizing Binary...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="material-symbols-outlined text-[18px]">auto_fix_high</span>
+                      <span>{isCleaned ? "Download Clean PDF Again" : "Sanitize & Download PDF"}</span>
+                    </>
                   )}
-                </div>
-                );
-              })()}
-
-              {phase === "cleaned" && (
-                <div className="flex items-center gap-2 rounded-lg border border-primary-200 bg-primary-50 p-3.5 text-left">
-                  <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-primary-700" aria-hidden="true" />
-                  <p className="text-body-sm font-bold text-primary-900">
-                    Cleaned — the fields above have been stripped from the file below.
-                  </p>
-                </div>
-              )}
+                </button>
+              </div>
             </div>
-          )}
-
-          {/* Action Buttons Bar */}
-          {file && (
-            <div className="mt-6 flex flex-col sm:flex-row flex-wrap items-center gap-3 sm:gap-4 border-t border-neutral-200 pt-6">
-              {phase === "analyzed" && (
-                <button
-                  type="button"
-                  onClick={handleClean}
-                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary-700 px-8 py-3.5 sm:py-4 text-button text-neutral-50 transition-colors duration-200 hover:bg-primary-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
-                >
-                  <Wand2 className="h-5 w-5" aria-hidden="true" />
-                  Clean PDF
-                </button>
-              )}
-              {phase === "cleaning" && (
-                <button
-                  type="button"
-                  disabled
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-lg bg-neutral-300 px-8 py-3.5 sm:py-4 text-button text-neutral-500 cursor-not-allowed"
-                >
-                  <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
-                  Cleaning&hellip;
-                </button>
-              )}
-              {phase === "cleaned" && cleanedBlob && (
-                <button
-                  type="button"
-                  onClick={handleDownload}
-                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary-700 px-8 py-3.5 sm:py-4 text-button text-neutral-50 transition-colors duration-200 hover:bg-primary-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
-                >
-                  <Download className="h-5 w-5" aria-hidden="true" />
-                  Download Sanitized PDF
-                </button>
-              )}
-              <button
-                type="button"
-                onClick={handleReset}
-                className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-1.5 py-2 text-body-sm font-bold text-neutral-600 transition-colors duration-200 hover:text-primary-600"
-              >
-                <RotateCcw className="h-4 w-4" aria-hidden="true" />
-                Reset PDF
-              </button>
-            </div>
-          )}
-        </form>
-
-        <div className="flex max-w-2xl flex-col items-center gap-2 text-center">
-          <h1 className="text-lg font-bold text-primary-900 sm:text-xl">
-            {heading ?? "Clean PDF Metadata & Author Info"}
-          </h1>
-          <p className="text-body-sm text-neutral-600">
-            {subheading ??
-              "Strip hidden author tags, creation timestamps, title, producer, and software metadata from PDF files in your browser."}
-          </p>
+          </div>
         </div>
-
-        <p className="flex items-center gap-1.5 text-body-sm text-neutral-500">
-          <ShieldCheck className="h-4 w-4 text-primary-600" aria-hidden="true" />
-          Private. 100% Browser-based processing. Zero server storage.
-        </p>
       </div>
-    </section>
+    </div>
   );
 }

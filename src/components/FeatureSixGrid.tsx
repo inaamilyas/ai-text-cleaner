@@ -43,13 +43,13 @@ export default function FeatureSixGrid() {
   ];
 
   return (
-    <section className="bg-white py-16 border-t border-neutral-200">
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="text-center max-w-xl mx-auto mb-12">
-          <p className="text-body-xs font-bold uppercase tracking-wider text-primary-700">
-            Why Choose AI Text Cleaner
-          </p>
-          <h2 className="text-h3 text-neutral-900 font-bold mt-1">
+    <section className="bg-surface py-12 md:py-16 border-t border-surface-container-highest/80">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="text-center max-w-xl mx-auto mb-10">
+          <span className="font-code-stat text-code-stat text-primary uppercase tracking-widest font-semibold block">
+            WHY CHOOSE AI TEXT CLEANER
+          </span>
+          <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight mt-1">
             Built for security, speed, and clean text output
           </h2>
         </div>
@@ -58,13 +58,17 @@ export default function FeatureSixGrid() {
           {features.map((feat, idx) => (
             <div
               key={idx}
-              className="flex flex-col gap-3 rounded-lg border border-neutral-200 bg-white p-6 text-left transition-all duration-200 hover:border-primary-300 hover:shadow-xs"
+              className="flex flex-col gap-3.5 rounded-xl border border-surface-container-highest/80 bg-surface-container-lowest p-6 text-left transition-all duration-200 hover:shadow-md hover:border-primary/40"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-50 text-primary-700 border border-primary-200">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-fixed/30 text-primary border border-primary-fixed shadow-xs">
                 <feat.icon className="h-5 w-5" />
               </div>
-              <h3 className="text-h6 text-neutral-900 font-bold">{feat.title}</h3>
-              <p className="text-body-sm text-neutral-600 leading-relaxed">{feat.description}</p>
+              <h3 className="font-headline-sm text-headline-sm text-on-surface font-semibold">
+                {feat.title}
+              </h3>
+              <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                {feat.description}
+              </p>
             </div>
           ))}
         </div>

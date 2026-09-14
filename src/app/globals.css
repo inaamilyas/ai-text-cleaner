@@ -1,73 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #141414;
+  --background: #f8f9fa;
+  --foreground: #191c1d;
 }
 
 @theme {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Roboto Mono', 'JetBrains Mono', monospace;
+  --font-roboto: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  /* Primary — brand green */
-  --color-primary-0: #f0fffa;
-  --color-primary-100: #d6fff1;
-  --color-primary-200: #9afedc;
-  --color-primary-300: #2ffeb8;
-  --color-primary-400: #02e497;
-  --color-primary-500: #019865;
-  --color-primary-600: #016f4a;
-  --color-primary-700: #015136;
-  --color-primary-800: #003322;
-  --color-primary-900: #001911;
+  /* Stitch Direct Colors */
+  --color-primary: #3525cd;
+  --color-primary-container: #4f46e5;
+  --color-primary-fixed: #e2dfff;
+  --color-primary-fixed-variant: #3323cc;
+  --color-primary-fixed-dim: #c3c0ff;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #dad7ff;
 
-  /* Secondary — blue */
-  --color-secondary-0: #f1f5fe;
-  --color-secondary-100: #d4e0fc;
-  --color-secondary-200: #c6d6fb;
-  --color-secondary-300: #96b3f8;
-  --color-secondary-400: #6690f5;
-  --color-secondary-500: #3970f2;
-  --color-secondary-600: #0d42bf;
-  --color-secondary-700: #0a3599;
-  --color-secondary-800: #072365;
-  --color-secondary-900: #031030;
+  --color-secondary: #565e74;
+  --color-secondary-container: #dae2fd;
+  --color-secondary-fixed: #dae2fd;
+  --color-secondary-fixed-dim: #bec6e0;
 
-  /* Neutral — grayscale */
+  --color-tertiary: #3a495f;
+  --color-tertiary-container: #516177;
+
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+
+  --color-surface: #f8f9fa;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f3f4f5;
+  --color-surface-container: #edeeef;
+  --color-surface-container-high: #e7e8e9;
+  --color-surface-container-highest: #e1e3e4;
+  --color-on-surface: #191c1d;
+  --color-on-surface-variant: #464555;
+  --color-outline: #777587;
+  --color-outline-variant: #c7c4d8;
+
+  /* Stitch Spacing */
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
+  --spacing-gutter: 1rem;
+  --spacing-gutter-tablet: 1.25rem;
+  --spacing-gutter-desktop: 1.5rem;
+
+
+
+  /* Primary — Stitch Indigo */
+  --color-primary-0: #eef2ff;
+  --color-primary-100: #e0e7ff;
+  --color-primary-200: #dad7ff;
+  --color-primary-300: #c3c0ff;
+  --color-primary-400: #818cf8;
+  --color-primary-500: #6366f1;
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #3525cd;
+  --color-primary-800: #2518a3;
+  --color-primary-900: #191c1d;
+
+  /* Secondary — Stitch Slate / Steel */
+  --color-secondary-0: #f8fafc;
+  --color-secondary-100: #f1f5f9;
+  --color-secondary-200: #dae2fd;
+  --color-secondary-300: #bec6e0;
+  --color-secondary-400: #94a3b8;
+  --color-secondary-500: #64748b;
+  --color-secondary-600: #565e74;
+  --color-secondary-700: #3f465c;
+  --color-secondary-800: #131b2e;
+  --color-secondary-900: #0f172a;
+
+  /* Neutral — Stitch Surfaces & Grayscale */
   --color-neutral-50: #ffffff;
-  --color-neutral-0: #fafafa;
-  --color-neutral-100: #f2f2f2;
-  --color-neutral-200: #e6e6e6;
-  --color-neutral-300: #d9d9d9;
-  --color-neutral-400: #bfbfbf;
-  --color-neutral-500: #707070;
-  --color-neutral-600: #595959;
-  --color-neutral-700: #474747;
-  --color-neutral-800: #2e2e2e;
-  --color-neutral-900: #141414;
+  --color-neutral-0: #f8f9fa;
+  --color-neutral-100: #f3f4f5;
+  --color-neutral-200: #edeeef;
+  --color-neutral-300: #e1e3e4;
+  --color-neutral-400: #c7c4d8;
+  --color-neutral-500: #777587;
+  --color-neutral-600: #565e74;
+  --color-neutral-700: #464555;
+  --color-neutral-800: #2e3132;
+  --color-neutral-900: #191c1d;
 
-  /* Danger */
-  --color-danger-0: #fdf2f2;
-  --color-danger-100: #f9d7d8;
-  --color-danger-200: #f5c1c2;
-  --color-danger-300: #f09ea0;
-  --color-danger-400: #ea7678;
-  --color-danger-500: #e03a3d;
-  --color-danger-600: #b51c1f;
-  --color-danger-700: #891518;
-  --color-danger-800: #540d0e;
-  --color-danger-900: #2c0708;
+  /* Danger — Stitch Error */
+  --color-danger-0: #fef2f2;
+  --color-danger-100: #ffdad6;
+  --color-danger-200: #fecaca;
+  --color-danger-300: #fca5a5;
+  --color-danger-400: #f87171;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #ba1a1a;
+  --color-danger-700: #991b1b;
+  --color-danger-800: #93000a;
+  --color-danger-900: #450a0a;
 
   /* Success */
-  --color-success-0: #f2fdf6;
-  --color-success-100: #d4f7e1;
-  --color-success-200: #b1f1c9;
-  --color-success-300: #79e6a2;
-  --color-success-400: #4ade81;
-  --color-success-500: #24c661;
-  --color-success-600: #198a44;
-  --color-success-700: #177d3d;
-  --color-success-800: #10562a;
-  --color-success-900: #093118;
+  --color-success-0: #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-200: #bbf7d0;
+  --color-success-300: #86efac;
+  --color-success-400: #4ade80;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+  --color-success-800: #166534;
+  --color-success-900: #14532d;
+
 
   /* Alert */
   --color-alert-0: #fefcf0;
@@ -93,66 +141,71 @@
   --color-info-800: #0d2954;
   --color-info-900: #07162c;
 
-  /* Type scale — size / line-height / letter-spacing / weight */
-  --text-h1: 3rem;
-  --text-h1--line-height: 3.5rem;
-  --text-h1--letter-spacing: -0.02em;
-  --text-h1--font-weight: 700;
+  /* Stitch Exact Type Scale */
+  --text-display-lg: 2.5rem;
+  --text-display-lg--line-height: 3rem;
+  --text-display-lg--letter-spacing: -0.03em;
+  --text-display-lg--font-weight: 600;
 
-  --text-h2: 2.5rem;
-  --text-h2--line-height: 3rem;
-  --text-h2--letter-spacing: -0.02em;
-  --text-h2--font-weight: 700;
+  --text-display-lg-mobile: 1.875rem;
+  --text-display-lg-mobile--line-height: 2.25rem;
+  --text-display-lg-mobile--letter-spacing: -0.025em;
+  --text-display-lg-mobile--font-weight: 600;
 
-  --text-h3: 2rem;
-  --text-h3--line-height: 2.5rem;
-  --text-h3--letter-spacing: -0.015em;
-  --text-h3--font-weight: 700;
+  --text-headline-lg: 1.5rem;
+  --text-headline-lg--line-height: 2rem;
+  --text-headline-lg--letter-spacing: -0.02em;
+  --text-headline-lg--font-weight: 600;
 
-  --text-h4: 1.75rem;
-  --text-h4--line-height: 2.25rem;
-  --text-h4--letter-spacing: -0.015em;
-  --text-h4--font-weight: 700;
+  --text-headline-md: 1.25rem;
+  --text-headline-md--line-height: 1.75rem;
+  --text-headline-md--letter-spacing: -0.015em;
+  --text-headline-md--font-weight: 600;
 
-  --text-h5: 1.5rem;
-  --text-h5--line-height: 2rem;
-  --text-h5--letter-spacing: -0.01em;
-  --text-h5--font-weight: 700;
+  --text-headline-sm: 1rem;
+  --text-headline-sm--line-height: 1.5rem;
+  --text-headline-sm--letter-spacing: -0.01em;
+  --text-headline-sm--font-weight: 600;
 
-  --text-h6: 1.25rem;
-  --text-h6--line-height: 1.75rem;
-  --text-h6--letter-spacing: -0.01em;
-  --text-h6--font-weight: 700;
-
-  --text-body-lg: 1.5rem;
-  --text-body-lg--line-height: 2rem;
-  --text-body-lg--letter-spacing: 0em;
+  --text-body-lg: 1.0625rem;
+  --text-body-lg--line-height: 1.75rem;
+  --text-body-lg--letter-spacing: -0.01em;
   --text-body-lg--font-weight: 400;
 
-  --text-body-md: 1.25rem;
-  --text-body-md--line-height: 1.5rem;
+  --text-body-md: 1rem;
+  --text-body-md--line-height: 1.625rem;
   --text-body-md--letter-spacing: 0em;
   --text-body-md--font-weight: 400;
 
-  --text-body-sm: 1rem;
+  --text-body-sm: 0.875rem;
   --text-body-sm--line-height: 1.25rem;
   --text-body-sm--letter-spacing: 0em;
   --text-body-sm--font-weight: 400;
 
-  --text-body-xs: 0.75rem;
-  --text-body-xs--line-height: 1rem;
-  --text-body-xs--letter-spacing: 0em;
-  --text-body-xs--font-weight: 400;
+  --text-label-md: 0.75rem;
+  --text-label-md--line-height: 1rem;
+  --text-label-md--letter-spacing: 0.02em;
+  --text-label-md--font-weight: 500;
 
-  --text-button: 1.125rem;
-  --text-button--line-height: 1.5rem;
-  --text-button--letter-spacing: -0.02em;
-  --text-button--font-weight: 700;
+  --text-label-sm: 0.6875rem;
+  --text-label-sm--line-height: 0.875rem;
+  --text-label-sm--letter-spacing: 0.04em;
+  --text-label-sm--font-weight: 500;
 
-  --text-link: 1.125rem;
-  --text-link--line-height: 1.5rem;
-  --text-link--letter-spacing: -0.02em;
-  --text-link--font-weight: 700;
+  --text-code-stat: 0.6875rem;
+  --text-code-stat--line-height: 0.875rem;
+  --text-code-stat--letter-spacing: 0.05em;
+  --text-code-stat--font-weight: 600;
+
+  --text-button: 0.875rem;
+  --text-button--line-height: 1.25rem;
+  --text-button--letter-spacing: -0.01em;
+  --text-button--font-weight: 600;
+
+  --text-link: 0.875rem;
+  --text-link--line-height: 1.25rem;
+  --text-link--letter-spacing: -0.01em;
+  --text-link--font-weight: 600;
 }
 
 @theme inline {
@@ -160,100 +213,99 @@
   --color-foreground: var(--foreground);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #191c1d;
+    font-family: var(--font-sans);
+  }
+
+  a {
+    color: var(--color-primary-700);
+    font-weight: 600;
+  }
+
+  a:hover {
+    color: var(--color-primary-800);
+  }
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: var(--color-primary-900);
-}
-
-h1 {
-  font-size: var(--text-h1);
-  line-height: var(--text-h1--line-height);
-  letter-spacing: var(--text-h1--letter-spacing);
-  font-weight: var(--text-h1--font-weight);
-}
-
-h2 {
-  font-size: var(--text-h2);
-  line-height: var(--text-h2--line-height);
-  letter-spacing: var(--text-h2--letter-spacing);
-  font-weight: var(--text-h2--font-weight);
-}
-
-h3 {
-  font-size: var(--text-h3);
-  line-height: var(--text-h3--line-height);
-  letter-spacing: var(--text-h3--letter-spacing);
-  font-weight: var(--text-h3--font-weight);
-}
-
-h4 {
-  font-size: var(--text-h4);
-  line-height: var(--text-h4--line-height);
-  letter-spacing: var(--text-h4--letter-spacing);
-  font-weight: var(--text-h4--font-weight);
-}
-
-h5 {
-  font-size: var(--text-h5);
-  line-height: var(--text-h5--line-height);
-  letter-spacing: var(--text-h5--letter-spacing);
-  font-weight: var(--text-h5--font-weight);
-}
-
-h6 {
-  font-size: var(--text-h6);
-  line-height: var(--text-h6--line-height);
-  letter-spacing: var(--text-h6--letter-spacing);
-  font-weight: var(--text-h6--font-weight);
-}
-
-a {
-  color: var(--color-primary-700);
-  font-weight: 600;
-}
-
-a:hover {
-  color: var(--color-primary-800);
-}
 
 /* Responsive typography scaling below medium screens (< 768px) */
 @media (max-width: 767px) {
-  h1 {
-    font-size: 1.875rem; /* 30px */
-    line-height: 2.25rem;
+  .font-display-lg {
+    font-size: 30px !important;
+    line-height: 36px !important;
+    letter-spacing: -0.025em !important;
   }
-  h2 {
-    font-size: 1.5rem; /* 24px */
-    line-height: 1.875rem;
-  }
-  h3 {
-    font-size: 1.25rem; /* 20px */
-    line-height: 1.625rem;
-  }
-  h4 {
-    font-size: 1.125rem; /* 18px */
-    line-height: 1.5rem;
-  }
-  .text-body-lg {
-    font-size: 1.125rem !important; /* 18px */
-    line-height: 1.625rem !important;
-  }
-  .text-body-md {
-    font-size: 1rem !important; /* 16px */
-    line-height: 1.5rem !important;
-  }
-  .text-body-sm {
-    font-size: 0.875rem !important; /* 14px */
-    line-height: 1.25rem !important;
+  .font-headline-lg {
+    font-size: 22px !important;
+    line-height: 28px !important;
   }
 }
+
+/* Exact Typography Utility Classes (Roboto) */
+.font-display-lg { font-family: 'Roboto', sans-serif; font-size: 40px; line-height: 48px; letter-spacing: -0.02em; font-weight: 700; }
+.font-headline-lg { font-family: 'Roboto', sans-serif; font-size: 24px; line-height: 32px; letter-spacing: -0.015em; font-weight: 700; }
+.font-headline-md { font-family: 'Roboto', sans-serif; font-size: 20px; line-height: 28px; letter-spacing: -0.01em; font-weight: 500; }
+.font-headline-sm { font-family: 'Roboto', sans-serif; font-size: 16px; line-height: 24px; letter-spacing: -0.005em; font-weight: 500; }
+.font-body-lg { font-family: 'Roboto', sans-serif; font-size: 16px; line-height: 26px; letter-spacing: -0.01em; font-weight: 400; }
+.font-body-md { font-family: 'Roboto', sans-serif; font-size: 14px; line-height: 22px; letter-spacing: 0em; font-weight: 400; }
+.font-body-sm { font-family: 'Roboto', sans-serif; font-size: 13px; line-height: 20px; letter-spacing: 0em; font-weight: 400; }
+.font-label-md { font-family: 'Roboto', sans-serif; font-size: 13px; line-height: 18px; letter-spacing: 0.01em; font-weight: 500; }
+.font-label-sm { font-family: 'Roboto', sans-serif; font-size: 12px; line-height: 16px; letter-spacing: 0.02em; font-weight: 500; }
+.font-code-stat { font-family: 'Roboto Mono', 'JetBrains Mono', monospace; font-size: 11px; line-height: 14px; letter-spacing: 0.05em; font-weight: 600; }
+
+/* Responsive Main Text Enhancement for Desktop Screens (14px mobile -> 16px desktop) */
+@media (min-width: 768px) {
+  .font-body-md,
+  .text-body-md {
+    font-size: 15px !important;
+    line-height: 24px !important;
+  }
+  .font-body-lg,
+  .text-body-lg {
+    font-size: 17px !important;
+    line-height: 28px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .font-body-md,
+  .text-body-md {
+    font-size: 16px !important;
+    line-height: 26px !important;
+  }
+  #raw-input,
+  #clean-output {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+  }
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+

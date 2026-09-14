@@ -1,43 +1,40 @@
-import { CircleCheck } from "lucide-react";
-import SectionHeading from "@/components/SectionHeading";
-
-const items = [
-  "Invisible characters",
-  "Zero-width spaces",
-  "Non-breaking spaces",
-  "Smart quotes",
-  "Em dashes",
-  "Ellipsis characters",
-  "Markdown formatting",
-  "Extra whitespace",
-  "Unicode formatting",
-  "Decorative symbols",
-  "Emoji",
-];
-
 export default function WhatWeClean() {
+  const items = [
+    { label: "Invisible characters", dotClass: "bg-error" },
+    { label: "Zero-width spaces", dotClass: "bg-error" },
+    { label: "Non-breaking spaces", dotClass: "bg-primary" },
+    { label: "Smart quotes", dotClass: "bg-primary" },
+    { label: "Em dashes", dotClass: "bg-primary" },
+    { label: "Ellipsis characters", dotClass: "bg-primary" },
+    { label: "Markdown formatting", dotClass: "bg-secondary" },
+    { label: "Extra whitespace", dotClass: "bg-secondary" },
+    { label: "Unicode formatting", dotClass: "bg-primary" },
+    { label: "Decorative symbols", dotClass: "bg-error" },
+    { label: "Emoji", dotClass: "bg-secondary" },
+  ];
+
   return (
-    <section className="bg-neutral-0">
-      <div className="container mx-auto flex flex-col gap-10 px-6 py-20">
-        <SectionHeading
-          title="What we remove"
-          subtitle="A quick look at the artifacts we catch by default."
-        />
-        <div className="mx-auto flex max-w-3xl flex-wrap justify-center gap-3">
-          {items.map((item) => (
-            <span
-              key={item}
-              className="flex items-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-4 py-2 text-body-sm text-neutral-700 transition-colors duration-200 hover:border-primary-300"
-            >
-              <CircleCheck
-                className="h-4 w-4 text-primary-600"
-                strokeWidth={2}
-                aria-hidden="true"
-              />
-              {item}
+    <section className="w-full py-12 md:py-16 flex flex-col space-y-space-md">
+      <div className="space-y-space-xs">
+        <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold">
+          What we remove
+        </h2>
+        <p className="font-body-lg text-body-lg text-on-surface-variant">
+          A quick look at the artifacts we catch by default.
+        </p>
+      </div>
+      <div className="flex flex-wrap gap-space-xs">
+        {items.map((item) => (
+          <div
+            key={item.label}
+            className="px-3 py-2 rounded-lg bg-surface-container-lowest shadow-sm flex items-center gap-2"
+          >
+            <span className={`w-1.5 h-1.5 rounded-full ${item.dotClass}`}></span>
+            <span className="font-body-md text-body-md text-on-surface font-medium">
+              {item.label}
             </span>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   );

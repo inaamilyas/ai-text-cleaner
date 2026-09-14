@@ -73,32 +73,32 @@ export const toolsList = [
 
 export default function RelatedToolsGrid() {
   return (
-    <section className="bg-neutral-50 border-y border-neutral-200 py-10">
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="text-center max-w-xl mx-auto mb-6">
-          <p className="text-body-xs font-bold uppercase tracking-wider text-neutral-500">
-            All-In-One Text Sanitization Suite
-          </p>
-          <h2 className="text-h5 text-neutral-900 font-bold mt-1">
+    <section className="bg-surface-container-low border-y border-surface-container-highest/80 py-12">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="text-center max-w-xl mx-auto mb-8">
+          <span className="font-code-stat text-code-stat text-primary uppercase tracking-widest font-semibold block">
+            ALL-IN-ONE TEXT SANITIZATION SUITE
+          </span>
+          <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight mt-1">
             Stay ahead with our AI text processing tools
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
           {toolsList.map((tool) => (
             <Link
               key={tool.href}
               href={tool.href}
-              className={`flex items-center gap-3 p-3.5 rounded-lg border bg-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs hover:border-primary-400 group`}
+              className="flex items-center gap-3.5 p-4 rounded-xl border border-surface-container-highest/80 bg-surface-container-lowest transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-primary/40 group no-underline"
             >
-              <div className={`p-2 rounded-md ${tool.color} flex-shrink-0`}>
+              <div className="p-2.5 rounded-xl bg-primary-fixed/30 border border-primary-fixed text-primary flex-shrink-0 group-hover:scale-105 transition-transform shadow-xs">
                 <tool.icon className="h-4 w-4" />
               </div>
               <div className="text-left overflow-hidden">
-                <h3 className="text-body-xs font-bold text-neutral-900 group-hover:text-primary-700 truncate">
+                <h3 className="font-headline-sm text-sm font-semibold text-on-surface group-hover:text-primary transition-colors truncate">
                   {tool.title}
                 </h3>
-                <p className="text-[11px] text-neutral-500 truncate leading-tight mt-0.5">
+                <p className="font-body-sm text-[11px] text-on-surface-variant truncate leading-tight mt-0.5">
                   {tool.desc}
                 </p>
               </div>

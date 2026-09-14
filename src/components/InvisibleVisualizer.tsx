@@ -113,18 +113,33 @@ export default function InvisibleVisualizer({ heading, subheading }: InvisibleVi
   }
 
   return (
-    <section className="bg-white">
-      <div className="container mx-auto flex flex-col items-center gap-6 px-4 sm:px-6 py-6 sm:py-10">
+    <section className="bg-surface py-8 md:py-12">
+      <div className="container mx-auto flex flex-col items-center gap-6 px-4 md:px-6">
+        {/* Top Header */}
+        <div className="flex max-w-3xl flex-col items-center gap-2 text-center">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-primary font-code-stat text-code-stat shadow-sm mb-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+            <span>CLIENT RUNTIME • 100% PRIVATE</span>
+          </div>
+          <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">
+            {heading ?? "Zero-Width & Invisible Character Visualizer"}
+          </h1>
+          <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+            {subheading ??
+              "Highlight hidden zero-width spaces (U+200B), NBSPs (U+00A0), soft hyphens (U+00AD), and BOM markers with color-coded visual badges."}
+          </p>
+        </div>
+
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleInspect();
           }}
-          className="w-full rounded-lg border border-neutral-200 bg-white p-4 sm:p-8"
+          className="w-full rounded-xl border border-surface-container-highest/80 bg-surface-container-lowest p-6 sm:p-8 shadow-md"
         >
           {/* Quick Presets Bar */}
-          <div className="mb-4 flex flex-wrap items-center gap-1.5 border-b border-neutral-200 pb-3">
-            <span className="text-body-xs font-bold uppercase text-neutral-500 mr-1.5">
+          <div className="mb-6 flex flex-wrap items-center gap-2 border-b border-surface-container-highest/80 pb-4">
+            <span className="font-code-stat text-code-stat uppercase text-outline mr-1">
               Quick Presets:
             </span>
             {visualizerPresets.map((preset) => (
@@ -132,38 +147,38 @@ export default function InvisibleVisualizer({ heading, subheading }: InvisibleVi
                 key={preset.id}
                 type="button"
                 onClick={() => applyPreset(preset.sample)}
-                className="flex cursor-pointer items-center gap-1 rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-body-xs font-medium text-neutral-700 transition-colors duration-200 hover:border-primary-500 hover:bg-primary-50 hover:text-primary-700 focus-visible:outline-2"
+                className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-surface-container-highest/80 bg-surface-container-low px-3 py-1.5 font-label-sm text-label-sm text-on-surface hover:bg-surface-container transition-colors"
               >
-                <preset.icon className="h-3 w-3" aria-hidden="true" />
+                <preset.icon className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
                 {preset.label}
               </button>
             ))}
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-6 lg:grid-cols-2">
             {/* Input Card */}
             <div className="flex flex-col gap-2 text-left">
-              <div className="flex items-center justify-between">
-                <p className="flex items-center gap-1.5 text-body-sm font-bold text-neutral-700">
-                  <FileText className="h-4 w-4 text-neutral-500" aria-hidden="true" />
+              <div className="flex items-center justify-between pb-1">
+                <p className="flex items-center gap-1.5 font-headline-sm text-headline-sm text-on-surface font-medium">
+                  <FileText className="h-4 w-4 text-secondary" aria-hidden="true" />
                   Raw Text Input
                 </p>
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
                     onClick={handleSampleText}
-                    className="flex cursor-pointer items-center gap-1 text-body-xs font-bold text-primary-700 hover:underline"
+                    className="flex cursor-pointer items-center gap-1 font-code-stat text-code-stat text-primary hover:underline"
                   >
                     <Wand2 className="h-3.5 w-3.5" />
                     Try Sample Text
                   </button>
-                  <p className="text-body-sm text-neutral-500">
+                  <p className="font-code-stat text-code-stat text-outline">
                     {inputStats.words} words, {inputStats.characters} chars
                   </p>
                 </div>
               </div>
               <textarea
-                rows={7}
+                rows={8}
                 value={input}
                 onChange={(e) => {
                   const val = e.target.value;
@@ -175,24 +190,24 @@ export default function InvisibleVisualizer({ heading, subheading }: InvisibleVi
                   }
                 }}
                 placeholder="Paste text containing zero-width spaces or hidden Unicode artifacts here..."
-                className="w-full rounded-lg border border-neutral-300 bg-neutral-0 p-4 text-body-sm text-neutral-900 placeholder-neutral-400 transition-colors duration-200 focus:border-primary-500 focus:outline-none"
+                className="w-full rounded-xl border border-surface-container-highest/80 bg-surface-container-low p-4 font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:border-primary transition-colors leading-relaxed"
               />
             </div>
 
             {/* Visualizer Output Card */}
             <div className="flex flex-col gap-2 text-left">
-              <div className="flex items-center justify-between">
-                <p className="flex items-center gap-1.5 text-body-sm font-bold text-neutral-700">
-                  <Eye className="h-4 w-4 text-primary-600" aria-hidden="true" />
+              <div className="flex items-center justify-between pb-1">
+                <p className="flex items-center gap-1.5 font-headline-sm text-headline-sm text-on-surface font-medium">
+                  <Eye className="h-4 w-4 text-primary" aria-hidden="true" />
                   Character Visualizer Output
                 </p>
                 <div className="flex items-center gap-3">
                   {result && (
                     <span
-                      className={`text-body-xs font-bold px-2.5 py-0.5 rounded ${
+                      className={`font-code-stat text-xs font-bold px-2.5 py-0.5 rounded ${
                         result.totalInvisibleCount > 0
-                          ? "bg-rose-100 text-rose-900 border border-rose-200"
-                          : "bg-primary-100 text-primary-800"
+                          ? "bg-error/10 text-error border border-error/30"
+                          : "bg-primary-fixed/30 text-primary border border-primary-fixed"
                       }`}
                     >
                       {result.totalInvisibleCount > 0
@@ -203,7 +218,7 @@ export default function InvisibleVisualizer({ heading, subheading }: InvisibleVi
                 </div>
               </div>
 
-              <div className="w-full min-h-[200px] max-h-[240px] overflow-y-auto rounded-lg border border-neutral-300 bg-neutral-900 p-4 text-body-sm text-neutral-100 font-mono whitespace-pre-wrap leading-relaxed">
+              <div className="w-full min-h-[210px] max-h-[250px] overflow-y-auto rounded-xl border border-surface-container-highest/80 bg-[#121316] p-4 text-body-md text-neutral-100 font-mono whitespace-pre-wrap leading-relaxed shadow-inner">
                 {result ? (
                   result.segments.map((seg) =>
                     seg.isInvisible ? (
@@ -220,7 +235,7 @@ export default function InvisibleVisualizer({ heading, subheading }: InvisibleVi
                   )
                 ) : (
                   <span className="text-neutral-500 italic">
-                    Visual character badges will render here when you paste or inspect text...
+                    Type or paste text on the left to highlight hidden zero-width and invisible control codes...
                   </span>
                 )}
               </div>
@@ -229,15 +244,15 @@ export default function InvisibleVisualizer({ heading, subheading }: InvisibleVi
 
           {/* Breakdown pill bar */}
           {result && Object.keys(result.counts).length > 0 && (
-            <div className="mt-6 flex flex-col gap-2 border-t border-neutral-200 pt-6 text-left">
-              <p className="text-body-sm font-bold text-rose-900 flex items-center gap-1.5">
-                <AlertTriangle className="h-4 w-4 text-rose-600" /> Hidden Character Breakdown Detected:
+            <div className="mt-6 flex flex-col gap-2 border-t border-surface-container-highest/80 pt-6 text-left">
+              <p className="font-headline-sm text-headline-sm text-error flex items-center gap-1.5 font-medium">
+                <AlertTriangle className="h-4 w-4 text-error" /> Hidden Character Breakdown Detected:
               </p>
               <div className="flex flex-wrap gap-2">
                 {Object.entries(result.counts).map(([name, count]) => (
                   <span
                     key={name}
-                    className="inline-flex items-center gap-1 rounded-md bg-rose-100 px-2.5 py-1 text-body-xs font-bold text-rose-900 border border-rose-200"
+                    className="inline-flex items-center gap-1 rounded-md bg-error/10 px-2.5 py-1 font-label-sm text-label-sm text-error border border-error/30"
                   >
                     🔴 {count} × {name}
                   </span>
@@ -246,56 +261,51 @@ export default function InvisibleVisualizer({ heading, subheading }: InvisibleVi
             </div>
           )}
 
-          {/* Bottom Button Bar */}
-          <div className="mt-6 flex flex-col sm:flex-row flex-wrap items-center gap-3 sm:gap-4 border-t border-neutral-200 pt-6">
-            <button
-              type="submit"
-              disabled={!hasText}
-              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary-700 px-8 py-3.5 sm:py-4 text-button text-neutral-50 transition-colors duration-200 hover:bg-primary-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-500"
-            >
-              <Eye className="h-5 w-5" aria-hidden="true" />
-              Inspect Invisible Characters
-            </button>
-            {result ? (
+          {/* Action Buttons Bar */}
+          <div className="mt-6 flex flex-col sm:flex-row flex-wrap items-center justify-between gap-3 border-t border-surface-container-highest/80 pt-4">
+            <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+              <button
+                type="submit"
+                disabled={!hasText}
+                className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <Eye className="h-4 w-4" aria-hidden="true" />
+                Inspect Invisible Characters
+              </button>
+              {result ? (
+                <button
+                  type="button"
+                  onClick={handleCopyClean}
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-all border border-surface-container-highest/80 flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  {copied ? (
+                    <Check className="h-4 w-4 text-primary" aria-hidden="true" />
+                  ) : (
+                    <Sparkles className="h-4 w-4 text-primary" aria-hidden="true" />
+                  )}
+                  {copied ? "Copied Clean Text" : "Strip All & Copy Clean Text"}
+                </button>
+              ) : null}
+            </div>
+
+            <div className="flex items-center gap-4">
               <button
                 type="button"
-                onClick={handleCopyClean}
-                className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-white px-8 py-3.5 sm:py-4 text-button text-neutral-800 transition-colors duration-200 hover:border-primary-600 hover:text-primary-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+                onClick={handleReset}
+                disabled={!hasText && !result}
+                className="flex cursor-pointer items-center gap-1.5 font-label-md text-label-md text-secondary hover:text-error transition-colors disabled:cursor-not-allowed disabled:text-outline"
               >
-                {copied ? (
-                  <Check className="h-5 w-5 text-primary-600" aria-hidden="true" />
-                ) : (
-                  <Sparkles className="h-5 w-5 text-primary-600" aria-hidden="true" />
-                )}
-                {copied ? "Copied Clean Text" : "Strip All & Copy Clean Text"}
+                <RotateCcw className="h-4 w-4" aria-hidden="true" />
+                Reset
               </button>
-            ) : null}
-            <button
-              type="button"
-              onClick={handleReset}
-              disabled={!hasText && !result}
-              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-1.5 py-2 text-body-sm font-bold text-neutral-600 transition-colors duration-200 hover:text-primary-600 disabled:cursor-not-allowed disabled:text-neutral-300"
-            >
-              <RotateCcw className="h-4 w-4" aria-hidden="true" />
-              Reset
-            </button>
+
+              <div className="hidden md:flex items-center gap-1.5 font-label-md text-label-md text-secondary">
+                <ShieldCheck className="h-4 w-4 text-primary" aria-hidden="true" />
+                <span>100% Client-Side</span>
+              </div>
+            </div>
           </div>
         </form>
-
-        <div className="flex max-w-2xl flex-col items-center gap-2 text-center">
-          <h1 className="text-lg font-bold text-primary-900 sm:text-xl">
-            {heading ?? "Zero-Width & Invisible Character Visualizer"}
-          </h1>
-          <p className="text-body-sm text-neutral-600">
-            {subheading ??
-              "Highlight hidden zero-width spaces (U+200B), NBSPs (U+00A0), soft hyphens (U+00AD), and BOM markers with color-coded visual badges."}
-          </p>
-        </div>
-
-        <p className="flex items-center gap-1.5 text-body-sm text-neutral-500">
-          <ShieldCheck className="h-4 w-4 text-primary-600" aria-hidden="true" />
-          Private. 100% Browser-based processing. Zero server storage.
-        </p>
       </div>
     </section>
   );

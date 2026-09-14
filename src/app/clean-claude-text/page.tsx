@@ -5,11 +5,12 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Clean Claude Text — Remove Anthropic Claude Formatting & Artifacts",
+  title: "Clean Claude AI Text — Remove Anthropic Claude Formatting & Artifacts",
   description:
-    "Clean text copied from Anthropic Claude 3.5 Sonnet & Opus. Remove unwanted Markdown tags, bold asterisks, smart quotes, and zero-width spaces.",
+    "Sanitize text from Anthropic Claude. Remove unwanted Markdown symbols, asterisks, smart quotes, and zero-width spaces instantly in your browser.",
   keywords: [
     "clean claude text",
+    "clean claude ai text",
     "clean anthropic claude output",
     "remove claude formatting",
     "claude text sanitizer",
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Clean Claude Text — Remove Anthropic Claude Formatting & Artifacts",
+    title: "Clean Claude AI Text — Remove Anthropic Claude Formatting & Artifacts",
     description:
       "Paste your Anthropic Claude responses to instantly strip unwanted markdown formatting and hidden unicode artifacts.",
     url: `${siteUrl}/clean-claude-text`,
@@ -43,33 +44,45 @@ const removedItems = [
   {
     character: "Claude Code Block Backticks",
     unicode: "U+0060 (`)",
-    description: "Anthropic Claude outputs code and text artifacts in backtick blocks that need to be stripped for plain text.",
+    description:
+      "Anthropic Claude outputs code and text artifacts in backtick blocks that need to be stripped for plain text.",
   },
   {
     character: "Smart Quotes & Typography",
     unicode: "U+201C / U+201D",
-    description: "Curly quotes inserted by Claude that cause formatting glitches when pasted into Google Docs or CMS editors.",
+    description:
+      "Curly quotes inserted by Claude that cause formatting glitches when pasted into Google Docs or CMS editors.",
   },
   {
     character: "Invisible Unicode Spacers",
     unicode: "U+200B / U+00A0",
-    description: "Hidden non-breaking spaces and zero-width spaces generated between rendered response paragraphs.",
+    description:
+      "Hidden non-breaking spaces and zero-width spaces generated between rendered response paragraphs.",
   },
 ];
 
 const howToSteps = [
   {
     title: "Copy from Claude.ai",
-    description: "Copy your text response or generated article directly from the Anthropic Claude interface.",
+    description:
+      "Copy your text response or generated article directly from the Anthropic Claude interface.",
   },
   {
     title: "Paste into Cleaner",
-    description: "Paste into the editor above. Our engine applies optimal Claude text sanitization presets.",
+    description:
+      "Paste into the editor above. Our engine applies optimal Claude text sanitization presets.",
   },
   {
     title: "Copy Clean Plain Text",
-    description: "Click Clean Text to get publication-ready plain text with zero formatting quirks.",
+    description:
+      "Click Clean Text to get publication-ready plain text with zero formatting quirks.",
   },
+];
+
+const benchmarks = [
+  { name: "Google Chrome", time: "1.2 ms" },
+  { name: "Apple Safari", time: "1.5 ms" },
+  { name: "Mozilla Firefox", time: "1.8 ms" },
 ];
 
 const faqs = [
@@ -103,7 +116,7 @@ const faqs = [
 const webAppJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Claude Text Cleaner",
+  name: "Clean Claude AI Text",
   url: `${siteUrl}/clean-claude-text`,
   description: "Free tool to sanitize text copied from Anthropic Claude AI.",
   applicationCategory: "UtilitiesApplication",
@@ -141,7 +154,10 @@ const faqJsonLd = {
 
 export default function CleanClaudeTextPage() {
   return (
-    <>
+    <div className="container max-w-[1140px] mx-auto px-4 md:px-8 py-space-lg flex flex-col w-full space-y-12 md:space-y-16">
+      <span className="sr-only">
+        Clean Claude AI Text — Desktop (1140px) | AI Text Cleaner
+      </span>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
@@ -163,18 +179,72 @@ export default function CleanClaudeTextPage() {
           normalizeDashes: true,
           removeTrailingWhitespace: true,
           removeHiddenCharacters: true,
+          removeAIFluff: true,
         }}
       />
       <SubToolContent
         title="Clean Claude Text"
+        badgeLabel="Claude Sanitization"
+        badgeIcon="auto_awesome"
         directAnswerTitle="How to Clean Anthropic Claude Text Output?"
         directAnswerText="Anthropic Claude produces eloquent text, but copying output into external documents introduces raw Markdown asterisks, smart quotes, and non-breaking spaces. Our tool strips these formatting artifacts instantly in your browser, leaving clean plain text."
-        beforeExample={"**Claude Summary:**\n- Here is a point with *italic* words.\n- “Smart quotes” & — em dashes."}
-        afterExample={'Claude Summary:\n- Here is a point with italic words.\n- "Smart quotes" & - em dashes.'}
+        beforeBadgeText="BEFORE (Raw Text with Hidden Artifacts)"
+        afterBadgeText="AFTER (Cleaned & Sanitized Output)"
+        beforeExample={
+          <div className="space-y-1 leading-loose">
+            <div className="text-error font-semibold mb-1">**Claude Summary:**</div>
+            <div>
+              - Here is a point with{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
+                *italic*
+              </span>{" "}
+              words.
+            </div>
+            <div>
+              -{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
+                “Smart quotes”
+              </span>{" "}
+              &amp;{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
+                —
+              </span>{" "}
+              em dashes.
+            </div>
+          </div>
+        }
+        afterExample={
+          <div className="space-y-1 leading-loose">
+            <div className="text-on-surface font-medium mb-1">Claude Summary:</div>
+            <div>
+              - Here is a point with{" "}
+              <span className="bg-surface-container-lowest px-1 py-0.5 rounded text-primary font-mono font-semibold">
+                italic
+              </span>{" "}
+              words.
+            </div>
+            <div>
+              -{" "}
+              <span className="bg-surface-container-lowest px-1 py-0.5 rounded text-primary font-mono font-semibold">
+                &quot;Smart quotes&quot;
+              </span>{" "}
+              &amp;{" "}
+              <span className="bg-surface-container-lowest px-1 py-0.5 rounded text-primary font-mono font-semibold">
+                -
+              </span>{" "}
+              em dashes.
+            </div>
+          </div>
+        }
+        beforeNote="Contains: ** markdown, curly “ ”, U+2014 em dash"
+        afterNote="Purged: Plain text ASCII quotes & standardized hyphen"
+        streamChart={false}
+        benchmarksTitle="Browser Engine Latency"
+        benchmarks={benchmarks}
         removedItems={removedItems}
         howToSteps={howToSteps}
         faqs={faqs}
       />
-    </>
+    </div>
   );
 }

@@ -2,30 +2,45 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Menu, X, ChevronDown } from "lucide-react";
-import Logo from "@/components/Logo";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
 import LanguageSelector from "@/components/LanguageSelector";
 
-const tools = [
-  { href: "/ai-text-detector", label: "AI Text Detector" },
-  { href: "/clean-chatgpt-text", label: "ChatGPT Text Cleaner" },
-  { href: "/clean-claude-text", label: "Claude Text Cleaner" },
-  { href: "/clean-claude-code", label: "Claude Code Output Cleaner" },
-  { href: "/clean-copilot-text", label: "Copilot Text Cleaner" },
-  { href: "/clean-gemini-text", label: "Gemini Text Cleaner" },
-  { href: "/markdown-to-plain-text", label: "Markdown to Plain Text" },
-  { href: "/remove-ai-words", label: "Remove AI Words & Buzzwords" },
-  { href: "/remove-invisible-characters", label: "Remove Invisible Characters" },
-  { href: "/remove-zero-width-space", label: "Remove Zero-Width Space" },
-  { href: "/smart-quotes-to-straight-quotes", label: "Smart Quotes to Straight Quotes" },
-  { href: "/remove-ai-image-metadata", label: "AI Image Metadata Remover" },
-  { href: "/strip-ai-prompts", label: "AI Prompt Stripper" },
-  { href: "/visualize-invisible-characters", label: "Invisible Character Visualizer" },
-  { href: "/clean-unicode-homoglyphs", label: "Unicode Homoglyph Cleaner" },
-  { href: "/clean-pdf-metadata", label: "PDF Metadata Sanitizer" },
-  { href: "/case-converter", label: "Text Case Converter" },
-  { href: "/check-readability-score", label: "Readability & Grade Checker" },
-  { href: "/humanize-ai-text", label: "AI Text Humanizer" },
+const toolCategories = [
+  {
+    category: "AI & Content Tools",
+    items: [
+      { href: "/ai-text-detector", label: "AI / GPT Detector", badge: "DET" },
+      { href: "/humanize-ai-text", label: "AI Text Humanizer", badge: "HUM" },
+      { href: "/remove-ai-words", label: "Remove AI Words", badge: "RAW" },
+      { href: "/strip-ai-prompts", label: "Strip AI Prompts", badge: "STP" },
+      { href: "/check-readability-score", label: "Readability Score", badge: "RDS" },
+      { href: "/remove-ai-image-metadata", label: "AI Image Metadata", badge: "IMG" },
+    ],
+  },
+  {
+    category: "Formatting & Unicode",
+    items: [
+      { href: "/visualize-invisible-characters", label: "Invisible Visualizer", badge: "VIS" },
+      { href: "/remove-invisible-characters", label: "Remove Invisible Chars", badge: "INV" },
+      { href: "/remove-zero-width-space", label: "Remove Zero-Width Space", badge: "ZWS" },
+      { href: "/clean-unicode-homoglyphs", label: "Unicode Homoglyphs", badge: "GLY" },
+      { href: "/smart-quotes-to-straight-quotes", label: "Smart Quotes to Straight", badge: "QUO" },
+      { href: "/case-converter", label: "Case Converter", badge: "CAS" },
+      { href: "/markdown-to-plain-text", label: "Markdown to Plain Text", badge: "MD" },
+    ],
+  },
+  {
+    category: "Platform & File Cleaners",
+    items: [
+      { href: "/clean-pdf-metadata", label: "PDF Metadata Cleaner", badge: "PDF" },
+      { href: "/clean-chatgpt-text", label: "Clean ChatGPT Text", badge: "GPT" },
+      { href: "/clean-claude-text", label: "Clean Claude Text", badge: "CLD" },
+      { href: "/clean-claude-code", label: "Clean Claude Code", badge: "COD" },
+      { href: "/clean-gemini-text", label: "Clean Gemini Text", badge: "GEM" },
+      { href: "/clean-copilot-text", label: "Clean Copilot Text", badge: "COP" },
+    ],
+  },
 ];
 
 const navLinks = [
@@ -61,124 +76,155 @@ export default function Navbar() {
   }, [toolsMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-30 border-b border-neutral-200 bg-white">
-      <div className="container mx-auto px-4 py-3 sm:px-6 sm:py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo Brand */}
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-sm sm:text-body-md font-bold text-primary-900 no-underline"
-          >
-            <Logo className="h-7 w-7 sm:h-8 sm:w-8 shrink-0" />
-            <span className="truncate">AI Text Cleaner</span>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md border-b border-surface-container-highest">
+      <div className="container mx-auto px-4 md:px-6 h-14 flex items-center justify-between gap-space-md">
+        <div className="flex items-center gap-space-lg">
+
+          <Link className="flex items-center gap-2 group no-underline" href="/">
+            <Image
+              src="/logo.png"
+              alt="AI Text Cleaner Logo"
+              width={32}
+              height={32}
+              priority
+              className="w-8 h-8 rounded-lg object-contain shadow-xs transition-transform group-hover:scale-105"
+            />
+            <span className="font-headline-sm text-headline-sm font-semibold tracking-tight text-on-surface">
+              AI Text Cleaner
+            </span>
           </Link>
 
-          {/* Desktop Navigation Links + Language Selector */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+          {/* Desktop Navigation Links */}
+          <nav className="hidden md:flex items-center gap-space-xs">
             <div className="relative" ref={toolsMenuRef}>
               <button
                 type="button"
                 onClick={() => setToolsMenuOpen((open) => !open)}
-                aria-haspopup="menu"
-                aria-expanded={toolsMenuOpen}
-                className="flex cursor-pointer items-center gap-1 text-body-sm font-bold text-neutral-700 transition-colors duration-200 hover:text-primary-600"
+                className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors font-label-md text-label-md cursor-pointer"
               >
-                Tools
-                <ChevronDown
-                  className={`h-4 w-4 transition-transform duration-200 ${toolsMenuOpen ? "rotate-180" : ""}`}
-                  aria-hidden="true"
-                />
+                <span className="material-symbols-outlined text-[15px]">tune</span>
+                <span>Tools</span>
+                <span className={`material-symbols-outlined text-[14px] transition-transform duration-200 ${toolsMenuOpen ? "rotate-180" : ""}`}>
+                  expand_more
+                </span>
               </button>
+
               {toolsMenuOpen && (
-                <div
-                  role="menu"
-                  className="absolute left-0 top-full mt-3 grid w-[560px] grid-cols-2 gap-1 rounded-lg border border-neutral-200 bg-white p-3 shadow-lg"
-                >
-                  {tools.map((tool) => (
-                    <Link
-                      key={tool.href}
-                      href={tool.href}
-                      role="menuitem"
-                      onClick={() => setToolsMenuOpen(false)}
-                      className="rounded-md px-3 py-2.5 text-body-sm font-medium text-neutral-700 no-underline transition-colors duration-200 hover:bg-primary-50 hover:text-primary-700"
-                    >
-                      {tool.label}
-                    </Link>
-                  ))}
+                <div className="absolute top-full left-0 pt-1.5 w-[720px] max-w-[90vw] z-50 animate-in fade-in duration-100">
+                  <div className="p-4 rounded-2xl bg-surface-container-lowest border border-surface-container-highest/80 shadow-2xl grid grid-cols-3 gap-4">
+                    {toolCategories.map((col) => (
+                      <div key={col.category} className="flex flex-col gap-1">
+                        <span className="text-code-stat uppercase tracking-wider text-outline font-semibold mb-1 px-2">
+                          {col.category}
+                        </span>
+                        <div className="flex flex-col gap-0.5">
+                          {col.items.map((t) => (
+                            <Link
+                              key={t.href}
+                              href={t.href}
+                              onClick={() => setToolsMenuOpen(false)}
+                              className="px-2.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-label-sm text-label-sm flex items-center justify-between no-underline transition-colors"
+                            >
+                              <span className="truncate mr-1">{t.label}</span>
+                              <span className="font-code-stat text-code-stat text-outline shrink-0">{t.badge}</span>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
+
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-body-sm font-bold text-neutral-700 no-underline transition-colors duration-200 hover:text-primary-600"
+                className="px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors font-label-md text-label-md no-underline"
               >
                 {link.label}
               </Link>
             ))}
-            <LanguageSelector />
           </nav>
-
-          {/* Mobile Right Controls (Language Selector + Hamburger Button) */}
-          <div className="flex md:hidden items-center gap-2">
-            <LanguageSelector />
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1.5 rounded-lg border border-neutral-200 bg-neutral-100 text-neutral-700 hover:bg-neutral-200 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500/40"
-              aria-label="Toggle Navigation Menu"
-            >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          </div>
         </div>
 
-        {/* Collapsible Mobile Drawer Navigation */}
-        {mobileMenuOpen && (
-          <nav className="mt-3 flex flex-col gap-1 border-t border-neutral-200 pt-3 md:hidden animate-in fade-in slide-in-from-top-2 duration-200">
-            <button
-              type="button"
-              onClick={() => setMobileToolsOpen((open) => !open)}
-              aria-expanded={mobileToolsOpen}
-              className="flex cursor-pointer items-center justify-between rounded-lg px-3 py-2.5 text-body-sm font-bold text-neutral-700 transition-colors hover:bg-primary-50 hover:text-primary-600"
-            >
-              Tools
-              <ChevronDown
-                className={`h-4 w-4 transition-transform duration-200 ${mobileToolsOpen ? "rotate-180" : ""}`}
-                aria-hidden="true"
-              />
-            </button>
-            {mobileToolsOpen && (
-              <div className="flex flex-col gap-1 pl-3">
-                {tools.map((tool) => (
-                  <Link
-                    key={tool.href}
-                    href={tool.href}
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      setMobileToolsOpen(false);
-                    }}
-                    className="rounded-lg px-3 py-2.5 text-body-sm font-medium text-neutral-600 hover:bg-primary-50 hover:text-primary-600 transition-colors"
-                  >
-                    {tool.label}
-                  </Link>
-                ))}
-              </div>
-            )}
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="rounded-lg px-3 py-2.5 text-body-sm font-bold text-neutral-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-        )}
+        {/* Right Controls: Language Selector + Avatar / Hamburger */}
+        <div className="flex items-center gap-space-sm">
+          <LanguageSelector />
+          <div className="hidden sm:flex w-8 h-8 rounded-full bg-primary items-center justify-center shadow-xs">
+            <span className="material-symbols-outlined text-on-primary text-[18px]">person</span>
+          </div>
+
+          {/* Mobile hamburger toggle */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-1.5 rounded-lg border border-surface-container-highest bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-colors"
+            aria-label="Toggle Menu"
+          >
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {mobileMenuOpen && (
+        <nav className="border-t border-surface-container-highest bg-surface-container-lowest px-4 py-3 md:hidden flex flex-col gap-1 shadow-lg max-h-[85vh] overflow-y-auto">
+          <button
+            type="button"
+            onClick={() => setMobileToolsOpen(!mobileToolsOpen)}
+            className="flex items-center justify-between px-3 py-2 rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors"
+          >
+            <span className="flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-[16px] text-primary">tune</span>
+              <span>All 19 Tools</span>
+            </span>
+            <span className={`material-symbols-outlined text-[16px] transition-transform ${mobileToolsOpen ? "rotate-180" : ""}`}>
+              expand_more
+            </span>
+          </button>
+
+          {mobileToolsOpen && (
+            <div className="pl-2 flex flex-col gap-3 my-1">
+              {toolCategories.map((col) => (
+                <div key={col.category} className="flex flex-col gap-1">
+                  <span className="text-code-stat uppercase tracking-wider text-outline font-semibold px-2">
+                    {col.category}
+                  </span>
+                  <div className="flex flex-col gap-0.5">
+                    {col.items.map((t) => (
+                      <Link
+                        key={t.href}
+                        href={t.href}
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setMobileToolsOpen(false);
+                        }}
+                        className="px-2.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-label-sm text-label-sm flex items-center justify-between no-underline"
+                      >
+                        <span>{t.label}</span>
+                        <span className="font-code-stat text-code-stat text-outline">{t.badge}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-3 py-2 rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors no-underline"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+      )}
     </header>
   );
 }

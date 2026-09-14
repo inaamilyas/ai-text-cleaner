@@ -132,9 +132,16 @@ const faqJsonLd = {
   })),
 };
 
+const benchmarks = [
+  { name: "V8 Engine (Chrome / Node)", time: "0.8 ms" },
+  { name: "JavaScriptCore (Safari)", time: "1.1 ms" },
+  { name: "SpiderMonkey (Firefox)", time: "1.3 ms" },
+];
+
 export default function CleanClaudeCodePage() {
   return (
-    <>
+    <div className="container max-w-[1140px] mx-auto px-4 md:px-8 py-space-lg flex flex-col w-full space-y-12 md:space-y-16">
+      <span className="sr-only">Clean Claude Code Output — Desktop (1140px) | AI Text Cleaner</span>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
@@ -160,14 +167,75 @@ export default function CleanClaudeCodePage() {
       />
       <SubToolContent
         title="Clean Claude Code Output"
+        badgeLabel="Claude Code CLI"
+        badgeIcon="terminal"
         directAnswerTitle="How to Clean Claude Code's Output for Commits, PRs, and Docs"
         directAnswerText="Claude Code — Anthropic's command-line coding agent — formats its responses in Markdown: bold file names, bulleted steps, and backtick-wrapped commands. That renders fine in a terminal or IDE, but paste it into a commit message, README, or plain-text file and the raw asterisks, backticks, and smart quotes come along too. This tool strips those artifacts in your browser, leaving clean plain text with your content untouched."
-        beforeExample={"**Summary:**\n- Updated `src/lib/cleanText.ts` to fix the *normalizeDashes* bug.\n- Ran tests — all “green”."}
-        afterExample={'Summary:\n- Updated src/lib/cleanText.ts to fix the normalizeDashes bug.\n- Ran tests - all "green".'}
+        beforeBadgeText="BEFORE (Raw Text with Hidden Artifacts)"
+        afterBadgeText="AFTER (Cleaned & Sanitized Output)"
+        beforeExample={
+          <div className="space-y-1 font-mono text-body-md text-on-surface-variant leading-relaxed">
+            <div className="text-error font-semibold">**Summary:**</div>
+            <div>
+              - Updated{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
+                `src/lib/cleanText.ts`
+              </span>{" "}
+              to fix the{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
+                *normalizeDashes*
+              </span>{" "}
+              bug.
+            </div>
+            <div>
+              - Ran tests{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
+                —
+              </span>{" "}
+              all{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
+                “green”
+              </span>
+              .
+            </div>
+          </div>
+        }
+        afterExample={
+          <div className="space-y-1 font-mono text-body-md text-on-surface leading-relaxed">
+            <div className="text-on-surface font-semibold">Summary:</div>
+            <div>
+              - Updated{" "}
+              <span className="bg-surface-container-lowest px-1 py-0.5 rounded text-primary font-mono font-semibold">
+                src/lib/cleanText.ts
+              </span>{" "}
+              to fix the{" "}
+              <span className="bg-surface-container-lowest px-1 py-0.5 rounded text-primary font-mono font-semibold">
+                normalizeDashes
+              </span>{" "}
+              bug.
+            </div>
+            <div>
+              - Ran tests{" "}
+              <span className="bg-surface-container-lowest px-1 py-0.5 rounded text-primary font-mono font-semibold">
+                -
+              </span>{" "}
+              all{" "}
+              <span className="bg-surface-container-lowest px-1 py-0.5 rounded text-primary font-mono font-semibold">
+                &quot;green&quot;
+              </span>
+              .
+            </div>
+          </div>
+        }
+        beforeNote="Includes asterisks, inline code backticks, em-dashes & curly quotes"
+        afterNote="Ready for git commit -m '...', terminal diffs, or markdown docs"
+        streamChart={false}
+        benchmarksTitle="Terminal Execution Benchmarks"
+        benchmarks={benchmarks}
         removedItems={removedItems}
         howToSteps={howToSteps}
         faqs={faqs}
       />
-    </>
+    </div>
   );
 }

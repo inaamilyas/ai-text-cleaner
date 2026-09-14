@@ -134,18 +134,32 @@ export default function HomoglyphSanitizer({ heading, subheading }: HomoglyphSan
   }
 
   return (
-    <section className="bg-white">
-      <div className="container mx-auto flex flex-col items-center gap-6 px-4 sm:px-6 py-6 sm:py-10">
+    <section className="bg-surface py-8 md:py-12 border-b border-surface-container-highest/60">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-8">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-code-stat uppercase tracking-widest bg-secondary-container/60 text-on-secondary-container border border-outline-variant/30 mb-3">
+            <Sparkles className="h-3 w-3 text-secondary" />
+            Confusable & Homoglyph Engine
+          </span>
+          <h1 className="text-headline-lg md:text-display-lg font-bold text-on-surface tracking-tight mb-2">
+            {heading ?? "Unicode Homoglyph & Confusable Character Cleaner"}
+          </h1>
+          <p className="text-body-lg text-on-surface-variant">
+            {subheading ??
+              "Detect and replace Cyrillic, Greek, or Latin look-alike characters disguised inside text to bypass AI detectors or phishing filters."}
+          </p>
+        </div>
+
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleSanitize();
           }}
-          className="w-full rounded-lg border border-neutral-200 bg-white p-4 sm:p-8"
+          className="w-full rounded-2xl border border-surface-container-highest/80 bg-surface-container-lowest p-5 sm:p-8 shadow-xs"
         >
           {/* Quick Presets Bar */}
-          <div className="mb-4 flex flex-wrap items-center gap-1.5 border-b border-neutral-200 pb-3">
-            <span className="text-body-xs font-bold uppercase text-neutral-500 mr-1.5">
+          <div className="mb-4 flex flex-wrap items-center gap-2 border-b border-surface-container-highest/80 pb-4">
+            <span className="text-code-stat font-bold uppercase tracking-wider text-on-surface-variant mr-1">
               Quick Presets:
             </span>
             {homoglyphPresets.map((preset) => (
@@ -153,9 +167,9 @@ export default function HomoglyphSanitizer({ heading, subheading }: HomoglyphSan
                 key={preset.id}
                 type="button"
                 onClick={() => applyPreset(preset.sample)}
-                className="flex cursor-pointer items-center gap-1 rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-body-xs font-medium text-neutral-700 transition-colors duration-200 hover:border-primary-500 hover:bg-primary-50 hover:text-primary-700 focus-visible:outline-2"
+                className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-surface-container-highest/80 bg-surface-container-low px-3 py-1 text-code-stat font-semibold text-on-surface transition-all hover:border-primary hover:bg-surface-container hover:text-primary"
               >
-                <preset.icon className="h-3 w-3" aria-hidden="true" />
+                <preset.icon className="h-3 w-3 text-primary" aria-hidden="true" />
                 {preset.label}
               </button>
             ))}
@@ -163,23 +177,23 @@ export default function HomoglyphSanitizer({ heading, subheading }: HomoglyphSan
 
           <div className="grid gap-6 sm:grid-cols-2">
             {/* Input Card */}
-            <div className="flex flex-col gap-2 text-left">
+            <div className="flex flex-col gap-3 text-left">
               <div className="flex items-center justify-between">
-                <p className="flex items-center gap-1.5 text-body-sm font-bold text-neutral-700">
-                  <FileText className="h-4 w-4 text-neutral-500" aria-hidden="true" />
+                <p className="flex items-center gap-1.5 text-body-sm font-bold text-on-surface">
+                  <FileText className="h-4 w-4 text-primary" aria-hidden="true" />
                   Raw Text Input
                 </p>
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
                     onClick={handleSampleText}
-                    className="flex cursor-pointer items-center gap-1 text-body-xs font-bold text-primary-700 hover:underline"
+                    className="flex cursor-pointer items-center gap-1 text-code-stat font-bold text-primary hover:underline"
                   >
                     <Wand2 className="h-3.5 w-3.5" />
-                    Try Sample Homoglyphs
+                    Try Sample
                   </button>
-                  <p className="text-body-sm text-neutral-500">
-                    {inputStats.words} words, {inputStats.characters} chars
+                  <p className="text-code-stat text-on-surface-variant font-mono">
+                    {inputStats.words}w • {inputStats.characters}c
                   </p>
                 </div>
               </div>
@@ -196,33 +210,33 @@ export default function HomoglyphSanitizer({ heading, subheading }: HomoglyphSan
                   }
                 }}
                 placeholder="Paste text to scan for fake Cyrillic or Greek look-alike letters..."
-                className="w-full rounded-lg border border-neutral-300 bg-neutral-0 p-4 text-body-sm text-neutral-900 placeholder-neutral-400 transition-colors duration-200 focus:border-primary-500 focus:outline-none"
+                className="w-full rounded-xl border border-surface-container-highest/80 bg-surface-container-lowest p-4 text-body-sm text-on-surface placeholder-outline transition-all focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 font-mono"
               />
             </div>
 
             {/* Output Card */}
-            <div className="flex flex-col gap-2 text-left">
+            <div className="flex flex-col gap-3 text-left">
               <div className="flex items-center justify-between">
-                <p className="flex items-center gap-1.5 text-body-sm font-bold text-neutral-700">
-                  <Sparkles className="h-4 w-4 text-primary-600" aria-hidden="true" />
+                <p className="flex items-center gap-1.5 text-body-sm font-bold text-on-surface">
+                  <Sparkles className="h-4 w-4 text-secondary" aria-hidden="true" />
                   Sanitized ASCII Output
                 </p>
                 <div className="flex items-center gap-3">
                   {result && (
                     <span
-                      className={`text-body-xs font-bold px-2.5 py-0.5 rounded ${
+                      className={`text-code-stat font-bold px-2.5 py-0.5 rounded-lg ${
                         result.totalHomoglyphsCount > 0
-                          ? "bg-rose-100 text-rose-900 border border-rose-200"
-                          : "bg-primary-100 text-primary-800"
+                          ? "bg-error/10 text-error border border-error/20"
+                          : "bg-secondary-container/50 text-on-secondary-container border border-secondary/30"
                       }`}
                     >
                       {result.totalHomoglyphsCount > 0
-                        ? `⚠️ ${result.totalHomoglyphsCount} Homoglyphs Replaced`
-                        : "✓ Clean Text (0 Homoglyphs)"}
+                        ? `⚠️ ${result.totalHomoglyphsCount} Replaced`
+                        : "✓ Clean ASCII"}
                     </span>
                   )}
-                  <p className="text-body-sm text-neutral-500">
-                    {outputStats.words} words, {outputStats.characters} chars
+                  <p className="text-code-stat text-on-surface-variant font-mono">
+                    {outputStats.words}w • {outputStats.characters}c
                   </p>
                 </div>
               </div>
@@ -231,27 +245,27 @@ export default function HomoglyphSanitizer({ heading, subheading }: HomoglyphSan
                 rows={7}
                 value={result?.cleanedText ?? ""}
                 placeholder="Sanitized standard ASCII Latin text will appear here..."
-                className="w-full rounded-lg border border-neutral-300 bg-neutral-0 p-4 text-body-sm text-neutral-900 placeholder-neutral-400"
+                className="w-full rounded-xl border border-surface-container-highest/80 bg-surface-container-low p-4 text-body-sm text-on-surface placeholder-outline font-mono"
               />
             </div>
           </div>
 
           {/* Replacement Summary pill bar */}
           {result && result.replacements.length > 0 && (
-            <div className="mt-6 flex flex-col gap-3 border-t border-neutral-200 pt-6 text-left">
-              <p className="text-body-sm font-bold text-rose-900 flex items-center gap-1.5">
-                <ShieldAlert className="h-4 w-4 text-rose-600" /> Confusable Homoglyph Replacements Summary:
+            <div className="mt-6 flex flex-col gap-3 border-t border-surface-container-highest/80 pt-6 text-left">
+              <p className="text-body-sm font-bold text-error flex items-center gap-1.5">
+                <ShieldAlert className="h-4 w-4 text-error" /> Confusable Homoglyph Replacements Summary:
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-body-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-code-stat font-mono">
                 {result.replacements.slice(0, 8).map((item, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center justify-between rounded-md bg-rose-50 px-3 py-1.5 text-rose-950 border border-rose-200 font-mono"
+                    className="flex items-center justify-between rounded-lg bg-surface-container-low px-3 py-1.5 text-on-surface border border-surface-container-highest/80"
                   >
                     <span>
-                      Original: <strong className="text-rose-700">'{item.originalChar}'</strong> ({item.codePoint})
+                      Original: <strong className="text-error">&apos;{item.originalChar}&apos;</strong> ({item.codePoint})
                     </span>
-                    <span>-&gt; ASCII: <strong className="text-emerald-700">'{item.replacedChar}'</strong></span>
+                    <span>-&gt; ASCII: <strong className="text-secondary">&apos;{item.replacedChar}&apos;</strong></span>
                   </div>
                 ))}
               </div>
@@ -259,11 +273,11 @@ export default function HomoglyphSanitizer({ heading, subheading }: HomoglyphSan
           )}
 
           {/* Bottom Button Bar */}
-          <div className="mt-6 flex flex-col sm:flex-row flex-wrap items-center gap-3 sm:gap-4 border-t border-neutral-200 pt-6">
+          <div className="mt-6 flex flex-col sm:flex-row flex-wrap items-center gap-3 sm:gap-4 border-t border-surface-container-highest/80 pt-6">
             <button
               type="submit"
               disabled={!hasText}
-              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary-700 px-8 py-3.5 sm:py-4 text-button text-neutral-50 transition-colors duration-200 hover:bg-primary-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-500"
+              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-8 py-3.5 text-body-sm font-semibold text-on-primary hover:bg-primary-hover shadow-sm transition-all disabled:cursor-not-allowed disabled:bg-surface-container-highest disabled:text-on-surface-variant"
             >
               <Lock className="h-5 w-5" aria-hidden="true" />
               Sanitize Homoglyphs
@@ -273,19 +287,19 @@ export default function HomoglyphSanitizer({ heading, subheading }: HomoglyphSan
                 <button
                   type="button"
                   onClick={handleCopyClean}
-                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-white px-8 py-3.5 sm:py-4 text-button text-neutral-800 transition-colors duration-200 hover:border-primary-600 hover:text-primary-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-surface-container-highest/80 bg-surface-container-low px-8 py-3.5 text-body-sm font-semibold text-on-surface hover:border-outline hover:bg-surface-container transition-all"
                 >
                   {copied ? (
-                    <Check className="h-5 w-5 text-primary-600" aria-hidden="true" />
+                    <Check className="h-5 w-5 text-secondary" aria-hidden="true" />
                   ) : (
-                    <Copy className="h-5 w-5" aria-hidden="true" />
+                    <Copy className="h-5 w-5 text-on-surface-variant" aria-hidden="true" />
                   )}
                   {copied ? "Copied" : "Copy Clean ASCII"}
                 </button>
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-white px-6 py-3.5 sm:py-4 text-button text-neutral-700 transition-colors duration-200 hover:border-primary-600 hover:text-primary-700"
+                  className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-surface-container-highest/80 bg-surface-container-low px-6 py-3.5 text-body-sm font-semibold text-on-surface hover:border-outline hover:bg-surface-container transition-all"
                 >
                   <Download className="h-5 w-5" aria-hidden="true" />
                   Download .txt
@@ -296,7 +310,7 @@ export default function HomoglyphSanitizer({ heading, subheading }: HomoglyphSan
               type="button"
               onClick={handleReset}
               disabled={!hasText && !result}
-              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-1.5 py-2 text-body-sm font-bold text-neutral-600 transition-colors duration-200 hover:text-primary-600 disabled:cursor-not-allowed disabled:text-neutral-300"
+              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-1.5 py-2 text-body-sm font-semibold text-on-surface-variant hover:text-primary transition-colors disabled:cursor-not-allowed disabled:text-outline-variant"
             >
               <RotateCcw className="h-4 w-4" aria-hidden="true" />
               Reset
@@ -304,18 +318,8 @@ export default function HomoglyphSanitizer({ heading, subheading }: HomoglyphSan
           </div>
         </form>
 
-        <div className="flex max-w-2xl flex-col items-center gap-2 text-center">
-          <h1 className="text-lg font-bold text-primary-900 sm:text-xl">
-            {heading ?? "Unicode Homoglyph & Confusable Character Cleaner"}
-          </h1>
-          <p className="text-body-sm text-neutral-600">
-            {subheading ??
-              "Detect and replace Cyrillic, Greek, or Latin look-alike characters disguised inside text to bypass AI detectors or phishing filters."}
-          </p>
-        </div>
-
-        <p className="flex items-center gap-1.5 text-body-sm text-neutral-500">
-          <ShieldCheck className="h-4 w-4 text-primary-600" aria-hidden="true" />
+        <p className="mt-6 flex items-center justify-center gap-1.5 text-body-sm text-on-surface-variant">
+          <ShieldCheck className="h-4 w-4 text-primary" aria-hidden="true" />
           Private. 100% Browser-based processing. Zero server storage.
         </p>
       </div>

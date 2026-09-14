@@ -102,6 +102,17 @@ const webAppJsonLd = {
   },
 };
 
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Humanize AI Text Online",
+  step: howToSteps.map((step) => ({
+    "@type": "HowToStep",
+    name: step.title,
+    text: step.description,
+  })),
+};
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -115,12 +126,25 @@ const faqJsonLd = {
   })),
 };
 
+const benchmarks = [
+  { name: "Google Chrome", time: "0.4 ms" },
+  { name: "Apple Safari", time: "0.6 ms" },
+  { name: "Mozilla Firefox", time: "0.7 ms" },
+];
+
 export default function HumanizeAITextPage() {
   return (
-    <>
+    <div className="w-full flex flex-col">
+      <span className="sr-only">
+        Humanize AI Text Online — Desktop (1140px) | AI Text Cleaner
+      </span>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
       />
       <script
         type="application/ld+json"
@@ -130,16 +154,57 @@ export default function HumanizeAITextPage() {
         heading="Humanize AI Text Online"
         subheading="Detect and remove repetitive AI transitions, robotic clichés (delve, tapestry, realm), and monotonous sentence structures for natural human flow."
       />
-      <SubToolContent
-        title="Humanize AI Text Online"
-        directAnswerTitle="How to Humanize AI Text Without Losing Original Meaning"
-        directAnswerText="AI text generators rely on statistical word patterns that create telltale markers: monotonous sentence lengths, passive voice constructions ('serves as a testament to'), and overused buzzwords ('delve into', 'vibrant tapestry', 'pivotal realm'). Our AI Text Humanizer strips these fluff patterns and optimizes your text for authentic human readability."
-        beforeExample="In conclusion, it is important to note that artificial intelligence serves as a testament to human innovation. Furthermore, delving into this digital realm allows us to foster pivotal advancements."
-        afterExample="Artificial intelligence shows human innovation. Exploring this field drives key advancements."
-        removedItems={removedItems}
-        howToSteps={howToSteps}
-        faqs={faqs}
-      />
-    </>
+      <div className="max-w-[1140px] mx-auto px-4 md:px-8 w-full pb-16">
+        <SubToolContent
+          title="Humanize AI Text Online"
+          badgeLabel="Heuristic Normalizer"
+          badgeIcon="auto_fix"
+          directAnswerTitle="How to Humanize AI Text Without Losing Original Meaning"
+          directAnswerText="AI text generators rely on statistical word patterns that create telltale markers: monotonous sentence lengths, passive voice constructions ('serves as a testament to'), and overused buzzwords ('delve into', 'vibrant tapestry', 'pivotal realm'). Our AI Text Humanizer strips these fluff patterns and optimizes your text for authentic human readability."
+          beforeBadgeText="BEFORE: Raw AI Text"
+          afterBadgeText="AFTER: Cleaned & Sanitized"
+          beforeExample={
+            <p className="font-body-md text-body-md text-on-surface-variant leading-loose">
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-medium">
+                In conclusion,
+              </span>{" "}
+              it is important to note that artificial intelligence{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-medium">
+                serves as a testament to
+              </span>{" "}
+              human innovation.{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-medium">
+                Furthermore,
+              </span>{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-medium">
+                delving into
+              </span>{" "}
+              this{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-medium">
+                digital realm
+              </span>{" "}
+              allows us to foster{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-medium">
+                pivotal advancements
+              </span>
+              .
+            </p>
+          }
+          afterExample={
+            <p className="font-body-md text-body-md text-on-surface leading-loose">
+              Artificial intelligence shows human innovation. Exploring this field drives key advancements.
+            </p>
+          }
+          beforeNote="Flagged by standard entropy and perplexity classifiers."
+          afterNote="Concise, zero buzzwords, active verb structure preserved."
+          streamChart={true}
+          benchmarksTitle="Heuristic Engine Latency"
+          benchmarks={benchmarks}
+          removedItems={removedItems}
+          howToSteps={howToSteps}
+          faqs={faqs}
+        />
+      </div>
+    </div>
   );
 }

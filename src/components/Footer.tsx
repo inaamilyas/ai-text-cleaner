@@ -1,147 +1,280 @@
 import Link from "next/link";
-import Logo from "@/components/Logo";
-
-const aiToolLinks = [
-  { href: "/clean-chatgpt-text", label: "Clean ChatGPT Text" },
-  { href: "/clean-claude-text", label: "Clean Claude Text" },
-  { href: "/clean-claude-code", label: "Clean Claude Code Output" },
-  { href: "/clean-gemini-text", label: "Clean Google Gemini Text" },
-  { href: "/clean-copilot-text", label: "Clean Copilot Text" },
-];
-
-const utilityLinks = [
-  { href: "/remove-ai-words", label: "Remove AI Buzzwords" },
-  { href: "/remove-zero-width-space", label: "Zero-Width Space Remover" },
-  { href: "/remove-invisible-characters", label: "Invisible Character Remover" },
-  { href: "/visualize-invisible-characters", label: "Invisible Character Visualizer" },
-  { href: "/strip-ai-prompts", label: "AI Prompt Parameter Stripper" },
-  { href: "/clean-unicode-homoglyphs", label: "Unicode Homoglyph Cleaner" },
-  { href: "/markdown-to-plain-text", label: "Markdown to Plain Text" },
-  { href: "/smart-quotes-to-straight-quotes", label: "Smart Quotes Fixer" },
-  { href: "/remove-ai-image-metadata", label: "AI Image Metadata Stripper" },
-  { href: "/remove-ai-watermark", label: "AI Watermark Remover" },
-  { href: "/clean-pdf-metadata", label: "PDF Metadata Sanitizer" },
-  { href: "/case-converter", label: "Text Case Converter" },
-  { href: "/check-readability-score", label: "Readability & Grade Checker" },
-  { href: "/humanize-ai-text", label: "AI Text Humanizer" },
-];
-
-const companyLinks = [
-  { href: "/about", label: "About Us" },
-  { href: "/blog", label: "Blog & Guides" },
-  { href: "/contact", label: "Contact Us" },
-  { href: "/privacy", label: "Privacy Policy" },
-  { href: "/terms", label: "Terms of Service" },
-];
+import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-neutral-200 bg-white">
-      <div className="container mx-auto flex flex-col gap-8 sm:gap-10 px-4 sm:px-6 py-8 sm:py-12">
-        <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="flex flex-col gap-3">
-            <Link
-              href="/"
-              className="flex items-center gap-2 text-body-md font-bold text-primary-900 no-underline"
-            >
-              <Logo className="h-7 w-7" />
-              AI Text Cleaner
+    <footer className="w-full bg-surface-container-low border-t border-surface-container-highest/80">
+      <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 pb-12 border-b border-surface-container-highest/80">
+          {/* Column 1: AI & Content Tools */}
+          <div>
+            <h4 className="font-code-stat text-code-stat text-outline uppercase tracking-wider mb-3 font-semibold">
+              AI Content Tools
+            </h4>
+            <ul className="space-y-2 font-label-sm text-label-sm text-on-surface-variant">
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/ai-text-detector">
+                  AI / GPT Detector
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/humanize-ai-text">
+                  AI Text Humanizer
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/remove-ai-words">
+                  Remove AI Words
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/strip-ai-prompts">
+                  Strip AI Prompts
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/check-readability-score">
+                  Readability Score
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/remove-ai-image-metadata">
+                  AI Image Metadata & C2PA
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 2: Text & Formatting Cleaners */}
+          <div>
+            <h4 className="font-code-stat text-code-stat text-outline uppercase tracking-wider mb-3 font-semibold">
+              Text & Formatting
+            </h4>
+            <ul className="space-y-2 font-label-sm text-label-sm text-on-surface-variant">
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/visualize-invisible-characters">
+                  Invisible Visualizer
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/remove-invisible-characters">
+                  Remove Invisible Chars
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/remove-zero-width-space">
+                  Remove Zero-Width Space
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/clean-unicode-homoglyphs">
+                  Unicode Homoglyphs
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/smart-quotes-to-straight-quotes">
+                  Smart Quotes to Straight
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/case-converter">
+                  Case Converter
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/markdown-to-plain-text">
+                  Markdown to Plain Text
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Platform Cleaners */}
+          <div>
+            <h4 className="font-code-stat text-code-stat text-outline uppercase tracking-wider mb-3 font-semibold">
+              Platform Cleaners
+            </h4>
+            <ul className="space-y-2 font-label-sm text-label-sm text-on-surface-variant">
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/clean-pdf-metadata">
+                  PDF Metadata Cleaner
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/clean-chatgpt-text">
+                  Clean ChatGPT Text
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/clean-claude-text">
+                  Clean Claude Text
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/clean-claude-code">
+                  Clean Claude Code
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/clean-gemini-text">
+                  Clean Gemini Text
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/clean-copilot-text">
+                  Clean Copilot Text
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: Company & Legal */}
+          <div>
+            <h4 className="font-code-stat text-code-stat text-outline uppercase tracking-wider mb-3 font-semibold">
+              Company & Legal
+            </h4>
+            <ul className="space-y-2 font-label-sm text-label-sm text-on-surface-variant">
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/about">
+                  Architecture & Privacy
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/blog">
+                  Engineering Guides
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/contact">
+                  Developer Contact
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/privacy">
+                  Zero-Log Guarantee
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/terms">
+                  Terms of Utility
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 5: Global Languages */}
+          <div>
+            <h4 className="font-code-stat text-code-stat text-outline uppercase tracking-wider mb-3 font-semibold">
+              Global Languages
+            </h4>
+            <ul className="space-y-2 font-label-sm text-label-sm text-on-surface-variant">
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/">
+                  English (US / UK)
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/es">
+                  Español (ES / LATAM)
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/de">
+                  Deutsch (DACH)
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/fr">
+                  Français (FR / CA)
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/ja">
+                  日本語 (CJK UTF-8)
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/pt">
+                  Português (PT / BR)
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/it">
+                  Italiano (IT)
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/ar">
+                  العربية (RTL)
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/nl">
+                  Nederlands (NL)
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/tr">
+                  Türkçe (TR)
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-primary transition-colors no-underline" href="/id">
+                  Bahasa Indonesia (ID)
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 font-label-sm text-label-sm text-on-surface-variant">
+          <div className="flex items-center gap-2.5 flex-wrap justify-center">
+            <Link href="/" className="flex items-center gap-1.5 no-underline text-on-surface">
+              <Image
+                src="/logo.png"
+                alt="AI Text Cleaner"
+                width={20}
+                height={20}
+                className="w-5 h-5 rounded object-contain"
+              />
+              <span className="font-semibold text-on-surface">AI Text Cleaner</span>
             </Link>
-            <p className="text-body-sm text-neutral-600">
-              Clean AI-generated text instantly. Remove overused AI words, hidden unicode control marks, zero-width spaces, and markdown artifacts completely in your browser.
-            </p>
+            <span>© 2026.</span>
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-surface-container font-code-stat text-code-stat text-secondary border border-surface-container-highest">
+              100% Client-Side & Privacy-First
+            </span>
           </div>
-
-          <div className="flex flex-col gap-3">
-            <p className="text-body-sm font-bold text-neutral-900">AI Platform Cleaners</p>
-            <ul className="flex flex-col gap-2 text-body-sm">
-              {aiToolLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-neutral-600 no-underline transition-colors hover:text-primary-600"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <p className="text-body-sm font-bold text-neutral-900">Text Utilities</p>
-            <ul className="flex flex-col gap-2 text-body-sm">
-              {utilityLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-neutral-600 no-underline transition-colors hover:text-primary-600"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <p className="text-body-sm font-bold text-neutral-900">Company & Legal</p>
-            <ul className="flex flex-col gap-2 text-body-sm">
-              {companyLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-neutral-600 no-underline transition-colors hover:text-primary-600"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="border-t border-neutral-200 pt-6">
-          <p className="text-body-sm font-bold text-neutral-900 mb-3">Global Languages / Idiomas / Sprachen / اللغات</p>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-neutral-600">
-            <Link href="/es" className="hover:text-primary-600 transition-colors">🇪🇸 Español</Link>
-            <Link href="/de" className="hover:text-primary-600 transition-colors">🇩🇪 Deutsch</Link>
-            <Link href="/fr" className="hover:text-primary-600 transition-colors">🇫🇷 Français</Link>
-            <Link href="/it" className="hover:text-primary-600 transition-colors">🇮🇹 Italiano</Link>
-            <Link href="/pt" className="hover:text-primary-600 transition-colors">🇧🇷 Português</Link>
-            <Link href="/ar" className="hover:text-primary-600 transition-colors">🇸🇦 العربية</Link>
-            <Link href="/ja" className="hover:text-primary-600 transition-colors">🇯🇵 日本語</Link>
-            <Link href="/nl" className="hover:text-primary-600 transition-colors">🇳🇱 Nederlands</Link>
-            <Link href="/tr" className="hover:text-primary-600 transition-colors">🇹🇷 Türkçe</Link>
-            <Link href="/id" className="hover:text-primary-600 transition-colors">🇮🇩 Bahasa Indonesia</Link>
-          </div>
-        </div>
-
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-neutral-200 pt-6 sm:flex-row text-center sm:text-left">
-          <p className="text-body-sm text-neutral-500">
-            © 2026 AI Text Cleaner. 100% Client-Side & Privacy-First.
-          </p>
-          <p className="text-body-sm text-neutral-600">
-            Created by{" "}
+          <div className="flex items-center gap-2 text-on-surface-variant flex-wrap justify-center">
+            <span>
+              Created by{" "}
+              <a
+                href="https://www.linkedin.com/in/inam-ilyas/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-on-surface font-medium hover:underline"
+              >
+                Inam Ilyas
+              </a>
+            </span>
+            <span className="text-outline">•</span>
             <a
-              href="https://www.linkedin.com/in/inam-ilyas/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-bold text-primary-700 underline"
-            >
-              Inam Ilyas
-            </a>{" "}
-            (
-            <a
+              className="hover:text-primary transition-colors"
               href="https://github.com/inaamilyas/"
+              rel="noreferrer"
               target="_blank"
-              rel="noopener noreferrer"
-              className="text-neutral-600 hover:text-primary-600 underline"
             >
               GitHub
             </a>
-            )
-          </p>
+            <span className="text-outline">•</span>
+            <a
+              className="hover:text-primary transition-colors"
+              href="https://www.linkedin.com/in/inam-ilyas/"
+              rel="noreferrer"
+              target="_blank"
+            >
+              LinkedIn
+            </a>
+          </div>
         </div>
       </div>
     </footer>

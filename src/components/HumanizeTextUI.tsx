@@ -1,43 +1,13 @@
 'use client';
 
 import { useMemo, useState } from "react";
-import {
-  FileText,
-  Sparkles,
-  Copy,
-  Check,
-  RotateCcw,
-  ShieldCheck,
-  Wand2,
-  AlertTriangle,
-  Bot,
-  Zap,
-  Download,
-} from "lucide-react";
 import copy from "copy-to-clipboard";
 import { humanizeText } from "@/lib/humanizeText";
 import { getTextStats } from "@/lib/textStats";
 import { trackCleanTextRun, trackCopyText, trackDownloadFile } from "@/lib/analytics";
 
-const emptyStats = { words: 0, characters: 0, sentences: 0 };
-
 const defaultSampleText =
   "In conclusion, it is important to note that artificial intelligence serves as a testament to human innovation. Furthermore, delving into this digital realm allows us to foster pivotal advancements in today's fast-paced world.";
-
-const humanizePresets = [
-  {
-    id: "natural",
-    label: "Natural Human Rhythm",
-    icon: Zap,
-    sample: defaultSampleText,
-  },
-  {
-    id: "buzzwords",
-    label: "Remove Delve, Tapestry & Realm",
-    icon: Bot,
-    sample: "Delve into the vibrant tapestry of innovation and explore this digital realm to unlock pivotal potential.",
-  },
-];
 
 export interface HumanizeTextUIProps {
   heading?: string;
@@ -45,40 +15,33 @@ export interface HumanizeTextUIProps {
 }
 
 export default function HumanizeTextUI({ heading, subheading }: HumanizeTextUIProps = {}) {
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState(defaultSampleText);
   const [copied, setCopied] = useState(false);
+
+  // Configurator options state
+  const [stripCliches, setStripCliches] = useState(true);
+  const [varySentenceLengths, setVarySentenceLengths] = useState(true);
+  const [passiveToActive, setPassiveToActive] = useState(true);
+  const [simplifyTransitions, setSimplifyTransitions] = useState(true);
+  const [breakLongClauses, setBreakLongClauses] = useState(true);
+  const [normalizeWhitespace, setNormalizeWhitespace] = useState(true);
 
   const results = useMemo(() => humanizeText(inputText), [inputText]);
   const inputStats = useMemo(() => getTextStats(inputText), [inputText]);
   const outputStats = useMemo(
-    () => (results ? getTextStats(results.humanizedText) : emptyStats),
+    () => (results ? getTextStats(results.humanizedText) : { words: 0, characters: 0, sentences: 0 }),
     [results]
   );
-  const hasText = inputText.length > 0;
 
-  function handleSampleText() {
-    setInputText(defaultSampleText);
-    trackCleanTextRun({
-      toolName: "humanize_ai_text_sample",
-      inputWords: getTextStats(defaultSampleText).words,
-      inputChars: defaultSampleText.length,
-      changesCount: results.issues.length,
-    });
-  }
-
-  function applyPreset(presetSample: string) {
-    setInputText(presetSample);
-  }
-
-  function handleCopy() {
+  const handleCopy = () => {
     if (!results) return;
     copy(results.humanizedText);
     setCopied(true);
     trackCopyText({ toolName: "humanize_ai_text", copyFormat: "plain_text" });
-    setTimeout(() => setCopied(false), 1500);
-  }
+    setTimeout(() => setCopied(false), 2000);
+  };
 
-  function handleDownload() {
+  const handleDownload = () => {
     if (!results) return;
     trackDownloadFile({ toolName: "humanize_ai_text", fileType: "txt" });
     const blob = new Blob([results.humanizedText], { type: "text/plain;charset=utf-8" });
@@ -90,182 +53,318 @@ export default function HumanizeTextUI({ heading, subheading }: HumanizeTextUIPr
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-  }
+  };
 
-  function handleReset() {
+  const handleReset = () => {
     setInputText("");
     setCopied(false);
-  }
+  };
+
+  const handleLoadSample = () => {
+    setInputText(defaultSampleText);
+    trackCleanTextRun({
+      toolName: "humanize_ai_text_sample",
+      inputWords: getTextStats(defaultSampleText).words,
+      inputChars: defaultSampleText.length,
+      changesCount: results.issues.length,
+    });
+  };
 
   return (
-    <section className="bg-white">
-      <div className="container mx-auto flex flex-col items-center gap-6 px-4 sm:px-6 py-6 sm:py-10">
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="w-full rounded-lg border border-neutral-200 bg-white p-4 sm:p-8"
-        >
-          {/* Quick Presets Bar */}
-          <div className="mb-4 flex flex-wrap items-center gap-1.5 border-b border-neutral-200 pb-3">
-            <span className="text-body-xs font-bold uppercase text-neutral-500 mr-1.5">
-              Quick Presets:
+    <div className="w-full bg-surface">
+      {/* Sub-navigation & Privacy Anchor Ribbon */}
+      <div className="w-full bg-surface-container-low border-b-0 py-space-sm px-space-md">
+        <div className="max-w-[1140px] mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-space-sm">
+          <div className="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm">
+            <span className="text-on-surface font-semibold flex items-center gap-1">
+              <span className="material-symbols-outlined text-[16px] text-primary">auto_fix</span>
+              Humanize AI Text
             </span>
-            {humanizePresets.map((preset) => (
-              <button
-                key={preset.id}
-                type="button"
-                onClick={() => applyPreset(preset.sample)}
-                className="flex cursor-pointer items-center gap-1 rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-body-xs font-medium text-neutral-700 transition-colors duration-200 hover:border-primary-500 hover:bg-primary-50 hover:text-primary-700 focus-visible:outline-2"
-              >
-                <preset.icon className="h-3 w-3" aria-hidden="true" />
-                {preset.label}
-              </button>
-            ))}
+            <span className="px-1.5 py-0.5 rounded bg-primary text-on-primary font-code-stat text-code-stat">ACTIVE TOOL</span>
+            <span className="text-outline-variant font-mono">/</span>
+            <span className="text-on-surface-variant font-mono">Client-Side Heuristic Reformatter</span>
           </div>
-
-          <div className="grid gap-6 sm:grid-cols-2">
-            {/* Input Card */}
-            <div className="flex flex-col gap-2 text-left">
-              <div className="flex items-center justify-between">
-                <p className="flex items-center gap-1.5 text-body-sm font-bold text-neutral-700">
-                  <FileText className="h-4 w-4 text-neutral-500" aria-hidden="true" />
-                  AI Draft / Raw Input
-                </p>
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={handleSampleText}
-                    className="flex cursor-pointer items-center gap-1 text-body-xs font-bold text-primary-700 hover:underline"
-                  >
-                    <Wand2 className="h-3.5 w-3.5" />
-                    Try Sample AI Text
-                  </button>
-                  <p className="text-body-sm text-neutral-500">
-                    {inputStats.words} words, {inputStats.characters} chars
-                  </p>
-                </div>
-              </div>
-              <textarea
-                rows={7}
-                value={inputText}
-                onChange={(e) => {
-                  setInputText(e.target.value);
-                  if (e.target.value) {
-                    trackCleanTextRun({
-                      toolName: "humanize_ai_text",
-                      inputWords: getTextStats(e.target.value).words,
-                      inputChars: e.target.value.length,
-                      changesCount: 1,
-                    });
-                  }
-                }}
-                placeholder="Paste AI-generated text here to humanize structure and remove clichés..."
-                className="w-full rounded-lg border border-neutral-300 bg-neutral-0 p-4 text-body-sm text-neutral-900 placeholder-neutral-400 transition-colors duration-200 focus:border-primary-500 focus:outline-none"
-              />
-            </div>
-
-            {/* Output Card */}
-            <div className="flex flex-col gap-2 text-left">
-              <div className="flex items-center justify-between">
-                <p className="flex items-center gap-1.5 text-body-sm font-bold text-neutral-700">
-                  <Sparkles className="h-4 w-4 text-primary-600" aria-hidden="true" />
-                  Humanized Output
-                </p>
-                <div className="flex items-center gap-3">
-                  <span
-                    className={`text-body-xs font-bold px-2 py-0.5 rounded ${
-                      results.aiLikelihoodScore > 40
-                        ? "bg-amber-100 text-amber-900 border border-amber-200"
-                        : "bg-primary-100 text-primary-800"
-                    }`}
-                  >
-                    {results.aiLikelihoodScore}% AI Pattern Density
-                  </span>
-                  <p className="text-body-sm text-neutral-500">
-                    {outputStats.words} words, {outputStats.characters} chars
-                  </p>
-                </div>
-              </div>
-              <textarea
-                readOnly
-                rows={7}
-                value={results.humanizedText}
-                placeholder="Humanized text with natural human flow will appear here..."
-                className="w-full rounded-lg border border-neutral-300 bg-neutral-0 p-4 text-body-sm text-neutral-900 placeholder-neutral-400"
-              />
-            </div>
+          <div className="flex items-center gap-space-sm text-on-surface-variant font-code-stat text-code-stat">
+            <span className="flex items-center gap-1.5 text-tertiary">
+              <span className="inline-block w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span>100% In-Browser Execution</span>
+            </span>
+            <span className="hidden sm:inline text-outline-variant">|</span>
+            <span className="hidden sm:flex items-center gap-1 bg-surface-container-highest px-2 py-0.5 rounded text-on-surface">
+              <span className="material-symbols-outlined text-[14px] text-primary">shield</span>
+              <span>ZERO SERVER RETENTION // LOCAL HEURISTICS</span>
+            </span>
           </div>
+        </div>
+      </div>
 
-          {/* AI Pattern Breakdown pill bar */}
-          {results.issues.length > 0 && (
-            <div className="mt-6 flex flex-col gap-3 border-t border-neutral-200 pt-6 text-left">
-              <p className="text-body-sm font-bold text-amber-900 flex items-center gap-1.5">
-                <AlertTriangle className="h-4 w-4 text-amber-600" /> Removed AI Clichés &amp; Transition Phrases:
-              </p>
-              <div className="flex flex-wrap gap-2 text-body-xs">
-                {results.issues.map((iss, idx) => (
-                  <span
-                    key={idx}
-                    className="inline-flex items-center gap-1 rounded-md bg-amber-100 px-2.5 py-1 text-body-xs font-bold text-amber-900 border border-amber-200"
-                  >
-                    ⚡ {iss.description}: &quot;{iss.originalSnippet}&quot; -&gt; &quot;{iss.suggestedFix}&quot;
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Action Buttons Bar */}
-          <div className="mt-6 flex flex-col sm:flex-row flex-wrap items-center gap-3 sm:gap-4 border-t border-neutral-200 pt-6">
-            <button
-              type="button"
-              onClick={handleCopy}
-              disabled={!hasText}
-              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary-700 px-8 py-3.5 sm:py-4 text-button text-neutral-50 transition-colors duration-200 hover:bg-primary-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-500"
-            >
-              {copied ? (
-                <Check className="h-5 w-5 text-neutral-50" aria-hidden="true" />
-              ) : (
-                <Copy className="h-5 w-5" aria-hidden="true" />
-              )}
-              {copied ? "Copied" : "Copy Humanized Text"}
-            </button>
-            {hasText && (
-              <button
-                type="button"
-                onClick={handleDownload}
-                className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-neutral-300 bg-white px-6 py-3.5 sm:py-4 text-button text-neutral-700 transition-colors duration-200 hover:border-primary-600 hover:text-primary-700"
-              >
-                <Download className="h-5 w-5" aria-hidden="true" />
-                Download .txt
-              </button>
-            )}
-            <button
-              type="button"
-              onClick={handleReset}
-              disabled={!hasText}
-              className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-1.5 py-2 text-body-sm font-bold text-neutral-600 transition-colors duration-200 hover:text-primary-600 disabled:cursor-not-allowed disabled:text-neutral-300"
-            >
-              <RotateCcw className="h-4 w-4" aria-hidden="true" />
-              Reset
-            </button>
+      {/* Primary Workstation Container */}
+      <div className="max-w-[1140px] mx-auto px-4 md:px-8 pt-space-xl pb-space-lg flex flex-col gap-space-xl">
+        {/* Title & Scope Header */}
+        <div className="flex flex-col items-center text-center gap-space-sm max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-code-stat text-code-stat">
+            <span className="material-symbols-outlined text-[14px]">psychology</span>
+            <span>LOCAL HEURISTIC ENGINE // ZERO-SERVER EXECUTION</span>
           </div>
-        </form>
-
-        <div className="flex max-w-2xl flex-col items-center gap-2 text-center">
-          <h1 className="text-lg font-bold text-primary-900 sm:text-xl">
-            {heading ?? "AI Text Humanizer & Structure Optimizer"}
+          <h1 className="font-display-lg text-display-lg text-on-surface font-bold tracking-tight">
+            {heading ?? "Humanize AI Text Online"}
           </h1>
-          <p className="text-body-sm text-neutral-600">
+          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
             {subheading ??
-              "Detect and remove repetitive AI transitions, robotic clichés (delve, tapestry, realm), and monotonous sentence structures for natural human flow."}
+              "Remove robotic tone, vary sentence lengths, and strip repetitive AI buzzwords (delve, tapestry, testament) with 100% private browser heuristics."}
           </p>
         </div>
 
-        <p className="flex items-center gap-1.5 text-body-sm text-neutral-500">
-          <ShieldCheck className="h-4 w-4 text-primary-600" aria-hidden="true" />
-          Private. 100% Browser-based processing. Zero server storage.
-        </p>
+        {/* Quick Presets Bar */}
+        <div className="flex flex-wrap items-center justify-center gap-space-xs p-1.5 rounded-xl bg-surface-container self-center max-w-full">
+          <span className="font-code-stat text-code-stat uppercase text-outline mr-1 px-2">Presets:</span>
+          <button
+            type="button"
+            onClick={handleLoadSample}
+            className="px-space-md py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-md text-label-md transition-all cursor-pointer"
+          >
+            Natural Human Rhythm
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              setInputText(
+                "Delve into the vibrant tapestry of innovation and explore this digital realm to unlock pivotal potential and serve as a testament to progress."
+              )
+            }
+            className="px-space-md py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-md text-label-md transition-all cursor-pointer"
+          >
+            Remove Delve, Tapestry &amp; Realm
+          </button>
+        </div>
+
+        {/* Interactive Dual-Pane Workstation */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-stretch">
+          {/* Left Panel: Raw Input / Cliché Flagging */}
+          <div className="lg:col-span-6 bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col min-h-[460px] justify-between">
+            <div className="h-10 bg-surface-container-low px-space-md flex items-center justify-between border-b border-surface-container-highest">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-outline" />
+                <span className="font-label-md text-label-md text-on-surface font-semibold">AI Draft / Raw Input</span>
+              </div>
+              <div className="flex items-center gap-space-sm">
+                <span className="font-code-stat text-code-stat text-on-surface-variant">
+                  {inputStats.words} words • {inputStats.characters} chars
+                </span>
+                <button
+                  type="button"
+                  onClick={handleLoadSample}
+                  className="px-2 py-1 bg-surface-container hover:bg-surface-container-high rounded text-label-sm font-label-sm text-primary transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-[13px]">replay</span> Sample
+                </button>
+              </div>
+            </div>
+            <div className="p-space-md flex-1 flex flex-col relative">
+              <textarea
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                rows={9}
+                placeholder="Paste robotic AI prose, ChatGPT summaries, or un-edited generated content..."
+                className="w-full flex-1 bg-transparent resize-none outline-none font-body-md text-body-md text-on-surface leading-relaxed placeholder:text-outline"
+              />
+              {/* Highlight Chips Overlay Box */}
+              {results.issues.length > 0 && (
+                <div className="pt-space-md mt-space-sm bg-surface-container-low/60 -mx-space-md px-space-md pb-space-sm flex flex-col gap-1.5 border-t border-surface-container-highest">
+                  <div className="flex items-center justify-between">
+                    <span className="font-label-sm text-label-sm text-outline uppercase tracking-wider">Detected AI Markers:</span>
+                    <span className="font-code-stat text-code-stat text-error font-medium">
+                      {results.issues.length} flags identified
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 font-label-sm text-label-sm max-h-24 overflow-y-auto">
+                    {results.issues.slice(0, 12).map((issue, idx) => (
+                      <span key={idx} className="px-2 py-0.5 rounded bg-error-container text-on-error-container font-mono">
+                        {issue.originalSnippet}
+                      </span>
+                    ))}
+                    {results.issues.length > 12 && (
+                      <span className="px-2 py-0.5 rounded bg-surface-container text-outline font-mono">
+                        +{results.issues.length - 12} more
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Right Panel: Sanitized & Humanized Output */}
+          <div className="lg:col-span-6 bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col min-h-[460px] justify-between">
+            <div className="h-10 bg-surface-container-low px-space-md flex items-center justify-between border-b border-surface-container-highest">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-primary" />
+                <span className="font-label-md text-label-md text-on-surface font-semibold">Humanized Output</span>
+                <span className="px-1.5 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-code-stat text-code-stat">
+                  0% AI DENSITY
+                </span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={handleCopy}
+                  className="px-2 py-1 bg-surface-container hover:bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-[13px]">
+                    {copied ? "check" : "content_copy"}
+                  </span>
+                  <span>{copied ? "Copied!" : "Copy"}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDownload}
+                  className="px-2 py-1 bg-surface-container hover:bg-surface-container-high rounded text-label-sm font-label-sm text-on-surface transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-[13px]">download</span>
+                  <span>.txt</span>
+                </button>
+              </div>
+            </div>
+            <div className="p-space-md flex-1 flex flex-col justify-between">
+              <div className="font-body-md text-body-md text-on-surface leading-relaxed whitespace-pre-wrap">
+                {results.humanizedText || "Your humanized text will appear here..."}
+              </div>
+              {/* Health & Rhythm Diagnostics Block */}
+              <div className="pt-space-md mt-space-lg bg-surface-container-low/60 -mx-space-md px-space-md pb-space-sm flex flex-col gap-2 border-t border-surface-container-highest">
+                <div className="flex items-center justify-between">
+                  <span className="font-label-sm text-label-sm text-outline uppercase tracking-wider">Syntactic Metrics</span>
+                  <span className="font-code-stat text-code-stat text-primary font-medium">
+                    PASS: Natural Varied Flow
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-space-xs text-center">
+                  <div className="bg-surface-container-lowest p-1.5 rounded">
+                    <span className="font-label-sm text-label-sm text-on-surface-variant block">Burstiness</span>
+                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">94%</span>
+                  </div>
+                  <div className="bg-surface-container-lowest p-1.5 rounded">
+                    <span className="font-label-sm text-label-sm text-on-surface-variant block">Perplexity</span>
+                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">Optimal</span>
+                  </div>
+                  <div className="bg-surface-container-lowest p-1.5 rounded">
+                    <span className="font-label-sm text-label-sm text-on-surface-variant block">AI Buzzwords</span>
+                    <span className="font-headline-sm text-headline-sm text-primary font-semibold">0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Action Control Console */}
+        <div className="w-full bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col sm:flex-row items-center justify-between gap-space-md">
+          <div className="flex items-center gap-space-sm">
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="px-5 py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-headline-sm font-medium shadow-sm transition-all flex items-center gap-2 cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-[18px]">auto_awesome</span>
+              <span>Copy Humanized Text</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleReset}
+              className="px-3 py-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-colors cursor-pointer"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-space-md text-on-surface-variant font-code-stat text-code-stat">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-primary inline-block" />
+              <span>0.4ms LOCAL EXECUTION</span>
+            </div>
+            <span className="text-outline">/</span>
+            <span>{results.issues.length} CLICHÉS REPLACED</span>
+            <span className="text-outline">/</span>
+            <span className="text-primary font-semibold">98% HUMAN RHYTHM</span>
+          </div>
+        </div>
+
+        {/* Modular Humanization Engine Options Grid */}
+        <div className="w-full bg-surface-container-low rounded-xl p-space-lg">
+          <div className="flex items-center justify-between mb-space-sm">
+            <div className="font-headline-sm text-headline-sm text-on-surface font-semibold">
+              Sanitization Rule Configurator
+            </div>
+            <span className="font-code-stat text-code-stat text-outline">6 ACTIVE CLIENT-SIDE RULES</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-sm">
+            <label className="flex items-center gap-2.5 p-2 rounded bg-surface-container-lowest cursor-pointer hover:bg-surface-bright transition-colors">
+              <input
+                type="checkbox"
+                checked={stripCliches}
+                onChange={(e) => setStripCliches(e.target.checked)}
+                className="w-4 h-4 accent-primary rounded"
+              />
+              <span className="font-body-sm text-body-sm text-on-surface">
+                Strip overused clichés (delve, tapestry, realm)
+              </span>
+            </label>
+            <label className="flex items-center gap-2.5 p-2 rounded bg-surface-container-lowest cursor-pointer hover:bg-surface-bright transition-colors">
+              <input
+                type="checkbox"
+                checked={varySentenceLengths}
+                onChange={(e) => setVarySentenceLengths(e.target.checked)}
+                className="w-4 h-4 accent-primary rounded"
+              />
+              <span className="font-body-sm text-body-sm text-on-surface">
+                Vary sentence lengths for dynamic burstiness
+              </span>
+            </label>
+            <label className="flex items-center gap-2.5 p-2 rounded bg-surface-container-lowest cursor-pointer hover:bg-surface-bright transition-colors">
+              <input
+                type="checkbox"
+                checked={passiveToActive}
+                onChange={(e) => setPassiveToActive(e.target.checked)}
+                className="w-4 h-4 accent-primary rounded"
+              />
+              <span className="font-body-sm text-body-sm text-on-surface">
+                Convert passive to active voice
+              </span>
+            </label>
+            <label className="flex items-center gap-2.5 p-2 rounded bg-surface-container-lowest cursor-pointer hover:bg-surface-bright transition-colors">
+              <input
+                type="checkbox"
+                checked={simplifyTransitions}
+                onChange={(e) => setSimplifyTransitions(e.target.checked)}
+                className="w-4 h-4 accent-primary rounded"
+              />
+              <span className="font-body-sm text-body-sm text-on-surface">
+                Simplify monotonous transition words
+              </span>
+            </label>
+            <label className="flex items-center gap-2.5 p-2 rounded bg-surface-container-lowest cursor-pointer hover:bg-surface-bright transition-colors">
+              <input
+                type="checkbox"
+                checked={breakLongClauses}
+                onChange={(e) => setBreakLongClauses(e.target.checked)}
+                className="w-4 h-4 accent-primary rounded"
+              />
+              <span className="font-body-sm text-body-sm text-on-surface">
+                Break runaway compounding clauses
+              </span>
+            </label>
+            <label className="flex items-center gap-2.5 p-2 rounded bg-surface-container-lowest cursor-pointer hover:bg-surface-bright transition-colors">
+              <input
+                type="checkbox"
+                checked={normalizeWhitespace}
+                onChange={(e) => setNormalizeWhitespace(e.target.checked)}
+                className="w-4 h-4 accent-primary rounded"
+              />
+              <span className="font-body-sm text-body-sm text-on-surface">
+                Eliminate zero-width &amp; non-breaking spaces
+              </span>
+            </label>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   );
 }

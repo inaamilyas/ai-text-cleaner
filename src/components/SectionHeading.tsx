@@ -6,10 +6,14 @@ export default function SectionHeading({
   subtitle?: string;
 }) {
   return (
-    <div className="mx-auto flex max-w-2xl flex-col items-center gap-3 text-center">
-      <h2>{title}</h2>
+    <div className="mx-auto flex max-w-2xl flex-col items-center gap-2 text-center mb-8">
+      <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">
+        {title}
+      </h2>
       {subtitle ? (
-        <p className="text-body-md text-neutral-600">{subtitle}</p>
+        <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+          {subtitle}
+        </p>
       ) : null}
     </div>
   );
