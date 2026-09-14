@@ -99,17 +99,13 @@ export default function HumanizeTextUI({ heading, subheading }: HumanizeTextUIPr
       </div>
 
       {/* Primary Workstation Container */}
-      <div className="container mx-auto px-4 md:px-8 pt-space-xl pb-space-lg flex flex-col gap-space-xl">
+      <div className="container mx-auto px-4 md:px-8 pt-space-lg pb-space-md flex flex-col gap-space-lg">
         {/* Title & Scope Header */}
-        <div className="flex flex-col items-center text-center gap-space-sm max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-code-stat text-code-stat">
-            <span className="material-symbols-outlined text-[14px]">psychology</span>
-            <span>LOCAL HEURISTIC ENGINE // ZERO-SERVER EXECUTION</span>
-          </div>
+        <div className="flex flex-col items-center text-center gap-space-xs max-w-4xl md:max-w-5xl mx-auto">
           <h1 className="font-display-lg text-display-lg text-on-surface font-bold tracking-tight">
             {heading ?? "Humanize AI Text Online"}
           </h1>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl md:max-w-4xl leading-relaxed">
             {subheading ??
               "Remove robotic tone, vary sentence lengths, and strip repetitive AI buzzwords (delve, tapestry, testament) with 100% private browser heuristics."}
           </p>

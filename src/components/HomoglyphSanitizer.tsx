@@ -134,17 +134,13 @@ export default function HomoglyphSanitizer({ heading, subheading }: HomoglyphSan
   }
 
   return (
-    <section className="bg-surface py-8 md:py-12 border-b border-surface-container-highest/60">
+    <section className="bg-surface py-6 md:py-8 border-b border-surface-container-highest/60">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-8">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-code-stat uppercase tracking-widest bg-secondary-container/60 text-on-secondary-container border border-outline-variant/30 mb-3">
-            <Sparkles className="h-3 w-3 text-secondary" />
-            Confusable & Homoglyph Engine
-          </span>
+        <div className="flex flex-col items-center text-center max-w-4xl md:max-w-5xl mx-auto mb-6">
           <h1 className="text-headline-lg md:text-display-lg font-bold text-on-surface tracking-tight mb-2">
             {heading ?? "Unicode Homoglyph & Confusable Character Cleaner"}
           </h1>
-          <p className="text-body-lg text-on-surface-variant">
+          <p className="text-body-lg text-on-surface-variant max-w-4xl mx-auto">
             {subheading ??
               "Detect and replace Cyrillic, Greek, or Latin look-alike characters disguised inside text to bypass AI detectors or phishing filters."}
           </p>

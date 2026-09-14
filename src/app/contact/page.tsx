@@ -156,15 +156,11 @@ export default function ContactPage() {
             </section>
 
             {/* 2. Hero & Introduction Section */}
-            <section className="text-center max-w-3xl mx-auto mb-space-xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-code-stat text-code-stat uppercase tracking-wider mb-space-sm">
-                <span className="material-symbols-outlined text-[14px] text-primary">headset_mic</span>
-                Engineering Feedback & Core Support
-              </div>
-              <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight mb-space-sm">
+            <section className="text-center max-w-4xl md:max-w-5xl mx-auto mb-space-lg">
+              <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight mb-space-xs">
                 Contact Us
               </h1>
-              <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-2xl mx-auto mb-space-lg">
+              <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-3xl md:max-w-4xl mx-auto mb-space-md">
                 Have a question, feedback, or need help with AI text sanitization? Reach out directly to the founder via verified email, LinkedIn, or GitHub channels.
               </p>
 

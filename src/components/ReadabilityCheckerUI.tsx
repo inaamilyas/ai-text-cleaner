@@ -70,17 +70,13 @@ export default function ReadabilityCheckerUI({ heading, subheading }: Readabilit
       </div>
 
       {/* Primary Workstation Container */}
-      <div className="container mx-auto px-4 md:px-8 pt-space-xl pb-space-lg flex flex-col gap-space-xl">
+      <div className="container mx-auto px-4 md:px-8 pt-space-lg pb-space-md flex flex-col gap-space-lg">
         {/* Hero Header Zone */}
-        <div className="flex flex-col items-center text-center gap-space-sm max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-code-stat text-code-stat">
-            <span className="material-symbols-outlined text-[14px]">speed</span>
-            <span>REAL-TIME AUDIT // 100% CLIENT-SIDE EXECUTION</span>
-          </div>
+        <div className="flex flex-col items-center text-center gap-space-xs max-w-4xl md:max-w-5xl mx-auto">
           <h1 className="font-display-lg text-display-lg text-on-surface font-bold tracking-tight">
             {heading ?? "Readability & Flesch-Kincaid Grade Checker"}
           </h1>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl md:max-w-4xl leading-relaxed">
             {subheading ??
               "Calculate Flesch Reading Ease, Flesch-Kincaid Grade Level, Gunning Fog Index, and highlight complex 3+ syllable words in real-time."}
           </p>

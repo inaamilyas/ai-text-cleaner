@@ -319,23 +319,11 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
       {/* 1. TOP HERO SECTION */}
       <section className="w-full bg-surface pb-space-lg hero-section">
         <div className="container mx-auto px-4 md:px-8 flex flex-col items-center text-center">
-          {/* Privacy Badge Cluster */}
-          <div className="flex flex-wrap items-center justify-center gap-space-xs mb-space-md">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface text-label-sm font-label-sm">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-              <span>Private. 100% Browser-based processing. Zero server storage.</span>
-            </div>
-            <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-code-stat font-code-stat uppercase tracking-wider">
-              <span className="material-symbols-outlined text-[14px]">shield_locked</span>
-              <span>100% Browser-Based Image Sanitizer</span>
-            </div>
-          </div>
-
           {/* Main Typography Hierarchy */}
-          <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight max-w-4xl">
+          <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight max-w-5xl">
             AI Image Metadata &amp; EXIF Remover
           </h1>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mt-space-sm mb-space-lg">
+          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-4xl mt-space-xs mb-space-md">
             Detect hidden prompt strings, DALL-E/Midjourney tags, EXIF headers, and C2PA provenance signatures before sanitizing.
           </p>
 

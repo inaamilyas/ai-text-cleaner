@@ -218,13 +218,13 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
   return (
     <div className="w-full hero-section" id="hero">
       {/* SECTION 1: HERO & WORKSPACE HUB */}
-      <section className="flex flex-col items-center text-center space-y-space-md mb-space-xl relative">
+      <section className="flex flex-col items-center text-center space-y-3 mb-6 md:mb-8 relative">
         {/* Main Headline & Copy */}
-        <div className="space-y-space-xs max-w-3xl">
+        <div className="space-y-2 w-full max-w-5xl">
           <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">
             {heading ?? "Paste AI text. Get clean text."}
           </h1>
-          <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+          <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-4xl mx-auto">
             {subheading ??
               "Remove invisible characters, unwanted formatting, AI cliché buzzwords (delve, tapestry), Markdown artifacts, and AI text quirks instantly."}
           </p>
@@ -237,7 +237,7 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
         </div>
 
         {/* Quick Presets Filter Track */}
-        <div className="w-full max-w-4xl pt-space-sm flex flex-wrap items-center justify-center gap-space-xs font-label-sm text-label-sm">
+        <div className="w-full max-w-5xl pt-1 flex flex-wrap items-center justify-center gap-space-xs font-label-sm text-label-sm">
           <span className="font-code-stat text-code-stat text-outline uppercase tracking-wider mr-space-xs">
             QUICK PRESETS:
           </span>
@@ -295,7 +295,7 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
                   className="w-full bg-transparent resize-none font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none leading-relaxed"
                   id="raw-input"
                   placeholder='Paste messy AI text here (e.g. smart quotes, em dashes, zero-width chars, "delve", markdown artifacts)...'
-                  rows={12}
+                  rows={9}
                 ></textarea>
                 <div className="pt-space-sm flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
                   <span className="flex items-center gap-1 text-outline">
@@ -342,7 +342,7 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
                   className="w-full bg-transparent resize-none font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none leading-relaxed"
                   id="clean-output"
                   placeholder="Cleaned results will materialize here"
-                  rows={12}
+                  rows={9}
                 ></textarea>
                 <div className="pt-space-sm flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
                   <span className="flex items-center gap-1 text-primary">

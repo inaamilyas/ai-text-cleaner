@@ -50,12 +50,8 @@ export default function AboutPage() {
         </span>
         <div className="container mx-auto px-4 md:px-8 py-space-xl flex flex-col gap-space-xl">
           {/*  1. Hero Section  */}
-          <section className="flex flex-col items-center text-center gap-space-md relative overflow-hidden py-space-md">
-          <div className="inline-flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-secondary-container text-on-secondary-container font-code-stat text-code-stat tracking-wider">
-          <span className="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
-          <span className="">ABOUT US // CLIENT-SIDE PRIVACY MISSION</span>
-          </div>
-          <div className="flex flex-col gap-space-xs max-w-3xl">
+          <section className="flex flex-col items-center text-center gap-space-sm relative overflow-hidden py-space-sm">
+          <div className="flex flex-col gap-space-xs max-w-4xl md:max-w-5xl">
           <h1 className="font-headline-lg text-display-lg text-on-surface tracking-tight">
                     About AI Text Cleaner
                   </h1>
@@ -63,7 +59,7 @@ export default function AboutPage() {
                     Sanitizing AI Text for Writers, Developers &amp; Creators
                   </p>
           </div>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl text-center leading-relaxed">
+          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl md:max-w-4xl text-center leading-relaxed">
                   AI Text Cleaner was built by <span className="text-on-surface font-semibold">Inam Ilyas</span> to solve a universal problem in modern publishing: hidden unicode artifacts, zero-width spaces, and raw Markdown clutter in AI-generated text.
                 </p>
           <div className="flex flex-wrap items-center justify-center gap-space-sm pt-space-xs">

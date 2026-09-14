@@ -34,13 +34,9 @@ export default function PrivacyPage() {
       <div className="container mx-auto px-4 md:px-8 py-space-lg">
         <div className="flex flex-col w-full">
           {/* Privacy Hero Section */}
-          <section className="w-full pb-space-xl">
-            <div className="max-w-[1440px] mx-auto">
-              <div className="flex flex-col gap-space-sm">
-                <div className="flex items-center gap-2 text-primary font-code-stat text-code-stat uppercase tracking-wider">
-                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                  <span>LEGAL // DATA PRIVACY &amp; CLIENT-SIDE ARCHITECTURE</span>
-                </div>
+          <section className="w-full pb-space-lg">
+            <div className="w-full mx-auto">
+              <div className="flex flex-col gap-space-xs">
                 <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">
                   Privacy Policy
                 </h1>

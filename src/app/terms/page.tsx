@@ -51,11 +51,7 @@ export default function TermsPage() {
       <div className="container mx-auto px-4 md:px-8 py-space-lg">
         <div className="flex flex-col w-full gap-space-xl">
           {/* 1. Hero Header Section */}
-          <section className="flex flex-col gap-space-md">
-            <div className="flex items-center gap-space-xs font-code-stat text-code-stat uppercase text-primary font-semibold tracking-wider">
-              <span className="w-2 h-2 rounded-full bg-primary inline-block animate-pulse" />
-              <span>LEGAL // USER AGREEMENT &amp; ACCEPTABLE USE TERMS</span>
-            </div>
+          <section className="flex flex-col gap-space-xs">
             <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">
               Terms of Service
             </h1>
