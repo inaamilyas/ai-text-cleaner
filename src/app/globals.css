@@ -240,6 +240,16 @@
   a:hover {
     color: var(--color-primary-800);
   }
+
+  /* Footer Styling: keep neutral, not too bluish */
+  footer a {
+    color: #52525b !important;
+    font-weight: 400 !important;
+  }
+
+  footer a:hover {
+    color: var(--color-primary) !important;
+  }
 }
 
 

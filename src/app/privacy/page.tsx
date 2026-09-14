@@ -31,7 +31,7 @@ export default function PrivacyPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(privacySchema) }}
       />
-      <div className="max-w-[1140px] mx-auto px-4 md:px-8 py-space-lg">
+      <div className="container mx-auto px-4 md:px-8 py-space-lg">
         <div className="flex flex-col w-full">
           {/* Privacy Hero Section */}
           <section className="w-full pb-space-xl">
@@ -486,7 +486,7 @@ export default function PrivacyPage() {
 
       {/* AUTHOR SIGNATURE MICRO-BAR */}
       <div className="w-full bg-surface-container py-space-sm">
-        <div className="max-w-[1140px] mx-auto px-space-md flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
+        <div className="container mx-auto px-4 md:px-8 flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-primary"></span>
             <span>Engineered by Inam Ilyas</span>

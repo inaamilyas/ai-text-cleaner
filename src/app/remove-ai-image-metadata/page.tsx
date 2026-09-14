@@ -221,7 +221,7 @@ export default function RemoveAIImageMetadataPage({
   return (
     <div className="flex flex-col w-full">
       <span className="sr-only">
-        AI Image Metadata &amp; EXIF Remover — Desktop (1140px) | AI Text Cleaner
+        AI Image Metadata &amp; EXIF Remover | AI Text Cleaner
       </span>
       <script
         type="application/ld+json"
@@ -237,7 +237,7 @@ export default function RemoveAIImageMetadataPage({
 
       {/* 3. FULL PLATFORM SUPPORT SECTION (6-CARD GRID) */}
       <section className="w-full bg-surface py-space-xl">
-        <div className="max-w-[1140px] mx-auto px-space-md">
+        <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col mb-space-lg">
             <div className="flex items-center gap-2 mb-1">
               <span className="font-code-stat text-code-stat uppercase text-primary font-semibold tracking-wider">
@@ -284,7 +284,7 @@ export default function RemoveAIImageMetadataPage({
 
       {/* 4. WHY CLEAN YOUR IMAGES SECTION (4-COLUMN BENTO) */}
       <section className="w-full bg-surface-container-low/50 py-space-xl">
-        <div className="max-w-[1140px] mx-auto px-space-md">
+        <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col mb-space-lg">
             <span className="font-code-stat text-code-stat uppercase text-primary font-semibold tracking-wider">
               Privacy &amp; Commercial Protection
@@ -325,7 +325,7 @@ export default function RemoveAIImageMetadataPage({
 
       {/* 5. DEEP DOCUMENT & PDF METADATA SANITIZER (ENHANCED MODULE) */}
       <section className="w-full bg-surface py-space-xl">
-        <div className="max-w-[1140px] mx-auto px-space-md">
+        <div className="container mx-auto px-4 md:px-8">
           <div className="p-space-lg rounded-2xl bg-surface-container-lowest shadow-md flex flex-col gap-space-lg">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
               <div className="max-w-2xl">
@@ -388,7 +388,7 @@ export default function RemoveAIImageMetadataPage({
 
       {/* 6. TECHNICAL WORKFLOW (HOW IN-BROWSER CANVAS SANITIZATION WORKS) */}
       <section className="w-full bg-surface-container-low/40 py-space-xl">
-        <div className="max-w-[1140px] mx-auto px-space-md">
+        <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col mb-space-lg text-center items-center">
             <span className="font-code-stat text-code-stat uppercase text-primary font-semibold tracking-wider">
               Under The Hood
@@ -430,7 +430,7 @@ export default function RemoveAIImageMetadataPage({
 
       {/* 7. CREATOR PROTECTION & CLIENT-SIDE PRIVACY TERMINAL */}
       <section className="w-full bg-surface py-space-xl">
-        <div className="max-w-[1140px] mx-auto px-space-md">
+        <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
             {/* Local Heuristic Terminal */}
             <div className="lg:col-span-7 rounded-xl bg-inverse-surface text-inverse-on-surface p-space-md flex flex-col justify-between font-code-stat text-code-stat shadow-md">
@@ -500,7 +500,7 @@ export default function RemoveAIImageMetadataPage({
 
       {/* 8. FREQUENTLY ASKED QUESTIONS (ACCORDION) */}
       <section className="w-full bg-surface-container-lowest py-space-xl">
-        <div className="max-w-[1140px] mx-auto px-space-md">
+        <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col mb-space-lg text-center items-center">
             <span className="font-code-stat text-code-stat uppercase text-primary font-semibold tracking-wider">
               Clear Answers
@@ -536,7 +536,7 @@ export default function RemoveAIImageMetadataPage({
 
       {/* 9. AUTHOR SIGNATURE MICRO-BAR */}
       <div className="w-full bg-surface-container py-space-sm">
-        <div className="max-w-[1140px] mx-auto px-space-md flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
+        <div className="container mx-auto px-4 md:px-8 flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-primary"></span>
             <span>Engineered by Inam Ilyas</span>

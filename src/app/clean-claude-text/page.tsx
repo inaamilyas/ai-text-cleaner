@@ -154,9 +154,9 @@ const faqJsonLd = {
 
 export default function CleanClaudeTextPage() {
   return (
-    <div className="container max-w-[1140px] mx-auto px-4 md:px-8 py-space-lg flex flex-col w-full space-y-12 md:space-y-16">
+    <div className="container mx-auto px-4 md:px-8 py-space-lg flex flex-col w-full space-y-12 md:space-y-16">
       <span className="sr-only">
-        Clean Claude AI Text — Desktop (1140px) | AI Text Cleaner
+        Clean Claude AI Text | AI Text Cleaner
       </span>
       <script
         type="application/ld+json"

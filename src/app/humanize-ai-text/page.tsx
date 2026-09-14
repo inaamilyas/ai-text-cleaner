@@ -136,7 +136,7 @@ export default function HumanizeAITextPage() {
   return (
     <div className="w-full flex flex-col">
       <span className="sr-only">
-        Humanize AI Text Online — Desktop (1140px) | AI Text Cleaner
+        Humanize AI Text Online | AI Text Cleaner
       </span>
       <script
         type="application/ld+json"
@@ -154,7 +154,7 @@ export default function HumanizeAITextPage() {
         heading="Humanize AI Text Online"
         subheading="Detect and remove repetitive AI transitions, robotic clichés (delve, tapestry, realm), and monotonous sentence structures for natural human flow."
       />
-      <div className="max-w-[1140px] mx-auto px-4 md:px-8 w-full pb-16">
+      <div className="container mx-auto px-4 md:px-8 pb-16">
         <SubToolContent
           title="Humanize AI Text Online"
           badgeLabel="Heuristic Normalizer"

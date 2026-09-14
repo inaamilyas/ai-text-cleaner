@@ -139,7 +139,7 @@ export default function CleanPdfMetadataPage() {
   return (
     <div className="flex flex-col w-full">
       <span className="sr-only">
-        Clean PDF Metadata &amp; Author Info — Desktop (1140px) | AI Text Cleaner
+        Clean PDF Metadata &amp; Author Info | AI Text Cleaner
       </span>
       <script
         type="application/ld+json"
@@ -153,8 +153,8 @@ export default function CleanPdfMetadataPage() {
       {/* WORKSTATION (HERO + DUAL INGESTION/INSPECTOR) */}
       <PdfMetadataSanitizer />
 
-      {/* 1140px CONTENT SECTIONS */}
-      <div className="w-full max-w-[1140px] mx-auto px-space-md py-space-xl flex flex-col gap-space-xl">
+      {/* CONTENT SECTIONS */}
+      <div className="container mx-auto px-4 md:px-8 py-space-xl flex flex-col gap-space-xl">
         {/* Technical Primer / Explanatory Section */}
         <section className="p-space-lg rounded-2xl bg-surface-container-low flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-lg shadow-sm">
           <div className="flex flex-col gap-space-xs max-w-2xl">

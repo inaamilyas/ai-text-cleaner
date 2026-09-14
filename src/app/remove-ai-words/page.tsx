@@ -186,7 +186,7 @@ const faqJsonLd = {
 
 export default function RemoveAIWordsPage() {
   return (
-    <div className="container max-w-[1140px] mx-auto px-4 md:px-8 py-space-lg flex flex-col w-full space-y-12 md:space-y-16">
+    <div className="container mx-auto px-4 md:px-8 py-space-lg flex flex-col w-full space-y-12 md:space-y-16">
       <span className="sr-only">
         Remove AI Words &amp; Buzzwords — Strip Delve, Tapestry &amp; Clichés Online | AI Text Cleaner
       </span>

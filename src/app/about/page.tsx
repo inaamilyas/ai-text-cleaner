@@ -46,9 +46,9 @@ export default function AboutPage() {
       />
       <div className="w-full flex flex-col">
         <span className="sr-only">
-          About Us — AI Text Cleaner (1140px Centered) | AI Text Cleaner
+          About Us | AI Text Cleaner
         </span>
-        <div className="w-full max-w-[1140px] mx-auto px-4 md:px-8 py-space-xl flex flex-col gap-space-xl">
+        <div className="container mx-auto px-4 md:px-8 py-space-xl flex flex-col gap-space-xl">
           {/*  1. Hero Section  */}
           <section className="flex flex-col items-center text-center gap-space-md relative overflow-hidden py-space-md">
           <div className="inline-flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-secondary-container text-on-secondary-container font-code-stat text-code-stat tracking-wider">

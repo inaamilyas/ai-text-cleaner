@@ -147,8 +147,8 @@ const benchmarks = [
 
 export default function CleanChatGPTTextPage() {
   return (
-    <div className="container max-w-[1140px] mx-auto px-4 md:px-8 py-space-lg flex flex-col w-full space-y-12 md:space-y-16">
-      <span className="sr-only">ChatGPT Text Cleaner — Desktop (1140px) | AI Text Cleaner</span>
+    <div className="container mx-auto px-4 md:px-8 py-space-lg flex flex-col w-full space-y-12 md:space-y-16">
+      <span className="sr-only">ChatGPT Text Cleaner | AI Text Cleaner</span>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}

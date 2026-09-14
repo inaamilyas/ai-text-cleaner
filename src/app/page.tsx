@@ -64,7 +64,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <main className="w-full pt-14 bg-background flex-1">
-        <div className="container max-w-[1140px] mx-auto px-4 md:px-8 py-space-lg">
+        <div className="container mx-auto px-4 md:px-8 py-space-lg">
           <div className="flex flex-col w-full">
             <Hero />
             <WhyCleanAIText />

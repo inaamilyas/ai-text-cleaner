@@ -318,7 +318,7 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
     <div className="flex flex-col w-full">
       {/* 1. TOP HERO SECTION */}
       <section className="w-full bg-surface pb-space-lg hero-section">
-        <div className="max-w-[1140px] mx-auto px-space-md flex flex-col items-center text-center">
+        <div className="container mx-auto px-4 md:px-8 flex flex-col items-center text-center">
           {/* Privacy Badge Cluster */}
           <div className="flex flex-wrap items-center justify-center gap-space-xs mb-space-md">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface text-label-sm font-label-sm">
@@ -402,7 +402,7 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
 
       {/* 2. INTERACTIVE DRAG & DROP WORKSTATION (DUAL VIEW) */}
       <section className="w-full bg-surface py-space-sm">
-        <div className="max-w-[1140px] mx-auto px-space-md">
+        <div className="container mx-auto px-4 md:px-8">
           {/* Main Workspace Container */}
           <div className="w-full rounded-xl bg-surface-container-lowest shadow-md overflow-hidden flex flex-col">
             {/* Workstation Status Strip Header */}

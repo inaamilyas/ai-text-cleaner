@@ -48,7 +48,7 @@ export default function TermsPage() {
         <span className="font-label-md text-label-md">Legal address copied to clipboard</span>
       </div>
 
-      <div className="max-w-[1140px] mx-auto px-4 md:px-8 py-space-lg">
+      <div className="container mx-auto px-4 md:px-8 py-space-lg">
         <div className="flex flex-col w-full gap-space-xl">
           {/* 1. Hero Header Section */}
           <section className="flex flex-col gap-space-md">
@@ -547,7 +547,7 @@ export default function TermsPage() {
 
       {/* AUTHOR SIGNATURE MICRO-BAR */}
       <div className="w-full bg-surface-container py-space-sm">
-        <div className="max-w-[1140px] mx-auto px-space-md flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
+        <div className="container mx-auto px-4 md:px-8 flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-primary"></span>
             <span>Engineered by Inam Ilyas</span>

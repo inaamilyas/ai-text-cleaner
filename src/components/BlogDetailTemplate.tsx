@@ -119,7 +119,7 @@ export default function BlogDetailTemplate({
 
       {/* Blog Article Hero / Header Area */}
       <header className="w-full bg-surface-container-lowest border-b border-outline-variant/30">
-        <div className="max-w-[1140px] mx-auto px-4 md:px-8 pt-8 pb-10">
+        <div className="container mx-auto px-4 md:px-8 pt-8 pb-10">
           {/* Breadcrumb Bar */}
           <nav className="flex items-center gap-2 text-xs text-on-surface-variant mb-4 font-label-md">
             <Link
@@ -244,7 +244,7 @@ export default function BlogDetailTemplate({
       </header>
 
       {/* Main Two-Column Editorial Grid */}
-      <div className="max-w-[1140px] mx-auto px-4 md:px-8 py-10">
+      <div className="container mx-auto px-4 md:px-8 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
           {/* Main Article Content (8 cols) */}
           <article className="lg:col-span-8 space-y-10 text-on-surface">{children}</article>
@@ -355,7 +355,7 @@ export default function BlogDetailTemplate({
 
       {/* Featured Cleaners & Core Tools Section */}
       <section className="w-full bg-surface-container-lowest py-12 border-t border-outline-variant/30" id="interactive-suite">
-        <div className="max-w-[1140px] mx-auto px-4 md:px-8">
+        <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-8">
             <div>
               <span className="font-code-stat text-xs font-bold text-primary tracking-wider uppercase">
@@ -517,7 +517,7 @@ export default function BlogDetailTemplate({
 
       {/* 3-Row Interactive Tools Ecosystem Directory */}
       <section className="w-full bg-surface py-12 border-t border-outline-variant/30">
-        <div className="max-w-[1140px] mx-auto px-4 md:px-8">
+        <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-8 pb-3 border-b border-surface-container">
             <div>
               <span className="font-code-stat text-xs font-bold text-primary uppercase tracking-wider">
@@ -679,7 +679,7 @@ export default function BlogDetailTemplate({
 
       {/* Author Signature Micro-bar */}
       <div className="w-full bg-surface-container py-space-sm">
-        <div className="max-w-[1140px] mx-auto px-space-md flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
+        <div className="container mx-auto px-4 md:px-8 flex items-center justify-between text-on-surface-variant font-code-stat text-code-stat">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-primary" />
             <span>Engineered by Inam Ilyas</span>

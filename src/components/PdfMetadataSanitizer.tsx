@@ -168,7 +168,7 @@ export default function PdfMetadataSanitizer({
     <div className="w-full flex flex-col">
       {/* Sub-navigation & Security Protocol Banner */}
       <div className="w-full bg-surface-container-low border-b-0 py-space-sm px-space-md">
-        <div className="max-w-[1140px] mx-auto flex flex-col md:flex-row items-center justify-between gap-space-sm">
+        <div className="container mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-space-sm">
           <div className="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm">
             <span className="text-on-surface font-semibold flex items-center gap-1">
               <span className="material-symbols-outlined text-[16px] text-primary">picture_as_pdf</span>
@@ -195,7 +195,7 @@ export default function PdfMetadataSanitizer({
       </div>
 
       {/* Primary Workstation Container */}
-      <div className="w-full max-w-[1140px] mx-auto px-space-md pt-space-xl pb-space-lg flex flex-col gap-space-xl hero-section">
+      <div className="container mx-auto px-4 md:px-8 pt-space-xl pb-space-lg flex flex-col gap-space-xl hero-section">
         {/* Hero Header Zone */}
         <div className="flex flex-col items-center text-center gap-space-sm max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-code-stat text-code-stat">

@@ -136,7 +136,7 @@ export default function CheckReadabilityScorePage() {
   return (
     <div className="w-full flex flex-col">
       <span className="sr-only">
-        Readability &amp; Flesch-Kincaid Grade Checker — Desktop (1140px) | AI Text Cleaner
+        Readability &amp; Flesch-Kincaid Grade Checker | AI Text Cleaner
       </span>
       <script
         type="application/ld+json"
@@ -154,7 +154,7 @@ export default function CheckReadabilityScorePage() {
         heading="Readability & Flesch-Kincaid Grade Checker"
         subheading="Calculate Flesch Reading Ease, Flesch-Kincaid Grade Level, Gunning Fog Index, and highlight complex 3+ syllable words in real-time."
       />
-      <div className="max-w-[1140px] mx-auto px-4 md:px-8 w-full pb-16">
+      <div className="container mx-auto px-4 md:px-8 pb-16">
         <SubToolContent
           title="Readability & Flesch-Kincaid Grade Checker"
           badgeLabel="Clarity Analyzer"
