@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About Us — Text Cleaner AI",
+  title: "About Text Cleaner AI",
   description:
-    "Learn about Text Cleaner AI, created by Inam Ilyas. Our mission is to sanitize AI text formatting with 100% client-side privacy.",
+    "Text Cleaner AI is a free, browser-based tool built by Inam Ilyas to clean formatting artifacts out of AI-generated text. Here's why it exists and how it works.",
   alternates: {
     canonical: "/about",
     languages: {
@@ -91,7 +91,6 @@ export default function AboutPage() {
                     </p>
           </div>
           <div className="flex flex-wrap gap-space-xs pt-space-xs">
-          <span className="px-space-xs py-0.5 rounded bg-surface-container font-code-stat text-code-stat text-on-surface-variant">SOC2 Type II Aligned</span>
           <span className="px-space-xs py-0.5 rounded bg-surface-container font-code-stat text-code-stat text-on-surface-variant">Zero Telemetry Payloads</span>
           <span className="px-space-xs py-0.5 rounded bg-surface-container font-code-stat text-code-stat text-on-surface-variant">Offline Capable</span>
           </div>
@@ -104,13 +103,12 @@ export default function AboutPage() {
           </div>
           <h2 className="font-headline-sm text-headline-sm text-on-surface font-semibold">Instant Local Performance</h2>
           <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                      Eliminates API round-trip latencies. Clean up to 50,000+ words in under 10 milliseconds using hardware-accelerated regex and non-blocking pipeline routines.
+                      Eliminates API round-trip latencies. Cleaning runs locally, so there's no queue or upload wait even for long documents.
                     </p>
           </div>
           <div className="flex flex-wrap gap-space-xs pt-space-xs">
-          <span className="px-space-xs py-0.5 rounded bg-surface-container font-code-stat text-code-stat text-on-surface-variant">&lt;10ms Engine</span>
-          <span className="px-space-xs py-0.5 rounded bg-surface-container font-code-stat text-code-stat text-on-surface-variant">Multi-core Regex Worker</span>
-          <span className="px-space-xs py-0.5 rounded bg-surface-container font-code-stat text-code-stat text-on-surface-variant">0.28ms V8 Latency</span>
+          <span className="px-space-xs py-0.5 rounded bg-surface-container font-code-stat text-code-stat text-on-surface-variant">Runs Locally</span>
+          <span className="px-space-xs py-0.5 rounded bg-surface-container font-code-stat text-code-stat text-on-surface-variant">No Upload Wait</span>
           </div>
           </div>
           {/*  Card 3  */}
@@ -161,6 +159,9 @@ export default function AboutPage() {
                   </p>
           <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
                     Unlike cloud SaaS providers that store and run training pipelines against submitted payloads, our browser-native model guarantees proprietary manuscripts and internal codebases remain quarantined on your physical machine.
+                  </p>
+          <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    Text Cleaner AI is an independent project. It works with text copied from ChatGPT, Claude, Gemini, and Copilot, but isn&apos;t affiliated with or endorsed by OpenAI, Anthropic, Google, or Microsoft.
                   </p>
           </div>
           </section>
@@ -224,7 +225,7 @@ export default function AboutPage() {
           <div className="flex flex-col gap-space-xs text-inverse-on-surface font-body-sm">
           <div className="flex items-center gap-space-xs text-primary-fixed-dim">
           <span className="">$</span>
-          <span className="">./verify-network-activity --target aitextcleaner.com</span>
+          <span className="">./verify-network-activity --target text-cleaner-ai.com</span>
           </div>
           <div className="text-outline-variant">Scanning active XHR, Fetch &amp; WebSocket sockets...</div>
           <div className="flex items-center gap-space-xs text-surface-bright">
@@ -268,9 +269,9 @@ export default function AboutPage() {
           <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary mb-space-xs">
           <span className="material-symbols-outlined text-[20px]">timer</span>
           </div>
-          <h3 className="font-headline-sm text-headline-sm text-on-surface font-semibold">Sub-Millisecond Speed</h3>
+          <h3 className="font-headline-sm text-headline-sm text-on-surface font-semibold">Fast, Local Processing</h3>
           <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                      No spin wheels, no queues, and no cloud processing wait times. Operations run locally in sub-millisecond cycles.
+                      No spin wheels, no queues, and no cloud processing wait times. Everything runs locally on your device.
                     </p>
           </div>
           <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-xs">
@@ -320,42 +321,8 @@ export default function AboutPage() {
           </div>
           </div>
           </section>
-          {/*  7. Project Milestones & Journey  */}
-          <section className="flex flex-col gap-space-md">
-          <div className="flex flex-col gap-space-xs">
-          <div className="font-code-stat text-code-stat text-primary uppercase tracking-wider">Historical Progress</div>
-          <h2 className="font-headline-lg text-headline-lg text-on-surface font-bold">Project Milestones</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-space-md">
-          <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-xs">
-          <span className="font-code-stat text-code-stat text-primary font-bold">2024</span>
-          <h4 className="font-headline-sm text-headline-sm text-on-surface font-semibold">The Foundations</h4>
-          <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                      Initial release of the Zero-Width Space Remover and Invisible Character Sanitizer for clean copy-paste into corporate CMS setups.
-                    </p>
-          </div>
-          <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-xs">
-          <span className="font-code-stat text-code-stat text-primary font-bold">2025</span>
-          <h4 className="font-headline-sm text-headline-sm text-on-surface font-semibold">Multi-Model Expansion</h4>
-          <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                      Added support for Claude Code terminals, ChatGPT Markdown cleaner presets, and local PDF metadata stripping routines.
-                    </p>
-          </div>
-          <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-xs bg-gradient-to-br from-surface-container-lowest via-surface-container-lowest to-secondary-container/20">
-          <span className="font-code-stat text-code-stat text-primary font-bold">2026 // CURRENT</span>
-          <h4 className="font-headline-sm text-headline-sm text-on-surface font-semibold">v2.6 Release</h4>
-          <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                      Delivers Image EXIF/C2PA stripping, deterministic AI Humanizer heuristics, and real-time Flesch-Kincaid readability scoring.
-                    </p>
-          </div>
-          </div>
-          </section>
-          {/*  8. Global Impact Metrics  */}
-          <section className="grid grid-cols-2 lg:grid-cols-4 gap-space-md">
-          <div className="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col items-center text-center gap-space-xs">
-          <span className="font-headline-lg text-display-lg text-primary font-bold">500k+</span>
-          <span className="font-label-md text-label-md text-on-surface-variant">Words Sanitized Daily</span>
-          </div>
+          {/*  7. Global Impact Metrics  */}
+          <section className="grid grid-cols-2 lg:grid-cols-3 gap-space-md">
           <div className="p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col items-center text-center gap-space-xs">
           <span className="font-headline-lg text-display-lg text-primary font-bold">0 Bytes</span>
           <span className="font-label-md text-label-md text-on-surface-variant">Server Storage Logged</span>

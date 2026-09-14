@@ -5,15 +5,12 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Free ChatGPT Text Cleaner — Remove AI Formatting & Markdown",
+  title: "Clean ChatGPT Text — Remove Formatting From Pasted ChatGPT Text",
   description:
-    "Clean text copied from ChatGPT, Claude, or Gemini. Remove unwanted asterisks, smart quotes, em dashes, and AI formatting quirks instantly.",
+    "Clean text copied from ChatGPT. Remove Markdown symbols, conversational filler, and hidden characters before you paste it anywhere. Free.",
   keywords: [
     "clean chatgpt text",
-    "remove chatgpt formatting",
-    "remove chatgpt asterisks bold",
-    "clean ai text",
-    "chatgpt text sanitizer",
+    "clean pasted text",
   ],
   alternates: {
     canonical: "/clean-chatgpt-text",
@@ -32,28 +29,33 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Free ChatGPT Text Cleaner — Remove AI Formatting & Markdown",
+    title: "Clean ChatGPT Text — Remove Formatting From Pasted ChatGPT Text",
     description:
-      "Paste your ChatGPT responses to instantly strip unwanted markdown, bold asterisks, and hidden AI artifacts.",
+      "Remove Markdown symbols, conversational filler, and hidden characters from text copied out of ChatGPT.",
     url: `${siteUrl}/clean-chatgpt-text`,
   },
 };
 
 const removedItems = [
   {
-    character: "Markdown Bold/Italic Asterisks",
-    unicode: "U+002A (*)",
-    description: "ChatGPT adds double asterisks **like this** for emphasis, which clutter plain text emails and documents.",
+    character: "Markdown Symbols",
+    unicode: "**bold**, # heading, `code`",
+    description: "ChatGPT adds double asterisks, hashes, and backticks for formatting that doesn't survive pasting elsewhere.",
   },
   {
-    character: "Smart Curly Quotes",
-    unicode: "U+201C / U+201D",
-    description: "Curly quotes substituted by ChatGPT that break code syntax and CMS publishing software.",
+    character: "Conversational Openers & Sign-Offs",
+    unicode: "\"Certainly! Here's...\"",
+    description: "Opening lines and closing offers to help that read fine in chat but not in a finished document.",
   },
   {
-    character: "Non-Breaking Spaces & Trailing Gaps",
-    unicode: "U+00A0",
-    description: "Extra whitespace inserted between paragraphs when copying text from OpenAI ChatGPT interface.",
+    character: "List Symbols That Don't Survive Pasting",
+    unicode: "1. / - ",
+    description: "Numbered and bulleted list markers that turn into stray characters once pasted outside ChatGPT.",
+  },
+  {
+    character: "Smart Quotes & Invisible Characters",
+    unicode: "U+201C / U+200B",
+    description: "Curly quotes and hidden unicode spacers that break code syntax and CMS publishing software.",
   },
 ];
 
@@ -74,29 +76,14 @@ const howToSteps = [
 
 const faqs = [
   {
-    question: "Why does text copied from ChatGPT have weird formatting?",
+    question: "Why does pasted ChatGPT text look different in Word than it did in the chat?",
     answer:
-      "ChatGPT formats output using Markdown (asterisks, hashes, backticks) and rich web styling. When copied into Google Docs, WordPress, or email clients, these tags remain behind as unwanted symbols.",
+      "ChatGPT formats its answers in Markdown, a plain-text style of formatting. Word and most editors don't read Markdown, so you end up with the raw symbols instead of actual bold text or headings. Cleaning converts it to plain text instead.",
   },
   {
-    question: "Does this remove AI detection watermarks?",
+    question: "Will this remove code blocks I want to keep?",
     answer:
-      "Yes! Text Cleaner AI removes invisible unicode control characters (such as zero-width spaces and non-breaking spaces) that some AI interfaces insert into generated text.",
-  },
-  {
-    question: "How do I strip bold double asterisks (**text**) from ChatGPT?",
-    answer:
-      "Ensure the 'Remove markdown formatting' checkbox is selected. Our cleaner automatically strips surrounding asterisks and hashtags while leaving the actual text intact.",
-  },
-  {
-    question: "Can I clean ChatGPT code responses without breaking syntax?",
-    answer:
-      "Yes! Use our 'Code & JSON Safe' quick preset. It normalizes curly smart quotes and non-breaking spaces into ASCII characters without stripping code block structures.",
-  },
-  {
-    question: "Is there any word limit for ChatGPT text cleaning?",
-    answer:
-      "No. All sanitization is executed locally in your browser memory, so you can clean multi-page articles or long ChatGPT conversations instantly.",
+      "Use the \"Code & JSON Safe\" preset if you're pasting a mix of prose and code — it skips characters that matter inside code.",
   },
 ];
 
@@ -105,7 +92,7 @@ const webAppJsonLd = {
   "@type": "WebApplication",
   name: "ChatGPT Text Cleaner",
   url: `${siteUrl}/clean-chatgpt-text`,
-  description: "Free tool to sanitize ChatGPT text, remove bold asterisks, and fix AI formatting quirks.",
+  description: "Remove Markdown symbols, conversational filler, and hidden characters from pasted ChatGPT text.",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Any",
   offers: {
@@ -140,9 +127,9 @@ const faqJsonLd = {
 };
 
 const benchmarks = [
-  { name: "Google Chrome", time: "1.1 ms" },
-  { name: "Apple Safari", time: "1.4 ms" },
-  { name: "Mozilla Firefox", time: "1.7 ms" },
+  { name: "Google Chrome", time: "Instant" },
+  { name: "Apple Safari", time: "Instant" },
+  { name: "Mozilla Firefox", time: "Instant" },
 ];
 
 export default function CleanChatGPTTextPage() {
@@ -162,8 +149,8 @@ export default function CleanChatGPTTextPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Hero
-        heading="ChatGPT Text Cleaner"
-        subheading="Sanitize text from ChatGPT, Claude, and Gemini. Strip unwanted Markdown asterisks, smart quotes, em dashes, and AI whitespace instantly."
+        heading="Clean Text Copied From ChatGPT"
+        subheading="Remove Markdown symbols, conversational filler, and hidden characters before you paste it anywhere — free."
         initialOptions={{
           removeMarkdown: true,
           normalizeQuotes: true,
@@ -177,8 +164,8 @@ export default function CleanChatGPTTextPage() {
         title="ChatGPT Text Cleaner"
         badgeLabel="OpenAI Sanitization"
         badgeIcon="smart_toy"
-        directAnswerTitle="How to Clean ChatGPT Text Formatting Fast?"
-        directAnswerText="Text copied from ChatGPT often contains Markdown artifacts (such as **bold asterisks**, # headers, and `code backticks`), smart quotes, and hidden whitespace. Our ChatGPT Text Cleaner strips these formatting quirks instantly, giving you clean plain text ready for Google Docs, WordPress, or email."
+        directAnswerTitle="Why Does ChatGPT Text Need Cleaning?"
+        directAnswerText="When you copy an answer out of ChatGPT and paste it into Word, WordPress, or an email, some things come along that you didn't ask for: double asterisks around bold text, numbered lists that don't format properly, opening lines like &quot;Certainly! Here's a breakdown:&quot;, and sign-offs like &quot;Let me know if you'd like me to adjust this.&quot; This tool strips all of that out, so you're left with clean pasted text — just the words, formatted the way you'd type them yourself."
         beforeBadgeText="BEFORE: Raw Text with Hidden Artifacts"
         afterBadgeText="AFTER: Cleaned & Sanitized Plain Text"
         beforeExample={

@@ -5,25 +5,19 @@ import PdfMetadataSanitizer from "@/components/PdfMetadataSanitizer";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Clean PDF Metadata & Author Info — Strip EXIF & XMP Streams",
+  title: "PDF Metadata Remover — Strip Author, Creator & Timestamp Tags",
   description:
-    "Strip hidden author tags, creation timestamps, title, producer, and software metadata from PDF binary streams directly in your browser memory before distribution.",
+    "Remove hidden metadata from PDF files: author name, software used, creation date, and revision history. Free and private.",
   keywords: [
-    "clean pdf metadata",
-    "remove author from pdf",
-    "strip pdf creator tags",
-    "pdf metadata remover online",
-    "delete hidden pdf exif",
-    "remove xmp from pdf",
-    "pdf author info cleaner",
+    "pdf metadata remover",
   ],
   alternates: {
     canonical: "/clean-pdf-metadata",
   },
   openGraph: {
-    title: "Clean PDF Metadata & Author Info — Strip EXIF & XMP Streams",
+    title: "PDF Metadata Remover — Strip Author, Creator & Timestamp Tags",
     description:
-      "Wipe hidden PDF metadata, author names, creation dates, and producer tags 100% in your browser memory.",
+      "Remove hidden metadata from PDF files, entirely in your browser.",
     url: `${siteUrl}/clean-pdf-metadata`,
   },
 };
@@ -83,10 +77,10 @@ const suiteTools = [
 const webAppJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Clean PDF Metadata & Author Info",
+  name: "PDF Metadata Remover",
   url: `${siteUrl}/clean-pdf-metadata`,
   description:
-    "Free online utility to strip author tags, creation dates, and producer metadata from PDF files.",
+    "Remove hidden metadata from PDF files: author name, software used, creation date, and revision history.",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Any",
   offers: {
@@ -102,10 +96,18 @@ const faqJsonLd = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "Why should I clean PDF metadata before sharing?",
+      name: "Does this change the content of my PDF?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "PDF files silently store author names, company affiliations, computer usernames, software version fingerprints, and exact edit timestamps. When sharing documents with clients, competitors, or public repositories, this hidden metadata can disclose sensitive business intelligence or compromise personal privacy.",
+        text: "No. It only removes the metadata fields, not the visible pages or text.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Why would I want to remove this?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Privacy and professionalism are the two common reasons — you might not want to reveal which internal template a document came from, or whose name is attached to an early draft.",
       },
     },
     {
@@ -113,23 +115,7 @@ const faqJsonLd = {
       name: "Are my PDF files uploaded to a remote server?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No! Processing is 100% client-side. The file is read via JavaScript ArrayBuffer into local browser heap memory. PDF parsing, metadata neutralizations, and blob reconstructions happen exclusively on your CPU without any network transport.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Will sanitizing metadata alter the visible text or layout?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "No. Our sanitizer only targets the PDF /Info object dictionary and unlinked XMP metadata streams. The visual page content stream, embedded typography, vector graphics, and image rasters remain completely untouched.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Is there a limit on PDF file size?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Because processing uses your computer's local memory rather than congested cloud queues, our tool easily handles documents up to 100MB instantly without rate limits or timeouts.",
+        text: "No. Processing is 100% client-side, entirely inside your browser's memory. Nothing is sent over the network.",
       },
     },
   ],
@@ -553,30 +539,20 @@ export default function CleanPdfMetadataPage() {
           {/* Latency Benchmarks Widget */}
           <div className="w-full lg:w-72 flex flex-col gap-space-sm p-space-md rounded-xl bg-surface-container-lowest shadow-sm font-code-stat text-code-stat">
             <span className="text-on-surface font-semibold flex items-center justify-between">
-              <span>In-Memory Parse Benchmarks</span>
-              <span className="text-primary font-mono">1.4 MB PDF</span>
+              <span>Runs Locally</span>
             </span>
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <span className="text-on-surface-variant">Google Chrome</span>
-                <span className="text-primary font-bold">1.2ms</span>
-              </div>
-              <div className="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
-                <div className="bg-primary h-full rounded-full" style={{ width: "25%" }}></div>
+                <span className="text-primary font-bold">Instant</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-on-surface-variant">Apple Safari</span>
-                <span className="text-primary font-bold">1.5ms</span>
-              </div>
-              <div className="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
-                <div className="bg-primary h-full rounded-full" style={{ width: "32%" }}></div>
+                <span className="text-primary font-bold">Instant</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-on-surface-variant">Mozilla Firefox</span>
-                <span className="text-primary font-bold">1.8ms</span>
-              </div>
-              <div className="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
-                <div className="bg-primary h-full rounded-full" style={{ width: "40%" }}></div>
+                <span className="text-primary font-bold">Instant</span>
               </div>
             </div>
           </div>
@@ -670,30 +646,30 @@ export default function CleanPdfMetadataPage() {
           <div className="flex flex-col gap-space-sm">
             {/* FAQ 1 */}
             <div className="rounded-xl bg-surface-container-lowest p-space-md shadow-sm">
-              <details className="group">
-                <summary className="flex items-center justify-between font-headline-sm text-headline-sm text-on-surface font-medium cursor-pointer list-none select-none">
-                  <span>Why should I clean PDF metadata before sharing?</span>
-                  <span className="material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform duration-200">
+              <details className="group" open>
+                <summary className="flex items-center justify-between font-headline-sm text-headline-sm text-on-surface font-semibold text-primary cursor-pointer list-none select-none">
+                  <span>Does this change the content of my PDF?</span>
+                  <span className="material-symbols-outlined text-primary group-open:rotate-180 transition-transform duration-200">
                     expand_more
                   </span>
                 </summary>
                 <div className="pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                  PDF files silently store author names, company affiliations, computer usernames, software version fingerprints, and exact edit timestamps. When sharing documents with clients, competitors, or public repositories, this hidden metadata can disclose sensitive business intelligence or compromise personal privacy.
+                  No. It only removes the metadata fields, not the visible pages or text.
                 </div>
               </details>
             </div>
 
             {/* FAQ 2 */}
             <div className="rounded-xl bg-surface-container-lowest p-space-md shadow-sm">
-              <details className="group" open>
-                <summary className="flex items-center justify-between font-headline-sm text-headline-sm text-on-surface font-semibold text-primary cursor-pointer list-none select-none">
-                  <span>Are my PDF files uploaded to a remote server?</span>
-                  <span className="material-symbols-outlined text-primary group-open:rotate-180 transition-transform duration-200">
+              <details className="group">
+                <summary className="flex items-center justify-between font-headline-sm text-headline-sm text-on-surface font-medium cursor-pointer list-none select-none">
+                  <span>Why would I want to remove this?</span>
+                  <span className="material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform duration-200">
                     expand_more
                   </span>
                 </summary>
                 <div className="pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                  No! Processing is 100% client-side. The file is read via JavaScript ArrayBuffer into local browser heap memory. PDF parsing, metadata neutralizations, and blob reconstructions happen exclusively on your CPU without any network transport.
+                  Privacy and professionalism are the two common reasons — you might not want to reveal which internal template a document came from, or whose name is attached to an early draft.
                 </div>
               </details>
             </div>
@@ -702,28 +678,13 @@ export default function CleanPdfMetadataPage() {
             <div className="rounded-xl bg-surface-container-lowest p-space-md shadow-sm">
               <details className="group">
                 <summary className="flex items-center justify-between font-headline-sm text-headline-sm text-on-surface font-medium cursor-pointer list-none select-none">
-                  <span>Will sanitizing metadata alter the visible text or layout?</span>
+                  <span>Are my PDF files uploaded to a remote server?</span>
                   <span className="material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform duration-200">
                     expand_more
                   </span>
                 </summary>
                 <div className="pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                  No. Our sanitizer only targets the PDF <code className="font-mono bg-surface-container px-1 py-0.5 rounded text-on-surface">/Info</code> object dictionary and unlinked XMP metadata streams. The visual page content stream, embedded typography, vector graphics, and image rasters remain completely untouched.
-                </div>
-              </details>
-            </div>
-
-            {/* FAQ 4 */}
-            <div className="rounded-xl bg-surface-container-lowest p-space-md shadow-sm">
-              <details className="group">
-                <summary className="flex items-center justify-between font-headline-sm text-headline-sm text-on-surface font-medium cursor-pointer list-none select-none">
-                  <span>Is there a limit on PDF file size?</span>
-                  <span className="material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform duration-200">
-                    expand_more
-                  </span>
-                </summary>
-                <div className="pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                  Because processing uses your computer&apos;s local memory rather than congested cloud queues, our tool easily handles documents up to 100MB instantly without rate limits or timeouts.
+                  No. Processing is 100% client-side, entirely inside your browser&apos;s memory. Nothing is sent over the network.
                 </div>
               </details>
             </div>

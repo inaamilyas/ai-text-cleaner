@@ -5,15 +5,11 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "AI Markdown to Plain Text Converter — Strip Formatting Online",
+  title: "Markdown to Plain Text Converter — Remove Markdown Formatting",
   description:
-    "Convert AI-generated Markdown into clean plain text. Remove asterisks, hashtags, backticks, strikethroughs, and links instantly.",
+    "Convert Markdown into clean plain text. Remove asterisks, hashes, and backticks left over from AI tools or note-taking apps. Free.",
   keywords: [
-    "convert markdown to plain text",
-    "strip markdown online",
-    "remove markdown asterisks",
-    "markdown stripper",
-    "clean markdown text",
+    "markdown to plain text",
   ],
   alternates: {
     canonical: "/markdown-to-plain-text",
@@ -74,29 +70,14 @@ const howToSteps = [
 
 const faqs = [
   {
-    question: "Why convert Markdown to plain text?",
+    question: "Why does my AI-generated text have asterisks and hash symbols in it?",
     answer:
-      "Many writing tools and web apps do not support Markdown syntax. Converting to plain text prevents raw symbols like **bold** and # Headers from appearing in final documents.",
+      "AI chat tools write in Markdown by default. If you paste that text somewhere that doesn't render Markdown, you see the raw symbols instead of bold text or headings.",
   },
   {
-    question: "Does this remove my actual content?",
+    question: "Will this remove the actual list structure, or just the symbols?",
     answer:
-      "No! Only the Markdown syntax characters (asterisks, hashtags, brackets, backticks) are stripped. Your textual content remains 100% intact.",
-  },
-  {
-    question: "How does it handle Markdown hyperlinks like [Title](url)?",
-    answer:
-      "The converter extracts the anchor text link title while stripping the brackets and underlying URL.",
-  },
-  {
-    question: "Does it strip Markdown blockquotes (> Quote)?",
-    answer:
-      "Yes! Surrounding > angle brackets are stripped, leaving plain text quotes.",
-  },
-  {
-    question: "Can I convert Markdown tables to plain text?",
-    answer:
-      "Yes. Table pipes (|) and dashes (-) are stripped to extract raw plain text column values.",
+      "It removes the Markdown symbols but keeps line breaks, so your list still reads as a list — just without the dashes or numbers.",
   },
 ];
 
@@ -155,8 +136,8 @@ export default function MarkdownToPlainTextPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Hero
-        heading="Markdown to Plain Text Converter"
-        subheading="Strip Markdown syntax tags, bold asterisks, headers, backticks, and formatting symbols from AI-generated text."
+        heading="Convert Markdown to Plain Text"
+        subheading="Remove asterisks, hashes, and backticks left over from AI tools or note-taking apps — free."
         initialOptions={{
           removeMarkdown: true,
           removeTrailingWhitespace: true,
@@ -164,8 +145,8 @@ export default function MarkdownToPlainTextPage() {
       />
       <SubToolContent
         title="Markdown to Plain Text Converter"
-        directAnswerTitle="How to Strip Markdown Syntax Online?"
-        directAnswerText="Markdown uses special symbols like asterisks (**bold**), hashtags (# Title), and backticks (`code`) to format text. Our converter strips raw Markdown syntax instantly, producing clean plain text ideal for email clients, word processors, and publishing platforms."
+        directAnswerTitle="Why Markdown Symbols End Up in Your Text"
+        directAnswerText="Markdown is a plain-text way of marking up formatting — **bold**, # Heading, `code`, - list item. It's common in AI chat tools, note-taking apps, and developer docs. The problem is that most places you'd paste that text — email, a CMS text box, a text message — don't read Markdown, so you end up with the raw symbols instead of actual formatting. This tool converts Markdown into clean, readable plain text: headings become plain lines, bold and italic markers are removed, and list symbols are replaced with something readable."
         beforeExample="# Title Header\n**Bold text** with `inline code` and [links](https://example.com)."
         afterExample="Title Header\nBold text with inline code and links."
         removedItems={removedItems}

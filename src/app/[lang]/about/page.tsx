@@ -63,7 +63,7 @@ export default async function LocalizedAboutPage({ params }: { params: Promise<{
           </div>
           <h3 className="text-h6 text-neutral-900">Instant Performance</h3>
           <p className="text-body-sm text-neutral-600">
-            Clean 50,000+ words in milliseconds with 1-click preset filters.
+            Runs locally, so there&apos;s no queue or upload wait even for long documents.
           </p>
         </div>
 

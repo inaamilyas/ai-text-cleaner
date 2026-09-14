@@ -109,10 +109,10 @@ const defaultValueProps: { title: string; desc: string; icon: string }[] = [
 ];
 
 const defaultBenchmarks = [
-  { name: "V8 Engine (Chrome / Edge / Node)", time: "1.4ms" },
-  { name: "JavaScriptCore (Safari / iOS)", time: "1.8ms" },
-  { name: "SpiderMonkey (Firefox)", time: "2.1ms" },
-  { name: "Mobile WebKit (Android / iOS WebView)", time: "2.6ms" },
+  { name: "Chrome / Edge", time: "Instant" },
+  { name: "Safari / iOS", time: "Instant" },
+  { name: "Firefox", time: "Instant" },
+  { name: "Android WebView", time: "Instant" },
 ];
 
 export default function SubToolContent({
@@ -274,13 +274,13 @@ export default function SubToolContent({
           <div className="lg:col-span-7 flex flex-col gap-space-md">
             <div className="space-y-space-xs">
               <span className="font-code-stat text-code-stat text-primary uppercase font-semibold">
-                Deep In-Browser AI Analysis
+                How It Runs
               </span>
               <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold">
-                Understand how our AI detection &amp; text sanitization engine works
+                Everything happens in your browser, not on a server
               </h2>
               <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                Unlike cloud-based checkers that upload your documents to external databases, our detection engine analyzes sentence length variance, passive voice structure, and transition density 100% inside your browser memory. Your drafts remain confidential, safe from unauthorized data logging.
+                Unlike tools that upload your text to a server for processing, this runs entirely as JavaScript on your device. Nothing you paste in is sent anywhere, logged, or stored.
               </p>
             </div>
 
@@ -293,7 +293,7 @@ export default function SubToolContent({
                   </svg>
                   <div className="flex flex-col">
                     <span className="font-headline-sm text-headline-sm text-on-surface font-medium">Zero Data Egress</span>
-                    <span className="font-code-stat text-code-stat text-secondary">WebAssembly Heuristic Pipeline active</span>
+                    <span className="font-code-stat text-code-stat text-secondary">Runs locally in your browser</span>
                   </div>
                 </div>
                 <div className="font-code-stat text-code-stat bg-surface-container-high px-2.5 py-1 rounded text-primary font-bold">
@@ -326,19 +326,19 @@ export default function SubToolContent({
                 <span className="text-[10px] text-outline font-mono">sandbox://client-worker</span>
               </div>
               <div className="p-4 space-y-2 leading-relaxed text-surface-container-lowest/90 font-mono text-[12px]">
-                <div className="text-primary-fixed font-bold">&gt; AI Text Sanitizer — 100% In-Browser</div>
-                <div className="text-outline-variant font-normal">// Instant local inspection</div>
+                <div className="text-primary-fixed font-bold">&gt; Text Cleaner AI — 100% In-Browser</div>
+                <div className="text-outline-variant font-normal">// Local inspection, no upload</div>
                 <div className="flex items-center gap-2 text-green-400">
                   <span>✓</span>
-                  <span>0 Invisible Characters</span>
+                  <span>Invisible characters removed</span>
                 </div>
                 <div className="flex items-center gap-2 text-green-400">
                   <span>✓</span>
-                  <span>AI Buzzwords Stripped</span>
+                  <span>AI buzzwords stripped</span>
                 </div>
                 <div className="flex items-center gap-2 text-green-400">
                   <span>✓</span>
-                  <span>94% Human Rhythm</span>
+                  <span>Markdown artifacts cleaned</span>
                 </div>
                 <div className="pt-2 text-amber-300 flex items-center gap-1.5">
                   <span className="material-symbols-outlined text-[14px]">lock</span>

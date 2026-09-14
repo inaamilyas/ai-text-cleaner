@@ -708,12 +708,8 @@ export default function BlogIndexPage() {
               </h4>
               <div className="space-y-space-xs font-label-sm text-label-sm text-on-surface-variant">
                 <div className="p-space-xs rounded bg-surface-container text-on-surface">
-                  <span className="font-code-stat text-code-stat text-primary font-bold block">SOC2 Type II Aligned</span>
+                  <span className="font-code-stat text-code-stat text-primary font-bold block">Zero Telemetry</span>
                   <span className="text-[11px] text-outline">Zero telemetry, local DOM execution only.</span>
-                </div>
-                <div className="p-space-xs rounded bg-surface-container text-on-surface">
-                  <span className="font-code-stat text-code-stat text-primary font-bold block">Air-Gapped Ready</span>
-                  <span className="text-[11px] text-outline">Functions 100% offline via PWA workers.</span>
                 </div>
               </div>
             </div>

@@ -5,15 +5,12 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Zero-Width Space Remover — Clean Hidden U+200B Characters Online",
+  title: "Zero-Width Space Remover — Delete Invisible U+200B Characters",
   description:
-    "Free tool to detect and remove zero-width spaces (U+200B), non-breaking spaces, and hidden unicode control characters from AI text and code. 100% private & client-side.",
+    "Find and remove zero-width spaces and other invisible Unicode characters from your text. Free, instant, browser-based.",
   keywords: [
+    "remove zero width space",
     "zero width space remover",
-    "remove U+200B",
-    "invisible character remover",
-    "clean hidden unicode characters",
-    "zero width space checker",
   ],
   alternates: {
     canonical: "/remove-zero-width-space",
@@ -85,69 +82,44 @@ const howToSteps = [
 ];
 
 const benchmarks = [
-  { name: "Chrome 122+", time: "1.8ms" },
-  { name: "Safari 17.4+", time: "2.1ms" },
-  { name: "Firefox 123+", time: "2.4ms" },
+  { name: "Chrome", time: "Instant" },
+  { name: "Safari", time: "Instant" },
+  { name: "Firefox", time: "Instant" },
 ];
 
 const valueProps = [
   {
     title: "100% In-Browser Privacy",
-    desc: "Text strings and clipboard transfers are calculated entirely in browser JS execution threads. Never sent to an external API.",
+    desc: "Text is processed entirely in your browser. Never sent to an external server.",
     icon: "verified_user",
   },
   {
-    title: "Instant Processing",
-    desc: "Sub-millisecond sanitization handles 50,000+ words with zero lag, providing immediate diff updates.",
+    title: "No Practical Length Limit",
+    desc: "Runs locally, so there's no queue or upload delay even for long documents.",
     icon: "bolt",
   },
   {
-    title: "Advanced Heuristic Detection",
-    desc: "Combines regex Unicode blocks with token entropy models to detect subtle LLM formatting signatures.",
+    title: "Catches the Related Characters Too",
+    desc: "Also detects the zero-width joiner, non-joiner, and word joiner, not just U+200B.",
     icon: "psychology",
   },
   {
-    title: "Multi-Language Static Support",
-    desc: "Full Unicode 15 support preserves valid accent ligatures and diacritics across global alphabets.",
-    icon: "translate",
-  },
-  {
-    title: "Visual Highlight Breakdown",
-    desc: "Detailed preview identifies each exact codepoint location before stripping to avoid unintended layout destruction.",
-    icon: "layers",
-  },
-  {
     title: "Zero Account Required",
-    desc: "Free, open precision tooling for developers, researchers, and editors without registration or paywalls.",
+    desc: "Free, open tooling for developers, researchers, and editors without registration or paywalls.",
     icon: "no_accounts",
   },
 ];
 
 const faqs = [
   {
-    question: "What is a Zero-Width Space (U+200B)?",
+    question: "How do I know if my text has a zero-width space in it?",
     answer:
-      "A zero-width space is an invisible character used in digital typesetting to indicate word boundaries without introducing a visible gap. Large Language Models like ChatGPT frequently include them in output text.",
+      "You usually can't tell by looking — that's the point of the character. If you're getting unexplained errors in code, search, or form validation, it's worth running your text through this tool as a check.",
   },
   {
-    question: "Why do zero-width spaces break code and databases?",
+    question: "Is this different from the general invisible character remover?",
     answer:
-      "Because zero-width spaces are non-printable, developers cannot see them. However, compilers, database queries, and regex engine treat them as actual characters, causing syntax errors or string mismatch bugs.",
-  },
-  {
-    question: "Is my text uploaded to a server when cleaning?",
-    answer:
-      "No. Text Cleaner AI processes all text entirely within your local browser JavaScript engine. No data is transmitted to external servers.",
-  },
-  {
-    question: "How can I detect if text contains U+200B zero-width spaces?",
-    answer:
-      "Paste your text into the editor above and click 'Clean Text'. Our character inspector automatically highlights U+200B occurrences and displays exact counts.",
-  },
-  {
-    question: "Does this tool also strip Byte Order Marks (U+FEFF)?",
-    answer:
-      "Yes! It strips Byte Order Marks (BOM), soft hyphens (U+00AD), and all C0/C1 invisible control codes.",
+      "This page focuses specifically on zero-width characters. The invisible character remover covers a wider set, including non-breaking spaces and byte order marks.",
   },
 ];
 
@@ -209,8 +181,8 @@ export default function RemoveZeroWidthSpacePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Hero
-        heading="Zero-Width Space Remover"
-        subheading="Instantly detect and strip hidden zero-width spaces (U+200B), non-breaking spaces, and invisible unicode control marks from text."
+        heading="Remove Zero-Width Spaces From Text"
+        subheading="Find and remove zero-width spaces and similar invisible characters from your text — free and instant."
         initialOptions={{
           removeHiddenCharacters: true,
           convertNonBreakingSpaces: true,
@@ -221,8 +193,8 @@ export default function RemoveZeroWidthSpacePage() {
         title="Zero-Width Space Remover"
         badgeLabel="Unicode Specification"
         badgeIcon="visibility"
-        directAnswerTitle="What is a Zero-Width Space & How to Remove It?"
-        directAnswerText="A zero-width space (ZWSP, Unicode U+200B) is an invisible character that occupies no visual space on screen. AI tools like ChatGPT and rich text editors frequently introduce ZWSPs, causing code crashes, broken searches, and formatting glitches. Our tool strips them instantly in your browser."
+        directAnswerTitle="What Is a Zero-Width Space?"
+        directAnswerText="A zero-width space is a character that takes up no visible space on the screen but still counts as a real character in the text. The most common one has the code point U+200B. It shows up often in text copied from AI chat tools, PDFs, and some websites, usually left over from how the original text was rendered. You can't see it, but software can, and that causes real problems: a search for a word fails because there's an invisible character hiding inside it, a username or password gets rejected for no visible reason, or a JSON file fails to parse."
         beforeBadgeText="2 Flaws Detected"
         afterBadgeText="0 Artifacts"
         beforeExample={

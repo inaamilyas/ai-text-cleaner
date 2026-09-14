@@ -262,7 +262,7 @@ export default function PrivacyPage() {
                     </button>
                     <a
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md"
-                      href="mailto:inaamilyas656@gmail.com?subject=[AI%20Text%20Cleaner]%20Privacy%20Inquiry"
+                      href="mailto:inaamilyas656@gmail.com?subject=[Text%20Cleaner%20AI]%20Privacy%20Inquiry"
                     >
                       <span className="material-symbols-outlined text-[16px]">send</span>
                       <span>Contact Support Team</span>

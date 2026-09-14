@@ -5,15 +5,12 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Clean Microsoft Copilot Text — Remove Copilot AI Formatting & Quirks",
+  title: "Clean Microsoft Copilot Text — Remove Copilot Formatting & Citations",
   description:
-    "Clean text copied from Microsoft Copilot (Bing AI). Remove footnote numbers [1], Markdown formatting, smart quotes, and hidden spacers.",
+    "Remove Copilot's sidebar headers, citation links, and repeated web references from pasted text. Free and browser-based.",
   keywords: [
     "clean copilot text",
-    "clean microsoft copilot text",
-    "remove bing ai formatting",
-    "copilot text cleaner",
-    "remove copilot citation numbers",
+    "remove copilot formatting",
   ],
   alternates: {
     canonical: "/clean-copilot-text",
@@ -32,28 +29,33 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Clean Microsoft Copilot Text — Remove Copilot AI Formatting & Quirks",
+    title: "Clean Microsoft Copilot Text — Remove Copilot Formatting & Citations",
     description:
-      "Paste Microsoft Copilot outputs to instantly strip citation numbers, bold asterisks, and hidden AI artifacts.",
+      "Remove Copilot's sidebar headers, citation links, and repeated source names from pasted text.",
     url: `${siteUrl}/clean-copilot-text`,
   },
 };
 
 const removedItems = [
   {
-    character: "Copilot Citation & Footnote Numbers",
+    character: "Citation Superscripts & Footnote Links",
     unicode: "[1] [2]",
-    description: "Microsoft Copilot inserts bracketed web citations into generated text that clutter clean documents.",
+    description: "Copilot's citation links point back to its own interface; pasted elsewhere, they're just dead superscript numbers.",
   },
   {
-    character: "Markdown Bold & Headers",
-    unicode: "U+002A (*)",
-    description: "Formatting symbols used in Copilot chat windows that persist when copied to external software.",
+    character: "Sidebar Headers & Source Labels",
+    unicode: "n/a",
+    description: "Headers meant for Copilot's sidebar view that create clutter once pasted into a document.",
   },
   {
-    character: "Smart Quotes & Em Dashes",
-    unicode: "U+201C / U+2014",
-    description: "Typography marks that cause code syntax errors in developers tools.",
+    character: "Repeated Source Names",
+    unicode: "n/a",
+    description: "The same reference name repeated multiple times through an answer.",
+  },
+  {
+    character: "Invisible Characters & Smart Quotes",
+    unicode: "U+200B / U+201C",
+    description: "Typography marks and hidden unicode that cause syntax errors in developer tools.",
   },
 ];
 
@@ -74,29 +76,13 @@ const howToSteps = [
 
 const faqs = [
   {
-    question: "Why does Copilot text have bracketed numbers like [1]?",
+    question: "Why do citation numbers break when I paste them?",
     answer:
-      "Copilot includes web search citations as numbers in brackets. Our text cleaner strips Markdown formatting and cleans up AI output.",
+      "Copilot's citation links point back to its own interface. Once pasted elsewhere, they're just dead superscript numbers, so removing them is usually the right call.",
   },
   {
-    question: "Does this work on mobile and desktop?",
-    answer:
-      "Yes! Text Cleaner AI runs in any web browser on desktop, tablet, or smartphone.",
-  },
-  {
-    question: "How do I remove conversational fluff from Copilot output?",
-    answer:
-      "Select the 'Strip AI conversational intro/outro' checkbox to automatically remove conversational opening lines and closing statements.",
-  },
-  {
-    question: "Does Copilot text contain zero-width spaces?",
-    answer:
-      "Yes. The web view for Microsoft Copilot inserts zero-width spaces (U+200B) for line wrapping, which our cleaner automatically strips.",
-  },
-  {
-    question: "Is my pasted Copilot text saved anywhere?",
-    answer:
-      "No. All sanitization happens 100% in your browser memory. We never store or upload your text.",
+    question: "Does it work with long answers?",
+    answer: "Yes, there's no practical length limit for browser-based cleaning.",
   },
 ];
 
@@ -105,7 +91,7 @@ const webAppJsonLd = {
   "@type": "WebApplication",
   name: "Microsoft Copilot Text Cleaner",
   url: `${siteUrl}/clean-copilot-text`,
-  description: "Free tool to sanitize text copied from Microsoft Copilot AI.",
+  description: "Remove Copilot's sidebar headers, citation links, and repeated web references from pasted text.",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Any",
   offers: {
@@ -155,8 +141,8 @@ export default function CleanCopilotTextPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Hero
-        heading="Clean Microsoft Copilot Text"
-        subheading="Sanitize text from Microsoft Copilot. Strip Markdown asterisks, smart quotes, em dashes, and AI formatting quirks instantly."
+        heading="Clean Text Copied From Microsoft Copilot"
+        subheading="Remove Copilot's sidebar headers, citation links, and repeated web references from pasted text — free and browser-based."
         initialOptions={{
           removeMarkdown: true,
           normalizeQuotes: true,
@@ -167,8 +153,8 @@ export default function CleanCopilotTextPage() {
       />
       <SubToolContent
         title="Clean Microsoft Copilot Text"
-        directAnswerTitle="How to Clean Microsoft Copilot Text Formatting?"
-        directAnswerText="Text copied from Microsoft Copilot (Bing AI) contains Markdown formatting (**asterisks**), smart quotes, and hidden non-breaking spaces. Our tool strips these formatting artifacts instantly in your browser."
+        directAnswerTitle="Why Does Copilot Text Need Cleaning?"
+        directAnswerText="Copilot answers often carry over citation links, numbered references, and headers meant for its sidebar view. Once that text is pasted into a document, those extras just create clutter and broken-looking links. This tool removes them, along with the general clean-up every AI tool's text needs."
         beforeExample={"**Copilot Report:**\n1. Search finding.\n2. “Smart quotes” & — em dashes."}
         afterExample={'Copilot Report:\n1. Search finding.\n2. "Smart quotes" & - em dashes.'}
         removedItems={removedItems}

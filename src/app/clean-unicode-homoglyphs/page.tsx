@@ -5,15 +5,11 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Unicode Homoglyph Cleaner — Detect & Replace Cyrillic / Greek Confusables",
+  title: "Unicode Homoglyph Remover — Fix Lookalike Characters",
   description:
-    "Free online tool to detect and replace fake Cyrillic, Greek, full-width ASCII, and mathematical homoglyph characters with standard Latin ASCII equivalents.",
+    "Detect and convert lookalike Unicode characters, like a Cyrillic \"а\" that looks identical to a Latin \"a,\" back to standard ASCII. Free tool.",
   keywords: [
-    "clean unicode homoglyphs",
-    "homoglyph detector",
-    "confusable character remover",
-    "cyrillic to latin ascii converter",
-    "homoglyph attack protection",
+    "unicode homoglyph",
   ],
   alternates: {
     canonical: "/clean-unicode-homoglyphs",
@@ -71,24 +67,14 @@ const howToSteps = [
 
 const faqs = [
   {
-    question: "What is a homoglyph character?",
-    answer:
-      "A homoglyph (or confusable) is a character from another alphabet (like Cyrillic 'а' U+0430) that looks visually identical to a Latin letter ('a' U+0061), but has a completely different digital code point.",
-  },
-  {
     question: "Why are homoglyphs used in text?",
     answer:
       "Homoglyphs are used to bypass keyword filters, evade AI plagiarism detectors, or create look-alike phishing domain names.",
   },
   {
-    question: "Does this tool change the meaning of my text?",
+    question: "Can I paste a URL to check it?",
     answer:
-      "No! It normalizes all look-alike non-Latin characters back to standard Latin ASCII letters so humans and search engines read it identically.",
-  },
-  {
-    question: "Is this homoglyph cleaner free?",
-    answer:
-      "Yes. It is 100% free and runs entirely inside your browser memory without uploading text to any server.",
+      "Yes — pasting a domain name is one of the more common uses, since a single swapped character is nearly impossible to spot by eye.",
   },
 ];
 
@@ -132,13 +118,13 @@ export default function CleanUnicodeHomoglyphsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <HomoglyphSanitizer
-        heading="Unicode Homoglyph & Confusable Character Cleaner"
-        subheading="Detect and replace Cyrillic, Greek, or Latin look-alike characters disguised inside text to bypass AI detectors or phishing filters."
+        heading="Fix Unicode Homoglyphs (Lookalike Characters)"
+        subheading="Detect and convert lookalike Unicode characters back to standard ASCII — free and browser-based."
       />
       <SubToolContent
         title="Unicode Homoglyph Cleaner"
-        directAnswerTitle="What Are Homoglyphs & How to Sanitize Confusable Text?"
-        directAnswerText="A homoglyph attack replaces standard Latin letters with visually identical characters from other Unicode alphabets (such as Cyrillic 'а' U+0430 instead of Latin 'a' U+0061). Our Unicode Homoglyph Cleaner scans your text string and replaces all confusable characters with 100% standard ASCII Latin equivalents."
+        directAnswerTitle="What Is a Homoglyph?"
+        directAnswerText="A homoglyph is a character from a different alphabet that looks identical, or nearly identical, to a normal letter — for example, a Cyrillic 'а' that looks exactly like a Latin 'a' but is a different character underneath. These can end up in text through copy-pasting, some fonts, or occasionally through someone deliberately using them to disguise a word (a common trick in phishing links and spam). This tool scans text for characters that look like standard Latin letters but aren't, and converts them back to the real thing."
         beforeExample="Tеstаng text wіth fаkе Cyrіllіc letters."
         afterExample="Testing text with fake Cyrillic letters."
         removedItems={removedItems}

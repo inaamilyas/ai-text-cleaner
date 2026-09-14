@@ -5,23 +5,20 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Text Case Converter Online — Title Case, camelCase, snake_case & Slugify",
+  title: "Free Text Case Converter — Title Case, camelCase, snake_case & More",
   description:
-    "Convert text between Title Case, UPPERCASE, lowercase, camelCase, snake_case, kebab-case, PascalCase, and clean URL slugs instantly in your browser.",
+    "Convert text between Title Case, camelCase, snake_case, kebab-case, and more. Free, instant, works in your browser.",
   keywords: [
-    "text case converter",
-    "title case generator",
-    "convert camelcase to snake case",
-    "slugify online tool",
-    "uppercase lowercase converter",
+    "case converter",
+    "camelcase converter",
   ],
   alternates: {
     canonical: "/case-converter",
   },
   openGraph: {
-    title: "Text Case Converter Online — Title Case & Developer Formats",
+    title: "Free Text Case Converter — Title Case, camelCase, snake_case & More",
     description:
-      "Transform text between Title Case, camelCase, snake_case, kebab-case, and URL slugs instantly.",
+      "Convert text between every common case style at once, entirely in your browser.",
     url: `${siteUrl}/case-converter`,
   },
 };
@@ -68,22 +65,17 @@ const faqs = [
   {
     question: "What is Title Case?",
     answer:
-      "Title Case capitalizes the principal words in a title (nouns, verbs, adjectives), while leaving short conjunctions and prepositions in lowercase.",
+      "Capitalizing the main words in a heading or title, while leaving small connecting words (like \"a,\" \"the,\" \"of\") lowercase unless they start the sentence.",
   },
   {
-    question: "What is the difference between camelCase and PascalCase?",
+    question: "What's the difference between camelCase and PascalCase?",
     answer:
-      "In camelCase, the very first letter is lowercase (e.g. userFirstName). In PascalCase, the first letter is capitalized (e.g. UserFirstName).",
+      "camelCase starts with a lowercase letter (firstName). PascalCase starts with a capital letter (FirstName). Both are otherwise the same pattern.",
   },
   {
-    question: "What is a URL Slug?",
+    question: "What is a URL slug?",
     answer:
-      "A URL Slug converts text into a clean, lowercase hyphen-separated string with accents and special characters removed (e.g. /my-new-post).",
-  },
-  {
-    question: "Is this case converter browser-based?",
-    answer:
-      "Yes. All string manipulation takes place locally inside your browser with zero latency or cloud API dependencies.",
+      "The part of a web address after the domain that identifies a specific page, usually written in lowercase with hyphens between words — for example, /case-converter.",
   },
 ];
 
@@ -127,13 +119,13 @@ export default function CaseConverterPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <CaseConverterUI
-        heading="Text Case Converter & ASCII Normalizer"
-        subheading="Convert text between Title Case, camelCase, snake_case, UPPERCASE, lowercase, URL Slugs, and strip non-ASCII diacritics instantly in your browser."
+        heading="Text Case Converter"
+        subheading="Paste in a phrase and get it converted into every common case style at once — free and instant."
       />
       <SubToolContent
-        title="Text Case Converter & ASCII Normalizer"
-        directAnswerTitle="Online Text Case Converter for Writers & Developers"
-        directAnswerText="Our Text Case Converter enables instant transformation between 11 standard text capitalization and code identifier styles: Title Case, camelCase, snake_case, kebab-case, CONSTANT_CASE, PascalCase, Sentence case, and URL Slugs. It also strips non-ASCII accents and diacritics."
+        title="Text Case Converter"
+        directAnswerTitle="Every Common Case Style, At Once"
+        directAnswerText="Paste in a phrase and get it converted into every common case style at once: Title Case for headings, camelCase and snake_case for code, kebab-case for URLs, and a few others."
         beforeExample="the quick brown fox jumps over the lazy dog"
         afterExample="Title Case: The Quick Brown Fox | camelCase: theQuickBrownFox | snake_case: the_quick_brown_fox"
         removedItems={removedItems}

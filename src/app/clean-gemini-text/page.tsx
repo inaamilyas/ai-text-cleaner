@@ -5,15 +5,12 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Clean Google Gemini Text — Remove Gemini AI Formatting & Artifacts",
+  title: "Clean Google Gemini Text — Remove Gemini Formatting & Citation Marks",
   description:
-    "Clean text copied from Google Gemini (formerly Bard). Remove bullet points, Markdown asterisks, smart quotes, and hidden unicode spacers.",
+    "Remove Gemini's citation brackets, bold spam, and leftover formatting from pasted text. Free, runs in your browser, no sign-up.",
   keywords: [
     "clean gemini text",
-    "clean google gemini text",
     "remove gemini formatting",
-    "gemini text cleaner",
-    "google bard text sanitizer",
   ],
   alternates: {
     canonical: "/clean-gemini-text",
@@ -32,23 +29,28 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Clean Google Gemini Text — Remove Gemini AI Formatting & Artifacts",
+    title: "Clean Google Gemini Text — Remove Gemini Formatting & Citation Marks",
     description:
-      "Paste your Google Gemini outputs to instantly strip bold asterisks, bullet artifacts, and hidden unicode characters.",
+      "Remove Gemini's citation brackets, bold spam, and leftover formatting from pasted text. Free and browser-based.",
     url: `${siteUrl}/clean-gemini-text`,
   },
 };
 
 const removedItems = [
   {
-    character: "Gemini Markdown Bullets & Bold",
-    unicode: "U+002A (*)",
-    description: "Google Gemini heavily uses bold asterisks and Markdown list markers that clutter plain text outputs.",
+    character: "Citation Brackets & Reference Numbers",
+    unicode: "[1] [2]",
+    description: "Gemini adds bracketed reference numbers that only make sense inside its own interface.",
   },
   {
-    character: "Non-Breaking Spaces (NBSP)",
-    unicode: "U+00A0",
-    description: "Inserted by Gemini web application to manage paragraph spacing, causing awkward line wrapping.",
+    character: "Overused Bold Formatting",
+    unicode: "U+002A (*)",
+    description: "Gemini tends to bold too many words with Markdown asterisks that clutter plain text.",
+  },
+  {
+    character: "Repeated Preamble",
+    unicode: "\"Based on your question...\"",
+    description: "Gemini often opens by restating your question back to you before answering.",
   },
   {
     character: "Smart Typography Quotes",
@@ -74,29 +76,17 @@ const howToSteps = [
 
 const faqs = [
   {
-    question: "Why does Google Gemini text have markdown symbols?",
+    question: "Why does Gemini text have brackets like [1] in it?",
     answer:
-      "Gemini uses Markdown formatting for visually styled responses in the web app. When copied to plain text editors, raw asterisks and hashtags remain in the text.",
+      "Those are citation markers Gemini adds when it references a source. They only make sense inside Gemini's own interface, so it's worth removing them before you paste the text anywhere else.",
   },
   {
-    question: "Does this work for Gemini Advanced output?",
-    answer:
-      "Yes! It cleans output from all versions of Google Gemini, including Gemini 1.5 Pro, Flash, and Ultra.",
+    question: "Does this work on mobile?",
+    answer: "Yes, in any modern browser.",
   },
   {
-    question: "How do I remove non-breaking spaces (NBSP) from Gemini output?",
-    answer:
-      "Select 'Convert non-breaking spaces'. The cleaner replaces invisible U+00A0 characters with standard spacebars.",
-  },
-  {
-    question: "Can I download cleaned Gemini responses as a .txt file?",
-    answer:
-      "Yes! After clicking 'Clean Text', click the 'Download .txt' button to save a sanitized text file directly to your device.",
-  },
-  {
-    question: "Is there any cost to clean Gemini text?",
-    answer:
-      "No. Text Cleaner AI is 100% free with no account creation or subscription required.",
+    question: "Is my text stored anywhere?",
+    answer: "No. Cleaning happens locally in your browser, not on a server.",
   },
 ];
 
@@ -105,7 +95,7 @@ const webAppJsonLd = {
   "@type": "WebApplication",
   name: "Google Gemini Text Cleaner",
   url: `${siteUrl}/clean-gemini-text`,
-  description: "Free tool to clean text copied from Google Gemini AI.",
+  description: "Remove Gemini's citation brackets, bold spam, and leftover formatting from pasted text.",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Any",
   offers: {
@@ -155,8 +145,8 @@ export default function CleanGeminiTextPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Hero
-        heading="Clean Google Gemini Text"
-        subheading="Sanitize text from Google Gemini. Strip bold asterisks, Markdown artifacts, smart quotes, and hidden unicode spacers instantly."
+        heading="Clean Text Copied From Google Gemini"
+        subheading="Remove Gemini's citation brackets, bold spam, and leftover formatting from pasted text — free and browser-based."
         initialOptions={{
           removeMarkdown: true,
           normalizeQuotes: true,
@@ -167,8 +157,8 @@ export default function CleanGeminiTextPage() {
       />
       <SubToolContent
         title="Clean Google Gemini Text"
-        directAnswerTitle="How to Remove Formatting from Google Gemini Text?"
-        directAnswerText="Text copied from Google Gemini often contains Markdown bold tags (**asterisks**), lists (# headers), non-breaking spaces, and smart quotes. Our tool strips these formatting artifacts instantly in your browser."
+        directAnswerTitle="Why Does Gemini Text Need Cleaning?"
+        directAnswerText="Google Gemini has its own habits when it writes. It tends to bold too many words, add bracketed reference numbers like [1] or [2] that mean nothing once you've left Gemini, and open answers by restating your question back to you. None of that belongs in a finished document. This tool removes those Gemini-specific habits, plus the general problems that show up in any AI text: zero-width spaces, smart quotes, and stray Markdown symbols."
         beforeExample={"**Gemini Overview:**\n* Feature 1: *Speed*\n* Feature 2: “Smart quotes”"}
         afterExample={'Gemini Overview:\nFeature 1: Speed\nFeature 2: "Smart quotes"'}
         removedItems={removedItems}

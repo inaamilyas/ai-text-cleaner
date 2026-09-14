@@ -5,15 +5,12 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Remove AI Words & Buzzwords — Strip Delve, Tapestry & Clichés Online",
+  title: "Remove AI Buzzwords — Strip \"Delve,\" \"Tapestry\" & Other Clichés",
   description:
-    "Detect and remove overused AI words like 'delve', 'tapestry', 'realm', 'pivotal', and 'foster' from ChatGPT, Claude, and Gemini text. 100% free & client-side.",
+    "Remove overused AI phrases like delve, tapestry, and testament to from your text. Free tool, works instantly in your browser.",
   keywords: [
     "remove ai words",
-    "remove chatgpt buzzwords",
-    "delve tapestry remover",
-    "ai cliché stripper",
-    "humanize ai text words",
+    "ai buzzwords",
   ],
   alternates: {
     canonical: "/remove-ai-words",
@@ -32,31 +29,31 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Remove AI Words & Buzzwords — Strip Delve, Tapestry & Clichés Online",
+    title: "Remove AI Buzzwords — Strip \"Delve,\" \"Tapestry\" & Other Clichés",
     description:
-      "Instantly detect and strip robotic AI buzzwords like delve, tapestry, and realm from your writing.",
+      "Swap overused AI words for plainer alternatives, or remove them where they're not adding anything.",
     url: `${siteUrl}/remove-ai-words`,
   },
 };
 
 const removedItems = [
   {
-    character: "Overused Verbs & Action Words",
-    unicode: "delve / embark / harness / navigate",
+    character: "Overused Verbs",
+    unicode: "delve, elevate, unlock, leverage",
     description:
-      "Tell-tale AI verbs that make written content sound corporate and machine-generated.",
+      "Words that show up so often in AI text that readers now spot them on sight.",
   },
   {
-    character: "AI Fluff & Metaphors",
-    unicode: "tapestry / realm / beacon / testament",
+    character: "AI Metaphors",
+    unicode: "tapestry, realm, testament to",
     description:
-      "Dramatic AI metaphors frequently flagged by readers and AI content detectors.",
+      "Dramatic figures of speech that make a reader assume text is AI-written and skim past it.",
   },
   {
-    character: "Corporate Filler Connectives",
-    unicode: "in today's digital landscape / furthermore",
+    character: "Formal Filler Phrases",
+    unicode: "\"in today's fast-paced world\"",
     description:
-      "Formulaic AI sentence openers that bore readers and dilute impact.",
+      "Formulaic openers that add length without adding meaning.",
   },
 ];
 
@@ -79,9 +76,9 @@ const howToSteps = [
 ];
 
 const benchmarks = [
-  { name: "Google Chrome", time: "3.8 ms" },
-  { name: "Apple Safari", time: "4.2 ms" },
-  { name: "Mozilla Firefox", time: "4.7 ms" },
+  { name: "Google Chrome", time: "Instant" },
+  { name: "Apple Safari", time: "Instant" },
+  { name: "Mozilla Firefox", time: "Instant" },
 ];
 
 const valueProps = [
@@ -119,29 +116,14 @@ const valueProps = [
 
 const faqs = [
   {
-    question: "Why does ChatGPT overuse words like 'delve' and 'tapestry'?",
+    question: "Why do these specific words keep showing up in AI text?",
     answer:
-      "Language models like ChatGPT were trained on high-volume formal web corpora where words like 'delve', 'tapestry', and 'testament' appeared frequently. The model defaults to these words when aiming for a formal or professional tone.",
+      "Large language models are trained to sound polished and were rewarded during training for certain \"safe,\" formal-sounding word choices. Those choices became a tic, and readers have learned to recognize them.",
   },
   {
-    question: "Does removing AI buzzwords help bypass AI detectors?",
+    question: "Will removing these words make my writing sound robotic in a different way?",
     answer:
-      "Removing repetitive AI buzzwords and robotic openers significantly improves human readability and reduces the predictability patterns that AI detectors look for.",
-  },
-  {
-    question: "Which specific AI words are detected and removed?",
-    answer:
-      "Our filter targets 25+ overused words including: delve, tapestry, testament, pivotal, beacon, foster, realm, crucial, seamless, bustling, harness, leverage, holistic, bespoke, cutting-edge, game-changer, paramount, embark, navigate, in today's digital landscape, furthermore, moreover, and in conclusion.",
-  },
-  {
-    question: "Will removing these words ruin sentence grammar?",
-    answer:
-      "The tool cleanly strips target cliché words and normalizes adjacent double spaces. You can review the output or use Visual Diff Mode to verify sentence flow.",
-  },
-  {
-    question: "Is this AI Buzzword Stripper free?",
-    answer:
-      "Yes! It is 100% free with unlimited usage and no sign-up requirement.",
+      "No — the goal is plainer, more direct language, which usually reads more naturally, not less.",
   },
 ];
 
@@ -150,7 +132,7 @@ const webAppJsonLd = {
   "@type": "WebApplication",
   name: "Remove AI Words Tool",
   url: `${siteUrl}/remove-ai-words`,
-  description: "Free tool to strip overused AI buzzwords like delve, tapestry, and realm.",
+  description: "Remove overused AI phrases like delve, tapestry, and testament to from your text.",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Any",
   offers: {
@@ -203,8 +185,8 @@ export default function RemoveAIWordsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Hero
-        heading="Remove AI Words & Buzzwords"
-        subheading="Instantly detect and strip overused robotic AI words ('delve', 'tapestry', 'realm', 'pivotal') and cliché openers from your writing."
+        heading="Remove AI Buzzwords From Your Text"
+        subheading="Swap overused AI phrases like delve, tapestry, and testament to for plainer alternatives — free and instant."
         initialOptions={{
           removeAIWords: true,
           removeMarkdown: true,
@@ -217,8 +199,8 @@ export default function RemoveAIWordsPage() {
         title="Remove AI Words"
         badgeLabel="Linguistic Telemetry"
         badgeIcon="psychology"
-        directAnswerTitle="Why Remove AI Buzzwords Like 'Delve' & 'Tapestry'?"
-        directAnswerText="Readers and AI content detectors immediately recognize text generated by ChatGPT due to overused cliché words like 'delve', 'tapestry', 'testament', 'pivotal', and 'realm'. Our tool automatically detects and removes these tell-tale AI buzzwords, helping your content sound natural and authentic."
+        directAnswerTitle="Why Remove Words Like &quot;Delve&quot; and &quot;Tapestry&quot;?"
+        directAnswerText="Some words show up so often in AI-generated text that readers now spot them on sight: delve, tapestry, testament to, boasts, elevate, unlock, seamless, landscape, &quot;in today's fast-paced world,&quot; &quot;it's important to note that.&quot; Even when the underlying writing is good, these words are enough to make a reader assume it's AI-written — and skim past it. This tool finds those words and phrases and swaps them for plainer alternatives, or removes them where they're not adding anything."
         beforeBadgeText="[ALERT]"
         afterBadgeText="[SANITIZED]"
         beforeExample={
