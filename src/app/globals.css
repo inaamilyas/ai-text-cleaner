@@ -222,7 +222,15 @@
     font-family: var(--font-sans);
   }
 
-  h1,
+  h1 {
+    color: #191c1d;
+    font-family: var(--font-sans);
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+
   h2,
   h3,
   h4,
@@ -255,6 +263,7 @@
 
 /* Responsive typography scaling below medium screens (< 768px) */
 @media (max-width: 767px) {
+  h1,
   .font-display-lg {
     font-size: 30px !important;
     line-height: 36px !important;

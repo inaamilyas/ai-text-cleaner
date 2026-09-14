@@ -137,7 +137,7 @@ export default function HomoglyphSanitizer({ heading, subheading }: HomoglyphSan
     <section className="bg-surface py-6 md:py-8 border-b border-surface-container-highest/60">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center text-center max-w-4xl md:max-w-5xl mx-auto mb-6">
-          <h1 className="text-headline-lg md:text-display-lg font-bold text-on-surface tracking-tight mb-2">
+          <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold mb-2">
             {heading ?? "Unicode Homoglyph & Confusable Character Cleaner"}
           </h1>
           <p className="text-body-lg text-on-surface-variant max-w-4xl mx-auto">

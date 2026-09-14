@@ -52,7 +52,7 @@ export default function AboutPage() {
           {/*  1. Hero Section  */}
           <section className="flex flex-col items-center text-center gap-space-sm relative overflow-hidden py-space-sm">
           <div className="flex flex-col gap-space-xs max-w-4xl md:max-w-5xl">
-          <h1 className="font-headline-lg text-display-lg text-on-surface tracking-tight">
+          <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">
                     About AI Text Cleaner
                   </h1>
           <p className="font-headline-md text-headline-md text-primary font-medium">

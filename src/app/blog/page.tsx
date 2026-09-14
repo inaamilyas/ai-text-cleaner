@@ -198,7 +198,7 @@ export default function BlogIndexPage() {
           <div className="bg-surface-container-lowest rounded-xl p-space-lg md:p-space-xl shadow-sm relative overflow-hidden">
             <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-primary-fixed-dim/20 blur-3xl pointer-events-none" />
             <div className="relative z-10 max-w-4xl md:max-w-5xl">
-              <h1 className="font-headline-lg text-headline-lg md:text-display-lg md:font-display-lg text-on-surface tracking-tight mb-space-xs">
+              <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold mb-space-xs">
                 Guides &amp; Resource Library
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant mb-space-md max-w-3xl md:max-w-4xl">

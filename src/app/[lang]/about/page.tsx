@@ -40,10 +40,7 @@ export default async function LocalizedAboutPage({ params }: { params: Promise<{
   return (
     <div dir={isRtl ? 'rtl' : 'ltr'} className="container mx-auto flex max-w-4xl flex-col gap-16 px-6 py-20">
       <div className="flex flex-col gap-4 text-center">
-        <span className="mx-auto inline-flex items-center gap-1.5 rounded-md bg-primary-50 px-4 py-1.5 text-body-xs font-bold text-primary-700 border border-primary-200">
-          <Sparkles className="h-4 w-4" /> About AI Text Cleaner ({l.nativeName})
-        </span>
-        <h1>Sanitizing AI Text for Writers & Developers</h1>
+        <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">Sanitizing AI Text for Writers &amp; Developers</h1>
         <p className="text-body-lg text-neutral-600 max-w-2xl mx-auto">
           AI Text Cleaner was created by <strong>Inam Ilyas</strong> to remove hidden zero-width characters, AI clichés, and raw Markdown clutter in AI-generated text.
         </p>

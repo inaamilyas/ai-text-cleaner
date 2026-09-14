@@ -157,7 +157,7 @@ export default function ContactPage() {
 
             {/* 2. Hero & Introduction Section */}
             <section className="text-center max-w-4xl md:max-w-5xl mx-auto mb-space-lg">
-              <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight mb-space-xs">
+              <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold mb-space-xs">
                 Contact Us
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-3xl md:max-w-4xl mx-auto mb-space-md">

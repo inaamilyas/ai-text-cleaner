@@ -73,7 +73,7 @@ export default function ReadabilityCheckerUI({ heading, subheading }: Readabilit
       <div className="container mx-auto px-4 md:px-8 pt-space-lg pb-space-md flex flex-col gap-space-lg">
         {/* Hero Header Zone */}
         <div className="flex flex-col items-center text-center gap-space-xs max-w-4xl md:max-w-5xl mx-auto">
-          <h1 className="font-display-lg text-display-lg text-on-surface font-bold tracking-tight">
+          <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">
             {heading ?? "Readability & Flesch-Kincaid Grade Checker"}
           </h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl md:max-w-4xl leading-relaxed">

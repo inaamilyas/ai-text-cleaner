@@ -320,7 +320,7 @@ export default function ImageSanitizer({ langCode = "en" }: { langCode?: string 
       <section className="w-full bg-surface pb-space-lg hero-section">
         <div className="container mx-auto px-4 md:px-8 flex flex-col items-center text-center">
           {/* Main Typography Hierarchy */}
-          <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight max-w-5xl">
+          <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold max-w-5xl">
             AI Image Metadata &amp; EXIF Remover
           </h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-4xl mt-space-xs mb-space-md">

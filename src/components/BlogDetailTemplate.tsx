@@ -141,7 +141,7 @@ export default function BlogDetailTemplate({
 
           {/* Main Headline & Subtitle */}
           <div className="max-w-4xl">
-            <h1 className="font-display-lg text-2xl sm:text-3xl lg:text-[38px] font-bold text-on-surface tracking-tight leading-[1.2] mb-4">
+            <h1 className="font-display-lg text-display-lg font-semibold text-on-surface tracking-tight mb-4">
               {title}
             </h1>
             <p className="text-base sm:text-lg text-on-surface-variant leading-relaxed mb-6 font-normal">

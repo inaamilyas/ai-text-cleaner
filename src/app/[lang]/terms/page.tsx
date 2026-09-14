@@ -37,7 +37,7 @@ export default async function LocalizedTermsPage({ params }: { params: Promise<{
 
   return (
     <div dir={isRtl ? 'rtl' : 'ltr'} className="container mx-auto flex max-w-3xl flex-col gap-8 px-6 py-20">
-      <h1>Terms of Service ({l.nativeName})</h1>
+      <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">Terms of Service ({l.nativeName})</h1>
       <p className="text-body-md text-neutral-600">Last updated: September 5, 2026</p>
 
       <section className="flex flex-col gap-4">

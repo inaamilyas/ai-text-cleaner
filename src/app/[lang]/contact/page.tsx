@@ -40,7 +40,7 @@ export default async function LocalizedContactPage({ params }: { params: Promise
   return (
     <div dir={isRtl ? 'rtl' : 'ltr'} className="container mx-auto flex max-w-3xl flex-col gap-12 px-6 py-20">
       <div className="flex flex-col gap-3 text-center">
-        <h1>Contact AI Text Cleaner ({l.nativeName})</h1>
+        <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">Contact AI Text Cleaner ({l.nativeName})</h1>
         <p className="text-body-lg text-neutral-600 max-w-xl mx-auto">
           Have questions, bug reports, or feature requests? Contact Founder & Developer <strong>Inam Ilyas</strong>.
         </p>
