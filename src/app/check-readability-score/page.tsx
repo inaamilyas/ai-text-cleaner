@@ -5,23 +5,20 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Readability & Flesch-Kincaid Grade Checker — Free Online Text Analyzer",
+  title: "Free Flesch-Kincaid Readability Test — Check Your Text's Grade Level",
   description:
-    "Calculate Flesch Reading Ease score, Flesch-Kincaid Grade Level, Gunning Fog Index, and Coleman-Liau index in real-time. Free online readability checker.",
+    "Run a free Flesch-Kincaid readability test on your text. See grade level, reading ease, and average sentence length instantly in your browser.",
   keywords: [
-    "flesch kincaid readability checker",
-    "flesch reading ease calculator",
-    "check text grade level online",
-    "gunning fog index tool",
-    "article readability score analyzer",
+    "flesch kincaid test",
+    "readability score",
   ],
   alternates: {
     canonical: "/check-readability-score",
   },
   openGraph: {
-    title: "Readability & Flesch-Kincaid Grade Checker Online",
+    title: "Free Flesch-Kincaid Readability Test — Check Your Text's Grade Level",
     description:
-      "Analyze article readability scores, US grade levels, and 3+ syllable complex words instantly.",
+      "See grade level, reading ease, and average sentence length instantly, entirely in your browser.",
     url: `${siteUrl}/check-readability-score`,
   },
 };
@@ -66,33 +63,28 @@ const howToSteps = [
 
 const faqs = [
   {
-    question: "What is a good Flesch Reading Ease score for web articles?",
+    question: "What is a good Flesch-Kincaid score for a website?",
     answer:
-      "A Flesch Reading Ease score between 60.0 and 70.0 (Grade 8 level) is recommended for general web audiences and blog content.",
+      "Somewhere between grade 6 and grade 9 works for most general content. Aim lower if your audience includes non-native English readers.",
   },
   {
-    question: "How is the Flesch-Kincaid Grade Level calculated?",
+    question: "What is Flesch Reading Ease?",
     answer:
-      "It combines average sentence length (words divided by sentences) and average syllables per word to compute a standard US school grade.",
+      "A 0–100 scale where higher numbers mean easier text. A score of 60–70 is considered plain English.",
   },
   {
-    question: "Why should I simplify complex words?",
+    question: "Does sentence length matter more than word choice?",
     answer:
-      "Replacing 3+ syllable jargon words with simpler alternatives increases reader retention, lowers bounce rates, and improves SEO performance.",
-  },
-  {
-    question: "Is my document stored during analysis?",
-    answer:
-      "No. Readability analysis is computed 100% in-browser. Zero text is uploaded or stored.",
+      "Both matter, but long sentences are usually the bigger problem. Breaking one 40-word sentence into two shorter ones often improves the score more than swapping a few words.",
   },
 ];
 
 const webAppJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Readability & Flesch-Kincaid Grade Checker",
+  name: "Flesch-Kincaid Readability Test",
   url: `${siteUrl}/check-readability-score`,
-  description: "Free online utility to calculate Flesch Reading Ease, Grade Level, and Gunning Fog Index.",
+  description: "See grade level, reading ease, and average sentence length instantly.",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Any",
   offers: {
@@ -127,9 +119,9 @@ const faqJsonLd = {
 };
 
 const benchmarks = [
-  { name: "V8 Readability Lexer", time: "0.3 ms" },
-  { name: "Syllable Counter", time: "0.5 ms" },
-  { name: "Fog Index Matrix", time: "0.6 ms" },
+  { name: "Readability calculation", time: "Instant" },
+  { name: "Syllable counting", time: "Instant" },
+  { name: "Grade level scoring", time: "Instant" },
 ];
 
 export default function CheckReadabilityScorePage() {
@@ -151,16 +143,16 @@ export default function CheckReadabilityScorePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <ReadabilityCheckerUI
-        heading="Readability & Flesch-Kincaid Grade Checker"
-        subheading="Calculate Flesch Reading Ease, Flesch-Kincaid Grade Level, Gunning Fog Index, and highlight complex 3+ syllable words in real-time."
+        heading="Flesch-Kincaid Readability Test"
+        subheading="Paste your text and get its Flesch-Kincaid grade level and reading ease score right away."
       />
       <div className="container mx-auto px-4 md:px-8 pb-16">
         <SubToolContent
           title="Readability & Flesch-Kincaid Grade Checker"
           badgeLabel="Clarity Analyzer"
           badgeIcon="auto_stories"
-          directAnswerTitle="How Readability Scores Improve Content Ranking & Conversions"
-          directAnswerText="Readability metrics quantify how accessible your writing is to readers. The Flesch Reading Ease test rates text on a 0-100 scale, while the Flesch-Kincaid Grade Level indicates the US grade level required for comprehension. Lowering grade levels to Grade 7-8 significantly increases time-on-page and organic search rankings."
+          directAnswerTitle="What Do These Scores Actually Mean?"
+          directAnswerText="Flesch-Kincaid Grade Level estimates the US school grade a reader would need to understand your text on a first read. Lower numbers mean simpler writing. Flesch Reading Ease is a 0–100 scale — higher numbers mean easier text, and a score in the 60s or 70s is considered easy for most adults to read. Most general web content reads best between grade 6 and grade 9, roughly the level of a national newspaper."
           beforeBadgeText="BEFORE (Raw Complex Draft)"
           afterBadgeText="AFTER (Optimized & Sanitized)"
           beforeExample={

@@ -4,17 +4,11 @@ import ImageSanitizer from "@/components/ImageSanitizer";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "AI Image Metadata & EXIF Remover — Strip Prompts & C2PA",
+  title: "AI Image Metadata Remover — Strip EXIF, Prompts & C2PA Tags",
   description:
-    "Free online tool to strip EXIF metadata, prompt text, seed parameters, and C2PA provenance headers from AI images (ChatGPT, Midjourney, DALL-E 3, Gemini, Stable Diffusion). 100% private in-browser canvas sanitizer.",
+    "Remove AI generation metadata from images, including prompt text, model name, and C2PA content credentials. Free, runs in your browser.",
   keywords: [
-    "remove ai image metadata",
-    "strip midjourney prompt metadata",
-    "remove dalle 3 exif data",
-    "clean ai image metadata",
-    "remove c2pa provenance header",
-    "image exif stripper free",
-    "strip chatgpt image watermark header",
+    "ai image metadata remover",
   ],
   alternates: {
     canonical: "/remove-ai-image-metadata",
@@ -33,9 +27,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "AI Image Metadata & EXIF Remover — Strip Prompts & C2PA",
+    title: "AI Image Metadata Remover — Strip EXIF, Prompts & C2PA Tags",
     description:
-      "Clean hidden prompt metadata, EXIF tags, C2PA tracking, and AI software signatures from generated images.",
+      "Remove prompt text, model name, and C2PA content credentials from AI-generated images.",
     url: `${siteUrl}/remove-ai-image-metadata`,
   },
 };
@@ -107,18 +101,11 @@ const whyStripPillars = [
     tag: "#NO_C2PA_TRACE",
   },
   {
-    icon: "blur_on",
-    title: "Disrupt Neural AI Detectors",
-    description:
-      "Enable our pattern disruption engine to inject micro sub-pixel noise and DCT re-quantization, breaking high-frequency AI visual signatures for Hive and Illuminarty.",
-    tag: "#NEURAL_CLASSIFIER_BYPASS",
-  },
-  {
     icon: "storefront",
-    title: "Safe for Stock & E-Commerce",
+    title: "A Clean File for Sharing",
     description:
-      "Clean your AI artwork before selling on Etsy, Amazon, or stock photo platforms to avoid automated metadata flags, compliance shadowbans, and account penalties.",
-    tag: "#MARKETPLACE_CLEAN",
+      "Strip prompt text and provenance metadata before uploading to a marketplace, portfolio, or client, so the file carries only what you intend to share.",
+    tag: "#CLEAN_EXPORT",
   },
 ];
 
@@ -150,10 +137,10 @@ const howItWorksSteps = [
 ];
 
 const benchmarks = [
-  { name: "Chrome V8 / Blink (4K PNG)", time: "18 ms" },
-  { name: "Safari WebKit (4K JPEG)", time: "14 ms" },
-  { name: "Firefox SpiderMonkey (4K WEBP)", time: "22 ms" },
-  { name: "Multi-Page PDF (12 Pages)", time: "41 ms" },
+  { name: "Chrome (4K PNG)", time: "Instant" },
+  { name: "Safari (4K JPEG)", time: "Instant" },
+  { name: "Firefox (4K WEBP)", time: "Instant" },
+  { name: "Multi-Page PDF (12 Pages)", time: "Instant" },
 ];
 
 const faqs = [
@@ -168,9 +155,14 @@ const faqs = [
       "Instead of simply parsing and deleting text bytes (which can leave dangling binary signatures), our tool utilizes an offscreen browser canvas re-encoding architecture. The browser decodes only the pure visual RGBA pixel buffer into client memory. Auxiliary non-visual metadata chunks, ICC tags, and provenance manifests are completely dropped upon export.",
   },
   {
-    question: "How does the Enhanced AI Pattern Disruption feature work?",
+    question: "Does this change the image itself?",
     answer:
-      "When toggled, this feature applies an imperceptible micro sub-pixel noise filter and discrete cosine transform (DCT) re-quantization to the pixel grid. While visually identical to the human eye, this disrupts the mathematical frequency artifacts that automated classifiers (such as Hive Moderation, Illuminarty, or AI content detectors) use to flag synthetic imagery.",
+      "No, only the metadata attached to the file. The visible image is untouched.",
+  },
+  {
+    question: "Is it legal to remove this metadata?",
+    answer:
+      "Generally yes, for images you created or have the rights to use. This isn't legal advice — if you're handling images for a business or publication, check your organization's own policy on content credentials.",
   },
   {
     question: "Are my images uploaded to any cloud server?",
@@ -195,7 +187,7 @@ const webAppJsonLd = {
   name: "AI Image Metadata Remover",
   url: `${siteUrl}/remove-ai-image-metadata`,
   description:
-    "Free online tool to strip EXIF metadata, prompt parameters, and C2PA provenance headers from AI images.",
+    "Remove AI generation metadata from images, including prompt text, model name, and C2PA content credentials.",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Any",
 };
@@ -297,7 +289,7 @@ export default function RemoveAIImageMetadataPage({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md">
             {whyStripPillars.map((pillar) => (
               <div
                 key={pillar.title}
@@ -319,6 +311,15 @@ export default function RemoveAIImageMetadataPage({
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-space-lg p-space-md rounded-xl bg-surface-container-lowest border border-surface-container-highest/60">
+            <h3 className="font-headline-sm text-headline-sm text-on-surface font-semibold mb-space-xs">
+              A Note on Responsible Use
+            </h3>
+            <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Removing this metadata is a normal privacy step, similar to stripping EXIF data from a phone photo before posting it. It&apos;s worth knowing that C2PA tags exist specifically to help people tell AI-generated images apart from real photos — for example, in news or evidence contexts. Stripping that tag to pass an AI image off as an authentic photograph, rather than for ordinary privacy reasons, can be misleading to whoever views it.
+            </p>
           </div>
         </div>
       </section>
@@ -453,7 +454,6 @@ export default function RemoveAIImageMetadataPage({
                 <p className="text-error font-semibold">&gt;&gt; Found Text Prompt: &quot;/imagine architectural render...&quot;</p>
                 <p className="text-primary-fixed-dim font-bold pt-1">$ ./cleaner-core --strip --disrupt-subpixel</p>
                 <p className="">&gt; Drawing raster to OffscreenCanvas (3840x2160, RGBA8)</p>
-                <p className="">&gt; Micro-dithering high frequency coefficients (Hive threshold delta &lt; 0.001)</p>
                 <p className="">&gt; Re-encoding clean binary stream: 0 remote API calls made.</p>
                 <p className="text-on-secondary-container font-semibold pt-1">
                   &gt;&gt; Output: sanitized_midjourney_art.png (Visual Hash: Retained)

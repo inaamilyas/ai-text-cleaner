@@ -5,47 +5,44 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Free AI Text Detector (ChatGPT, GPT-4, Claude & Gemini) — 100% In-Browser",
+  title: "Free AI Text Detector — Check If Text Reads Like It Was AI-Written",
   description:
-    "Free online AI text detector. Check if text was written by ChatGPT, Claude, GPT-4, or Gemini. Highlight overused clichés, sentence monotony, and passive-voice patterns.",
+    "Check text for common signs of AI writing — repeated sentence patterns, overused phrases, low variation. Free, and nothing is uploaded to a server.",
   keywords: [
-    "free ai text detector",
-    "chatgpt detector online",
-    "gpt 4 text checker",
-    "check ai generated text",
-    "highlight ai phrases online",
+    "ai text detector",
+    "ai text check",
   ],
   alternates: {
     canonical: "/ai-text-detector",
   },
   openGraph: {
-    title: "Free AI Text Detector — ChatGPT, Claude & Gemini Checker",
+    title: "Free AI Text Detector — Check If Text Reads Like It Was AI-Written",
     description:
-      "Check AI score and highlight ChatGPT text with speed-meter radial score gauge 100% in your browser.",
+      "Check text for common signs of AI writing, entirely in your browser.",
     url: `${siteUrl}/ai-text-detector`,
   },
 };
 
 const removedItems = [
   {
-    character: "Sentence Uniformity Check",
-    unicode: "Length Variance",
-    description: "Flags sentences whose length nearly matches the paragraph average — a common structural tell in AI-generated prose.",
+    character: "Sentence Length Variation",
+    unicode: "Burstiness",
+    description: "How much sentence length varies across the text — a flat, even rhythm is one common sign of AI writing.",
   },
   {
-    character: "Burstiness Monotony",
-    unicode: "Sentence Length",
-    description: "Measures how much sentence lengths vary across the whole text. Low variation (a monotonous rhythm) is scored as AI-typical.",
+    character: "Common AI Transition Phrases",
+    unicode: "furthermore, in conclusion",
+    description: "Words like \"furthermore,\" \"in conclusion,\" and \"it's worth noting\" show up more often in AI text.",
   },
   {
-    character: "AI Cliché Phrase Density",
-    unicode: "Delve, Tapestry, Realm",
-    description: "Flags overused RLHF training phrases (delve, tapestry, testament to, furthermore).",
+    character: "Repetition in Sentence Structure",
+    unicode: "n/a",
+    description: "Sentences that follow the same shape and length repeatedly.",
   },
   {
-    character: "Passive AI Structure",
-    unicode: "is / was + verb + by",
-    description: "Identifies formal passive voice patterns common in automated AI drafts.",
+    character: "Overall Predictability",
+    unicode: "n/a",
+    description: "How closely the writing follows the most statistically likely word choices.",
   },
 ];
 
@@ -66,24 +63,18 @@ const howToSteps = [
 
 const faqs = [
   {
-    question: "How does this AI Text Detector work?",
+    question: "How accurate is this?",
     answer:
-      "Our AI Text Detector analyzes sentence length variance (burstiness), passive voice structure, and overused AI cliché phrases (delve, tapestry, realm, testament to) to compute a Human vs AI probability estimate.",
+      "No AI detector is fully accurate, and this one is no exception. Use it as a starting point, not proof.",
   },
   {
-    question: "Is my text saved or uploaded to cloud servers?",
-    answer:
-      "No! Processing runs 100% locally in your browser memory. Zero text is logged, uploaded, or stored.",
+    question: "Does it store the text I check?",
+    answer: "No. Everything runs in your browser.",
   },
   {
-    question: "Which AI models can this detector identify?",
+    question: "Can this get a human falsely flagged as AI?",
     answer:
-      "It detects structural writing patterns characteristic of ChatGPT (GPT-3.5/GPT-4o), Claude 3.5 Sonnet, Google Gemini, Microsoft Copilot, and open-source LLMs.",
-  },
-  {
-    question: "Can I humanize detected AI text with one click?",
-    answer:
-      "Yes. Click 'Humanize & Copy Text' to strip robotic clichés and restore natural human sentence variation.",
+      "Yes, that can happen with any AI detector. That's exactly why the score should be treated as a hint, not a fact.",
   },
 ];
 
@@ -92,7 +83,7 @@ const webAppJsonLd = {
   "@type": "WebApplication",
   name: "AI Text Detector",
   url: `${siteUrl}/ai-text-detector`,
-  description: "Free online AI text detector to check ChatGPT, GPT-4, Claude, and Gemini text.",
+  description: "Check text for common signs of AI writing, entirely in your browser.",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Any",
   offers: {
@@ -127,15 +118,15 @@ export default function AITextDetectorPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <AIDetectorUI
-        heading="Free AI Text Detector (ChatGPT, GPT-4, Claude & Gemini)"
-        subheading="Check if your text was generated by AI models in seconds. Highlight overused clichés, sentence monotony, and passive-voice patterns."
+        heading="AI Text Detector"
+        subheading="Check text for common signs of AI writing — sentence variation, overused phrases, predictability. Free, nothing uploaded."
       />
       <SubToolContent
         title="AI Text Detector"
-        directAnswerTitle="How to Detect AI Generated Text & Analyze Writing Probability"
-        directAnswerText="AI text models generate language by calculating highest-probability next words, which creates distinct writing fingerprints: uniform sentence lengths (low burstiness), passive voice constructions, and reliance on specific RLHF clichés ('delve into', 'vibrant tapestry', 'testament to'). Our client-side AI Text Detector highlights these exact markers in real-time."
+        directAnswerTitle="What This Tool Checks — and Its Limits"
+        directAnswerText="This tool looks at a few common signs of AI-written text — how much sentence length varies, how often certain transition words appear, and how predictable the structure is — and gives you a rough read on how &quot;AI-like&quot; a piece of text looks. It's worth being upfront about the limits here: no AI detector, including this one, can prove with certainty whether a human or an AI wrote something. Detection tools produce false positives on human writing fairly often, especially for non-native English writers and for anyone with a plain, direct style. Treat the result as one signal among several, not a verdict — and don't use it to accuse someone of dishonesty based on a score alone."
         beforeExample="In today's fast-paced world, artificial intelligence serves as a testament to human innovation. Furthermore, delving into this digital realm allows us to foster pivotal advancements."
-        afterExample="AI Probability: 92% | Human Score: 8% | 3 Clichés Highlighted"
+        afterExample="Flagged: low sentence-length variation, 3 common AI transition phrases"
         removedItems={removedItems}
         howToSteps={howToSteps}
         faqs={faqs}

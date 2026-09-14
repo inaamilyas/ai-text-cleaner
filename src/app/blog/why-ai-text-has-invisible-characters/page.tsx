@@ -26,7 +26,7 @@ const articleJsonLd = {
   publisher: {
     "@type": "Organization",
     name: "Text Cleaner AI",
-    url: "https://aitextcleaner.com",
+    url: "https://www.text-cleaner-ai.com",
   },
 };
 

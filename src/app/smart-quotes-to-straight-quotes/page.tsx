@@ -5,15 +5,11 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Smart Quotes to Straight Quotes Converter — Normalize Typography Online",
+  title: "Smart Quotes to Straight Quotes Converter",
   description:
-    "Convert curly smart quotes (“ ” ‘ ’) to straight quotes (\" ') and em dashes (—) to standard hyphens. Prevent syntax errors in code & SQL.",
+    "Convert curly smart quotes and em dashes into plain straight quotes and hyphens. Useful for code and forms that reject curly punctuation. Free.",
   keywords: [
     "smart quotes to straight quotes",
-    "curly quotes to straight quotes",
-    "convert em dash to hyphen",
-    "normalize smart quotes online",
-    "straight quote converter",
   ],
   alternates: {
     canonical: "/smart-quotes-to-straight-quotes",
@@ -61,84 +57,58 @@ const howToSteps = [
   {
     title: "Paste Typography Text",
     description:
-      "Paste text with curly quotes, smart apostrophes, or em dashes into the raw input buffer.",
+      "Paste text with curly quotes, smart apostrophes, or em dashes into the input box.",
   },
   {
     title: "Normalize Quotes",
     description:
-      "Our typography engine converts smart curly characters into standard ASCII quotes in under 2ms.",
+      "The converter changes smart curly characters into standard ASCII quotes.",
   },
   {
     title: "Copy Code-Safe Output",
     description:
-      "Copy code-safe plain text free from syntax-breaking curly characters directly into your compiler.",
+      "Copy plain text free from syntax-breaking curly characters directly into your compiler.",
   },
 ];
 
 const benchmarks = [
-  { name: "CHROME V8", time: "1.8ms" },
-  { name: "SAFARI JSC", time: "2.1ms" },
-  { name: "FIREFOX SM", time: "2.4ms" },
+  { name: "Chrome", time: "Instant" },
+  { name: "Safari", time: "Instant" },
+  { name: "Firefox", time: "Instant" },
 ];
 
 const valueProps = [
   {
     title: "100% In-Browser Privacy",
-    desc: "Zero telemetry, zero uploads, zero storage. Your drafts never leave your device.",
+    desc: "Your drafts never leave your device.",
     icon: "shield",
   },
   {
     title: "Instant Processing",
-    desc: "Sub-millisecond typography normalizations designed for high-throughput workflows.",
+    desc: "No practical length limit for browser-based cleaning.",
     icon: "bolt",
   },
   {
-    title: "Advanced Heuristic Detection",
-    desc: "Detect subtle AI phrasing fingerprints without false-flagging human syntax.",
-    icon: "psychology_alt",
-  },
-  {
-    title: "Multi-Language Static Support",
-    desc: "Guillemets (« »), German low quotes („ “), and Japanese brackets handled seamlessly.",
+    title: "Handles Extended Typography",
+    desc: "Also normalizes em dashes, en dashes, and the ellipsis character.",
     icon: "translate",
   },
   {
-    title: "Visual Highlight Breakdown",
-    desc: "Inspect altered characters with color-coded diff overlays and unicode points.",
-    icon: "highlight",
-  },
-  {
     title: "Zero Account Required",
-    desc: "No subscriptions, logins, or API tokens. Open the workspace and clean immediately.",
+    desc: "No subscriptions, logins, or API tokens. Open the page and convert immediately.",
     icon: "no_accounts",
   },
 ];
 
 const faqs = [
   {
-    question: "Why do smart quotes cause programming errors?",
+    question: "Why do my quotes look different after pasting from Word or an AI chat tool?",
     answer:
-      'Compilers, SQL query engines, and JSON parsers only recognize ASCII straight quotes (" and \'). Curly smart quotes generate syntax error exceptions because they are distinct unicode symbols.',
+      "Both tend to auto-convert straight quotes into curly ones as you type. That's fine for reading, but it isn't standard ASCII text, which some systems require.",
   },
   {
-    question: "Will this fix em dashes and ellipsis?",
-    answer:
-      "Yes! When option toggles are enabled, long em dashes (—) are converted into standard hyphens (-) and ellipsis symbols (...) into three dots.",
-  },
-  {
-    question: "How do curly smart quotes get into code snippets?",
-    answer:
-      "Word processors (like Microsoft Word or Apple Pages) and web chat interfaces automatically convert typed straight quotes into curly typographical 'smart quotes'.",
-  },
-  {
-    question: "What is the ASCII hex code for straight double quotes?",
-    answer:
-      "ASCII straight double quote is U+0022 (\"), whereas smart left double quote is U+201C and smart right double quote is U+201D.",
-  },
-  {
-    question: "Can I convert smart quotes in SQL or JSON files?",
-    answer:
-      "Yes! Use our 'Code & JSON Safe' quick preset to normalize all smart quotes and dashes instantly.",
+    question: "Does this affect the meaning of my text?",
+    answer: "No, only the punctuation style.",
   },
 ];
 
@@ -201,8 +171,8 @@ export default function SmartQuotesToStraightQuotesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Hero
-        heading="Smart Quotes to Straight Quotes Converter"
-        subheading={"Instantly convert curly smart quotes (“ ” ‘ ’), apostrophes, and em dashes into code-safe ASCII straight quotes (\" and ')."}
+        heading="Convert Smart Quotes to Straight Quotes"
+        subheading={"Convert curly smart quotes and em dashes into plain straight quotes and hyphens — free."}
         initialOptions={{
           normalizeQuotes: true,
           normalizeDashes: true,

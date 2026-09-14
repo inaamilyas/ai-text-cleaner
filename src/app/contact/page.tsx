@@ -87,26 +87,18 @@ export default function ContactPage() {
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "Reporting a regex or unicode character bug?",
+            "name": "Do you offer paid or enterprise plans?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Please include the raw character string or code point (e.g. U+200B Zero-Width Space or U+FEFF BOM). We will reproduce the parser token in our test suite within 24 hours.",
+              "text": "No, the tools are free for personal and commercial use. There's no paid tier at this time.",
             },
           },
           {
             "@type": "Question",
-            "name": "Looking to suggest a new LLM platform cleaner?",
+            "name": "How long does it take to get a reply?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "We monitor every major model release (Claude 3.7, DeepSeek R1, GPT-4.5, Gemini 2.0). Custom markdown syntax and conversational wrappers are usually reverse-engineered and shipped into production within 48h.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "Interested in commercial licensing or API access?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Text Cleaner AI is completely free for both personal and enterprise use. All operations run 100% locally in your browser's V8 engine with zero network roundtrips. Self-hosted npm packages are available upon request.",
+              "text": "Replies usually come within a couple of days. There's no guaranteed response time.",
             },
           },
           {
@@ -114,7 +106,7 @@ export default function ContactPage() {
             "name": "Does Text Cleaner AI store my submitted form data?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No telemetry or message payloads are monetized, syndicated, or retained on shared staging servers. All communications go straight to Inam's private secure inbox and are purged after issue resolution.",
+              "text": "No telemetry or message payloads are sold or shared. All communications go straight to Inam's inbox.",
             },
           },
         ],
@@ -149,8 +141,6 @@ export default function ContactPage() {
               </div>
               <div className="flex items-center gap-2 px-2.5 py-1 rounded-md bg-surface-container-lowest shadow-sm text-on-surface-variant font-label-sm text-label-sm">
                 <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary" />
-                <span>Direct SLA: <strong className="text-on-surface font-code-stat font-semibold">&lt; 24h</strong></span>
-                <span className="text-outline-variant">•</span>
                 <span className="text-tertiary">100% Privacy Respected</span>
               </div>
             </section>
@@ -228,7 +218,7 @@ export default function ContactPage() {
                       </div>
                     </div>
                     <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-code-stat text-[10px]">
-                      SLA: 4-12 hrs
+                      REPLY WITHIN A FEW DAYS
                     </span>
                   </div>
                   <div className="p-2.5 my-3 rounded-lg bg-surface-container-low flex items-center justify-between gap-2 font-code-stat text-body-sm">
@@ -250,10 +240,10 @@ export default function ContactPage() {
                   <div className="flex items-center justify-between text-label-sm font-label-sm pt-1">
                     <span className="text-on-surface-variant flex items-center gap-1">
                       <span className="material-symbols-outlined text-[14px] text-primary">speed</span>
-                      Typically replies same business day
+                      Replies usually come within a couple of days
                     </span>
                     <a
-                      href="mailto:inaamilyas656@gmail.com?subject=[AI%20Text%20Cleaner]%20Inquiry"
+                      href="mailto:inaamilyas656@gmail.com?subject=[Text%20Cleaner%20AI]%20Inquiry"
                       className="inline-flex items-center gap-1 text-primary font-semibold hover:underline"
                     >
                       <span>Compose</span>
@@ -546,7 +536,7 @@ export default function ContactPage() {
                       </div>
                       <h3 className="font-headline-md text-headline-md font-semibold text-on-surface mb-1">Message Dispatched</h3>
                       <p className="font-body-md text-body-md text-on-surface-variant max-w-md mb-space-md">
-                        Thank you! Your inquiry was sent directly to Inam&apos;s terminal. Expect a personal technical reply within 4-12 hours.
+                        Thank you! Your message was sent directly to Inam. Replies usually come within a couple of days.
                       </p>
                       <button
                         type="button"
@@ -582,10 +572,10 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="font-headline-sm text-headline-sm font-semibold text-on-surface mb-1">
-                        Reporting a regex or unicode character bug?
+                        Do you offer paid or enterprise plans?
                       </h4>
                       <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                        Please include the raw character string or code point (e.g. <code className="px-1 py-0.5 rounded bg-surface-container font-code-stat text-[11px] text-primary">U+200B</code> Zero-Width Space or <code className="px-1 py-0.5 rounded bg-surface-container font-code-stat text-[11px] text-primary">U+FEFF</code> BOM). We will reproduce the parser token in our test suite within 24 hours.
+                        No, the tools are free for personal and commercial use. There&apos;s no paid tier at this time.
                       </p>
                     </div>
                   </div>
@@ -599,10 +589,10 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="font-headline-sm text-headline-sm font-semibold text-on-surface mb-1">
-                        Looking to suggest a new LLM platform cleaner?
+                        How long does it take to get a reply?
                       </h4>
                       <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                        We monitor every major model release (Claude 3.7, DeepSeek R1, GPT-4.5, Gemini 2.0). Custom markdown syntax and conversational wrappers are usually reverse-engineered and shipped into production within 48h.
+                        Replies usually come within a couple of days. There&apos;s no guaranteed response time.
                       </p>
                     </div>
                   </div>
@@ -616,10 +606,10 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="font-headline-sm text-headline-sm font-semibold text-on-surface mb-1">
-                        Interested in commercial licensing or API access?
+                        If reporting a bug, what helps most?
                       </h4>
                       <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                        Text Cleaner AI is completely free for both personal and enterprise use. All operations run 100% locally in your browser&apos;s V8 engine with zero network roundtrips. Self-hosted npm packages are available upon request.
+                        Include the actual text that caused the problem, so it can be tested directly.
                       </p>
                     </div>
                   </div>
@@ -636,7 +626,7 @@ export default function ContactPage() {
                         Does Text Cleaner AI store my submitted form data?
                       </h4>
                       <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                        No telemetry or message payloads are monetized, syndicated, or retained on shared staging servers. All communications go straight to Inam&apos;s private secure inbox and are purged after issue resolution.
+                        No telemetry or message payloads are sold or shared. All communications go straight to Inam&apos;s inbox.
                       </p>
                     </div>
                   </div>
@@ -678,10 +668,7 @@ export default function ContactPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-primary-fixed font-bold">&gt;</span>
-                    <span className="text-primary-fixed">// Response SLA: 24h guaranteed for all developer tickets</span>
-                  </div>
-                  <div className="flex items-center gap-2 pt-1 text-[10px] text-outline-variant">
-                    <span>[HOST: TLSv1.3 | CLIENT_HASH: SHA256-CLIENT-SIDE-CLEANER-v2.6 | REGEX_RULES: 124 ACTIVE]</span>
+                    <span className="text-primary-fixed">// Replies usually come within a couple of days</span>
                   </div>
                 </div>
               </div>

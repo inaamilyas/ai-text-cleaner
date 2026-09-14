@@ -133,9 +133,9 @@ const faqJsonLd = {
 };
 
 const benchmarks = [
-  { name: "V8 Engine (Chrome / Node)", time: "0.8 ms" },
-  { name: "JavaScriptCore (Safari)", time: "1.1 ms" },
-  { name: "SpiderMonkey (Firefox)", time: "1.3 ms" },
+  { name: "Chrome / Node", time: "Instant" },
+  { name: "Safari", time: "Instant" },
+  { name: "Firefox", time: "Instant" },
 ];
 
 export default function CleanClaudeCodePage() {

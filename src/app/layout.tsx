@@ -24,24 +24,24 @@ const robotoMono = Roboto_Mono({
 
 const siteUrl = "https://www.text-cleaner-ai.com";
 const siteName = "Text Cleaner AI";
+const siteTitle =
+  "Free AI Text Cleaner — Remove Hidden Characters From ChatGPT, Claude & Gemini Text";
 const siteDescription =
-  "Free tool to clean text from ChatGPT, Claude, and Gemini. Removes invisible characters, smart quotes, em dashes, non-breaking spaces, and Markdown leftovers, entirely in your browser. No signup.";
+  "Paste text from ChatGPT, Claude, or Gemini and clean it in one click. This free AI text cleaner strips hidden characters, smart quotes, and AI buzzwords. No sign-up, nothing leaves your browser.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteName} - Clean AI Text Instantly`,
+    default: siteTitle,
     template: `%s | ${siteName}`,
   },
   description: siteDescription,
   keywords: [
-    "AI text cleaner",
-    "remove invisible characters",
-    "clean ChatGPT text",
-    "remove hidden unicode characters",
-    "smart quotes to straight quotes",
-    "remove markdown formatting",
-    "AI text formatting cleanup",
+    "ai text cleaner",
+    "clean ai text",
+    "ai stripper free",
+    "ai scrubber",
+    "clean pasted text",
   ],
   alternates: {
     canonical: "/",
@@ -63,12 +63,12 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName,
-    title: `${siteName} - Clean AI Text Instantly`,
+    title: siteTitle,
     description: siteDescription,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteName} - Clean AI Text Instantly`,
+    title: siteTitle,
     description: siteDescription,
   },
   robots: {
@@ -95,13 +95,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD",
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "ratingCount": "1420",
-      "bestRating": "5",
-      "worstRating": "1"
     },
     "featureList": [
       "Remove Zero-Width Spaces (U+200B)",

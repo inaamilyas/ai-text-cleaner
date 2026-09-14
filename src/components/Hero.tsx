@@ -222,11 +222,11 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
         {/* Main Headline & Copy */}
         <div className="space-y-2 w-full max-w-5xl">
           <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">
-            {heading ?? "Paste AI text. Get clean text."}
+            {heading ?? "Clean Text Copied From ChatGPT, Claude, or Gemini"}
           </h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-4xl mx-auto">
             {subheading ??
-              "Remove invisible characters, unwanted formatting, AI cliché buzzwords (delve, tapestry), Markdown artifacts, and AI text quirks instantly."}
+              "Paste your text, pick a preset, and click Clean Text. It strips hidden characters, smart quotes, and leftover Markdown — entirely in your browser, nothing uploaded."}
           </p>
         </div>
 

@@ -8,8 +8,6 @@ export interface WebApplicationSchemaOptions {
   description: string;
   url: string;
   applicationCategory?: string;
-  ratingValue?: string;
-  ratingCount?: string;
   inLanguage?: string;
 }
 
@@ -31,8 +29,6 @@ export function generateWebApplicationSchema({
   description,
   url,
   applicationCategory = "UtilitiesApplication",
-  ratingValue = "4.9",
-  ratingCount = "1420",
   inLanguage = "en",
 }: WebApplicationSchemaOptions) {
   return {
@@ -49,13 +45,6 @@ export function generateWebApplicationSchema({
       price: "0",
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue,
-      ratingCount,
-      bestRating: "5",
-      worstRating: "1",
     },
     author: {
       "@type": "Organization",

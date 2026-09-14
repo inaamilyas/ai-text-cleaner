@@ -5,23 +5,19 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Humanize AI Text Online — Remove AI Clichés & Fix Sentence Rhythm",
+  title: "Humanize AI Text — Remove Clichés and Vary Sentence Rhythm",
   description:
-    "Free online AI text humanizer. Remove robotic buzzwords (delve, tapestry, realm), simplify passive transition phrases, and optimize natural human sentence flow.",
+    "Make AI-written text read more naturally. Remove overused phrases like \"delve\" and \"tapestry\" and vary sentence length. Free, browser-based.",
   keywords: [
     "humanize ai text",
-    "remove ai buzzwords",
-    "delve tapestry realm remover",
-    "make ai text sound human",
-    "ai text rhythm optimizer",
   ],
   alternates: {
     canonical: "/humanize-ai-text",
   },
   openGraph: {
-    title: "Humanize AI Text Online — Remove AI Clichés & Fix Sentence Rhythm",
+    title: "Humanize AI Text — Remove Clichés and Vary Sentence Rhythm",
     description:
-      "Detect and strip repetitive AI transitions and cliché phrases like 'delve into', 'tapestry', and 'testament to' for natural human flow.",
+      "Remove overused AI phrases and vary sentence rhythm so writing reads more naturally.",
     url: `${siteUrl}/humanize-ai-text`,
   },
 };
@@ -66,24 +62,13 @@ const howToSteps = [
 
 const faqs = [
   {
-    question: "What does 'Humanize AI Text' mean?",
+    question: "Will this help me get past an AI detector?",
     answer:
-      "Humanizing AI text means removing robotic structural quirks, overused transition words (furthermore, moreover, in conclusion), and cliché metaphors (delve, tapestry, realm, testament to) to restore clear, natural human writing.",
+      "Not reliably, and that's not really the goal. This tool is meant to make writing read more naturally — shorter, more varied sentences and fewer clichés. Detectors weigh many signals, and no tool can guarantee a specific result.",
   },
   {
-    question: "Does this tool alter the core meaning of my content?",
-    answer:
-      "No. It preserves your exact message, facts, and intent while stripping artificial filler phrases and passive voice.",
-  },
-  {
-    question: "Why do AI tools use words like 'delve' and 'tapestry' so frequently?",
-    answer:
-      "Large language models (LLMs) are trained on RLHF datasets where certain formal transitions and expansive metaphors score high probability, causing them to repeat these specific words.",
-  },
-  {
-    question: "Is this humanizer free and client-side?",
-    answer:
-      "Yes! 100% free and private. Pattern detection and humanization run completely inside your local browser memory.",
+    question: "Does it change what the text says?",
+    answer: "No. It edits phrasing and rhythm, not the substance of your writing.",
   },
 ];
 
@@ -92,7 +77,7 @@ const webAppJsonLd = {
   "@type": "WebApplication",
   name: "AI Text Humanizer",
   url: `${siteUrl}/humanize-ai-text`,
-  description: "Free online tool to remove AI buzzwords and optimize natural human sentence flow.",
+  description: "Remove overused AI phrases and vary sentence rhythm so writing reads more naturally.",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Any",
   offers: {
@@ -127,9 +112,9 @@ const faqJsonLd = {
 };
 
 const benchmarks = [
-  { name: "Google Chrome", time: "0.4 ms" },
-  { name: "Apple Safari", time: "0.6 ms" },
-  { name: "Mozilla Firefox", time: "0.7 ms" },
+  { name: "Google Chrome", time: "Instant" },
+  { name: "Apple Safari", time: "Instant" },
+  { name: "Mozilla Firefox", time: "Instant" },
 ];
 
 export default function HumanizeAITextPage() {
@@ -151,16 +136,16 @@ export default function HumanizeAITextPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <HumanizeTextUI
-        heading="Humanize AI Text Online"
-        subheading="Detect and remove repetitive AI transitions, robotic clichés (delve, tapestry, realm), and monotonous sentence structures for natural human flow."
+        heading="Humanize AI Text"
+        subheading="Remove overused phrases and vary sentence rhythm so AI-written text reads more naturally. Free, browser-based."
       />
       <div className="container mx-auto px-4 md:px-8 pb-16">
         <SubToolContent
-          title="Humanize AI Text Online"
+          title="Humanize AI Text"
           badgeLabel="Heuristic Normalizer"
           badgeIcon="auto_fix"
-          directAnswerTitle="How to Humanize AI Text Without Losing Original Meaning"
-          directAnswerText="AI text generators rely on statistical word patterns that create telltale markers: monotonous sentence lengths, passive voice constructions ('serves as a testament to'), and overused buzzwords ('delve into', 'vibrant tapestry', 'pivotal realm'). Our AI Text Humanizer strips these fluff patterns and optimizes your text for authentic human readability."
+          directAnswerTitle="Why AI Writing Has a Flat Rhythm"
+          directAnswerText="AI writing tends to have a flat rhythm — sentences land at a similar length, the same handful of transition words show up again and again, and certain words (delve, tapestry, testament, elevate) appear far more than a person would naturally use them. This tool edits for that rhythm: it removes the overused words, breaks up repetitive sentence patterns, and tightens transitions like &quot;furthermore&quot; and &quot;in conclusion&quot; into something closer to how people actually write."
           beforeBadgeText="BEFORE: Raw AI Text"
           afterBadgeText="AFTER: Cleaned & Sanitized"
           beforeExample={
@@ -195,8 +180,8 @@ export default function HumanizeAITextPage() {
               Artificial intelligence shows human innovation. Exploring this field drives key advancements.
             </p>
           }
-          beforeNote="Flagged by standard entropy and perplexity classifiers."
-          afterNote="Concise, zero buzzwords, active verb structure preserved."
+          beforeNote="Flat rhythm, repeated transitions, overused AI phrases"
+          afterNote="Varied sentence length, plainer phrasing, same meaning"
           streamChart={true}
           benchmarksTitle="Heuristic Engine Latency"
           benchmarks={benchmarks}

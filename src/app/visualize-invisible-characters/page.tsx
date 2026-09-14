@@ -5,15 +5,11 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Visualize Invisible Characters Online — Zero-Width Space & Unicode Inspector",
+  title: "Invisible Character Visualizer — See Hidden Unicode in Your Text",
   description:
-    "Detect and visualize hidden zero-width spaces (U+200B), soft hyphens (U+00AD), non-breaking spaces (U+00A0), and directional marks with color-coded badges.",
+    "See exactly where invisible characters are hiding in your text, highlighted and labeled. Free, useful for debugging text problems.",
   keywords: [
-    "visualize invisible characters",
-    "zero width space visualizer",
-    "inspect unicode control characters",
-    "hidden character highlighter",
-    "show invisible text",
+    "invisible character visualizer",
   ],
   alternates: {
     canonical: "/visualize-invisible-characters",
@@ -71,24 +67,14 @@ const howToSteps = [
 
 const faqs = [
   {
-    question: "What are invisible characters?",
+    question: "How is this different from the invisible character remover?",
     answer:
-      "Invisible characters are non-printable Unicode code points (like U+200B or U+00AD) that do not take up visual horizontal space, but exist in string memory.",
+      "This tool only shows you what's there — it doesn't change your text. Use the remove invisible characters tool once you're ready to clean it up.",
   },
   {
-    question: "Why do AI text generators insert zero-width spaces?",
+    question: "Does it work on very long documents?",
     answer:
-      "AI models and formatting engines use zero-width spaces or non-breaking spaces as hidden layout markers or subtle digital watermarks.",
-  },
-  {
-    question: "Will visualizing characters modify my text?",
-    answer:
-      "No. Visualization highlights characters with visual badges in the output pane without altering your input text until you click clean.",
-  },
-  {
-    question: "Is this tool free and private?",
-    answer:
-      "Yes! 100% free and client-side. Character scanning runs strictly inside your local browser memory.",
+      "Yes, though for very large files you may notice a short delay while it scans and highlights everything.",
   },
 ];
 
@@ -132,13 +118,13 @@ export default function VisualizeInvisibleCharactersPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <InvisibleVisualizer
-        heading="Zero-Width & Invisible Character Visualizer"
-        subheading="Highlight hidden zero-width spaces (U+200B), NBSPs (U+00A0), soft hyphens (U+00AD), and BOM markers with color-coded visual badges."
+        heading="Visualize Invisible Characters in Text"
+        subheading="See exactly where invisible characters are hiding in your text, highlighted and labeled — free."
       />
       <SubToolContent
-        title="Zero-Width & Invisible Character Visualizer"
-        directAnswerTitle="How to Find & Visualize Hidden Unicode Characters"
-        directAnswerText="Our Invisible Character Visualizer scans raw text strings character-by-character and renders color-coded badges for non-printable control marks (U+200B zero-width space, U+00AD soft hyphen, U+00A0 non-breaking space, U+FEFF BOM). This lets you visually identify hidden artifacts before they break code or search rankings."
+        title="Invisible Character Visualizer"
+        directAnswerTitle="See Hidden Characters Before You Remove Them"
+        directAnswerText="Sometimes you don't want to remove invisible characters yet — you want to see where they are first, especially if you're debugging a text-processing bug or trying to understand why a file won't parse. Paste your text in and this tool highlights every invisible or unusual character in place, labelled with its name and Unicode code point (like U+200B for a zero-width space), so you can see exactly what's there before deciding what to do about it."
         beforeExample={"Text\u200B containing\u00AD hidden\u200E zero-width characters."}
         afterExample="[U+200B ZWSP] Text [U+00AD SHY] containing [U+200E LTR] hidden zero-width characters."
         removedItems={removedItems}

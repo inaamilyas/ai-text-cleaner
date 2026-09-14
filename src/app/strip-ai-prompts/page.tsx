@@ -5,15 +5,11 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "AI Prompt & Parameter Stripper — Midjourney, DALL-E & SD Flags Remover",
+  title: "Strip AI Image Prompts — Remove Midjourney & Stable Diffusion Parameters",
   description:
-    "Free online tool to strip Midjourney parameters (--ar 16:9, --v 6.0), LoRA tags (<lora:...>), negative prompts, and weights from AI prompt text. 100% private in-browser tool.",
+    "Remove leftover prompt text like --ar, --v, and negative prompts from AI image captions and filenames. Free and browser-based.",
   keywords: [
-    "strip ai prompt parameters",
-    "midjourney parameter remover",
-    "clean lora tags",
-    "remove negative prompt flags",
-    "ai prompt cleaner",
+    "strip ai prompts",
   ],
   alternates: {
     canonical: "/strip-ai-prompts",
@@ -32,33 +28,33 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "AI Prompt & Parameter Stripper — Midjourney & SD Flags Remover",
+    title: "Strip AI Image Prompts — Remove Midjourney & Stable Diffusion Parameters",
     description:
-      "Strip Midjourney flags (--ar, --v), LoRA tags (<lora:...>), negative prompts, and weights instantly in your browser.",
+      "Remove leftover prompt flags from AI image captions and filenames.",
     url: `${siteUrl}/strip-ai-prompts`,
   },
 };
 
 const removedItems = [
   {
-    character: "Midjourney Flags",
-    unicode: "--ar 16:9 --v 6.0 --stylize",
-    description: "Removes aspect ratio, version, seed, stylize, and chaos parameter flags.",
-  },
-  {
-    character: "LoRA & Network Tags",
-    unicode: "<lora:name:0.8>",
-    description: "Strips Stable Diffusion network model weights and LoRA trigger tags.",
+    character: "Aspect Ratio, Version & Style Flags",
+    unicode: "--ar 16:9 --v 6.0 --style",
+    description: "Parameter flags meant only for the generator, not for a finished caption or filename.",
   },
   {
     character: "Negative Prompt Blocks",
     unicode: "--no rain, cars, text",
-    description: "Extracts and removes negative exclusion parameter chunks.",
+    description: "Blocks describing what to exclude, left over from the original prompt.",
   },
   {
-    character: "Weight Multipliers",
+    character: "Seed Numbers & Generator Parameters",
+    unicode: "--seed 12345",
+    description: "Generator-specific numbers that mean nothing outside the tool that produced them.",
+  },
+  {
+    character: "Weighting Syntax",
     unicode: "(word:1.3)",
-    description: "Normalizes weighted emphasis syntax back to clean plain text words.",
+    description: "Stray emphasis syntax that reads as a typo once removed from the generator's context.",
   },
 ];
 
@@ -78,64 +74,39 @@ const howToSteps = [
 ];
 
 const benchmarks = [
-  { name: "Chrome", time: "1.2ms" },
-  { name: "Safari", time: "1.5ms" },
-  { name: "Firefox", time: "1.8ms" },
+  { name: "Chrome", time: "Instant" },
+  { name: "Safari", time: "Instant" },
+  { name: "Firefox", time: "Instant" },
 ];
 
 const valueProps = [
   {
     title: "100% In-Browser Privacy",
-    desc: "All text sanitization executes strictly inside your local V8/WebKit engine. No text payloads are ever uploaded to cloud endpoints.",
+    desc: "Your prompt text is processed locally. Nothing is uploaded to a server.",
     icon: "shield",
   },
   {
     title: "Instant Processing",
-    desc: "Sub-millisecond token extraction powered by optimized regular expression pipelines designed for multi-megabyte payloads.",
+    desc: "No queues or upload delay, even for long prompt strings.",
     icon: "bolt",
   },
   {
-    title: "Advanced Heuristic Detection",
-    desc: "Detects edge-case tags such as chaotic seed values, negative prompt arrays, LoRA trigger terms, and nesting weight symbols.",
+    title: "Covers Common Flag Formats",
+    desc: "Built around Midjourney and Stable Diffusion's common parameter conventions.",
     icon: "psychology",
   },
   {
-    title: "Multi-Language Static Support",
-    desc: "Preserves non-Latin prompts across Japanese anime models, Cyrillic SD checkpoints, and multi-lingual prompt styles seamlessly.",
-    icon: "translate",
-  },
-  {
-    title: "Visual Highlight Breakdown",
-    desc: "Inspect dynamic diff badges highlighting exactly what parameters were stripped before committing to your output clipboard.",
-    icon: "highlight",
-  },
-  {
     title: "Zero Account Required",
-    desc: "Open the browser, sanitize your prompts, and move forward. No paywalls, subscription tiers, or login credentials necessary.",
+    desc: "No sign-up, no paywall — open the page and clean your prompt text.",
     icon: "no_accounts",
   },
 ];
 
 const faqs = [
   {
-    question: "Why should I strip parameters from AI prompts?",
+    question: "Does this work for prompts from any image generator?",
     answer:
-      "AI image generators like Midjourney and Stable Diffusion inject model-specific metadata, aspect ratios, version tags, and LoRA paths that pollute prompts when migrating between platforms. Stripping parameters isolates the core creative subject and stylistic description, making it universally portable for ChatGPT, Claude, Gemini, or alternative diffusion models without syntax errors.",
-  },
-  {
-    question: "Does this tool support Midjourney v6 and Stable Diffusion XL?",
-    answer:
-      "Yes, our regex grammar library is continuously updated for the latest parameter flags, including Midjourney v6 tags (--v 6.0, --style raw, --weird, --chaos) as well as SDXL positive/negative conditioning weights and multiple LoRA triggers.",
-  },
-  {
-    question: "Is my prompt text stored on any server?",
-    answer:
-      "No. Text Cleaner AI operates exclusively client-side via JavaScript running directly in your browser tab. Your prompts, artistic concepts, and proprietary keywords are never transmitted to any external server, database, or analytics platform.",
-  },
-  {
-    question: "Can I copy the cleaned prompt with one click?",
-    answer:
-      "Yes. Simply click the 'Copy Clean Prompt' button above the output pane or press the keyboard shortcut to instantly copy the sanitized plain prompt string straight to your OS clipboard.",
+      "It's built around Midjourney and Stable Diffusion's common flag formats, which cover most tools built on similar conventions. Some newer or less common tools may use flags it doesn't yet recognize.",
   },
 ];
 
@@ -144,7 +115,7 @@ const webAppJsonLd = {
   "@type": "WebApplication",
   name: "AI Prompt Parameter Stripper",
   url: `${siteUrl}/strip-ai-prompts`,
-  description: "Free online tool to strip Midjourney parameters, LoRA tags, negative prompts, and weights.",
+  description: "Remove leftover prompt text like --ar, --v, and negative prompts from AI image captions and filenames.",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Any",
   offers: {
@@ -184,17 +155,17 @@ export default function StripAIPromptsPage() {
 
       {/* 1. WORKSPACE: INTERACTIVE PROMPT STRIPPER */}
       <PromptStripper
-        heading="Strip Midjourney, ChatGPT & SD Prompt Parameters"
-        subheading="Remove Midjourney flags (--ar 16:9, --v 6.0), LoRA tags (<lora:...>), negative prompts, and weights instantly."
+        heading="Strip AI Image Prompts"
+        subheading="Remove leftover Midjourney and Stable Diffusion parameter flags from image captions and filenames — free and browser-based."
       />
 
       {/* 2. SUB-TOOL CONTENT */}
       <SubToolContent
-        title="AI Prompt & Parameter Stripper"
-        badgeLabel="TECHNICAL PRIMER // CLIENT PIPELINE"
+        title="Strip AI Image Prompts"
+        badgeLabel="Prompt Cleanup"
         badgeIcon="terminal"
-        directAnswerTitle="What Is an AI Prompt Stripper & How Does It Work?"
-        directAnswerText="An AI Prompt Stripper is a client-side utility designed to clean Midjourney flags (--ar 16:9, --v 6.0, --stylize), LoRA tags (<lora:...>), negative prompt blocks, and weight multipliers ((word:1.3)) from raw AI prompts. It restores clean human-readable prompt text instantly in your browser memory."
+        directAnswerTitle="Why Prompt Flags End Up in Filenames and Captions"
+        directAnswerText="If you generate images with Midjourney or Stable Diffusion, the prompt text sometimes ends up stuck in a filename, a caption, or a description — including the parameter flags that were only meant for the generator, like --ar 16:9, --v 6, --no text, or a full negative-prompt block. This tool removes those flags and leftover prompt fragments, so what's left is a clean caption or filename instead of a string of generation parameters."
         beforeBadgeText="BEFORE (RAW PROMPT WITH ARTIFACTS)"
         afterBadgeText="AFTER (CLEANED PROMPT OUTPUT)"
         beforeExample={
