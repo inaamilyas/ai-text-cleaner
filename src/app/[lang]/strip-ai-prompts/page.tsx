@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import PromptStripper from "@/components/PromptStripper";
 import SubToolContent from "@/components/SubToolContent";
+import { generateSubToolMetadata } from "@/components/LocalizedSubToolLayout";
+import { LANGUAGES } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
 
-const languages = ["es", "de", "fr", "it", "pt", "ar", "ja", "nl", "tr", "id"];
-
 export function generateStaticParams() {
-  return languages.map((lang) => ({ lang }));
+  return Object.keys(LANGUAGES)
+    .filter((code) => code !== "en")
+    .map((lang) => ({ lang }));
 }
 
-export function generateMetadata(): Metadata {
-  return {
-    title: "AI Prompt & Parameter Stripper — Midjourney, DALL-E & SD Flags Remover",
-    description:
-      "Free online tool to strip Midjourney parameters (--ar 16:9, --v 6.0), LoRA tags (<lora:...>), negative prompts, and weights from AI prompt text. 100% private in-browser tool.",
-  };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  return generateSubToolMetadata(lang, "stripAIPrompts", "strip-ai-prompts");
 }
 
 const removedItems = [
@@ -80,23 +79,27 @@ const faqs = [
 ];
 
 export default async function LocalizedStripAIPromptsPage({ params }: { params: Promise<{ lang: string }> }) {
-  await params;
+  const { lang } = await params;
+  const l = LANGUAGES[lang] || LANGUAGES.en;
+  const isRtl = l.dir === "rtl";
+  const tool = l.subtools?.stripAIPrompts || LANGUAGES.en.subtools.stripAIPrompts!;
+
   return (
-    <>
+    <div dir={isRtl ? "rtl" : "ltr"} className={isRtl ? "font-arabic" : ""}>
       <PromptStripper
-        heading="Strip Midjourney, ChatGPT & SD Prompt Parameters"
-        subheading="Remove Midjourney flags (--ar 16:9, --v 6.0), LoRA tags (<lora:...>), negative prompts, and weights instantly."
+        heading={tool.heading}
+        subheading={tool.subheading}
       />
       <SubToolContent
-        title="AI Prompt & Parameter Stripper"
-        directAnswerTitle="What Is an AI Prompt Stripper & How Does It Work?"
-        directAnswerText="An AI Prompt Stripper is a client-side utility designed to clean Midjourney flags (--ar 16:9, --v 6.0, --stylize), LoRA tags (<lora:...>), negative prompt blocks, and weight multipliers ((word:1.3)) from raw AI prompts. It restores clean human-readable prompt text instantly in your browser memory."
+        title={tool.heading}
+        directAnswerTitle={tool.heading}
+        directAnswerText={tool.subheading}
         beforeExample="a futuristic cyberpunk neon city street at night --ar 16:9 --v 6.0 --stylize 250 <lora:cyberpunk_v2:0.8> (hyperrealistic:1.2) --no rain, cars, crowd"
         afterExample="a futuristic cyberpunk neon city street at night hyperrealistic"
         removedItems={removedItems}
         howToSteps={howToSteps}
         faqs={faqs}
       />
-    </>
+    </div>
   );
 }

@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import CaseConverterUI from "@/components/CaseConverterUI";
 import SubToolContent from "@/components/SubToolContent";
+import { generateSubToolMetadata } from "@/components/LocalizedSubToolLayout";
+import { LANGUAGES } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
 
-const languages = ["es", "de", "fr", "it", "pt", "ar", "ja", "nl", "tr", "id"];
-
 export function generateStaticParams() {
-  return languages.map((lang) => ({ lang }));
+  return Object.keys(LANGUAGES)
+    .filter((code) => code !== "en")
+    .map((lang) => ({ lang }));
 }
 
-export function generateMetadata(): Metadata {
-  return {
-    title: "Text Case Converter Online — Title Case, camelCase, snake_case & Slugify",
-    description:
-      "Convert text between Title Case, UPPERCASE, lowercase, camelCase, snake_case, kebab-case, PascalCase, and clean URL slugs instantly in your browser.",
-  };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  return generateSubToolMetadata(lang, "caseConverter", "case-converter");
 }
 
 const removedItems = [
@@ -60,43 +59,42 @@ const faqs = [
   {
     question: "What is Title Case?",
     answer:
-      "Title Case capitalizes the principal words in a title (nouns, verbs, adjectives), while leaving short conjunctions and prepositions in lowercase.",
+      "Capitalizing the main words in a heading or title, while leaving small connecting words (like \"a,\" \"the,\" \"of\") lowercase unless they start the sentence.",
   },
   {
-    question: "What is the difference between camelCase and PascalCase?",
+    question: "What's the difference between camelCase and PascalCase?",
     answer:
-      "In camelCase, the very first letter is lowercase (e.g. userFirstName). In PascalCase, the first letter is capitalized (e.g. UserFirstName).",
+      "camelCase starts with a lowercase letter (firstName). PascalCase starts with a capital letter (FirstName). Both are otherwise the same pattern.",
   },
   {
-    question: "What is a URL Slug?",
+    question: "What is a URL slug?",
     answer:
-      "A URL Slug converts text into a clean, lowercase hyphen-separated string with accents and special characters removed (e.g. /my-new-post).",
-  },
-  {
-    question: "Is this case converter browser-based?",
-    answer:
-      "Yes. All string manipulation takes place locally inside your browser with zero latency or cloud API dependencies.",
+      "The part of a web address after the domain that identifies a specific page, usually written in lowercase with hyphens between words — for example, /case-converter.",
   },
 ];
 
 export default async function LocalizedCaseConverterPage({ params }: { params: Promise<{ lang: string }> }) {
-  await params;
+  const { lang } = await params;
+  const l = LANGUAGES[lang] || LANGUAGES.en;
+  const isRtl = l.dir === "rtl";
+  const tool = l.subtools?.caseConverter || LANGUAGES.en.subtools.caseConverter!;
+
   return (
-    <>
+    <div dir={isRtl ? "rtl" : "ltr"} className={isRtl ? "font-arabic" : ""}>
       <CaseConverterUI
-        heading="Text Case Converter & ASCII Normalizer"
-        subheading="Convert text between Title Case, camelCase, snake_case, UPPERCASE, lowercase, URL Slugs, and strip non-ASCII diacritics instantly in your browser."
+        heading={tool.heading}
+        subheading={tool.subheading}
       />
       <SubToolContent
-        title="Text Case Converter & ASCII Normalizer"
-        directAnswerTitle="Online Text Case Converter for Writers & Developers"
-        directAnswerText="Our Text Case Converter enables instant transformation between 11 standard text capitalization and code identifier styles: Title Case, camelCase, snake_case, kebab-case, CONSTANT_CASE, PascalCase, Sentence case, and URL Slugs. It also strips non-ASCII accents and diacritics."
+        title={tool.heading}
+        directAnswerTitle={tool.heading}
+        directAnswerText={tool.subheading}
         beforeExample="the quick brown fox jumps over the lazy dog"
         afterExample="Title Case: The Quick Brown Fox | camelCase: theQuickBrownFox | snake_case: the_quick_brown_fox"
         removedItems={removedItems}
         howToSteps={howToSteps}
         faqs={faqs}
       />
-    </>
+    </div>
   );
 }

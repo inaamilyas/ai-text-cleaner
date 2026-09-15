@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import ReadabilityCheckerUI from "@/components/ReadabilityCheckerUI";
 import SubToolContent from "@/components/SubToolContent";
+import { generateSubToolMetadata } from "@/components/LocalizedSubToolLayout";
+import { LANGUAGES } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
 
-const languages = ["es", "de", "fr", "it", "pt", "ar", "ja", "nl", "tr", "id"];
-
 export function generateStaticParams() {
-  return languages.map((lang) => ({ lang }));
+  return Object.keys(LANGUAGES)
+    .filter((code) => code !== "en")
+    .map((lang) => ({ lang }));
 }
 
-export function generateMetadata(): Metadata {
-  return {
-    title: "Readability & Flesch-Kincaid Grade Checker — Free Online Text Analyzer",
-    description:
-      "Calculate Flesch Reading Ease score, Flesch-Kincaid Grade Level, Gunning Fog Index, and Coleman-Liau index in real-time. Free online readability checker.",
-  };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  return generateSubToolMetadata(lang, "checkReadabilityScore", "check-readability-score");
 }
 
 const removedItems = [
@@ -80,23 +79,27 @@ const faqs = [
 ];
 
 export default async function LocalizedCheckReadabilityScorePage({ params }: { params: Promise<{ lang: string }> }) {
-  await params;
+  const { lang } = await params;
+  const l = LANGUAGES[lang] || LANGUAGES.en;
+  const isRtl = l.dir === "rtl";
+  const tool = l.subtools?.checkReadabilityScore || LANGUAGES.en.subtools.checkReadabilityScore!;
+
   return (
-    <>
+    <div dir={isRtl ? "rtl" : "ltr"} className={isRtl ? "font-arabic" : ""}>
       <ReadabilityCheckerUI
-        heading="Readability & Flesch-Kincaid Grade Checker"
-        subheading="Calculate Flesch Reading Ease, Flesch-Kincaid Grade Level, Gunning Fog Index, and highlight complex 3+ syllable words in real-time."
+        heading={tool.heading}
+        subheading={tool.subheading}
       />
       <SubToolContent
-        title="Readability & Flesch-Kincaid Grade Checker"
-        directAnswerTitle="How Readability Scores Improve Content Ranking & Conversions"
-        directAnswerText="Readability metrics quantify how accessible your writing is to readers. The Flesch Reading Ease test rates text on a 0-100 scale, while the Flesch-Kincaid Grade Level indicates the US grade level required for comprehension. Lowering grade levels to Grade 7-8 significantly increases time-on-page and organic search rankings."
+        title={tool.heading}
+        directAnswerTitle={tool.heading}
+        directAnswerText={tool.subheading}
         beforeExample="Artificial intelligence text generators create fluent paragraphs by analyzing probability patterns. However, complex vocabulary and repetitive transitions can reduce reading ease."
         afterExample="Flesch Ease: 65.4 (Plain English) | Grade Level: 8.2 | Complex Words: 2"
         removedItems={removedItems}
         howToSteps={howToSteps}
         faqs={faqs}
       />
-    </>
+    </div>
   );
 }

@@ -7,6 +7,7 @@ import WhatWeClean from '@/components/WhatWeClean';
 import WhoItsFor from '@/components/WhoItsFor';
 import FAQ from '@/components/FAQ';
 import { LANGUAGES } from '@/lib/i18n/dictionaries';
+import { localizedFaqs, localizedFaqTitles, defaultFaqs } from '@/lib/faqData';
 
 export function generateLocalizedMetadata(langCode: string) {
   const lang = LANGUAGES[langCode] || LANGUAGES.en;
@@ -73,7 +74,11 @@ export default function LocalizedPageLayout({ langCode }: { langCode: string }) 
       <HowItWorks />
       <WhatWeClean />
       <WhoItsFor />
-      <FAQ />
+      <FAQ
+        customFaqs={localizedFaqs[langCode] || defaultFaqs}
+        customTitle={localizedFaqTitles[langCode]?.title}
+        customSubtitle={localizedFaqTitles[langCode]?.subtitle}
+      />
     </div>
   );
 }

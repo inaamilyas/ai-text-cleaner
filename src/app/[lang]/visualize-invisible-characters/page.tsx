@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import InvisibleVisualizer from "@/components/InvisibleVisualizer";
 import SubToolContent from "@/components/SubToolContent";
+import { generateSubToolMetadata } from "@/components/LocalizedSubToolLayout";
+import { LANGUAGES } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
 
-const languages = ["es", "de", "fr", "it", "pt", "ar", "ja", "nl", "tr", "id"];
-
 export function generateStaticParams() {
-  return languages.map((lang) => ({ lang }));
+  return Object.keys(LANGUAGES)
+    .filter((code) => code !== "en")
+    .map((lang) => ({ lang }));
 }
 
-export function generateMetadata(): Metadata {
-  return {
-    title: "Visualize Invisible Characters Online — Zero-Width Space & Unicode Inspector",
-    description:
-      "Detect and visualize hidden zero-width spaces (U+200B), soft hyphens (U+00AD), non-breaking spaces (U+00A0), and directional marks with color-coded badges.",
-  };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  return generateSubToolMetadata(lang, "visualizeInvisibleCharacters", "visualize-invisible-characters");
 }
 
 const removedItems = [
@@ -80,23 +79,27 @@ const faqs = [
 ];
 
 export default async function LocalizedVisualizeInvisibleCharactersPage({ params }: { params: Promise<{ lang: string }> }) {
-  await params;
+  const { lang } = await params;
+  const l = LANGUAGES[lang] || LANGUAGES.en;
+  const isRtl = l.dir === "rtl";
+  const tool = l.subtools?.visualizeInvisibleCharacters || LANGUAGES.en.subtools.visualizeInvisibleCharacters!;
+
   return (
-    <>
+    <div dir={isRtl ? "rtl" : "ltr"} className={isRtl ? "font-arabic" : ""}>
       <InvisibleVisualizer
-        heading="Zero-Width & Invisible Character Visualizer"
-        subheading="Highlight hidden zero-width spaces (U+200B), NBSPs (U+00A0), soft hyphens (U+00AD), and BOM markers with color-coded visual badges."
+        heading={tool.heading}
+        subheading={tool.subheading}
       />
       <SubToolContent
-        title="Zero-Width & Invisible Character Visualizer"
-        directAnswerTitle="How to Find & Visualize Hidden Unicode Characters"
-        directAnswerText="Our Invisible Character Visualizer scans raw text strings character-by-character and renders color-coded badges for non-printable control marks (U+200B zero-width space, U+00AD soft hyphen, U+00A0 non-breaking space, U+FEFF BOM). This lets you visually identify hidden artifacts before they break code or search rankings."
+        title={tool.heading}
+        directAnswerTitle={tool.heading}
+        directAnswerText={tool.subheading}
         beforeExample={"Text\u200B containing\u00AD hidden\u200E zero-width characters."}
         afterExample="[U+200B ZWSP] Text [U+00AD SHY] containing [U+200E LTR] hidden zero-width characters."
         removedItems={removedItems}
         howToSteps={howToSteps}
         faqs={faqs}
       />
-    </>
+    </div>
   );
 }

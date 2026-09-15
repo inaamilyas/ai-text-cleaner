@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import PdfMetadataSanitizer from "@/components/PdfMetadataSanitizer";
 import SubToolContent from "@/components/SubToolContent";
+import { generateSubToolMetadata } from "@/components/LocalizedSubToolLayout";
+import { LANGUAGES } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
 
-const languages = ["es", "de", "fr", "it", "pt", "ar", "ja", "nl", "tr", "id"];
-
 export function generateStaticParams() {
-  return languages.map((lang) => ({ lang }));
+  return Object.keys(LANGUAGES)
+    .filter((code) => code !== "en")
+    .map((lang) => ({ lang }));
 }
 
-export function generateMetadata(): Metadata {
-  return {
-    title: "Clean PDF Metadata Online — Remove Author, Creator & Timestamp Tags",
-    description:
-      "Free online PDF metadata remover. Strip author names, creation dates, application producer tags, and document title EXIF info from PDF files in your browser.",
-  };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  return generateSubToolMetadata(lang, "cleanPdfMetadata", "clean-pdf-metadata");
 }
 
 const removedItems = [
@@ -80,23 +79,27 @@ const faqs = [
 ];
 
 export default async function LocalizedCleanPdfMetadataPage({ params }: { params: Promise<{ lang: string }> }) {
-  await params;
+  const { lang } = await params;
+  const l = LANGUAGES[lang] || LANGUAGES.en;
+  const isRtl = l.dir === "rtl";
+  const tool = l.subtools?.cleanPdfMetadata || LANGUAGES.en.subtools.cleanPdfMetadata!;
+
   return (
-    <>
+    <div dir={isRtl ? "rtl" : "ltr"} className={isRtl ? "font-arabic" : ""}>
       <PdfMetadataSanitizer
-        heading="Clean PDF Metadata & Author Info"
-        subheading="Strip hidden author tags, creation timestamps, title, producer, and software metadata from PDF files in your browser."
+        heading={tool.heading}
+        subheading={tool.subheading}
       />
       <SubToolContent
-        title="PDF Metadata Sanitizer"
-        directAnswerTitle="Why Clean Hidden PDF Metadata & How to Do It?"
-        directAnswerText="When you export a document to PDF, your software silently embeds metadata headers containing your name, computer username, software version, and exact creation timestamps. Our PDF Metadata Sanitizer parses PDF binary streams directly in your browser memory and wipes these hidden EXIF-style tags before you publish or share."
+        title={tool.heading}
+        directAnswerTitle={tool.heading}
+        directAnswerText={tool.subheading}
         beforeExample="PDF Header: /Author (John Smith) /Creator (Microsoft Word 2024) /CreationDate (D:20260910024500Z)"
         afterExample="PDF Header: /Author () /Creator () /CreationDate () [Metadata Sanitized]"
         removedItems={removedItems}
         howToSteps={howToSteps}
         faqs={faqs}
       />
-    </>
+    </div>
   );
 }

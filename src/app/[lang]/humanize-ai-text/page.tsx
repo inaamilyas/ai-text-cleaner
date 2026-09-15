@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import HumanizeTextUI from "@/components/HumanizeTextUI";
 import SubToolContent from "@/components/SubToolContent";
+import { generateSubToolMetadata } from "@/components/LocalizedSubToolLayout";
+import { LANGUAGES } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
 
-const languages = ["es", "de", "fr", "it", "pt", "ar", "ja", "nl", "tr", "id"];
-
 export function generateStaticParams() {
-  return languages.map((lang) => ({ lang }));
+  return Object.keys(LANGUAGES)
+    .filter((code) => code !== "en")
+    .map((lang) => ({ lang }));
 }
 
-export function generateMetadata(): Metadata {
-  return {
-    title: "Humanize AI Text Online — Remove AI Clichés & Fix Sentence Rhythm",
-    description:
-      "Free online AI text humanizer. Remove robotic buzzwords (delve, tapestry, realm), simplify passive transition phrases, and optimize natural human sentence flow.",
-  };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  return generateSubToolMetadata(lang, "humanizeAIText", "humanize-ai-text");
 }
 
 const removedItems = [
@@ -58,45 +57,46 @@ const howToSteps = [
 
 const faqs = [
   {
-    question: "What does 'Humanize AI Text' mean?",
+    question: "Will this help me get past an AI detector?",
     answer:
-      "Humanizing AI text means removing robotic structural quirks, overused transition words (furthermore, moreover, in conclusion), and cliché metaphors (delve, tapestry, realm, testament to) to restore clear, natural human writing.",
+      "Not reliably, and that's not really the goal. This tool is meant to make writing read more naturally — shorter, more varied sentences and fewer clichés. Detectors weigh many signals, and no tool can guarantee a specific result.",
   },
   {
-    question: "Does this tool alter the core meaning of my content?",
-    answer:
-      "No. It preserves your exact message, facts, and intent while stripping artificial filler phrases and passive voice.",
-  },
-  {
-    question: "Why do AI tools use words like 'delve' and 'tapestry' so frequently?",
-    answer:
-      "Large language models (LLMs) are trained on RLHF datasets where certain formal transitions and expansive metaphors score high probability, causing them to repeat these specific words.",
-  },
-  {
-    question: "Is this humanizer free and client-side?",
-    answer:
-      "Yes! 100% free and private. Pattern detection and humanization run completely inside your local browser memory.",
+    question: "Does it change what the text says?",
+    answer: "No. It edits phrasing and rhythm, not the substance of your writing.",
   },
 ];
 
 export default async function LocalizedHumanizeAITextPage({ params }: { params: Promise<{ lang: string }> }) {
-  await params;
+  const { lang } = await params;
+  const l = LANGUAGES[lang] || LANGUAGES.en;
+  const isRtl = l.dir === "rtl";
+  const tool = l.subtools?.humanizeAIText || LANGUAGES.en.subtools.humanizeAIText!;
+
   return (
-    <>
+    <div dir={isRtl ? "rtl" : "ltr"} className={isRtl ? "font-arabic" : ""}>
       <HumanizeTextUI
-        heading="Humanize AI Text Online"
-        subheading="Detect and remove repetitive AI transitions, robotic clichés (delve, tapestry, realm), and monotonous sentence structures for natural human flow."
+        heading={tool.heading}
+        subheading={tool.subheading}
       />
-      <SubToolContent
-        title="Humanize AI Text Online"
-        directAnswerTitle="How to Humanize AI Text Without Losing Original Meaning"
-        directAnswerText="AI text generators rely on statistical word patterns that create telltale markers: monotonous sentence lengths, passive voice constructions ('serves as a testament to'), and overused buzzwords ('delve into', 'vibrant tapestry', 'pivotal realm'). Our AI Text Humanizer strips these fluff patterns and optimizes your text for authentic human readability."
-        beforeExample="In conclusion, it is important to note that artificial intelligence serves as a testament to human innovation. Furthermore, delving into this digital realm allows us to foster pivotal advancements."
-        afterExample="Artificial intelligence shows human innovation. Exploring this field drives key advancements."
-        removedItems={removedItems}
-        howToSteps={howToSteps}
-        faqs={faqs}
-      />
-    </>
+      <div className="container mx-auto px-4 md:px-8 pb-16">
+        <SubToolContent
+          title={tool.heading}
+          badgeLabel="Heuristic Normalizer"
+          badgeIcon="auto_fix"
+          directAnswerTitle={tool.heading}
+          directAnswerText={tool.subheading}
+          beforeBadgeText="BEFORE: Raw AI Text"
+          afterBadgeText="AFTER: Cleaned & Sanitized"
+          beforeExample="In conclusion, it is important to note that artificial intelligence serves as a testament to human innovation. Furthermore, delving into this digital realm allows us to foster pivotal advancements."
+          afterExample="Artificial intelligence shows human innovation. Exploring this field drives key advancements."
+          beforeNote="Flat rhythm, repeated transitions, overused AI phrases"
+          afterNote="Varied sentence length, plainer phrasing, same meaning"
+          removedItems={removedItems}
+          howToSteps={howToSteps}
+          faqs={faqs}
+        />
+      </div>
+    </div>
   );
 }

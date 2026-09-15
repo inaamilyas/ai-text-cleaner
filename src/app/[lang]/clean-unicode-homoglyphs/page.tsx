@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import HomoglyphSanitizer from "@/components/HomoglyphSanitizer";
 import SubToolContent from "@/components/SubToolContent";
+import { generateSubToolMetadata } from "@/components/LocalizedSubToolLayout";
+import { LANGUAGES } from "@/lib/i18n/dictionaries";
 
 export const dynamic = "force-static";
 
-const languages = ["es", "de", "fr", "it", "pt", "ar", "ja", "nl", "tr", "id"];
-
 export function generateStaticParams() {
-  return languages.map((lang) => ({ lang }));
+  return Object.keys(LANGUAGES)
+    .filter((code) => code !== "en")
+    .map((lang) => ({ lang }));
 }
 
-export function generateMetadata(): Metadata {
-  return {
-    title: "Unicode Homoglyph Cleaner — Detect & Replace Cyrillic / Greek Confusables",
-    description:
-      "Free online tool to detect and replace fake Cyrillic, Greek, full-width ASCII, and mathematical homoglyph characters with standard Latin ASCII equivalents.",
-  };
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  return generateSubToolMetadata(lang, "cleanUnicodeHomoglyphs", "clean-unicode-homoglyphs");
 }
 
 const removedItems = [
@@ -80,23 +79,27 @@ const faqs = [
 ];
 
 export default async function LocalizedCleanUnicodeHomoglyphsPage({ params }: { params: Promise<{ lang: string }> }) {
-  await params;
+  const { lang } = await params;
+  const l = LANGUAGES[lang] || LANGUAGES.en;
+  const isRtl = l.dir === "rtl";
+  const tool = l.subtools?.cleanUnicodeHomoglyphs || LANGUAGES.en.subtools.cleanUnicodeHomoglyphs!;
+
   return (
-    <>
+    <div dir={isRtl ? "rtl" : "ltr"} className={isRtl ? "font-arabic" : ""}>
       <HomoglyphSanitizer
-        heading="Unicode Homoglyph & Confusable Character Cleaner"
-        subheading="Detect and replace Cyrillic, Greek, or Latin look-alike characters disguised inside text to bypass AI detectors or phishing filters."
+        heading={tool.heading}
+        subheading={tool.subheading}
       />
       <SubToolContent
-        title="Unicode Homoglyph Cleaner"
-        directAnswerTitle="What Are Homoglyphs & How to Sanitize Confusable Text?"
-        directAnswerText="A homoglyph attack replaces standard Latin letters with visually identical characters from other Unicode alphabets (such as Cyrillic 'а' U+0430 instead of Latin 'a' U+0061). Our Unicode Homoglyph Cleaner scans your text string and replaces all confusable characters with 100% standard ASCII Latin equivalents."
+        title={tool.heading}
+        directAnswerTitle={tool.heading}
+        directAnswerText={tool.subheading}
         beforeExample="Tеstаng text wіth fаkе Cyrіllіc letters."
         afterExample="Testing text with fake Cyrillic letters."
         removedItems={removedItems}
         howToSteps={howToSteps}
         faqs={faqs}
       />
-    </>
+    </div>
   );
 }
