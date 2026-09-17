@@ -4,8 +4,6 @@ export const dynamic = "force-static";
 
 const siteUrl = "https://www.text-cleaner-ai.com";
 
-const languages = ["es", "de", "fr", "it", "pt", "ar", "ja", "nl", "tr", "id"];
-
 const baseSubRoutes = [
   "",
   "/about",
@@ -70,18 +68,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  // Localized entries for 10 target languages across all sub-routes
-  const localizedEntries: MetadataRoute.Sitemap = [];
-  languages.forEach((lang) => {
-    baseSubRoutes.forEach((subRoute) => {
-      localizedEntries.push({
-        url: `${siteUrl}/${lang}${subRoute}`,
-        lastModified,
-        changeFrequency: subRoute === "" ? "daily" : "weekly",
-        priority: subRoute === "" ? 0.9 : 0.7,
-      });
-    });
-  });
+  // Localized (/[lang]/*) pages are intentionally excluded from the sitemap
+  // so search engines prioritize indexing the English pages.
 
-  return [...englishEntries, ...englishOnlyEntries, ...blogEntries, ...localizedEntries];
+  return [...englishEntries, ...englishOnlyEntries, ...blogEntries];
 }
