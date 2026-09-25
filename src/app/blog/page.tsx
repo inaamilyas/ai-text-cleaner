@@ -18,6 +18,42 @@ interface Article {
 
 const articlesData: Article[] = [
   {
+    slug: "how-ai-text-detectors-work-burstiness-perplexity",
+    title: "How AI Text Detectors Work: Perplexity and Burstiness Explained",
+    category: "AI Writing & Tone",
+    categoryKey: "ai-formatting",
+    date: "September 25, 2026",
+    readTime: "6 min read",
+    excerpt:
+      "An AI text detector does not know who wrote your text. It looks for patterns like predictable words and flat sentence rhythm. Here is what it measures, in plain English.",
+    tags: ["#AITextDetector", "#Perplexity", "#Burstiness", "#AIDetection"],
+    keywords: "ai text detector how it works perplexity burstiness ai checker gptzero accuracy",
+  },
+  {
+    slug: "why-ai-detectors-flag-human-writing",
+    title: "Why AI Detectors Flag Human Writing (and What to Do About It)",
+    category: "AI Writing & Tone",
+    categoryKey: "ai-formatting",
+    date: "September 24, 2026",
+    readTime: "5 min read",
+    excerpt:
+      "If an AI checker says your own writing is AI, you are not alone. Learn why false positives happen, who is most affected, and what to do if your text is flagged.",
+    tags: ["#FalsePositives", "#AIDetector", "#NonNativeWriters", "#WritingTips"],
+    keywords: "ai detector false positive human writing flagged as ai non native english accuracy",
+  },
+  {
+    slug: "how-to-tell-if-text-is-written-by-chatgpt",
+    title: "How to Tell If Text Was Written by ChatGPT: 10 Signs to Look For",
+    category: "AI Writing & Tone",
+    categoryKey: "ai-formatting",
+    date: "September 23, 2026",
+    readTime: "5 min read",
+    excerpt:
+      "There is no sure way to know, but AI writing leaves clear habits. Here are 10 simple signs, and a quick way to check text with a free AI text checker.",
+    tags: ["#ChatGPT", "#AITextChecker", "#SpotAIText", "#WritingTips"],
+    keywords: "how to tell if text is written by chatgpt check ai text signs of ai writing ai text checker",
+  },
+  {
     slug: "why-ai-text-has-invisible-characters",
     title: "Why ChatGPT & LLMs Inject Invisible Unicode Characters into Output",
     category: "AI & Formatting",

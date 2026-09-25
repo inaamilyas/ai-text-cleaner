@@ -33,6 +33,24 @@ interface BlogDetailTemplateProps {
 
 const allGuides: OtherGuide[] = [
   {
+    slug: "how-ai-text-detectors-work-burstiness-perplexity",
+    title: "How AI Text Detectors Work: Perplexity and Burstiness Explained",
+    category: "AI Writing & Tone",
+    readTime: "6 min read",
+  },
+  {
+    slug: "why-ai-detectors-flag-human-writing",
+    title: "Why AI Detectors Flag Human Writing (and What to Do About It)",
+    category: "AI Writing & Tone",
+    readTime: "5 min read",
+  },
+  {
+    slug: "how-to-tell-if-text-is-written-by-chatgpt",
+    title: "How to Tell If Text Was Written by ChatGPT: 10 Signs to Look For",
+    category: "AI Writing & Tone",
+    readTime: "5 min read",
+  },
+  {
     slug: "why-ai-text-has-invisible-characters",
     title: "Why ChatGPT & LLMs Inject Invisible Unicode Characters into Output",
     category: "AI & Formatting",

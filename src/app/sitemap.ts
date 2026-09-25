@@ -39,6 +39,11 @@ const blogRoutes = [
   "/blog/why-ai-text-has-invisible-characters",
   "/blog/how-to-clean-chatgpt-text-for-publishing",
   "/blog/understanding-zero-width-spaces-and-unicode-artifacts",
+  "/blog/how-pdf-metadata-exposes-identity",
+  "/blog/overused-llm-cliches-delve-tapestry",
+  "/blog/how-ai-text-detectors-work-burstiness-perplexity",
+  "/blog/why-ai-detectors-flag-human-writing",
+  "/blog/how-to-tell-if-text-is-written-by-chatgpt",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -22,6 +22,8 @@ export interface SubToolContentProps {
   benchmarks?: { name: string; time: string }[];
   valueProps?: { title: string; desc: string; icon: string }[];
   faqs: { question: string; answer: string }[];
+  extraContent?: React.ReactNode;
+  hideSections?: ("beforeAfter" | "featureTable" | "mobileCallout" | "valueProps")[];
 }
 
 const suiteTools = [
@@ -136,10 +138,14 @@ export default function SubToolContent({
   benchmarks = defaultBenchmarks,
   valueProps: customValueProps,
   faqs,
+  extraContent,
+  hideSections = [],
 }: SubToolContentProps) {
   const activeValueProps = customValueProps ?? defaultValueProps;
+  const show = (name: NonNullable<SubToolContentProps["hideSections"]>[number]) =>
+    !hideSections.includes(name);
   return (
-    <div className="flex flex-col w-full space-y-12 md:space-y-16">
+    <div className="flex flex-col w-full px-5 space-y-12 md:space-y-16">
       {/* 1. EXPLANATORY & GUIDE SECTION */}
       <section className="w-full bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm border border-surface-container-highest/60">
         <div className="flex flex-col gap-space-xs mb-space-sm">
@@ -174,7 +180,10 @@ export default function SubToolContent({
         )}
       </section>
 
+      {extraContent}
+
       {/* 2. BEFORE & AFTER COMPARISON */}
+      {show("beforeAfter") && (
       <section className="w-full flex flex-col gap-space-sm">
         <div className="flex flex-col">
           <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold">
@@ -233,9 +242,10 @@ export default function SubToolContent({
           </div>
         </div>
       </section>
+      )}
 
       {/* 3. TECHNICAL CHARACTER & FEATURE BREAKDOWN TABLE */}
-      {removedItems.length > 0 && (
+      {show("featureTable") && removedItems.length > 0 && (
         <section className="w-full bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-surface-container-highest/60">
           <div className="flex flex-col mb-space-md">
             <h2 className="font-headline-lg text-headline-lg text-on-surface font-semibold">
@@ -453,6 +463,7 @@ export default function SubToolContent({
       </section>
 
       {/* 7. MOBILE & DESKTOP READY FEATURE CALLOUT */}
+      {show("mobileCallout") && (
       <section className="w-full grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm border border-surface-container-highest/60">
         <div className="lg:col-span-7 space-y-space-md">
           <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container text-primary font-code-stat text-code-stat font-semibold">
@@ -504,8 +515,10 @@ export default function SubToolContent({
           </div>
         </div>
       </section>
+      )}
 
       {/* 8. WHY CHOOSE AI TEXT CLEANER (VALUE PROPS) */}
+      {show("valueProps") && (
       <section className="w-full flex flex-col gap-space-md">
         <div className="flex flex-col">
           <span className="font-code-stat text-code-stat text-primary uppercase font-semibold">Architectural Principles</span>
@@ -535,6 +548,7 @@ export default function SubToolContent({
           ))}
         </div>
       </section>
+      )}
 
       {/* 9. FAQ SECTION */}
       {faqs.length > 0 && (
