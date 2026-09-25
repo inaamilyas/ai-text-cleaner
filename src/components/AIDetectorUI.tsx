@@ -67,15 +67,32 @@ export default function AIDetectorUI({ heading, subheading }: AIDetectorUIProps 
     const uploadedFile = e.target.files?.[0];
     if (!uploadedFile) return;
 
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      const textContent = evt.target?.result as string;
+    const applyText = (textContent: string) => {
       if (textContent) {
         setInput(textContent);
         setResult(detectAIText(textContent));
       }
     };
-    reader.readAsText(uploadedFile);
+
+    if (uploadedFile.name.toLowerCase().endsWith(".docx")) {
+      const reader = new FileReader();
+      reader.onload = async (evt) => {
+        try {
+          const mammoth = await import("mammoth");
+          const { value } = await mammoth.extractRawText({ arrayBuffer: evt.target?.result as ArrayBuffer });
+          applyText(value);
+        } catch {
+          setInput("");
+          setResult(null);
+        }
+      };
+      reader.readAsArrayBuffer(uploadedFile);
+    } else {
+      const reader = new FileReader();
+      reader.onload = (evt) => applyText(evt.target?.result as string);
+      reader.readAsText(uploadedFile);
+    }
+    e.target.value = "";
   }
 
   function handleHumanizeAndCopy() {
@@ -174,15 +191,15 @@ ${input}
                   className="flex cursor-pointer items-center gap-1 rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-body-xs font-medium text-neutral-700 transition-colors duration-200 hover:border-primary-500 hover:bg-primary-50 hover:text-primary-700"
                 >
                   <Zap className="h-3 w-3 text-emerald-600" />
-                  Human Essay (100% Human)
+                  Human Sample (Low AI %)
                 </button>
               </div>
 
               {/* Upload File */}
               <label className="flex cursor-pointer items-center gap-1 text-body-xs font-bold text-primary-700 hover:underline">
                 <Upload className="h-3.5 w-3.5" />
-                Upload .txt file
-                <input type="file" accept=".txt,.md,.doc,.docx" className="hidden" onChange={handleFileUpload} />
+                Upload .txt, .md or .docx
+                <input type="file" accept=".txt,.md,.docx" className="hidden" onChange={handleFileUpload} />
               </label>
             </div>
 
