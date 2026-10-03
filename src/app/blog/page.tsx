@@ -698,15 +698,13 @@ export default function BlogIndexPage() {
             <div>
               <h4 className="font-code-stat text-code-stat text-outline uppercase tracking-wider mb-space-sm flex items-center gap-1">
                 <span className="material-symbols-outlined text-[14px]">smart_toy</span>
-                Model Cleaners
+                AI Sanitization &amp; Tone
               </h4>
               <ul className="space-y-1.5 font-label-sm text-label-sm text-on-surface-variant">
-                <li><Link href="/clean-chatgpt-text" className="hover:text-primary transition-colors">Clean ChatGPT Text</Link></li>
-                <li><Link href="/clean-claude-text" className="hover:text-primary transition-colors">Clean Claude Text</Link></li>
-                <li><Link href="/clean-claude-code" className="hover:text-primary transition-colors">Clean Claude Code Output</Link></li>
-                <li><Link href="/clean-gemini-text" className="hover:text-primary transition-colors">Clean Google Gemini Text</Link></li>
-                <li><Link href="/clean-copilot-text" className="hover:text-primary transition-colors">Clean Copilot Text</Link></li>
-                <li><Link href="/clean-chatgpt-text" className="hover:text-primary transition-colors">Clean DeepSeek Reasoning</Link></li>
+                <li><Link href="/clean-chatgpt-text" className="hover:text-primary transition-colors">Clean ChatGPT &amp; AI Text</Link></li>
+                <li><Link href="/ai-text-detector" className="hover:text-primary transition-colors">AI Text Detector</Link></li>
+                <li><Link href="/humanize-ai-text" className="hover:text-primary transition-colors">AI Text Humanizer</Link></li>
+                <li><Link href="/remove-ai-words" className="hover:text-primary transition-colors">Remove AI Words &amp; Clichés</Link></li>
               </ul>
             </div>
             <div>
@@ -715,26 +713,22 @@ export default function BlogIndexPage() {
                 Syntax &amp; Unicode
               </h4>
               <ul className="space-y-1.5 font-label-sm text-label-sm text-on-surface-variant">
-                <li><Link href="/zero-width-space-remover" className="hover:text-primary transition-colors">Zero-Width Space Remover</Link></li>
+                <li><Link href="/remove-invisible-characters" className="hover:text-primary transition-colors">Invisible Character Remover</Link></li>
                 <li><Link href="/visualize-invisible-characters" className="hover:text-primary transition-colors">Invisible Character Visualizer</Link></li>
                 <li><Link href="/clean-unicode-homoglyphs" className="hover:text-primary transition-colors">Unicode Homoglyph Normalizer</Link></li>
-                <li><Link href="/markdown-to-plain-text" className="hover:text-primary transition-colors">Markdown to Plain Text</Link></li>
-                <li><Link href="/smart-quotes-to-straight-quotes" className="hover:text-primary transition-colors">Smart Quotes Fixer</Link></li>
-                <li><Link href="/strip-ai-prompts" className="hover:text-primary transition-colors">Prompt Parameter Eraser</Link></li>
+                <li><Link href="/check-readability-score" className="hover:text-primary transition-colors">Readability &amp; Grade Checker</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-code-stat text-code-stat text-outline uppercase tracking-wider mb-space-sm flex items-center gap-1">
                 <span className="material-symbols-outlined text-[14px]">security</span>
-                Forensics &amp; Guardrails
+                Files &amp; Formats
               </h4>
               <ul className="space-y-1.5 font-label-sm text-label-sm text-on-surface-variant">
                 <li><Link href="/clean-pdf-metadata" className="hover:text-primary transition-colors">PDF Metadata Sanitizer</Link></li>
                 <li><Link href="/remove-ai-image-metadata" className="hover:text-primary transition-colors">AI Image Metadata Purge</Link></li>
-                <li><Link href="/remove-ai-words" className="hover:text-primary transition-colors">Remove AI Words &amp; Fillers</Link></li>
-                <li><Link href="/check-readability-score" className="hover:text-primary transition-colors">Readability &amp; Grade Checker</Link></li>
-                <li><Link href="/case-converter" className="hover:text-primary transition-colors">Case Converter Engine</Link></li>
-                <li><Link href="/humanize-ai-text" className="hover:text-primary transition-colors">AI Text Humanizer</Link></li>
+                <li><Link href="/strip-ai-prompts" className="hover:text-primary transition-colors">Prompt Parameter Eraser</Link></li>
+                <li><Link href="/markdown-to-plain-text" className="hover:text-primary transition-colors">Markdown to Plain Text</Link></li>
               </ul>
             </div>
             <div>

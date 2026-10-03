@@ -12,19 +12,6 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/remove-ai-image-metadata",
-    languages: {
-      en: "/remove-ai-image-metadata",
-      es: "/es/remove-ai-image-metadata",
-      de: "/de/remove-ai-image-metadata",
-      fr: "/fr/remove-ai-image-metadata",
-      it: "/it/remove-ai-image-metadata",
-      pt: "/pt/remove-ai-image-metadata",
-      ar: "/ar/remove-ai-image-metadata",
-      ja: "/ja/remove-ai-image-metadata",
-      nl: "/nl/remove-ai-image-metadata",
-      tr: "/tr/remove-ai-image-metadata",
-      id: "/id/remove-ai-image-metadata",
-    },
   },
   openGraph: {
     title: "AI Image Metadata Remover — Strip EXIF, Prompts & C2PA Tags",

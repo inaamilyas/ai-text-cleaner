@@ -7,19 +7,6 @@ export const metadata: Metadata = {
     "Text Cleaner AI is a free, browser-based tool built by Inam Ilyas to clean formatting artifacts out of AI-generated text. Here's why it exists and how it works.",
   alternates: {
     canonical: "/about",
-    languages: {
-      en: "/about",
-      es: "/es/about",
-      de: "/de/about",
-      fr: "/fr/about",
-      it: "/it/about",
-      pt: "/pt/about",
-      ar: "/ar/about",
-      ja: "/ja/about",
-      nl: "/nl/about",
-      tr: "/tr/about",
-      id: "/id/about",
-    },
   },
 };
 

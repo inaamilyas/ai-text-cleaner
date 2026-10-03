@@ -13,19 +13,6 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/strip-ai-prompts",
-    languages: {
-      en: "/strip-ai-prompts",
-      es: "/es/strip-ai-prompts",
-      de: "/de/strip-ai-prompts",
-      fr: "/fr/strip-ai-prompts",
-      it: "/it/strip-ai-prompts",
-      pt: "/pt/strip-ai-prompts",
-      ar: "/ar/strip-ai-prompts",
-      ja: "/ja/strip-ai-prompts",
-      nl: "/nl/strip-ai-prompts",
-      tr: "/tr/strip-ai-prompts",
-      id: "/id/strip-ai-prompts",
-    },
   },
   openGraph: {
     title: "Strip AI Image Prompts — Remove Midjourney & Stable Diffusion Parameters",

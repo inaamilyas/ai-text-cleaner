@@ -181,7 +181,7 @@ export default function ArticleThreePage() {
           Instant Zero-Setup Debugging
         </h2>
         <p className="text-base text-on-surface-variant leading-relaxed">
-          Rather than writing custom one-off scripts for ad-hoc debugging, use our dedicated in-browser <Link href="/remove-zero-width-space" className="text-primary font-bold hover:underline">Zero-Width Space Remover</Link> utility. It highlights invisible codepoints with high-contrast colored badges and calculates precise byte-level overhead.
+          Rather than writing custom one-off scripts for ad-hoc debugging, use our dedicated in-browser <Link href="/remove-invisible-characters" className="text-primary font-bold hover:underline">Invisible Character Remover</Link> utility. It highlights invisible codepoints with high-contrast colored badges and calculates precise byte-level overhead.
         </p>
 
         {/* Key Takeaway Callout */}

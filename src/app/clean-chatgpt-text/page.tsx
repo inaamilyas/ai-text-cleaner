@@ -5,33 +5,25 @@ import SubToolContent from "@/components/SubToolContent";
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Clean ChatGPT Text — Remove Formatting From Pasted ChatGPT Text",
+  title: "Clean ChatGPT, Claude & AI Text — Remove Formatting, Markdown & Chat Filler",
   description:
-    "Clean text copied from ChatGPT. Remove Markdown symbols, conversational filler, and hidden characters before you paste it anywhere. Free.",
+    "Clean text copied from ChatGPT, Claude, Gemini, and Copilot. Strip markdown symbols, conversational filler, smart quotes, and hidden unicode characters instantly.",
   keywords: [
     "clean chatgpt text",
+    "clean claude text",
+    "clean gemini text",
+    "clean copilot text",
+    "clean ai text",
     "clean pasted text",
+    "remove markdown formatting",
   ],
   alternates: {
     canonical: "/clean-chatgpt-text",
-    languages: {
-      en: "/clean-chatgpt-text",
-      es: "/es/clean-chatgpt-text",
-      de: "/de/clean-chatgpt-text",
-      fr: "/fr/clean-chatgpt-text",
-      it: "/it/clean-chatgpt-text",
-      pt: "/pt/clean-chatgpt-text",
-      ar: "/ar/clean-chatgpt-text",
-      ja: "/ja/clean-chatgpt-text",
-      nl: "/nl/clean-chatgpt-text",
-      tr: "/tr/clean-chatgpt-text",
-      id: "/id/clean-chatgpt-text",
-    },
   },
   openGraph: {
-    title: "Clean ChatGPT Text — Remove Formatting From Pasted ChatGPT Text",
+    title: "Clean ChatGPT, Claude & AI Text — Remove Formatting, Markdown & Chat Filler",
     description:
-      "Remove Markdown symbols, conversational filler, and hidden characters from text copied out of ChatGPT.",
+      "Strip markdown symbols, conversational filler, and hidden unicode characters from ChatGPT, Claude, Gemini, and Copilot responses.",
     url: `${siteUrl}/clean-chatgpt-text`,
   },
 };

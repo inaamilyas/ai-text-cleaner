@@ -3,7 +3,6 @@ import { Roboto, Roboto_Mono } from "next/font/google";
 import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import LanguageDetector from "@/components/LanguageDetector";
 import "./globals.css";
 
 const gaId = process.env.NEXT_PUBLIC_GA_ID || "G-V235VSWPT4";
@@ -45,19 +44,6 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/",
-    languages: {
-      en: "/",
-      es: "/es",
-      de: "/de",
-      fr: "/fr",
-      it: "/it",
-      pt: "/pt",
-      ar: "/ar",
-      ja: "/ja",
-      nl: "/nl",
-      tr: "/tr",
-      id: "/id",
-    },
   },
   openGraph: {
     type: "website",
@@ -167,7 +153,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </Script>
           </>
         )}
-        <LanguageDetector />
         <Navbar />
         <main className="w-full pt-16 md:pt-[68px] bg-background flex flex-1 flex-col">{children}</main>
         <Footer />

@@ -58,10 +58,10 @@ const suiteTools = [
     icon: "analytics",
   },
   {
-    href: "/case-converter",
-    title: "Case Converter",
-    desc: "Convert Title Case, camelCase, snake_case, UPPERCASE, and URL slugs.",
-    icon: "text_fields",
+    href: "/clean-chatgpt-text",
+    title: "Clean ChatGPT Text",
+    desc: "Remove markdown symbols, conversational filler, and AI formatting quirks.",
+    icon: "auto_fix_high",
   },
   {
     href: "/clean-pdf-metadata",

@@ -417,14 +417,14 @@ export default function BlogDetailTemplate({
                   <span className="material-symbols-outlined text-[20px]">psychology</span>
                 </div>
                 <h3 className="font-bold text-base text-on-surface group-hover:text-primary transition-colors mb-1.5">
-                  Clean Claude Text
+                  Clean ChatGPT &amp; AI Text
                 </h3>
                 <p className="text-xs text-on-surface-variant leading-relaxed mb-4">
-                  Removes artifact delimiters, XML framing tags, and conversational preambles from Anthropic Claude prompts.
+                  Removes conversational filler, markdown formatting fences, and AI artifacts from LLM outputs.
                 </p>
               </div>
               <Link
-                href="/clean-claude-text"
+                href="/clean-chatgpt-text"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:underline"
               >
                 <span>Launch Tool</span>
@@ -441,14 +441,14 @@ export default function BlogDetailTemplate({
                   <span className="material-symbols-outlined text-[20px]">space_bar</span>
                 </div>
                 <h3 className="font-bold text-base text-on-surface group-hover:text-primary transition-colors mb-1.5">
-                  Zero-Width Space Remover
+                  Invisible Character Remover
                 </h3>
                 <p className="text-xs text-on-surface-variant leading-relaxed mb-4">
                   Surgically purges U+200B, U+200C, U+200D, and U+FEFF markers that cause terminal script crashes and broken JSON strings.
                 </p>
               </div>
               <Link
-                href="/remove-zero-width-space"
+                href="/remove-invisible-characters"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:underline"
               >
                 <span>Launch Tool</span>
@@ -564,39 +564,30 @@ export default function BlogDetailTemplate({
                   </span>
                 </Link>
                 <Link
-                  href="/clean-claude-text"
+                  href="/ai-text-detector"
                   className="bg-surface-container-lowest hover:bg-surface-container-low p-3 rounded-lg flex items-center gap-2.5 transition-colors group border border-outline-variant/30"
                 >
-                  <span className="material-symbols-outlined text-primary text-[18px]">psychology</span>
+                  <span className="material-symbols-outlined text-primary text-[18px]">find_in_page</span>
                   <span className="text-xs font-medium text-on-surface group-hover:text-primary transition-colors">
-                    Clean Claude Text
+                    AI Text Detector
                   </span>
                 </Link>
                 <Link
-                  href="/clean-claude-code"
+                  href="/humanize-ai-text"
                   className="bg-surface-container-lowest hover:bg-surface-container-low p-3 rounded-lg flex items-center gap-2.5 transition-colors group border border-outline-variant/30"
                 >
-                  <span className="material-symbols-outlined text-primary text-[18px]">terminal</span>
+                  <span className="material-symbols-outlined text-primary text-[18px]">face</span>
                   <span className="text-xs font-medium text-on-surface group-hover:text-primary transition-colors">
-                    Clean Claude Code
+                    AI Text Humanizer
                   </span>
                 </Link>
                 <Link
-                  href="/clean-gemini-text"
+                  href="/remove-ai-words"
                   className="bg-surface-container-lowest hover:bg-surface-container-low p-3 rounded-lg flex items-center gap-2.5 transition-colors group border border-outline-variant/30"
                 >
-                  <span className="material-symbols-outlined text-primary text-[18px]">auto_awesome</span>
+                  <span className="material-symbols-outlined text-primary text-[18px]">spellcheck</span>
                   <span className="text-xs font-medium text-on-surface group-hover:text-primary transition-colors">
-                    Clean Gemini Text
-                  </span>
-                </Link>
-                <Link
-                  href="/clean-copilot-text"
-                  className="bg-surface-container-lowest hover:bg-surface-container-low p-3 rounded-lg flex items-center gap-2.5 transition-colors group border border-outline-variant/30"
-                >
-                  <span className="material-symbols-outlined text-primary text-[18px]">code_blocks</span>
-                  <span className="text-xs font-medium text-on-surface group-hover:text-primary transition-colors">
-                    Clean Copilot Text
+                    Remove AI Words
                   </span>
                 </Link>
               </div>
@@ -609,24 +600,6 @@ export default function BlogDetailTemplate({
               </span>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <Link
-                  href="/remove-ai-words"
-                  className="bg-surface-container-lowest hover:bg-surface-container-low p-3 rounded-lg flex items-center gap-2.5 transition-colors group border border-outline-variant/30"
-                >
-                  <span className="material-symbols-outlined text-primary text-[18px]">delete_sweep</span>
-                  <span className="text-xs font-medium text-on-surface group-hover:text-primary transition-colors">
-                    Remove AI Buzzwords
-                  </span>
-                </Link>
-                <Link
-                  href="/remove-zero-width-space"
-                  className="bg-surface-container-lowest hover:bg-surface-container-low p-3 rounded-lg flex items-center gap-2.5 transition-colors group border border-outline-variant/30"
-                >
-                  <span className="material-symbols-outlined text-primary text-[18px]">space_bar</span>
-                  <span className="text-xs font-medium text-on-surface group-hover:text-primary transition-colors">
-                    Zero-Width Space Remover
-                  </span>
-                </Link>
-                <Link
                   href="/remove-invisible-characters"
                   className="bg-surface-container-lowest hover:bg-surface-container-low p-3 rounded-lg flex items-center gap-2.5 transition-colors group border border-outline-variant/30"
                 >
@@ -636,12 +609,30 @@ export default function BlogDetailTemplate({
                   </span>
                 </Link>
                 <Link
-                  href="/markdown-to-plain-text"
+                  href="/visualize-invisible-characters"
                   className="bg-surface-container-lowest hover:bg-surface-container-low p-3 rounded-lg flex items-center gap-2.5 transition-colors group border border-outline-variant/30"
                 >
-                  <span className="material-symbols-outlined text-primary text-[18px]">markdown</span>
+                  <span className="material-symbols-outlined text-primary text-[18px]">manage_search</span>
                   <span className="text-xs font-medium text-on-surface group-hover:text-primary transition-colors">
-                    Markdown to Plain Text
+                    Invisible Visualizer
+                  </span>
+                </Link>
+                <Link
+                  href="/clean-unicode-homoglyphs"
+                  className="bg-surface-container-lowest hover:bg-surface-container-low p-3 rounded-lg flex items-center gap-2.5 transition-colors group border border-outline-variant/30"
+                >
+                  <span className="material-symbols-outlined text-primary text-[18px]">g_translate</span>
+                  <span className="text-xs font-medium text-on-surface group-hover:text-primary transition-colors">
+                    Unicode Homoglyphs
+                  </span>
+                </Link>
+                <Link
+                  href="/check-readability-score"
+                  className="bg-surface-container-lowest hover:bg-surface-container-low p-3 rounded-lg flex items-center gap-2.5 transition-colors group border border-outline-variant/30"
+                >
+                  <span className="material-symbols-outlined text-primary text-[18px]">analytics</span>
+                  <span className="text-xs font-medium text-on-surface group-hover:text-primary transition-colors">
+                    Readability Score
                   </span>
                 </Link>
               </div>
@@ -650,18 +641,9 @@ export default function BlogDetailTemplate({
             {/* Row 3: Security & Analyzers */}
             <div className="space-y-2">
               <span className="font-code-stat text-[11px] text-outline uppercase font-semibold">
-                Row 03 // Security Sanitizers &amp; Analyzers
+                Row 03 // Files, Prompts &amp; Formats
               </span>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <Link
-                  href="/clean-unicode-homoglyphs"
-                  className="bg-surface-container-lowest hover:bg-surface-container-low p-3 rounded-lg flex items-center gap-2.5 transition-colors group border border-outline-variant/30"
-                >
-                  <span className="material-symbols-outlined text-primary text-[18px]">security</span>
-                  <span className="text-xs font-medium text-on-surface group-hover:text-primary transition-colors">
-                    Unicode Homoglyphs
-                  </span>
-                </Link>
                 <Link
                   href="/clean-pdf-metadata"
                   className="bg-surface-container-lowest hover:bg-surface-container-low p-3 rounded-lg flex items-center gap-2.5 transition-colors group border border-outline-variant/30"
@@ -672,21 +654,30 @@ export default function BlogDetailTemplate({
                   </span>
                 </Link>
                 <Link
-                  href="/remove-zero-width-space"
+                  href="/remove-ai-image-metadata"
                   className="bg-surface-container-lowest hover:bg-surface-container-low p-3 rounded-lg flex items-center gap-2.5 transition-colors group border border-outline-variant/30"
                 >
-                  <span className="material-symbols-outlined text-primary text-[18px]">water_drop</span>
+                  <span className="material-symbols-outlined text-primary text-[18px]">hide_image</span>
                   <span className="text-xs font-medium text-on-surface group-hover:text-primary transition-colors">
-                    AI Watermark Remover
+                    AI Image Metadata
                   </span>
                 </Link>
                 <Link
-                  href="/check-readability-score"
+                  href="/strip-ai-prompts"
                   className="bg-surface-container-lowest hover:bg-surface-container-low p-3 rounded-lg flex items-center gap-2.5 transition-colors group border border-outline-variant/30"
                 >
-                  <span className="material-symbols-outlined text-primary text-[18px]">analytics</span>
+                  <span className="material-symbols-outlined text-primary text-[18px]">terminal</span>
                   <span className="text-xs font-medium text-on-surface group-hover:text-primary transition-colors">
-                    Readability &amp; Grade Checker
+                    Strip AI Prompts
+                  </span>
+                </Link>
+                <Link
+                  href="/markdown-to-plain-text"
+                  className="bg-surface-container-lowest hover:bg-surface-container-low p-3 rounded-lg flex items-center gap-2.5 transition-colors group border border-outline-variant/30"
+                >
+                  <span className="material-symbols-outlined text-primary text-[18px]">markdown</span>
+                  <span className="text-xs font-medium text-on-surface group-hover:text-primary transition-colors">
+                    Markdown to Plain Text
                   </span>
                 </Link>
               </div>

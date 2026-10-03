@@ -5,11 +5,11 @@ export default function Footer() {
   return (
     <footer className="w-full bg-[#f9fafb] border-t border-neutral-200">
       <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 pb-12 border-b border-neutral-200">
-          {/* Column 1: AI & Content Tools */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-12 border-b border-neutral-200">
+          {/* Column 1: AI Analysis & Content Tools */}
           <div>
             <h4 className="font-code-stat text-xs text-neutral-900 uppercase tracking-wider mb-3 font-semibold">
-              AI Content Tools
+              AI Analysis &amp; Tone
             </h4>
             <ul className="space-y-2 text-sm text-neutral-600">
               <li>
@@ -28,32 +28,22 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/strip-ai-prompts">
-                  Strip AI Prompts
-                </Link>
-              </li>
-              <li>
                 <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/check-readability-score">
                   Readability Score
-                </Link>
-              </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/remove-ai-image-metadata">
-                  AI Image Metadata &amp; C2PA
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 2: Text & Formatting Cleaners */}
+          {/* Column 2: Text Sanitization */}
           <div>
             <h4 className="font-code-stat text-xs text-neutral-900 uppercase tracking-wider mb-3 font-semibold">
-              Text &amp; Formatting
+              Text Sanitization
             </h4>
             <ul className="space-y-2 text-sm text-neutral-600">
               <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/visualize-invisible-characters">
-                  Invisible Visualizer
+                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/clean-chatgpt-text">
+                  Clean ChatGPT &amp; AI Text
                 </Link>
               </li>
               <li>
@@ -62,8 +52,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/remove-zero-width-space">
-                  Remove Zero-Width Space
+                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/visualize-invisible-characters">
+                  Invisible Visualizer
                 </Link>
               </li>
               <li>
@@ -71,28 +61,13 @@ export default function Footer() {
                   Unicode Homoglyphs
                 </Link>
               </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/smart-quotes-to-straight-quotes">
-                  Smart Quotes to Straight
-                </Link>
-              </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/case-converter">
-                  Case Converter
-                </Link>
-              </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/markdown-to-plain-text">
-                  Markdown to Plain Text
-                </Link>
-              </li>
             </ul>
           </div>
 
-          {/* Column 3: Platform Cleaners */}
+          {/* Column 3: Files & Prompts */}
           <div>
             <h4 className="font-code-stat text-xs text-neutral-900 uppercase tracking-wider mb-3 font-semibold">
-              Platform Cleaners
+              Files &amp; Prompts
             </h4>
             <ul className="space-y-2 text-sm text-neutral-600">
               <li>
@@ -101,28 +76,18 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/clean-chatgpt-text">
-                  Clean ChatGPT Text
+                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/remove-ai-image-metadata">
+                  AI Image Metadata &amp; C2PA
                 </Link>
               </li>
               <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/clean-claude-text">
-                  Clean Claude Text
+                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/strip-ai-prompts">
+                  Strip AI Prompts
                 </Link>
               </li>
               <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/clean-claude-code">
-                  Clean Claude Code
-                </Link>
-              </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/clean-gemini-text">
-                  Clean Gemini Text
-                </Link>
-              </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/clean-copilot-text">
-                  Clean Copilot Text
+                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/markdown-to-plain-text">
+                  Markdown to Plain Text
                 </Link>
               </li>
             </ul>
@@ -157,70 +122,6 @@ export default function Footer() {
               <li>
                 <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/terms">
                   Terms of Utility
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 5: Global Languages */}
-          <div>
-            <h4 className="font-code-stat text-xs text-neutral-900 uppercase tracking-wider mb-3 font-semibold">
-              Global Languages
-            </h4>
-            <ul className="space-y-2 text-sm text-neutral-600">
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/">
-                  English (US / UK)
-                </Link>
-              </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/es">
-                  Español (ES / LATAM)
-                </Link>
-              </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/de">
-                  Deutsch (DACH)
-                </Link>
-              </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/fr">
-                  Français (FR / CA)
-                </Link>
-              </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/ja">
-                  日本語 (CJK UTF-8)
-                </Link>
-              </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/pt">
-                  Português (PT / BR)
-                </Link>
-              </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/it">
-                  Italiano (IT)
-                </Link>
-              </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/ar">
-                  العربية (RTL)
-                </Link>
-              </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/nl">
-                  Nederlands (NL)
-                </Link>
-              </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/tr">
-                  Türkçe (TR)
-                </Link>
-              </li>
-              <li>
-                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/id">
-                  Bahasa Indonesia (ID)
                 </Link>
               </li>
             </ul>

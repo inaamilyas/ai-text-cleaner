@@ -13,19 +13,6 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/markdown-to-plain-text",
-    languages: {
-      en: "/markdown-to-plain-text",
-      es: "/es/markdown-to-plain-text",
-      de: "/de/markdown-to-plain-text",
-      fr: "/fr/markdown-to-plain-text",
-      it: "/it/markdown-to-plain-text",
-      pt: "/pt/markdown-to-plain-text",
-      ar: "/ar/markdown-to-plain-text",
-      ja: "/ja/markdown-to-plain-text",
-      nl: "/nl/markdown-to-plain-text",
-      tr: "/tr/markdown-to-plain-text",
-      id: "/id/markdown-to-plain-text",
-    },
   },
   openGraph: {
     title: "AI Markdown to Plain Text Converter — Strip Formatting Online",

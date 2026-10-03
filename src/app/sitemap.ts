@@ -11,28 +11,18 @@ const baseSubRoutes = [
   "/privacy",
   "/terms",
   "/ai-text-detector",
+  "/humanize-ai-text",
   "/remove-ai-words",
-  "/remove-zero-width-space",
   "/clean-chatgpt-text",
-  "/clean-claude-text",
-  "/clean-gemini-text",
-  "/clean-copilot-text",
   "/remove-invisible-characters",
-  "/markdown-to-plain-text",
-  "/smart-quotes-to-straight-quotes",
-  "/remove-ai-image-metadata",
-  "/remove-ai-watermark",
-  "/strip-ai-prompts",
   "/visualize-invisible-characters",
   "/clean-unicode-homoglyphs",
   "/clean-pdf-metadata",
-  "/case-converter",
+  "/remove-ai-image-metadata",
+  "/strip-ai-prompts",
   "/check-readability-score",
-  "/humanize-ai-text",
+  "/markdown-to-plain-text",
 ];
-
-// English-only routes: not yet translated, so excluded from the localized loop below.
-const englishOnlySubRoutes = ["/clean-claude-code"];
 
 const blogRoutes = [
   "/blog",
@@ -47,22 +37,14 @@ const blogRoutes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date("2026-09-05");
+  const lastModified = new Date();
 
-  // English base routes
-  const englishEntries: MetadataRoute.Sitemap = baseSubRoutes.map((path) => ({
+  // Core base routes
+  const mainEntries: MetadataRoute.Sitemap = baseSubRoutes.map((path) => ({
     url: `${siteUrl}${path || "/"}`,
     lastModified,
     changeFrequency: path === "" ? "daily" : "weekly",
     priority: path === "" ? 1.0 : 0.8,
-  }));
-
-  // English-only routes (no localized equivalents yet)
-  const englishOnlyEntries: MetadataRoute.Sitemap = englishOnlySubRoutes.map((path) => ({
-    url: `${siteUrl}${path}`,
-    lastModified,
-    changeFrequency: "weekly",
-    priority: 0.8,
   }));
 
   // Blog entries
@@ -73,8 +55,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  // Localized (/[lang]/*) pages are intentionally excluded from the sitemap
-  // so search engines prioritize indexing the English pages.
-
-  return [...englishEntries, ...englishOnlyEntries, ...blogEntries];
+  return [...mainEntries, ...blogEntries];
 }

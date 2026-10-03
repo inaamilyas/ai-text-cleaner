@@ -14,19 +14,6 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/remove-ai-words",
-    languages: {
-      en: "/remove-ai-words",
-      es: "/es/remove-ai-words",
-      de: "/de/remove-ai-words",
-      fr: "/fr/remove-ai-words",
-      it: "/it/remove-ai-words",
-      pt: "/pt/remove-ai-words",
-      ar: "/ar/remove-ai-words",
-      ja: "/ja/remove-ai-words",
-      nl: "/nl/remove-ai-words",
-      tr: "/tr/remove-ai-words",
-      id: "/id/remove-ai-words",
-    },
   },
   openGraph: {
     title: "Remove AI Buzzwords — Strip \"Delve,\" \"Tapestry\" & Other Clichés",

@@ -293,55 +293,44 @@ export default function PrivacyPage() {
                     className="min-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all border border-transparent"
                   >
                     <div className="flex flex-col gap-2">
-                      <span className="font-code-stat text-code-stat text-primary">CHATGPT</span>
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Clean ChatGPT Text</h4>
+                      <span className="font-code-stat text-code-stat text-primary">CHATGPT &amp; AI</span>
+                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Clean ChatGPT &amp; AI Text</h4>
                       <p className="font-body-sm text-body-sm text-on-surface-variant">Removes robotic introductions, concluding disclaimers, and boilerplate markdown.</p>
                     </div>
                     <span className="font-code-stat text-code-stat text-outline mt-3">Local Regex Pipeline</span>
                   </Link>
                   <Link
-                    href="/clean-claude-text"
+                    href="/ai-text-detector"
                     className="min-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all border border-transparent"
                   >
                     <div className="flex flex-col gap-2">
-                      <span className="font-code-stat text-code-stat text-primary">CLAUDE</span>
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Clean Claude Text</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">Eliminates conversational framing, excessive hedges, and synthetic formatting.</p>
+                      <span className="font-code-stat text-code-stat text-primary">DETECTOR</span>
+                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">AI Text Detector</h4>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant">Statistical burstiness, perplexity, and AI score analysis.</p>
                     </div>
-                    <span className="font-code-stat text-code-stat text-outline mt-3">Local Regex Pipeline</span>
+                    <span className="font-code-stat text-code-stat text-outline mt-3">Browser Scoring Engine</span>
                   </Link>
                   <Link
-                    href="/clean-claude-code"
+                    href="/humanize-ai-text"
                     className="min-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all border border-transparent"
                   >
                     <div className="flex flex-col gap-2">
-                      <span className="font-code-stat text-code-stat text-primary">CLAUDE CODE</span>
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Claude Code Output</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">Purges CLI output logs, escape codes, and backtick code wrappers automatically.</p>
+                      <span className="font-code-stat text-code-stat text-primary">HUMANIZE</span>
+                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">AI Text Humanizer</h4>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant">Breaks uniform robotic cadence into natural, variable sentence patterns.</p>
                     </div>
-                    <span className="font-code-stat text-code-stat text-outline mt-3">CLI Strip Engine</span>
+                    <span className="font-code-stat text-code-stat text-outline mt-3">Cadence Transformer</span>
                   </Link>
                   <Link
-                    href="/clean-gemini-text"
+                    href="/remove-ai-words"
                     className="min-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all border border-transparent"
                   >
                     <div className="flex flex-col gap-2">
-                      <span className="font-code-stat text-code-stat text-primary">GEMINI</span>
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Clean Google Gemini</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">Normalizes bold lists, redundant search tags, and synthetic preamble text.</p>
+                      <span className="font-code-stat text-code-stat text-primary">BUZZWORDS</span>
+                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Remove AI Buzzwords</h4>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant">Replaces &quot;delve&quot;, &quot;tapestry&quot;, &quot;crucial&quot;, and overused LLM clichés.</p>
                     </div>
-                    <span className="font-code-stat text-code-stat text-outline mt-3">Local Regex Pipeline</span>
-                  </Link>
-                  <Link
-                    href="/clean-copilot-text"
-                    className="min-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all border border-transparent"
-                  >
-                    <div className="flex flex-col gap-2">
-                      <span className="font-code-stat text-code-stat text-primary">COPILOT</span>
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Clean Copilot Text</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">Strips citation superscripts, footnote links, and conversational sign-offs.</p>
-                    </div>
-                    <span className="font-code-stat text-code-stat text-outline mt-3">Local Regex Pipeline</span>
+                    <span className="font-code-stat text-code-stat text-outline mt-3">Lexicon Dictionary</span>
                   </Link>
                 </div>
               </div>
@@ -350,27 +339,16 @@ export default function PrivacyPage() {
               <div className="flex flex-col gap-space-sm">
                 <div className="flex items-center gap-2 font-code-stat text-code-stat text-outline uppercase">
                   <span className="material-symbols-outlined text-[16px]">spellcheck</span>
-                  <span>Row 2 // Text Utilities</span>
+                  <span>Row 2 // Formatting &amp; Unicode Utilities</span>
                 </div>
                 <div className="flex overflow-x-auto pb-2 gap-space-md no-scrollbar">
                   <Link
-                    href="/remove-ai-words"
-                    className="min-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all border border-transparent"
-                  >
-                    <div className="flex flex-col gap-2">
-                      <span className="font-code-stat text-code-stat text-tertiary">BUZZWORDS</span>
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Remove AI Buzzwords</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">Replaces &quot;delve&quot;, &quot;tapestry&quot;, &quot;crucial&quot;, and overused algorithmic synonyms.</p>
-                    </div>
-                    <span className="font-code-stat text-code-stat text-outline mt-3">Lexicon Dictionary</span>
-                  </Link>
-                  <Link
-                    href="/remove-zero-width-space"
+                    href="/remove-invisible-characters"
                     className="min-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all border border-transparent"
                   >
                     <div className="flex flex-col gap-2">
                       <span className="font-code-stat text-code-stat text-tertiary">SPACES</span>
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Zero-Width Remover</h4>
+                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Invisible Character Remover</h4>
                       <p className="font-body-sm text-body-sm text-on-surface-variant">Eliminates invisible \u200B, \uFEFF, and zero-width non-joiners instantly.</p>
                     </div>
                     <span className="font-code-stat text-code-stat text-outline mt-3">UTF-16 Sanitizer</span>
@@ -387,48 +365,37 @@ export default function PrivacyPage() {
                     <span className="font-code-stat text-code-stat text-outline mt-3">Inspector Canvas</span>
                   </Link>
                   <Link
-                    href="/markdown-to-plain-text"
-                    className="min-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all border border-transparent"
-                  >
-                    <div className="flex flex-col gap-2">
-                      <span className="font-code-stat text-code-stat text-tertiary">MARKDOWN</span>
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Markdown to Plain</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">Converts markdown syntax to clean, unformatted plain copy for pasting.</p>
-                    </div>
-                    <span className="font-code-stat text-code-stat text-outline mt-3">Parser Pipeline</span>
-                  </Link>
-                  <Link
-                    href="/smart-quotes-to-straight-quotes"
-                    className="min-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all border border-transparent"
-                  >
-                    <div className="flex flex-col gap-2">
-                      <span className="font-code-stat text-code-stat text-tertiary">TYPOGRAPHY</span>
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Smart Quotes Fixer</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">Converts curly quotation marks and em-dashes into standard ASCII characters.</p>
-                    </div>
-                    <span className="font-code-stat text-code-stat text-outline mt-3">ASCII Mapper</span>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Row 3: Security & Detection Cleaners */}
-              <div className="flex flex-col gap-space-sm">
-                <div className="flex items-center gap-2 font-code-stat text-code-stat text-outline uppercase">
-                  <span className="material-symbols-outlined text-[16px]">security</span>
-                  <span>Row 3 // Security Cleaners &amp; Analyzers</span>
-                </div>
-                <div className="flex overflow-x-auto pb-2 gap-space-md no-scrollbar">
-                  <Link
                     href="/clean-unicode-homoglyphs"
                     className="min-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all border border-transparent"
                   >
                     <div className="flex flex-col gap-2">
-                      <span className="font-code-stat text-code-stat text-secondary">HOMOGLYPHS</span>
+                      <span className="font-code-stat text-code-stat text-tertiary">HOMOGLYPHS</span>
                       <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Unicode Homoglyphs</h4>
                       <p className="font-body-sm text-body-sm text-on-surface-variant">Detects and neutralizes mixed-script Cyrillic or Greek spoofing characters.</p>
                     </div>
                     <span className="font-code-stat text-code-stat text-outline mt-3">ICU Normalizer</span>
                   </Link>
+                  <Link
+                    href="/check-readability-score"
+                    className="min-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all border border-transparent"
+                  >
+                    <div className="flex flex-col gap-2">
+                      <span className="font-code-stat text-code-stat text-tertiary">READABILITY</span>
+                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Readability &amp; Grade</h4>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant">Calculates Flesch-Kincaid and Gunning fog indexes in real-time memory.</p>
+                    </div>
+                    <span className="font-code-stat text-code-stat text-outline mt-3">Formula Engine</span>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Row 3: Files & Prompts */}
+              <div className="flex flex-col gap-space-sm">
+                <div className="flex items-center gap-2 font-code-stat text-code-stat text-outline uppercase">
+                  <span className="material-symbols-outlined text-[16px]">security</span>
+                  <span>Row 3 // Files, Prompts &amp; Formats</span>
+                </div>
+                <div className="flex overflow-x-auto pb-2 gap-space-md no-scrollbar">
                   <Link
                     href="/clean-pdf-metadata"
                     className="min-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all border border-transparent"
@@ -441,37 +408,37 @@ export default function PrivacyPage() {
                     <span className="font-code-stat text-code-stat text-outline mt-3">Client Binary Engine</span>
                   </Link>
                   <Link
-                    href="/remove-zero-width-space"
+                    href="/remove-ai-image-metadata"
                     className="min-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all border border-transparent"
                   >
                     <div className="flex flex-col gap-2">
-                      <span className="font-code-stat text-code-stat text-secondary">WATERMARKS</span>
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">AI Watermark Remover</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">Neutralizes statistical token-pairing watermarks and hidden markers.</p>
+                      <span className="font-code-stat text-code-stat text-secondary">IMAGE META</span>
+                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">AI Image Metadata</h4>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant">Strips Midjourney, DALL-E, EXIF tags, and C2PA credentials.</p>
                     </div>
-                    <span className="font-code-stat text-code-stat text-outline mt-3">Frequency Engine</span>
+                    <span className="font-code-stat text-code-stat text-outline mt-3">Canvas Exif Stripper</span>
                   </Link>
                   <Link
-                    href="/check-readability-score"
+                    href="/strip-ai-prompts"
                     className="min-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all border border-transparent"
                   >
                     <div className="flex flex-col gap-2">
-                      <span className="font-code-stat text-code-stat text-secondary">READABILITY</span>
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Readability &amp; Grade</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">Calculates Flesch-Kincaid and Gunning fog indexes in real-time memory.</p>
+                      <span className="font-code-stat text-code-stat text-secondary">PROMPTS</span>
+                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Strip AI Prompts</h4>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant">Cleans parameter flags (--ar, --v), seeds, and negative prompts.</p>
                     </div>
-                    <span className="font-code-stat text-code-stat text-outline mt-3">Formula Engine</span>
+                    <span className="font-code-stat text-code-stat text-outline mt-3">Prompt Cleaner</span>
                   </Link>
                   <Link
-                    href="/humanize-ai-text"
+                    href="/markdown-to-plain-text"
                     className="min-w-[280px] p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between hover:shadow-md hover:border-primary/40 transition-all border border-transparent"
                   >
                     <div className="flex flex-col gap-2">
-                      <span className="font-code-stat text-code-stat text-secondary">HUMANIZE</span>
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">AI Text Humanizer</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">Varies sentence cadence and burstiness to mirror organic human prose.</p>
+                      <span className="font-code-stat text-code-stat text-secondary">MARKDOWN</span>
+                      <h4 className="font-headline-sm text-headline-sm text-on-surface font-medium">Markdown to Plain</h4>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant">Converts markdown syntax to clean, unformatted plain copy for pasting.</p>
                     </div>
-                    <span className="font-code-stat text-code-stat text-outline mt-3">Cadence Shifter</span>
+                    <span className="font-code-stat text-code-stat text-outline mt-3">Parser Pipeline</span>
                   </Link>
                 </div>
               </div>

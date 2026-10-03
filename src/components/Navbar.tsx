@@ -4,41 +4,33 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
-import LanguageSelector from "@/components/LanguageSelector";
 
 const toolCategories = [
   {
-    category: "AI & Content Tools",
+    category: "AI Analysis & Tone",
     items: [
       { href: "/ai-text-detector", label: "AI / GPT Detector", badge: "DET" },
       { href: "/humanize-ai-text", label: "AI Text Humanizer", badge: "HUM" },
       { href: "/remove-ai-words", label: "Remove AI Words", badge: "RAW" },
-      { href: "/strip-ai-prompts", label: "Strip AI Prompts", badge: "STP" },
       { href: "/check-readability-score", label: "Readability Score", badge: "RDS" },
-      { href: "/remove-ai-image-metadata", label: "AI Image Metadata", badge: "IMG" },
     ],
   },
   {
-    category: "Formatting & Unicode",
+    category: "Text Sanitization",
     items: [
-      { href: "/visualize-invisible-characters", label: "Invisible Visualizer", badge: "VIS" },
+      { href: "/clean-chatgpt-text", label: "Clean ChatGPT & AI Text", badge: "GPT" },
       { href: "/remove-invisible-characters", label: "Remove Invisible Chars", badge: "INV" },
-      { href: "/remove-zero-width-space", label: "Remove Zero-Width Space", badge: "ZWS" },
+      { href: "/visualize-invisible-characters", label: "Invisible Visualizer", badge: "VIS" },
       { href: "/clean-unicode-homoglyphs", label: "Unicode Homoglyphs", badge: "GLY" },
-      { href: "/smart-quotes-to-straight-quotes", label: "Smart Quotes to Straight", badge: "QUO" },
-      { href: "/case-converter", label: "Case Converter", badge: "CAS" },
-      { href: "/markdown-to-plain-text", label: "Markdown to Plain Text", badge: "MD" },
     ],
   },
   {
-    category: "Platform & File Cleaners",
+    category: "Files & Prompts",
     items: [
       { href: "/clean-pdf-metadata", label: "PDF Metadata Cleaner", badge: "PDF" },
-      { href: "/clean-chatgpt-text", label: "Clean ChatGPT Text", badge: "GPT" },
-      { href: "/clean-claude-text", label: "Clean Claude Text", badge: "CLD" },
-      { href: "/clean-claude-code", label: "Clean Claude Code", badge: "COD" },
-      { href: "/clean-gemini-text", label: "Clean Gemini Text", badge: "GEM" },
-      { href: "/clean-copilot-text", label: "Clean Copilot Text", badge: "COP" },
+      { href: "/remove-ai-image-metadata", label: "AI Image Metadata", badge: "IMG" },
+      { href: "/strip-ai-prompts", label: "Strip AI Prompts", badge: "STP" },
+      { href: "/markdown-to-plain-text", label: "Markdown to Plain Text", badge: "MD" },
     ],
   },
 ];
@@ -149,9 +141,8 @@ export default function Navbar() {
           </nav>
         </div>
 
-        {/* Right Controls: Language Selector + Avatar / Hamburger */}
+        {/* Right Controls: Avatar / Hamburger */}
         <div className="flex items-center gap-space-sm">
-          <LanguageSelector />
           <div className="hidden sm:flex w-9 h-9 rounded-full bg-primary items-center justify-center shadow-xs">
             <span className="material-symbols-outlined text-on-primary text-[18px]">person</span>
           </div>
@@ -178,7 +169,7 @@ export default function Navbar() {
           >
             <span className="flex items-center gap-1.5">
               <span className="material-symbols-outlined text-[16px] text-primary">tune</span>
-              <span>All 19 Tools</span>
+              <span>All 12 Tools</span>
             </span>
             <span className={`material-symbols-outlined text-[16px] transition-transform ${mobileToolsOpen ? "rotate-180" : ""}`}>
               expand_more

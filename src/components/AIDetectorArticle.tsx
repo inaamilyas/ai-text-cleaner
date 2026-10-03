@@ -97,10 +97,8 @@ export default function AIDetectorArticle() {
         </p>
         <p className={p}>
           If the text also has hidden characters or messy formatting from the AI chat, clean it first with our{" "}
-          <Link href="/clean-chatgpt-text" className={link}>ChatGPT text cleaner</Link>,{" "}
-          <Link href="/clean-claude-text" className={link}>Claude text cleaner</Link>,{" "}
-          <Link href="/clean-gemini-text" className={link}>Gemini text cleaner</Link>, or{" "}
-          <Link href="/clean-copilot-text" className={link}>Copilot text cleaner</Link>.
+          <Link href="/clean-chatgpt-text" className={link}>AI text cleaner</Link> or{" "}
+          <Link href="/remove-invisible-characters" className={link}>invisible character remover</Link>.
         </p>
       </section>
 

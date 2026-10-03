@@ -357,102 +357,67 @@ export default function TermsPage() {
               </Link>
             </div>
 
-            {/* Row 1: AI Platform Cleaners */}
+            {/* Row 1: AI Analysis & Tone */}
             <div className="flex flex-col gap-space-sm">
               <div className="flex items-center gap-space-xs font-label-md text-label-md uppercase text-on-surface-variant font-semibold tracking-wider">
                 <span className="material-symbols-outlined text-[16px] text-primary">psychology</span>
-                <span>Row 1: AI Platform Cleaners</span>
+                <span>Row 1: AI Analysis &amp; Tone Tools</span>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-space-sm">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-space-sm">
                 <Link
                   href="/clean-chatgpt-text"
                   className="p-3.5 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col gap-2 group"
                 >
                   <div className="flex items-center justify-between">
                     <span className="material-symbols-outlined text-[20px] text-primary group-hover:scale-110 transition-transform">smart_toy</span>
-                    <span className="font-code-stat text-code-stat px-1.5 py-0.5 rounded bg-surface-container text-outline">GPT-4o</span>
+                    <span className="font-code-stat text-code-stat px-1.5 py-0.5 rounded bg-surface-container text-outline">Cleaner</span>
                   </div>
-                  <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Clean ChatGPT</span>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Strips markdown headings &amp; AI prose tags</span>
+                  <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Clean ChatGPT &amp; AI</span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Strips markdown, fences, and filler</span>
                 </Link>
                 <Link
-                  href="/clean-claude-text"
+                  href="/ai-text-detector"
                   className="p-3.5 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col gap-2 group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="material-symbols-outlined text-[20px] text-primary group-hover:scale-110 transition-transform">neurology</span>
-                    <span className="font-code-stat text-code-stat px-1.5 py-0.5 rounded bg-surface-container text-outline">Sonnet</span>
+                    <span className="material-symbols-outlined text-[20px] text-primary group-hover:scale-110 transition-transform">find_in_page</span>
+                    <span className="font-code-stat text-code-stat px-1.5 py-0.5 rounded bg-surface-container text-outline">Detector</span>
                   </div>
-                  <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Clean Claude Text</span>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Removes XML wrappers &amp; thinking tags</span>
+                  <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">AI Text Detector</span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Burstiness and statistical scoring</span>
                 </Link>
                 <Link
-                  href="/clean-claude-code"
+                  href="/humanize-ai-text"
                   className="p-3.5 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col gap-2 group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="material-symbols-outlined text-[20px] text-primary group-hover:scale-110 transition-transform">terminal</span>
-                    <span className="font-code-stat text-code-stat px-1.5 py-0.5 rounded bg-surface-container text-outline">CLI</span>
+                    <span className="material-symbols-outlined text-[20px] text-primary group-hover:scale-110 transition-transform">face</span>
+                    <span className="font-code-stat text-code-stat px-1.5 py-0.5 rounded bg-surface-container text-outline">Humanizer</span>
                   </div>
-                  <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Claude Code Output</span>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Purges ANSI color codes &amp; prompt lines</span>
+                  <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">AI Text Humanizer</span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Rhythm and sentence variability</span>
                 </Link>
                 <Link
-                  href="/clean-gemini-text"
+                  href="/remove-ai-words"
                   className="p-3.5 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col gap-2 group"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="material-symbols-outlined text-[20px] text-primary group-hover:scale-110 transition-transform">cognition</span>
-                    <span className="font-code-stat text-code-stat px-1.5 py-0.5 rounded bg-surface-container text-outline">Pro 1.5</span>
+                    <span className="material-symbols-outlined text-[20px] text-primary group-hover:scale-110 transition-transform">spellcheck</span>
+                    <span className="font-code-stat text-code-stat px-1.5 py-0.5 rounded bg-surface-container text-outline">Buzzwords</span>
                   </div>
-                  <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Google Gemini</span>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Cleans conversational fillers</span>
-                </Link>
-                <Link
-                  href="/clean-copilot-text"
-                  className="p-3.5 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex flex-col gap-2 group"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="material-symbols-outlined text-[20px] text-primary group-hover:scale-110 transition-transform">support_agent</span>
-                    <span className="font-code-stat text-code-stat px-1.5 py-0.5 rounded bg-surface-container text-outline">Office</span>
-                  </div>
-                  <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Clean Copilot</span>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Extracts inline notes &amp; source citations</span>
+                  <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Remove AI Words</span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Delve, tapestry, and LLM clichés</span>
                 </Link>
               </div>
             </div>
 
-            {/* Row 2: Text Utilities */}
+            {/* Row 2: Text & Unicode Utilities */}
             <div className="flex flex-col gap-space-sm">
               <div className="flex items-center gap-space-xs font-label-md text-label-md uppercase text-on-surface-variant font-semibold tracking-wider">
                 <span className="material-symbols-outlined text-[16px] text-primary">fact_check</span>
-                <span>Row 2: Formatting &amp; Text Utilities</span>
+                <span>Row 2: Formatting &amp; Unicode Utilities</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm">
-                <Link
-                  href="/remove-ai-words"
-                  className="p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex items-start gap-space-sm group"
-                >
-                  <div className="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors shrink-0">
-                    <span className="material-symbols-outlined text-[20px]">format_strikethrough</span>
-                  </div>
-                  <div className="flex flex-col overflow-hidden">
-                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Remove Buzzwords</span>
-                    <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Delve, tapestry, seamlessly</span>
-                  </div>
-                </Link>
-                <Link
-                  href="/remove-zero-width-space"
-                  className="p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex items-start gap-space-sm group"
-                >
-                  <div className="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors shrink-0">
-                    <span className="material-symbols-outlined text-[20px]">space_bar</span>
-                  </div>
-                  <div className="flex flex-col overflow-hidden">
-                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Zero-Width Remover</span>
-                    <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Strips U+200B, U+FEFF, U+200D</span>
-                  </div>
-                </Link>
                 <Link
                   href="/remove-invisible-characters"
                   className="p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex items-start gap-space-sm group"
@@ -462,19 +427,43 @@ export default function TermsPage() {
                   </div>
                   <div className="flex flex-col overflow-hidden">
                     <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Invisible Characters</span>
-                    <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Purges rogue unicode tags</span>
+                    <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Zero-width &amp; control codes</span>
                   </div>
                 </Link>
                 <Link
-                  href="/markdown-to-plain-text"
+                  href="/visualize-invisible-characters"
                   className="p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex items-start gap-space-sm group"
                 >
                   <div className="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors shrink-0">
-                    <span className="material-symbols-outlined text-[20px]">text_format</span>
+                    <span className="material-symbols-outlined text-[20px]">manage_search</span>
                   </div>
                   <div className="flex flex-col overflow-hidden">
-                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Markdown to Plain Text</span>
-                    <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Converts AST nodes to clean lines</span>
+                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Invisible Visualizer</span>
+                    <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Hex badges &amp; code points</span>
+                  </div>
+                </Link>
+                <Link
+                  href="/clean-unicode-homoglyphs"
+                  className="p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex items-start gap-space-sm group"
+                >
+                  <div className="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors shrink-0">
+                    <span className="material-symbols-outlined text-[20px]">g_translate</span>
+                  </div>
+                  <div className="flex flex-col overflow-hidden">
+                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Unicode Homoglyphs</span>
+                    <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Detects spoofed lookalikes</span>
+                  </div>
+                </Link>
+                <Link
+                  href="/check-readability-score"
+                  className="p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex items-start gap-space-sm group"
+                >
+                  <div className="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors shrink-0">
+                    <span className="material-symbols-outlined text-[20px]">analytics</span>
+                  </div>
+                  <div className="flex flex-col overflow-hidden">
+                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Readability Score</span>
+                    <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Flesch-Kincaid &amp; grade metrics</span>
                   </div>
                 </Link>
               </div>
@@ -484,21 +473,9 @@ export default function TermsPage() {
             <div className="flex flex-col gap-space-sm">
               <div className="flex items-center gap-space-xs font-label-md text-label-md uppercase text-on-surface-variant font-semibold tracking-wider">
                 <span className="material-symbols-outlined text-[16px] text-primary">security</span>
-                <span>Row 3: Security Sanitizers &amp; Document Analyzers</span>
+                <span>Row 3: Files &amp; Prompts</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm">
-                <Link
-                  href="/clean-unicode-homoglyphs"
-                  className="p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex items-start gap-space-sm group"
-                >
-                  <div className="w-9 h-9 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-fixed shrink-0">
-                    <span className="material-symbols-outlined text-[20px]">spellcheck</span>
-                  </div>
-                  <div className="flex flex-col overflow-hidden">
-                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Homoglyph Cleaner</span>
-                    <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Detects spoofed lookalikes</span>
-                  </div>
-                </Link>
                 <Link
                   href="/clean-pdf-metadata"
                   className="p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex items-start gap-space-sm group"
@@ -512,15 +489,39 @@ export default function TermsPage() {
                   </div>
                 </Link>
                 <Link
-                  href="/remove-zero-width-space"
+                  href="/remove-ai-image-metadata"
                   className="p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex items-start gap-space-sm group"
                 >
                   <div className="w-9 h-9 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-fixed shrink-0">
-                    <span className="material-symbols-outlined text-[20px]">filter_vintage</span>
+                    <span className="material-symbols-outlined text-[20px]">hide_image</span>
                   </div>
                   <div className="flex flex-col overflow-hidden">
-                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">AI Watermark Remover</span>
-                    <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Zero frequency synthetic artifacts</span>
+                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">AI Image Metadata</span>
+                    <span className="font-body-sm text-body-sm text-on-surface-variant truncate">EXIF &amp; C2PA credentials</span>
+                  </div>
+                </Link>
+                <Link
+                  href="/strip-ai-prompts"
+                  className="p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex items-start gap-space-sm group"
+                >
+                  <div className="w-9 h-9 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-fixed shrink-0">
+                    <span className="material-symbols-outlined text-[20px]">terminal</span>
+                  </div>
+                  <div className="flex flex-col overflow-hidden">
+                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Strip AI Prompts</span>
+                    <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Midjourney &amp; SD parameters</span>
+                  </div>
+                </Link>
+                <Link
+                  href="/markdown-to-plain-text"
+                  className="p-4 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all flex items-start gap-space-sm group"
+                >
+                  <div className="w-9 h-9 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-fixed shrink-0">
+                    <span className="material-symbols-outlined text-[20px]">markdown</span>
+                  </div>
+                  <div className="flex flex-col overflow-hidden">
+                    <span className="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Markdown to Plain</span>
+                    <span className="font-body-sm text-body-sm text-on-surface-variant truncate">Converts AST nodes to clean lines</span>
                   </div>
                 </Link>
                 <Link

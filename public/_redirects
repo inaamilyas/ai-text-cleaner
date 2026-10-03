@@ -1,0 +1,42 @@
+# Redirect deleted duplicate & doorway tools
+/zero-width-space-remover /remove-invisible-characters 301
+/remove-zero-width-space /remove-invisible-characters 301
+/clean-claude-text /clean-chatgpt-text 301
+/clean-claude-code /clean-chatgpt-text 301
+/clean-claude-code-output /clean-chatgpt-text 301
+/clean-gemini-text /clean-chatgpt-text 301
+/clean-copilot-text /clean-chatgpt-text 301
+/clean-deepseek-text /clean-chatgpt-text 301
+/case-converter / 301
+/smart-quotes-to-straight-quotes /clean-chatgpt-text 301
+/smart-quotes-to-straight-quotes-converter /clean-chatgpt-text 301
+/invisible-character-detector /visualize-invisible-characters 301
+/homoglyph-remover /clean-unicode-homoglyphs 301
+/humanize-ai-text-online /humanize-ai-text 301
+/readability-flesch-kincaid-grade-checker /check-readability-score 301
+/strip-ai-prompts-parameters /strip-ai-prompts 301
+/remove-ai-watermark /remove-ai-image-metadata 301
+
+# Redirect removed localized homepages to main root
+/es / 301
+/de / 301
+/fr / 301
+/it / 301
+/pt / 301
+/ar / 301
+/ja / 301
+/nl / 301
+/tr / 301
+/id / 301
+
+# Redirect all subpage paths under removed languages to their canonical English equivalents
+/es/* /:splat 301
+/de/* /:splat 301
+/fr/* /:splat 301
+/it/* /:splat 301
+/pt/* /:splat 301
+/ar/* /:splat 301
+/ja/* /:splat 301
+/nl/* /:splat 301
+/tr/* /:splat 301
+/id/* /:splat 301
