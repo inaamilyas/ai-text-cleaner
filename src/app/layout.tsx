@@ -42,9 +42,6 @@ export const metadata: Metadata = {
     "ai scrubber",
     "clean pasted text",
   ],
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
     url: "/",

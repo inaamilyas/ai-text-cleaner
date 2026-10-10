@@ -4,17 +4,13 @@ export const dynamic = "force-static";
 
 const siteUrl = "https://www.text-cleaner-ai.com";
 
-const baseSubRoutes = [
-  "",
-  "/about",
-  "/contact",
-  "/privacy",
-  "/terms",
+// Core precision tools (primary landing pages)
+const coreTools = [
+  "/clean-chatgpt-text",
   "/ai-text-detector",
+  "/remove-invisible-characters",
   "/humanize-ai-text",
   "/remove-ai-words",
-  "/clean-chatgpt-text",
-  "/remove-invisible-characters",
   "/visualize-invisible-characters",
   "/clean-unicode-homoglyphs",
   "/clean-pdf-metadata",
@@ -24,8 +20,8 @@ const baseSubRoutes = [
   "/markdown-to-plain-text",
 ];
 
-const blogRoutes = [
-  "/blog",
+// Long-form educational articles
+const blogArticles = [
   "/blog/why-ai-text-has-invisible-characters",
   "/blog/how-to-clean-chatgpt-text-for-publishing",
   "/blog/understanding-zero-width-spaces-and-unicode-artifacts",
@@ -37,23 +33,64 @@ const blogRoutes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  // Tier 1: Homepage (Primary Category Anchor)
+  const homeEntry: MetadataRoute.Sitemap = [
+    {
+      url: `${siteUrl}/`,
+      lastModified: new Date("2026-10-10T00:00:00.000Z"),
+      changeFrequency: "daily",
+      priority: 1.0,
+    },
+  ];
 
-  // Core base routes
-  const mainEntries: MetadataRoute.Sitemap = baseSubRoutes.map((path) => ({
-    url: `${siteUrl}${path || "/"}`,
-    lastModified,
-    changeFrequency: path === "" ? "daily" : "weekly",
-    priority: path === "" ? 1.0 : 0.8,
-  }));
-
-  // Blog entries
-  const blogEntries: MetadataRoute.Sitemap = blogRoutes.map((path) => ({
+  // Tier 2: Core Utility Tools (High search-volume programmatic pages)
+  const toolEntries: MetadataRoute.Sitemap = coreTools.map((path) => ({
     url: `${siteUrl}${path}`,
-    lastModified,
+    lastModified: new Date("2026-10-08T00:00:00.000Z"),
     changeFrequency: "weekly",
-    priority: 0.7,
+    priority: 0.85,
   }));
 
-  return [...mainEntries, ...blogEntries];
+  // Tier 3: Blog Index (Hub for guide content)
+  const blogIndexEntry: MetadataRoute.Sitemap = [
+    {
+      url: `${siteUrl}/blog`,
+      lastModified: new Date("2026-10-06T00:00:00.000Z"),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+  ];
+
+  // Tier 4: Blog Articles (Topical authority & long-tail search)
+  const blogEntries: MetadataRoute.Sitemap = blogArticles.map((path) => ({
+    url: `${siteUrl}${path}`,
+    lastModified: new Date("2026-09-25T00:00:00.000Z"),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  // Tier 5: Company & Support
+  const companyEntries: MetadataRoute.Sitemap = ["/about", "/contact"].map((path) => ({
+    url: `${siteUrl}${path}`,
+    lastModified: new Date("2026-09-20T00:00:00.000Z"),
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
+
+  // Tier 6: Legal & Compliance
+  const legalEntries: MetadataRoute.Sitemap = ["/privacy", "/terms"].map((path) => ({
+    url: `${siteUrl}${path}`,
+    lastModified: new Date("2026-09-15T00:00:00.000Z"),
+    changeFrequency: "yearly",
+    priority: 0.3,
+  }));
+
+  return [
+    ...homeEntry,
+    ...toolEntries,
+    ...blogIndexEntry,
+    ...blogEntries,
+    ...companyEntries,
+    ...legalEntries,
+  ];
 }

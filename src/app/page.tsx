@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import WhyCleanAIText from "@/components/WhyCleanAIText";
 import WhatMakesDifferent from "@/components/WhatMakesDifferent";
@@ -8,6 +9,12 @@ import WhoItsFor, { audiences } from "@/components/WhoItsFor";
 import ToolsSuiteShowcase from "@/components/ToolsSuiteShowcase";
 import FAQ from "@/components/FAQ";
 import { defaultFaqs } from "@/lib/faqData";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 const websiteJsonLd = {
   "@context": "https://schema.org",
