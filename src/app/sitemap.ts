@@ -7,6 +7,8 @@ const siteUrl = "https://www.text-cleaner-ai.com";
 // Core precision tools (primary landing pages)
 const coreTools = [
   "/clean-chatgpt-text",
+  "/clean-claude-text",
+  "/clean-gemini-text",
   "/ai-text-detector",
   "/remove-invisible-characters",
   "/humanize-ai-text",

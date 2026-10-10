@@ -18,7 +18,9 @@ const toolCategories = [
   {
     category: "Text Sanitization",
     items: [
-      { href: "/clean-chatgpt-text", label: "Clean ChatGPT & AI Text", badge: "GPT" },
+      { href: "/clean-chatgpt-text", label: "Clean ChatGPT Text", badge: "GPT" },
+      { href: "/clean-claude-text", label: "Clean Claude Text", badge: "CLD" },
+      { href: "/clean-gemini-text", label: "Clean Gemini Text", badge: "GEM" },
       { href: "/remove-invisible-characters", label: "Remove Invisible Chars", badge: "INV" },
       { href: "/visualize-invisible-characters", label: "Invisible Visualizer", badge: "VIS" },
       { href: "/clean-unicode-homoglyphs", label: "Unicode Homoglyphs", badge: "GLY" },

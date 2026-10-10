@@ -22,11 +22,27 @@ const toolSections: {
     tools: [
       {
         href: "/clean-chatgpt-text",
-        title: "ChatGPT & AI Text Cleaner",
-        desc: "Strips markdown fences, conversational courtesies, and AI formatting quirks from ChatGPT, Claude, and Gemini.",
+        title: "ChatGPT Text Cleaner",
+        desc: "Strips markdown fences, asterisks, conversational courtesies, and em-dashes from ChatGPT outputs.",
         icon: "smart_toy",
         badge: "Popular",
         badgeClass: "bg-primary-fixed text-on-primary-fixed font-semibold",
+      },
+      {
+        href: "/clean-claude-text",
+        title: "Claude AI Text Cleaner",
+        desc: "Purges thinking blocks, XML tags, conversational preambles, and formatting from Anthropic Claude.",
+        icon: "face",
+        badge: "New",
+        badgeClass: "bg-primary/10 text-primary font-semibold",
+      },
+      {
+        href: "/clean-gemini-text",
+        title: "Google Gemini Cleaner",
+        desc: "Strips inline search citation markers [1][2], web grounding brackets, and formatting from Gemini.",
+        icon: "search_spark",
+        badge: "New",
+        badgeClass: "bg-primary/10 text-primary font-semibold",
       },
       {
         href: "/ai-text-detector",

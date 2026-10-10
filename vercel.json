@@ -2,10 +2,8 @@
   "redirects": [
     { "source": "/zero-width-space-remover", "destination": "/remove-invisible-characters", "permanent": true },
     { "source": "/remove-zero-width-space", "destination": "/remove-invisible-characters", "permanent": true },
-    { "source": "/clean-claude-text", "destination": "/clean-chatgpt-text", "permanent": true },
     { "source": "/clean-claude-code", "destination": "/clean-chatgpt-text", "permanent": true },
     { "source": "/clean-claude-code-output", "destination": "/clean-chatgpt-text", "permanent": true },
-    { "source": "/clean-gemini-text", "destination": "/clean-chatgpt-text", "permanent": true },
     { "source": "/clean-copilot-text", "destination": "/clean-chatgpt-text", "permanent": true },
     { "source": "/clean-deepseek-text", "destination": "/clean-chatgpt-text", "permanent": true },
     { "source": "/case-converter", "destination": "/", "permanent": true },

@@ -43,7 +43,17 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-neutral-600">
               <li>
                 <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/clean-chatgpt-text">
-                  Clean ChatGPT &amp; AI Text
+                  Clean ChatGPT Text
+                </Link>
+              </li>
+              <li>
+                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/clean-claude-text">
+                  Clean Claude Text
+                </Link>
+              </li>
+              <li>
+                <Link className="text-neutral-600 hover:text-primary transition-colors no-underline" href="/clean-gemini-text">
+                  Clean Gemini Text
                 </Link>
               </li>
               <li>

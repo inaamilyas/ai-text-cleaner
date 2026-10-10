@@ -1,10 +1,8 @@
 # Redirect deleted duplicate & doorway tools
 /zero-width-space-remover /remove-invisible-characters 301
 /remove-zero-width-space /remove-invisible-characters 301
-/clean-claude-text /clean-chatgpt-text 301
 /clean-claude-code /clean-chatgpt-text 301
 /clean-claude-code-output /clean-chatgpt-text 301
-/clean-gemini-text /clean-chatgpt-text 301
 /clean-copilot-text /clean-chatgpt-text 301
 /clean-deepseek-text /clean-chatgpt-text 301
 /case-converter / 301
