@@ -30,6 +30,7 @@ const blogArticles = [
   "/blog/how-ai-text-detectors-work-burstiness-perplexity",
   "/blog/why-ai-detectors-flag-human-writing",
   "/blog/how-to-tell-if-text-is-written-by-chatgpt",
+  "/blog/how-to-stop-chatgpt-using-em-dashes",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

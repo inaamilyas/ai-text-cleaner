@@ -18,6 +18,18 @@ interface Article {
 
 const articlesData: Article[] = [
   {
+    slug: "how-to-stop-chatgpt-using-em-dashes",
+    title: "How to Stop ChatGPT from Using Em-Dashes (—): Prompts, Settings & 1-Click Fixes",
+    category: "AI Writing & Tone",
+    categoryKey: "ai-formatting",
+    date: "October 10, 2026",
+    readTime: "6 min read",
+    excerpt:
+      "Tired of ChatGPT inserting repetitive em-dashes into every paragraph? Discover why LLMs overuse em-dashes, exact Custom Instructions prompts to stop it, and how to normalize dashes in 1 click.",
+    tags: ["#ChatGPT", "#EmDashes", "#PromptEngineering", "#Formatting"],
+    keywords: "stop chatgpt em dashes how to remove em dash chatgpt punctuation formatting custom instructions",
+  },
+  {
     slug: "how-ai-text-detectors-work-burstiness-perplexity",
     title: "How AI Text Detectors Work: Perplexity and Burstiness Explained",
     category: "AI Writing & Tone",

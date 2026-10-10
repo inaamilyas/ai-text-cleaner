@@ -24,9 +24,9 @@ const robotoMono = Roboto_Mono({
 const siteUrl = "https://www.text-cleaner-ai.com";
 const siteName = "Text Cleaner AI";
 const siteTitle =
-  "Free AI Text Cleaner — Remove Hidden Characters From ChatGPT, Claude & Gemini Text";
+  "Clean AI Text & Free AI Text Cleaner — Remove ChatGPT Formatting & Hidden Characters";
 const siteDescription =
-  "Paste text from ChatGPT, Claude, or Gemini and clean it in one click. This free AI text cleaner strips hidden characters, smart quotes, and AI buzzwords. No sign-up, nothing leaves your browser.";
+  "Clean AI text in one click. Free, private AI text cleaner that removes invisible characters, smart quotes, ChatGPT em-dashes, and markdown artifacts directly in your browser.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -36,9 +36,12 @@ export const metadata: Metadata = {
   },
   description: siteDescription,
   keywords: [
-    "ai text cleaner",
+    "clean ai",
     "clean ai text",
-    "ai stripper free",
+    "ai text cleaner",
+    "chatgpt text cleaner",
+    "clean chatgpt text",
+    "remove hidden characters from chatgpt",
     "ai scrubber",
     "clean pasted text",
   ],

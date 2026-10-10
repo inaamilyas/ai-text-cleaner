@@ -33,6 +33,12 @@ interface BlogDetailTemplateProps {
 
 const allGuides: OtherGuide[] = [
   {
+    slug: "how-to-stop-chatgpt-using-em-dashes",
+    title: "How to Stop ChatGPT from Using Em-Dashes (—): Prompts, Settings & 1-Click Fixes",
+    category: "AI Writing & Tone",
+    readTime: "6 min read",
+  },
+  {
     slug: "how-ai-text-detectors-work-burstiness-perplexity",
     title: "How AI Text Detectors Work: Perplexity and Burstiness Explained",
     category: "AI Writing & Tone",
