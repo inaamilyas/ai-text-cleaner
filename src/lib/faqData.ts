@@ -1,3 +1,46 @@
+export const homepageFaqs = [
+  {
+    question: "What is Text Cleaner AI?",
+    answer:
+      "Text Cleaner AI is an online tool that helps clean text by fixing supported formatting issues, removing unwanted characters, and making copied text easier to reuse.",
+  },
+  {
+    question: "How do I clean my text?",
+    answer:
+      "Paste your text into the editor, select the cleaning options you need, run the tool, and copy the result.",
+  },
+  {
+    question: "What types of text can I clean?",
+    answer:
+      "You can use the cleaner with text from sources such as documents, websites, and AI chat tools. The exact changes depend on the cleaning options available.",
+  },
+  {
+    question: "Does cleaning text change its meaning?",
+    answer:
+      "Text-cleaning operations focus on formatting and characters rather than rewriting meaning. Review the output before using it, especially if your text contains special formatting or symbols.",
+  },
+  {
+    question: "Can I clean text from ChatGPT, Gemini, Claude, and Copilot?",
+    answer:
+      "The website provides separate tools for supported AI platforms. Choose the relevant tool from our tools directory to use its specific cleaning functionality.",
+  },
+  {
+    question: "Is my text stored or processed on a server?",
+    answer:
+      "No. All text cleaning runs directly inside your web browser using client-side JavaScript. Your content is never uploaded, stored, or sent to an external server.",
+  },
+  {
+    question: "Is Text Cleaner AI free?",
+    answer:
+      "Yes. Text Cleaner AI is free to use with no sign-up or subscription required.",
+  },
+  {
+    question: "Can I use the cleaned text in documents and emails?",
+    answer:
+      "You can copy the result and use it wherever the resulting text format is supported.",
+  },
+];
+
 export const defaultFaqs = [
   {
     question: "Is this really free?",

@@ -1,8 +1,21 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import copy from "copy-to-clipboard";
+import {
+  Sparkles,
+  Copy,
+  Check,
+  RotateCcw,
+  Download,
+  Trash2,
+  Play,
+  SlidersHorizontal,
+  ChevronDown,
+  ArrowRight,
+  ShieldCheck,
+} from "lucide-react";
 import {
   cleanText,
   cleaningOptionsList,
@@ -30,8 +43,6 @@ const presets = [
   {
     id: "chatgpt",
     label: "ChatGPT & Claude",
-    icon: "auto_fix_high",
-    iconColor: "text-primary",
     options: {
       removeMarkdown: true,
       normalizeQuotes: true,
@@ -44,8 +55,6 @@ const presets = [
   {
     id: "buzzwords",
     label: "Remove AI Buzzwords",
-    icon: "spellcheck",
-    iconColor: "text-secondary",
     options: {
       removeAIWords: true,
       removeMarkdown: true,
@@ -57,8 +66,6 @@ const presets = [
   {
     id: "code",
     label: "Code & JSON Safe",
-    icon: "code",
-    iconColor: "text-tertiary",
     options: {
       normalizeQuotes: true,
       normalizeDashes: true,
@@ -71,8 +78,6 @@ const presets = [
   {
     id: "docs",
     label: "Publishing & Docs",
-    icon: "description",
-    iconColor: "text-primary",
     options: {
       normalizeQuotes: true,
       normalizeDashes: true,
@@ -85,11 +90,16 @@ const presets = [
   {
     id: "all",
     label: "Strip Everything",
-    icon: "layers_clear",
-    iconColor: "text-error",
     options: defaultCleaningOptions,
   },
 ];
+
+function runTimedCleaning(input: string, options: CleaningOptions): { cleanResult: CleaningResult; durationMs: number } {
+  const start = Date.now();
+  const cleanResult = cleanText(input, options);
+  const durationMs = Date.now() - start;
+  return { cleanResult, durationMs };
+}
 
 export interface HeroProps {
   heading?: string;
@@ -98,13 +108,14 @@ export interface HeroProps {
 }
 
 export default function Hero({ heading, subheading, initialOptions }: HeroProps = {}) {
+  const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const { register, handleSubmit, control, reset, setValue } = useForm<FormValues>({
     defaultValues: { input: "", ...defaultCleaningOptions, ...initialOptions },
   });
 
   const [result, setResult] = useState<CleaningResult | null>(null);
   const [copied, setCopied] = useState(false);
-  const [optionsOpen, setOptionsOpen] = useState(true);
+  const [optionsOpen, setOptionsOpen] = useState(false);
   const [activePreset, setActivePreset] = useState<string>("chatgpt");
   const [execTime, setExecTime] = useState<number>(0);
 
@@ -118,12 +129,10 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
   );
 
   function onSubmit(values: FormValues) {
-    const t0 = performance.now();
     const { input, ...options } = values;
-    const cleanResult = cleanText(input, options);
+    const { cleanResult, durationMs } = runTimedCleaning(input, options);
     const inStats = getTextStats(input);
-    const duration = Math.round(performance.now() - t0);
-    setExecTime(duration);
+    setExecTime(durationMs);
     setResult(cleanResult);
     setCopied(false);
     trackCleanTextRun({
@@ -145,18 +154,21 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
     setValue("input", "");
     setResult(null);
     setExecTime(0);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   }
 
   function handleCopy() {
-    if (!result) return;
+    if (!result || !result.cleaned) return;
     copy(result.cleaned);
     setCopied(true);
     trackCopyText({ toolName: "homepage_cleaner", copyFormat: "plain_text" });
-    setTimeout(() => setCopied(false), 1500);
+    setTimeout(() => setCopied(false), 2000);
   }
 
   function handleDownload() {
-    if (!result) return;
+    if (!result || !result.cleaned) return;
     trackDownloadFile({ toolName: "homepage_cleaner", fileType: "txt" });
     const blob = new Blob([result.cleaned], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -175,10 +187,8 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
     const values = control._getWatch();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { input: _input, ...options } = values;
-    const t0 = performance.now();
-    const cleanResult = cleanText(sample, options as CleaningOptions);
-    const duration = Math.round(performance.now() - t0);
-    setExecTime(duration);
+    const { cleanResult, durationMs } = runTimedCleaning(sample, options as CleaningOptions);
+    setExecTime(durationMs);
     const sampleStats = getTextStats(sample);
     setResult(cleanResult);
     trackCleanTextRun({
@@ -200,10 +210,8 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
     if (hasText) {
       const values = control._getWatch();
       const { input, ...options } = values;
-      const t0 = performance.now();
-      const cleanResult = cleanText(input, options as CleaningOptions);
-      const duration = Math.round(performance.now() - t0);
-      setExecTime(duration);
+      const { cleanResult, durationMs } = runTimedCleaning(input, options as CleaningOptions);
+      setExecTime(durationMs);
       const inStats = getTextStats(input);
       setResult(cleanResult);
       trackCleanTextRun({
@@ -215,31 +223,53 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
     }
   }
 
+  function scrollToWorkspace() {
+    if (inputRef.current) {
+      inputRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+      inputRef.current.focus();
+    }
+  }
+
+  const { ref: registerRef, ...registerInputRest } = register("input");
+
   return (
-    <div className="w-full hero-section" id="hero">
-      {/* SECTION 1: HERO & WORKSPACE HUB */}
-      <section className="flex flex-col items-center text-center space-y-3 mb-6 md:mb-8 relative">
-        {/* Main Headline & Copy */}
-        <div className="space-y-2 w-full max-w-5xl">
-          <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight font-semibold">
-            {heading ?? "Clean AI Text & Strip Hidden ChatGPT Formatting"}
-          </h1>
-          <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-4xl mx-auto">
-            {subheading ??
-              "Paste text from ChatGPT, Claude, or Gemini to instantly clean AI formatting, normalize em-dashes, and strip invisible characters — 100% private in your browser."}
-          </p>
-        </div>
+    <div className="w-full" id="workspace">
+      {/* 1. HERO HEADER */}
+      <section className="flex flex-col items-center text-center pt-4 pb-8 max-w-4xl mx-auto px-4">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#172D4A] mb-4">
+          {heading ?? "Clean up your text in seconds"}
+        </h1>
+        <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-6 max-w-3xl">
+          {subheading ??
+            "Remove unwanted formatting, extra spaces, unnecessary line breaks, and hidden characters from copied text. Paste your content, clean it up, and get text that's easier to read and use."}
+        </p>
 
-        {/* Trust / Privacy Indicator */}
-        <div className="flex items-center gap-space-xs px-space-md py-1.5 rounded-xl bg-surface-container-low text-secondary font-label-md text-label-md shadow-sm">
-          <span className="material-symbols-outlined text-[16px] text-primary">verified_user</span>
-          <span>Private. 100% Browser-based processing. Zero server storage.</span>
+        {/* Action Triggers & Supporting Line */}
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
+          <button
+            type="button"
+            onClick={scrollToWorkspace}
+            className="px-6 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm transition-colors shadow-xs flex items-center gap-2 cursor-pointer"
+          >
+            <Sparkles className="w-4 h-4" />
+            <span>Clean My Text</span>
+          </button>
+          <a
+            href="#other-tools"
+            className="px-5 py-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-medium text-sm transition-colors flex items-center gap-1.5 no-underline"
+          >
+            <span>Explore All Tools</span>
+            <ArrowRight className="w-4 h-4 text-slate-400" />
+          </a>
         </div>
+        <p className="text-xs text-slate-500 font-normal">
+          A simple online workspace for cleaning and formatting text.
+        </p>
 
-        {/* Quick Presets Filter Track */}
-        <div className="w-full max-w-5xl pt-1 flex flex-wrap items-center justify-center gap-space-xs font-label-sm text-label-sm">
-          <span className="font-code-stat text-code-stat text-outline uppercase tracking-wider mr-space-xs">
-            QUICK PRESETS:
+        {/* Presets Bar */}
+        <div className="w-full pt-6 flex flex-wrap items-center justify-center gap-2 text-xs">
+          <span className="font-semibold text-slate-500 uppercase tracking-wider text-[11px] mr-1">
+            Presets:
           </span>
           {presets.map((preset) => {
             const isSelected = activePreset === preset.id;
@@ -248,184 +278,206 @@ export default function Hero({ heading, subheading, initialOptions }: HeroProps 
                 key={preset.id}
                 type="button"
                 onClick={() => applyPreset(preset.id, preset.options, preset.label)}
-                className={`preset-btn px-3 py-1.5 rounded-lg transition-all shadow-sm flex items-center gap-1.5 active:scale-95 cursor-pointer ${
+                className={`px-3 py-1.5 rounded-md transition-all text-xs font-medium cursor-pointer border ${
                   isSelected
-                    ? "bg-primary text-on-primary font-semibold"
-                    : "bg-surface-container-lowest text-on-surface hover:bg-surface-container-high"
+                    ? "bg-blue-50 border-blue-600 text-blue-700 font-semibold"
+                    : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50"
                 }`}
               >
-                <span className={`material-symbols-outlined text-[14px] ${isSelected ? "text-on-primary" : preset.iconColor}`}>
-                  {preset.icon}
-                </span>
-                <span>{preset.label}</span>
+                {preset.label}
               </button>
             );
           })}
         </div>
       </section>
 
-      {/* SECTION 2: DUAL-PANEL EDITOR WORKSPACE (CENTERPIECE) */}
-      <section className="w-full flex flex-col space-y-space-md mb-space-xl">
+      {/* 2. MAIN TEXT-CLEANING WORKSPACE */}
+      <section className="w-full max-w-6xl mx-auto mb-16">
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-          {/* Editor Frame */}
-          <div className="w-full bg-surface-container-lowest rounded-xl shadow-md overflow-hidden flex flex-col">
-            {/* Workspace Split (Left Input / Right Output) */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 relative">
+          <div className="bg-white border border-slate-200 rounded-xl shadow-xs overflow-hidden">
+            {/* Split Grid: Left Input / Right Output */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-200">
               {/* LEFT PANEL: INPUT */}
-              <div className="flex flex-col bg-surface-container-lowest p-space-md">
-                <div className="flex items-center justify-between pb-space-sm mb-space-xs">
-                  <div className="flex items-center gap-space-xs">
-                    <span className="w-2 h-2 rounded-full bg-primary"></span>
-                    <span className="font-headline-sm text-headline-sm text-on-surface font-medium">Input</span>
+              <div className="flex flex-col p-4 sm:p-5 bg-white">
+                <div className="flex items-center justify-between pb-3 mb-2 border-b border-slate-100">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+                    <label htmlFor="raw-input" className="text-sm font-semibold text-[#172D4A] cursor-pointer">
+                      Your text
+                    </label>
                     <button
                       type="button"
                       onClick={handleSampleText}
-                      className="ml-2 font-code-stat text-code-stat text-primary hover:underline flex items-center gap-1 bg-surface-container-low px-2 py-0.5 rounded cursor-pointer"
+                      className="ml-2 text-xs text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1 bg-blue-50 hover:bg-blue-100 px-2 py-0.5 rounded transition-colors cursor-pointer"
                     >
-                      <span className="material-symbols-outlined text-[12px]">play_arrow</span>
-                      <span>Try Sample Text</span>
+                      <Play className="w-3 h-3 fill-current" />
+                      <span>Try sample text</span>
                     </button>
                   </div>
-                  <span className="font-code-stat text-code-stat text-outline" id="input-stats">
+                  <span className="text-xs text-slate-500 font-mono" id="input-stats">
                     {inputStats.words} words, {inputStats.characters} chars
                   </span>
                 </div>
+
                 <textarea
-                  {...register("input")}
-                  className="w-full bg-transparent resize-none font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none leading-relaxed"
+                  {...registerInputRest}
+                  ref={(e) => {
+                    registerRef(e);
+                    inputRef.current = e;
+                  }}
                   id="raw-input"
-                  placeholder='Paste messy AI text here (e.g. smart quotes, em dashes, zero-width chars, "delve", markdown artifacts)...'
+                  className="w-full bg-transparent resize-none text-sm text-[#172D4A] placeholder:text-slate-400 focus:outline-none leading-relaxed min-h-[220px] font-sans"
+                  placeholder="Paste or type the text you want to clean…"
                   rows={9}
                 ></textarea>
-                <div className="pt-space-sm flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
-                  <span className="flex items-center gap-1 text-outline">
-                    <span className="material-symbols-outlined text-[14px]">info</span>
-                    <span>Raw Text Buffer</span>
+
+                <div className="pt-3 mt-auto border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                  <span className="flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
+                    <span>Processed locally in browser</span>
                   </span>
                   <button
                     type="button"
                     onClick={handleClearInput}
-                    className="hover:text-error transition-colors flex items-center gap-1 cursor-pointer"
+                    className="hover:text-red-600 transition-colors flex items-center gap-1 text-slate-500 font-medium cursor-pointer"
                   >
-                    <span className="material-symbols-outlined text-[13px]">delete_sweep</span> Clear
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Clear</span>
                   </button>
                 </div>
               </div>
 
               {/* RIGHT PANEL: OUTPUT */}
-              <div className="flex flex-col bg-surface-container-low p-space-md">
-                <div className="flex items-center justify-between pb-space-sm mb-space-xs">
-                  <div className="flex items-center gap-space-xs">
-                    <span className="w-2 h-2 rounded-full bg-primary-fixed-variant"></span>
-                    <span className="font-headline-sm text-headline-sm text-on-surface font-medium">Output</span>
+              <div className="flex flex-col p-4 sm:p-5 bg-[#F4F7FB]/50">
+                <div className="flex items-center justify-between pb-3 mb-2 border-b border-slate-200">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
+                    <label htmlFor="clean-output" className="text-sm font-semibold text-[#172D4A]">
+                      Cleaned text
+                    </label>
                   </div>
-                  <div className="flex items-center gap-space-sm">
-                    <span className="font-code-stat text-code-stat text-outline" id="output-stats">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs text-slate-500 font-mono" id="output-stats">
                       {outputStats.words} words, {outputStats.characters} chars
                     </span>
                     <button
                       type="button"
                       onClick={handleCopy}
-                      className="px-2.5 py-1 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-sm text-label-sm shadow-sm transition-all flex items-center gap-1 cursor-pointer"
+                      disabled={!result?.cleaned}
+                      className={`px-3 py-1 rounded text-xs font-medium border transition-colors flex items-center gap-1.5 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
+                        copied
+                          ? "bg-emerald-50 text-emerald-700 border-emerald-300 font-semibold"
+                          : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
+                      }`}
                       id="copy-btn"
                     >
-                      <span className="material-symbols-outlined text-[14px]">
-                        {copied ? "check" : "content_copy"}
-                      </span>
-                      <span id="copy-text">{copied ? "Copied" : "Copy"}</span>
+                      {copied ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-emerald-600" />
+                          <span>Copied</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5 text-slate-500" />
+                          <span>Copy Result</span>
+                        </>
+                      )}
                     </button>
                   </div>
                 </div>
+
                 <textarea
                   readOnly
                   value={result?.cleaned ?? ""}
-                  className="w-full bg-transparent resize-none font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none leading-relaxed"
                   id="clean-output"
-                  placeholder="Cleaned results will materialize here"
+                  className="w-full bg-transparent resize-none text-sm text-[#172D4A] placeholder:text-slate-400 focus:outline-none leading-relaxed min-h-[220px] font-sans"
+                  placeholder="Cleaned text will appear here…"
                   rows={9}
                 ></textarea>
-                <div className="pt-space-sm flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
-                  <span className="flex items-center gap-1 text-primary">
-                    <span className="material-symbols-outlined text-[14px]">verified</span>
-                    <span>Sanitized Output Stream</span>
+
+                <div className="pt-3 mt-auto border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+                  <span className="text-slate-500 font-mono">
+                    {result ? `${result.totalChanges} supported issues fixed` : "Ready to clean"}
                   </span>
                   <button
                     type="button"
                     onClick={handleDownload}
-                    className="hover:text-primary transition-colors flex items-center gap-1 cursor-pointer"
+                    disabled={!result?.cleaned}
+                    className="hover:text-blue-600 transition-colors flex items-center gap-1 text-slate-500 font-medium cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <span className="material-symbols-outlined text-[14px]">download</span> Export .txt
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Download .txt</span>
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* CENTRAL ACTION STRIP */}
-            <div className="bg-surface-container px-space-md py-space-sm flex flex-col md:flex-row items-center justify-between gap-space-sm">
-              <div className="flex items-center gap-2 font-code-stat text-code-stat text-secondary">
-                <span className="material-symbols-outlined text-[15px] text-primary">sync_alt</span>
-                <span>Input → Output</span>
+            {/* ACTION STRIP */}
+            <div className="bg-slate-50 px-4 sm:px-5 py-3 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="text-xs text-slate-500 font-mono">
+                {execTime > 0 ? `Completed in ${execTime}ms` : "Fast, in-browser processing"}
               </div>
-              <div className="flex items-center gap-space-sm">
+
+              <div className="flex items-center gap-2.5">
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="px-4 py-2 rounded-lg bg-surface-container-lowest hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all shadow-sm cursor-pointer"
+                  className="px-4 py-2 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 text-slate-700 font-medium text-xs transition-colors cursor-pointer"
                 >
-                  Reset
+                  <span className="flex items-center gap-1.5">
+                    <RotateCcw className="w-3.5 h-3.5 text-slate-500" />
+                    <span>Reset</span>
+                  </span>
                 </button>
+
                 <button
                   type="submit"
-                  className="px-6 py-2 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md transition-all shadow-md flex items-center gap-2 cursor-pointer"
+                  className="px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs transition-colors shadow-xs flex items-center gap-2 cursor-pointer"
                 >
-                  <span className="material-symbols-outlined text-[16px]">auto_awesome</span>
+                  <Sparkles className="w-3.5 h-3.5" />
                   <span>Clean Text</span>
                 </button>
-              </div>
-              {/* Processing Status Bar */}
-              <div className="font-code-stat text-code-stat text-outline" id="execution-status">
-                • {execTime}ms • {result ? result.totalChanges : 0} issues fixed • UTF-8 NFC Verified
               </div>
             </div>
           </div>
 
-          {/* EXPANDABLE CLEANING OPTIONS PANEL */}
-          <div className="w-full bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden transition-all duration-200 mt-space-md">
+          {/* EXPANDABLE CLEANING OPTIONS */}
+          <div className="mt-4 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
             <button
               type="button"
               onClick={() => setOptionsOpen(!optionsOpen)}
-              className="w-full px-space-md py-3 flex items-center justify-between bg-surface-container-low hover:bg-surface-container text-left transition-colors cursor-pointer"
+              className="w-full px-4 sm:px-5 py-3 flex items-center justify-between bg-white hover:bg-slate-50 text-left transition-colors cursor-pointer"
             >
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[18px] text-primary">tune</span>
-                <span className="font-headline-sm text-headline-sm text-on-surface font-medium">
-                  Cleaning options (14 rules)
+                <SlidersHorizontal className="w-4 h-4 text-blue-600" />
+                <span className="text-sm font-semibold text-[#172D4A]">
+                  Cleaning Options ({cleaningOptionsList.length} verified rules)
                 </span>
               </div>
-              <span
-                className={`material-symbols-outlined text-secondary transition-transform duration-200 ${
+              <ChevronDown
+                className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
                   optionsOpen ? "rotate-180" : ""
                 }`}
-                id="options-chevron"
-              >
-                expand_more
-              </span>
+              />
             </button>
+
             {optionsOpen && (
-              <div className="p-space-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-sm" id="options-grid">
-                {cleaningOptionsList.map((opt) => (
-                  <label
-                    key={opt.key}
-                    className="flex items-center gap-space-sm p-2 rounded-lg hover:bg-surface-container-low cursor-pointer"
-                  >
-                    <input
-                      type="checkbox"
-                      {...register(opt.key)}
-                      className="w-4 h-4 rounded text-primary accent-primary"
-                    />
-                    <span className="font-label-sm text-label-sm text-on-surface">{opt.label}</span>
-                  </label>
-                ))}
+              <div className="p-4 sm:p-5 border-t border-slate-200 bg-[#F4F7FB]/40">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                  {cleaningOptionsList.map((opt) => (
+                    <label
+                      key={opt.key}
+                      className="flex items-start gap-2.5 p-2.5 rounded-lg bg-white border border-slate-200/80 hover:border-slate-300 hover:bg-white text-xs cursor-pointer transition-colors"
+                    >
+                      <input
+                        type="checkbox"
+                        {...register(opt.key)}
+                        className="mt-0.5 w-4 h-4 rounded text-blue-600 accent-blue-600 border-slate-300"
+                      />
+                      <span className="text-slate-700 leading-snug">{opt.label}</span>
+                    </label>
+                  ))}
+                </div>
               </div>
             )}
           </div>

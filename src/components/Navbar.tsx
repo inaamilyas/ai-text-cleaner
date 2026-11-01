@@ -3,44 +3,33 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown, Sparkles } from "lucide-react";
 
 const toolCategories = [
   {
-    category: "AI Analysis & Tone",
+    category: "AI Cleaners",
     items: [
-      { href: "/ai-text-detector", label: "AI / GPT Detector", badge: "DET" },
-      { href: "/humanize-ai-text", label: "AI Text Humanizer", badge: "HUM" },
-      { href: "/remove-ai-words", label: "Remove AI Words", badge: "RAW" },
-      { href: "/check-readability-score", label: "Readability Score", badge: "RDS" },
+      { href: "/clean-chatgpt-text", label: "ChatGPT Cleaner", badge: "GPT" },
+      { href: "/clean-claude-text", label: "Claude Cleaner", badge: "CLD" },
+      { href: "/clean-gemini-text", label: "Gemini Cleaner", badge: "GEM" },
     ],
   },
   {
     category: "Text Sanitization",
     items: [
-      { href: "/clean-chatgpt-text", label: "Clean ChatGPT Text", badge: "GPT" },
-      { href: "/clean-claude-text", label: "Clean Claude Text", badge: "CLD" },
-      { href: "/clean-gemini-text", label: "Clean Gemini Text", badge: "GEM" },
-      { href: "/remove-invisible-characters", label: "Remove Invisible Chars", badge: "INV" },
-      { href: "/visualize-invisible-characters", label: "Invisible Visualizer", badge: "VIS" },
+      { href: "/remove-invisible-characters", label: "Invisible Chars", badge: "INV" },
       { href: "/clean-unicode-homoglyphs", label: "Unicode Homoglyphs", badge: "GLY" },
+      { href: "/markdown-to-plain-text", label: "Markdown to Plain", badge: "MD" },
     ],
   },
   {
-    category: "Files & Prompts",
+    category: "Detection & Files",
     items: [
-      { href: "/clean-pdf-metadata", label: "PDF Metadata Cleaner", badge: "PDF" },
-      { href: "/remove-ai-image-metadata", label: "AI Image Metadata", badge: "IMG" },
-      { href: "/strip-ai-prompts", label: "Strip AI Prompts", badge: "STP" },
-      { href: "/markdown-to-plain-text", label: "Markdown to Plain Text", badge: "MD" },
+      { href: "/ai-text-detector", label: "AI Detector", badge: "DET" },
+      { href: "/humanize-ai-text", label: "Text Humanizer", badge: "HUM" },
+      { href: "/clean-pdf-metadata", label: "PDF Metadata", badge: "PDF" },
     ],
   },
-];
-
-const navLinks = [
-  { href: "/about", label: "About Us" },
-  { href: "/blog", label: "Blog & Guides" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -69,46 +58,62 @@ export default function Navbar() {
     };
   }, [toolsMenuOpen]);
 
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md border-b border-surface-container-highest">
-      <div className="container mx-auto px-4 md:px-6 h-16 md:h-[68px] flex items-center justify-between gap-space-md">
-        <div className="flex items-center gap-space-lg">
+  function scrollToWorkspace() {
+    const el = document.getElementById("raw-input") || document.getElementById("workspace");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.focus();
+    }
+  }
 
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200">
+      <div className="container mx-auto px-4 md:px-6 h-16 flex items-center justify-between gap-4">
+        <div className="flex items-center gap-6">
           <Link className="flex items-center gap-2.5 group no-underline" href="/">
             <Image
               src="/logo.png"
               alt="Text Cleaner AI Logo"
-              width={36}
-              height={36}
+              width={32}
+              height={32}
               priority
-              className="w-9 h-9 rounded-lg object-contain shadow-xs transition-transform group-hover:scale-105"
+              className="w-8 h-8 rounded-lg object-contain transition-transform group-hover:scale-105"
             />
-            <span className="font-semibold text-lg md:text-[19px] tracking-tight text-on-surface">
+            <span className="font-bold text-lg tracking-tight text-[#172D4A]">
               Text Cleaner AI
             </span>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1 text-sm font-medium text-slate-600">
+            <Link
+              href="/"
+              className="px-3 py-1.5 rounded-md hover:text-[#172D4A] hover:bg-slate-100 transition-colors no-underline"
+            >
+              Home
+            </Link>
+
+            {/* Compact All Tools Menu */}
             <div className="relative" ref={toolsMenuRef}>
               <button
                 type="button"
                 onClick={() => setToolsMenuOpen((open) => !open)}
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors font-medium text-[15px] cursor-pointer"
+                className="flex items-center gap-1 px-3 py-1.5 rounded-md hover:text-[#172D4A] hover:bg-slate-100 transition-colors cursor-pointer"
               >
-                <span className="material-symbols-outlined text-[16px]">tune</span>
-                <span>Tools</span>
-                <span className={`material-symbols-outlined text-[15px] transition-transform duration-200 ${toolsMenuOpen ? "rotate-180" : ""}`}>
-                  expand_more
-                </span>
+                <span>All Tools</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    toolsMenuOpen ? "rotate-180" : ""
+                  }`}
+                />
               </button>
 
               {toolsMenuOpen && (
-                <div className="absolute top-full left-0 pt-2 w-[720px] max-w-[90vw] z-50 animate-in fade-in duration-100">
-                  <div className="p-4 rounded-2xl bg-surface-container-lowest border border-surface-container-highest/80 shadow-2xl grid grid-cols-3 gap-4">
+                <div className="absolute top-full left-0 pt-2 w-[540px] max-w-[90vw] z-50">
+                  <div className="p-3.5 rounded-xl bg-white border border-slate-200 shadow-lg grid grid-cols-3 gap-3">
                     {toolCategories.map((col) => (
                       <div key={col.category} className="flex flex-col gap-1">
-                        <span className="text-code-stat uppercase tracking-wider text-outline font-semibold mb-1 px-2">
+                        <span className="text-[11px] uppercase tracking-wider text-slate-400 font-semibold px-2 mb-0.5 font-mono">
                           {col.category}
                         </span>
                         <div className="flex flex-col gap-0.5">
@@ -117,10 +122,12 @@ export default function Navbar() {
                               key={t.href}
                               href={t.href}
                               onClick={() => setToolsMenuOpen(false)}
-                              className="px-2.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-label-sm text-label-sm flex items-center justify-between no-underline transition-colors"
+                              className="px-2 py-1.5 rounded-md text-xs text-slate-700 hover:text-blue-700 hover:bg-blue-50 flex items-center justify-between no-underline transition-colors"
                             >
                               <span className="truncate mr-1">{t.label}</span>
-                              <span className="font-code-stat text-code-stat text-outline shrink-0">{t.badge}</span>
+                              <span className="text-[10px] text-slate-400 font-mono shrink-0">
+                                {t.badge}
+                              </span>
                             </Link>
                           ))}
                         </div>
@@ -131,58 +138,73 @@ export default function Navbar() {
               )}
             </div>
 
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="px-3.5 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors font-medium text-[15px] no-underline"
-              >
-                {link.label}
-              </Link>
-            ))}
+            <a
+              href="#how-it-works"
+              className="px-3 py-1.5 rounded-md hover:text-[#172D4A] hover:bg-slate-100 transition-colors no-underline"
+            >
+              How It Works
+            </a>
+            <a
+              href="#faq"
+              className="px-3 py-1.5 rounded-md hover:text-[#172D4A] hover:bg-slate-100 transition-colors no-underline"
+            >
+              FAQ
+            </a>
           </nav>
         </div>
 
-        {/* Right Controls: Avatar / Hamburger */}
-        <div className="flex items-center gap-space-sm">
-          <div className="hidden sm:flex w-9 h-9 rounded-full bg-primary items-center justify-center shadow-xs">
-            <span className="material-symbols-outlined text-on-primary text-[18px]">person</span>
-          </div>
+        {/* Right Action: Clean Your Text + Mobile Hamburger */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            type="button"
+            onClick={scrollToWorkspace}
+            className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs sm:text-sm transition-colors shadow-xs flex items-center gap-1.5 cursor-pointer"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Clean Your Text</span>
+          </button>
 
           {/* Mobile hamburger toggle */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg border border-surface-container-highest bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-colors"
+            className="md:hidden p-2 rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
             aria-label="Toggle Menu"
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <nav className="border-t border-surface-container-highest bg-surface-container-lowest px-4 py-3 md:hidden flex flex-col gap-1 shadow-lg max-h-[85vh] overflow-y-auto">
+        <nav className="border-t border-slate-200 bg-white px-4 py-3 md:hidden flex flex-col gap-1 shadow-md max-h-[85vh] overflow-y-auto text-sm">
+          <Link
+            href="/"
+            onClick={() => setMobileMenuOpen(false)}
+            className="px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors no-underline"
+          >
+            Home
+          </Link>
+
           <button
             type="button"
             onClick={() => setMobileToolsOpen(!mobileToolsOpen)}
-            className="flex items-center justify-between px-3 py-2 rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors"
+            className="flex items-center justify-between px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors cursor-pointer text-left"
           >
-            <span className="flex items-center gap-1.5">
-              <span className="material-symbols-outlined text-[16px] text-primary">tune</span>
-              <span>All 12 Tools</span>
-            </span>
-            <span className={`material-symbols-outlined text-[16px] transition-transform ${mobileToolsOpen ? "rotate-180" : ""}`}>
-              expand_more
-            </span>
+            <span>All Tools</span>
+            <ChevronDown
+              className={`w-4 h-4 text-slate-400 transition-transform ${
+                mobileToolsOpen ? "rotate-180" : ""
+              }`}
+            />
           </button>
 
           {mobileToolsOpen && (
-            <div className="pl-2 flex flex-col gap-3 my-1">
+            <div className="pl-3 flex flex-col gap-3 my-1 border-l-2 border-slate-200 ml-3">
               {toolCategories.map((col) => (
                 <div key={col.category} className="flex flex-col gap-1">
-                  <span className="text-code-stat uppercase tracking-wider text-outline font-semibold px-2">
+                  <span className="text-[11px] uppercase tracking-wider text-slate-400 font-semibold font-mono">
                     {col.category}
                   </span>
                   <div className="flex flex-col gap-0.5">
@@ -194,10 +216,10 @@ export default function Navbar() {
                           setMobileMenuOpen(false);
                           setMobileToolsOpen(false);
                         }}
-                        className="px-2.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-label-sm text-label-sm flex items-center justify-between no-underline"
+                        className="px-2 py-1.5 rounded text-xs text-slate-600 hover:text-blue-700 hover:bg-blue-50 flex items-center justify-between no-underline"
                       >
                         <span>{t.label}</span>
-                        <span className="font-code-stat text-code-stat text-outline">{t.badge}</span>
+                        <span className="text-[10px] text-slate-400 font-mono">{t.badge}</span>
                       </Link>
                     ))}
                   </div>
@@ -206,16 +228,20 @@ export default function Navbar() {
             </div>
           )}
 
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors no-underline"
-            >
-              {link.label}
-            </Link>
-          ))}
+          <a
+            href="#how-it-works"
+            onClick={() => setMobileMenuOpen(false)}
+            className="px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors no-underline"
+          >
+            How It Works
+          </a>
+          <a
+            href="#faq"
+            onClick={() => setMobileMenuOpen(false)}
+            className="px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors no-underline"
+          >
+            FAQ
+          </a>
         </nav>
       )}
     </header>
