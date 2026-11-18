@@ -27,6 +27,7 @@ export const cleaningOptionsList = [
   { key: "removeLaTeX", label: "Remove LaTeX math markup" },
   { key: "removeHTML", label: "Strip HTML tags" },
   { key: "removeAIFluff", label: "Strip AI conversational intro/outro" },
+  { key: "removeCitations", label: "Remove citation markers ([1], 【4:0†source】)" },
 ] as const;
 
 export type CleaningOptionKey = (typeof cleaningOptionsList)[number]["key"];
@@ -34,7 +35,12 @@ export type CleaningOptions = Record<CleaningOptionKey, boolean>;
 
 export const defaultCleaningOptions: CleaningOptions = cleaningOptionsList.reduce(
   (options, { key }) => {
-    options[key] = key !== "removeAIWords" && key !== "removeEmoji" && key !== "removeDecorativeSymbols" ? true : false;
+    options[key] = key !== "removeAIWords" &&
+      key !== "removeEmoji" &&
+      key !== "removeDecorativeSymbols" &&
+      key !== "removeCitations"
+        ? true
+        : false;
     return options;
   },
   {} as CleaningOptions
@@ -98,6 +104,12 @@ const LATEX_DELIMITER_REGEX = /\\\(|\\\)|\\\[|\\\]|\$([^$\n]+)\$/g;
 const HTML_TAG_REGEX = /<[^>]+>/g;
 const AI_FLUFF_INTRO_REGEX = /^(?:Sure|Certainly|Here is|Here's|Of course)[!.,].*?\n+/gi;
 const AI_FLUFF_OUTRO_REGEX = /\n+.*?(?:Hope this helps|Let me know if you need|Feel free to ask).*?$/gi;
+
+// Citation markers: Gemini/Perplexity-style [1] [2][3] [1, 2], ChatGPT search
+// markers 【4:0†source】, :contentReference[oaicite:0]{index=0}, and the
+// private-use-wrapped cite tokens ChatGPT emits when copying search answers.
+const CITATION_REGEX =
+  /[ \t]?(?:\[\d{1,3}(?:\s*[,\-\u2013]\s*\d{1,3})*\])+|[ \t]?\u3010[^\u3011\n]*\u3011|[ \t]?:contentReference\[oaicite:\d+\]\{index=\d+\}|[ \t]?\uE200[^\uE201\n]*\uE201/g;
 
 function countMatches(text: string, regex: RegExp): number {
   const matches = text.match(regex);
@@ -168,6 +180,14 @@ export function cleanText(
     text = text.replace(AI_FLUFF_INTRO_REGEX, "").replace(AI_FLUFF_OUTRO_REGEX, "");
     if (introMatches + outroMatches > 0) {
       summary.push({ label: "AI conversational fluff removed", count: introMatches + outroMatches });
+    }
+  }
+
+  if (options.removeCitations) {
+    const citationCount = countMatches(text, CITATION_REGEX);
+    text = text.replace(CITATION_REGEX, "");
+    if (citationCount > 0) {
+      summary.push({ label: "citation markers removed", count: citationCount });
     }
   }
 

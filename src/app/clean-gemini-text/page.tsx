@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SubToolContent from "@/components/SubToolContent";
+import RelatedGuides from "@/components/RelatedGuides";
 
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Clean Google Gemini Text — Remove Citations, Markdown & Search Artifacts",
+  title: "Clean Gemini Text: Remove [1][2] Citations, Markdown & Hidden Spaces",
   description:
-    "Clean text copied from Google Gemini 1.5 & 2.0. Instantly remove inline citation brackets [1][2], conversational intros, markdown asterisks, and smart quotes.",
+    "Paste text copied from Google Gemini and remove [1][2] citation numbers, markdown asterisks, chatty intros, curly quotes and hidden characters. Free, in your browser.",
   keywords: [
     "clean gemini text",
     "gemini cleaner",
@@ -20,9 +21,9 @@ export const metadata: Metadata = {
     canonical: "/clean-gemini-text",
   },
   openGraph: {
-    title: "Clean Google Gemini Text — Remove Citations, Markdown & Search Artifacts",
+    title: "Clean Gemini Text: Remove [1][2] Citations, Markdown & Hidden Spaces",
     description:
-      "Clean text copied from Google Gemini 1.5 & 2.0. Instantly remove inline citation brackets, conversational intros, and markdown asterisks.",
+      "Remove [1][2] citation numbers, markdown and chatty intros from text copied out of Google Gemini.",
     url: `${siteUrl}/clean-gemini-text`,
   },
 };
@@ -31,7 +32,7 @@ const removedItems = [
   {
     character: "Inline Search Citations",
     unicode: "[1], [2], [1][2]",
-    description: "Gemini's automatic web search grounding citation numbers that clutter pasted text.",
+    description: "Bracketed source numbers from grounded answers, including [1], [2], [1][2] and [1, 2]. Any bracketed number is removed, so untick the option if your text uses [3]-style references on purpose.",
   },
   {
     character: "Conversational Openers & Sign-Offs",
@@ -57,7 +58,7 @@ const howToSteps = [
   },
   {
     title: "Paste into Gemini Cleaner",
-    description: "Paste your text into the input field above. Citation and markdown rules activate automatically.",
+    description: "Paste into the box above. The Gemini preset is already on, including citation-number removal.",
   },
   {
     title: "Click Clean & Copy",
@@ -74,7 +75,7 @@ const faqs = [
   {
     question: "Does cleaning affect the accuracy of the information?",
     answer:
-      "No. It strictly cleans surface formatting, bracketed citations, and typography without rewriting or altering your factual content.",
+      "No. It only removes surface formatting, bracketed citation numbers and typography. The wording is not rewritten. The links behind the citations are not copied with plain text, so keep your sources before cleaning if you need them.",
   },
   {
     question: "Is my Gemini text stored on your server?",
@@ -84,9 +85,9 @@ const faqs = [
 ];
 
 const benchmarks = [
-  { name: "Google Chrome", time: "Instant" },
-  { name: "Apple Safari", time: "Instant" },
-  { name: "Mozilla Firefox", time: "Instant" },
+  { name: "Runs in your browser", time: "No upload" },
+  { name: "Account required", time: "None" },
+  { name: "Cost", time: "Free" },
 ];
 
 export default function CleanGeminiPage() {
@@ -102,6 +103,7 @@ export default function CleanGeminiPage() {
           removeTrailingWhitespace: true,
           removeHiddenCharacters: true,
           removeAIFluff: true,
+          removeCitations: true,
         }}
       />
       <SubToolContent
@@ -142,11 +144,21 @@ export default function CleanGeminiPage() {
         beforeNote="Contains: Conversational intro, citation brackets [1][2], ** markdown"
         afterNote="Purged: Citations removed, plain text clean formatting restored"
         streamChart={false}
-        benchmarksTitle="Browser Execution Latency"
+        benchmarksTitle="At a glance"
         benchmarks={benchmarks}
         removedItems={removedItems}
         howToSteps={howToSteps}
         faqs={faqs}
+        extraContent={
+          <RelatedGuides
+            title="Related cleanup tools"
+            links={[
+              { href: "/clean-chatgpt-text", label: "Clean ChatGPT text", desc: "Em dashes, LaTeX markers and hidden spaces from ChatGPT." },
+              { href: "/clean-claude-text", label: "Clean Claude text", desc: "Markdown, XML-style tags and em dashes from Claude." },
+              { href: "/remove-invisible-characters", label: "Remove invisible characters", desc: "Strip zero-width and other hidden characters." },
+            ]}
+          />
+        }
       />
     </div>
   );

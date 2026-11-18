@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SubToolContent from "@/components/SubToolContent";
+import RelatedGuides from "@/components/RelatedGuides";
 
 const siteUrl = "https://www.text-cleaner-ai.com";
 
 export const metadata: Metadata = {
-  title: "Clean Claude AI Text — Remove Formatting, Thinking Tags & XML Artifacts",
+  title: "Clean Claude Text: Remove Markdown, Em Dashes & XML Tags",
   description:
-    "Clean text copied from Anthropic Claude 3.5 Sonnet & Claude Haiku. Instantly strip conversational fluff, thinking blocks, markdown symbols, and smart quotes.",
+    "Paste text copied from Claude (Anthropic) and remove markdown symbols, em dashes, curly quotes, XML-style tags, chatty intros and hidden characters. Free, in your browser.",
   keywords: [
     "clean claude text",
     "clean claude",
@@ -20,9 +21,9 @@ export const metadata: Metadata = {
     canonical: "/clean-claude-text",
   },
   openGraph: {
-    title: "Clean Claude AI Text — Remove Formatting, Thinking Tags & XML Artifacts",
+    title: "Clean Claude Text: Remove Markdown, Em Dashes & XML Tags",
     description:
-      "Clean text copied from Anthropic Claude 3.5 Sonnet & Claude Haiku. Instantly strip conversational fluff, thinking blocks, and markdown symbols.",
+      "Remove markdown, em dashes, curly quotes, XML-style tags and chatty intros from text copied out of Claude.",
     url: `${siteUrl}/clean-claude-text`,
   },
 };
@@ -31,12 +32,12 @@ const removedItems = [
   {
     character: "Conversational Openers",
     unicode: "\"Here is a comprehensive breakdown...\"",
-    description: "Claude's signature polite conversational greetings that should be removed before publishing.",
+    description: "Polite lead-ins such as \"Certainly! Here is...\" and closing offers to help, removed before you publish.",
   },
   {
     character: "Thinking & XML Tags",
     unicode: "<thinking>, <antThinking>, ```tags",
-    description: "Internal reasoning artifacts and prompt markers Claude outputs during complex analysis.",
+    description: "Angle-bracket tags such as <thinking> are stripped. Text between the tags is kept, so delete any reasoning section you do not want before cleaning.",
   },
   {
     character: "Markdown Syntax",
@@ -46,18 +47,18 @@ const removedItems = [
   {
     character: "Em-Dashes & Smart Quotes",
     unicode: "U+2014 (—), U+201C (“), U+201D (”)",
-    description: "Typographic punctuation Claude heavily defaults to, normalized to standard hyphens and quotes.",
+    description: "Typographic punctuation that breaks code, CSVs and strict style guides, converted to plain hyphens and straight quotes.",
   },
 ];
 
 const howToSteps = [
   {
     title: "Copy Claude Output",
-    description: "Copy your response or draft directly from the Claude.ai web interface or Anthropic API.",
+    description: "Copy the response from claude.ai, the mobile app, Claude Code or API output.",
   },
   {
     title: "Paste into Claude Cleaner",
-    description: "Paste your text into the input box above. Pre-configured filters automatically activate.",
+    description: "Paste into the box above. The Claude preset is already on: markdown, tags, em dashes, quotes and hidden characters.",
   },
   {
     title: "Click Clean & Copy",
@@ -69,12 +70,12 @@ const faqs = [
   {
     question: "Why does Claude text need dedicated cleaning?",
     answer:
-      "Anthropic's Claude models have unique linguistic patterns: they frequently start answers with elaborate polite preambles ('Certainly, I would be happy to help with that'), insert XML tag structures, and overuse parenthetical em-dashes. This cleaner strips those quirks automatically.",
+      "Claude answers often open with a polite preamble, use Markdown formatting, include XML-style tags when asked to structure output, and use em dashes. Pasted into Word, email or a CMS, those show up as raw symbols. This cleaner removes them.",
   },
   {
     question: "Does this remove Claude code blocks?",
     answer:
-      "No. It strips stray markdown fences if you choose, but your actual code and logic remain intact and uncorrupted.",
+      "Inline backticks are removed as markdown, but your code text itself is not rewritten. If you are pasting a lot of code, untick \"Remove markdown formatting\" and \"Strip HTML tags\" first so angle brackets in your code are kept.",
   },
   {
     question: "Is my text sent to Anthropic or any other server?",
@@ -84,9 +85,9 @@ const faqs = [
 ];
 
 const benchmarks = [
-  { name: "Google Chrome", time: "Instant" },
-  { name: "Apple Safari", time: "Instant" },
-  { name: "Mozilla Firefox", time: "Instant" },
+  { name: "Runs in your browser", time: "No upload" },
+  { name: "Account required", time: "None" },
+  { name: "Cost", time: "Free" },
 ];
 
 export default function CleanClaudePage() {
@@ -94,7 +95,7 @@ export default function CleanClaudePage() {
     <div className="w-full">
       <Hero
         heading="Clean Anthropic Claude AI Text"
-        subheading="Paste text copied from Claude 3.5 Sonnet or Haiku. Instantly strip conversational fluff, reasoning tags, markdown artifacts, and curly quotes in your browser."
+        subheading="Paste text copied from Claude. Strip chatty intros, XML-style tags, markdown symbols, em dashes and curly quotes in your browser."
         initialOptions={{
           removeMarkdown: true,
           normalizeQuotes: true,
@@ -109,7 +110,7 @@ export default function CleanClaudePage() {
         badgeLabel="Anthropic Sanitization"
         badgeIcon="face"
         directAnswerTitle="Why Does Claude AI Output Need Specialized Cleaning?"
-        directAnswerText="Claude 3.5 Sonnet produces exceptionally coherent prose, but it carries distinctive platform artifacts: polite conversational intros ('I'd be glad to assist with this analysis:'), repetitive em-dashes, and markdown formatting that breaks when pasted into email clients or Word documents. This specialized cleaner eliminates these cues in under 10 milliseconds."
+        directAnswerText="Claude writes clean, coherent prose, but copying it out of the chat brings some baggage: polite conversational intros ('I'd be glad to assist with this analysis:'), repetitive em-dashes, and markdown formatting that breaks when pasted into email clients or Word documents. This cleaner removes them while leaving your wording untouched."
         beforeBadgeText="BEFORE: Raw Claude Chat Output"
         afterBadgeText="AFTER: Sanitized Clean Text"
         beforeExample={
@@ -146,11 +147,21 @@ export default function CleanClaudePage() {
         beforeNote="Contains: Conversational fluff intro, ** markdown, em-dash U+2014"
         afterNote="Purged: Fluff stripped, plain text ASCII formatting restored"
         streamChart={false}
-        benchmarksTitle="Browser Execution Latency"
+        benchmarksTitle="At a glance"
         benchmarks={benchmarks}
         removedItems={removedItems}
         howToSteps={howToSteps}
         faqs={faqs}
+        extraContent={
+          <RelatedGuides
+            title="Related cleanup tools"
+            links={[
+              { href: "/clean-chatgpt-text", label: "Clean ChatGPT text", desc: "Em dashes, LaTeX markers and hidden spaces from ChatGPT." },
+              { href: "/clean-gemini-text", label: "Clean Gemini text", desc: "Remove [1][2] citation numbers and markdown from Gemini." },
+              { href: "/blog/how-to-stop-chatgpt-using-em-dashes", label: "Stop AI em dashes", desc: "Prompts that cut em dashes before you paste." },
+            ]}
+          />
+        }
       />
     </div>
   );

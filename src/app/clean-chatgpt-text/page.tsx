@@ -1,81 +1,140 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SubToolContent from "@/components/SubToolContent";
+import RelatedGuides from "@/components/RelatedGuides";
 
 const siteUrl = "https://www.text-cleaner-ai.com";
+const pageTitle = "Clean ChatGPT Text: Remove Em Dashes, Markdown & Hidden Spaces";
+const pageDescription =
+  "Paste ChatGPT output and remove em dashes, markdown asterisks, \"Certainly!\" intros, LaTeX markup, citation markers and invisible spaces. Free, runs in your browser.";
 
 export const metadata: Metadata = {
-  title: "Clean ChatGPT, Claude & AI Text — Remove Formatting, Markdown & Chat Filler",
-  description:
-    "Clean text copied from ChatGPT, Claude, Gemini, and Copilot. Strip markdown symbols, conversational filler, smart quotes, and hidden unicode characters instantly.",
+  title: pageTitle,
+  description: pageDescription,
   keywords: [
     "clean chatgpt text",
-    "clean claude text",
-    "clean gemini text",
-    "clean copilot text",
-    "clean ai text",
-    "clean pasted text",
-    "remove markdown formatting",
+    "chatgpt text cleaner",
+    "remove chatgpt formatting",
+    "remove em dashes from chatgpt",
+    "remove markdown from chatgpt",
+    "chatgpt cleaner",
+    "clean pasted chatgpt text",
   ],
   alternates: {
     canonical: "/clean-chatgpt-text",
   },
   openGraph: {
-    title: "Clean ChatGPT, Claude & AI Text — Remove Formatting, Markdown & Chat Filler",
-    description:
-      "Strip markdown symbols, conversational filler, and hidden unicode characters from ChatGPT, Claude, Gemini, and Copilot responses.",
+    title: pageTitle,
+    description: pageDescription,
     url: `${siteUrl}/clean-chatgpt-text`,
   },
 };
 
 const removedItems = [
   {
+    character: "Em Dashes",
+    unicode: "U+2014",
+    description:
+      "ChatGPT uses em dashes for almost every aside. They are converted to plain hyphens so the text reads like your own writing.",
+  },
+  {
+    character: "Narrow & Non-Breaking Spaces",
+    unicode: "U+202F, U+00A0",
+    description:
+      "They look like normal spaces but block line wrapping and break exact-match search and find-and-replace. Converted to regular spaces.",
+  },
+  {
+    character: "LaTeX Math Delimiters",
+    unicode: "\\( x^2 \\), \\[ ... \\]",
+    description:
+      "ChatGPT wraps math in LaTeX markers that show up as raw backslashes when pasted into Word, Docs or email.",
+  },
+  {
     character: "Markdown Symbols",
-    unicode: "**bold**, # heading, `code`",
-    description: "ChatGPT adds double asterisks, hashes, and backticks for formatting that doesn't survive pasting elsewhere.",
+    unicode: "**bold**, ## heading, `code`",
+    description:
+      "Asterisks, hashes, backticks and blockquote arrows that show up as literal characters outside the chat window. List numbers and bullets are kept.",
   },
   {
-    character: "Conversational Openers & Sign-Offs",
+    character: "Chat Openers & Sign-Offs",
     unicode: "\"Certainly! Here's...\"",
-    description: "Opening lines and closing offers to help that read fine in chat but not in a finished document.",
+    description:
+      "Opening lines like \"Certainly! Here's a breakdown:\" and closers like \"Let me know if you need anything else.\"",
   },
   {
-    character: "List Symbols That Don't Survive Pasting",
-    unicode: "1. / - ",
-    description: "Numbered and bulleted list markers that turn into stray characters once pasted outside ChatGPT.",
+    character: "Search Citation Markers",
+    unicode: "[1], 【4:0†source】",
+    description:
+      "Source markers ChatGPT adds to web-search answers. Enabled on this page; untick the option if you want to keep bracketed numbers.",
+  },
+];
+
+const technicalGuidePoints = [
+  {
+    title: "Typography it favors",
+    desc: "Em dashes, curly quotes and ellipsis characters. Fine in a chat bubble, but they break code, CSV files, templates and strict style guides.",
   },
   {
-    character: "Smart Quotes & Invisible Characters",
-    unicode: "U+201C / U+200B",
-    description: "Curly quotes and hidden unicode spacers that break code syntax and CMS publishing software.",
+    title: "Invisible characters",
+    desc: "Zero-width spaces and narrow no-break spaces can be pasted along with the visible text. You can't see them, but search, diff tools and word counters can.",
+  },
+  {
+    title: "Formatting that doesn't travel",
+    desc: "ChatGPT writes in Markdown. Word, Google Docs and most CMS editors don't render it, so ** and ## appear as literal characters.",
   },
 ];
 
 const howToSteps = [
   {
     title: "Copy from ChatGPT",
-    description: "Copy your response or article directly from the ChatGPT, Claude, or Gemini chat interface.",
+    description: "Use the copy button under the ChatGPT answer, or select the text manually.",
   },
   {
-    title: "Paste into Cleaner",
-    description: "Paste into the input box above. The cleaner automatically applies optimal ChatGPT cleaning presets.",
+    title: "Paste into the box above",
+    description:
+      "The ChatGPT preset is already on: em dashes, quotes, markdown, hidden characters, LaTeX markers, citations and chat filler.",
   },
   {
-    title: "Copy Clean Plain Text",
-    description: "Click Clean Text to get sanitized, publication-ready plain text with 1 click.",
+    title: "Click Clean Text and copy",
+    description:
+      "Review the summary of what changed, then copy the plain text into Word, Docs, WordPress or email.",
   },
 ];
 
 const faqs = [
   {
-    question: "Why does pasted ChatGPT text look different in Word than it did in the chat?",
+    question: "Why does pasted ChatGPT text show ** and ## in Word or Google Docs?",
     answer:
-      "ChatGPT formats its answers in Markdown, a plain-text style of formatting. Word and most editors don't read Markdown, so you end up with the raw symbols instead of actual bold text or headings. Cleaning converts it to plain text instead.",
+      "ChatGPT formats answers in Markdown. Word, Google Docs and most editors don't render Markdown, so the raw symbols appear. Cleaning removes the markdown symbols and leaves plain text you can format yourself.",
   },
   {
-    question: "Will this remove code blocks I want to keep?",
+    question: "Why does ChatGPT use so many em dashes, and does this remove them?",
     answer:
-      "Use the \"Code & JSON Safe\" preset if you're pasting a mix of prose and code — it skips characters that matter inside code.",
+      "Em dashes are a common habit in model-written prose, so they stand out in a finished document. This tool converts em and en dashes (U+2014, U+2013) to a plain hyphen. For ways to reduce them at the source, see our guide on stopping ChatGPT from using em dashes.",
+  },
+  {
+    question: "Why can't I search for text I pasted from ChatGPT, or why are there odd gaps?",
+    answer:
+      "Copied text can contain narrow no-break spaces (U+202F), non-breaking spaces (U+00A0) or zero-width characters. They look like normal spaces but don't match a typed space. The cleaner converts or removes them.",
+  },
+  {
+    question: "Why do my math formulas show \\( and \\) around them?",
+    answer:
+      "ChatGPT writes math as LaTeX, wrapped in \\( \\) or \\[ \\]. The LaTeX option removes those delimiters so the formula is readable in a plain document.",
+  },
+  {
+    question: "Does this remove numbered lists or bullet points?",
+    answer:
+      "No. Markdown symbols like ** and ## are removed, but list numbers and bullets are kept so your structure stays intact.",
+  },
+  {
+    question: "Will cleaning stop AI detectors from flagging my text?",
+    answer:
+      "No. Cleaning removes formatting and hidden characters, not writing style. If you need to rework phrasing, use the AI Text Detector or Humanize AI Text tools.",
+  },
+  {
+    question: "Is my text uploaded anywhere?",
+    answer: "No. Cleaning runs entirely in your browser. Your text is never sent to a server.",
   },
 ];
 
@@ -84,7 +143,8 @@ const webAppJsonLd = {
   "@type": "WebApplication",
   name: "ChatGPT Text Cleaner",
   url: `${siteUrl}/clean-chatgpt-text`,
-  description: "Remove Markdown symbols, conversational filler, and hidden characters from pasted ChatGPT text.",
+  description:
+    "Remove em dashes, Markdown symbols, LaTeX markers, citation markers, hidden spaces and chat filler from pasted ChatGPT text.",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Any",
   offers: {
@@ -119,15 +179,14 @@ const faqJsonLd = {
 };
 
 const benchmarks = [
-  { name: "Google Chrome", time: "Instant" },
-  { name: "Apple Safari", time: "Instant" },
-  { name: "Mozilla Firefox", time: "Instant" },
+  { name: "Runs in your browser", time: "No upload" },
+  { name: "Account required", time: "None" },
+  { name: "Cost", time: "Free" },
 ];
 
 export default function CleanChatGPTTextPage() {
   return (
     <div className="container mx-auto px-4 md:px-8 py-space-lg flex flex-col w-full space-y-12 md:space-y-16">
-      <span className="sr-only">ChatGPT Text Cleaner | Text Cleaner AI</span>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
@@ -142,78 +201,97 @@ export default function CleanChatGPTTextPage() {
       />
       <Hero
         heading="Clean Text Copied From ChatGPT"
-        subheading="Remove Markdown symbols, conversational filler, and hidden characters before you paste it anywhere — free."
+        subheading="Fix what ChatGPT adds when you paste into Word, Google Docs, WordPress or email: em dashes, asterisks, math markup and hidden spaces."
         initialOptions={{
           removeMarkdown: true,
           normalizeQuotes: true,
           normalizeDashes: true,
+          convertNonBreakingSpaces: true,
           removeTrailingWhitespace: true,
           removeHiddenCharacters: true,
           removeAIFluff: true,
+          removeLaTeX: true,
+          removeCitations: true,
         }}
       />
       <SubToolContent
         title="ChatGPT Text Cleaner"
-        badgeLabel="OpenAI Sanitization"
+        badgeLabel="ChatGPT Cleanup"
         badgeIcon="smart_toy"
-        directAnswerTitle="Why Does ChatGPT Text Need Cleaning?"
-        directAnswerText="When you copy an answer out of ChatGPT and paste it into Word, WordPress, or an email, some things come along that you didn't ask for: double asterisks around bold text, numbered lists that don't format properly, opening lines like &quot;Certainly! Here's a breakdown:&quot;, and sign-offs like &quot;Let me know if you'd like me to adjust this.&quot; This tool strips all of that out, so you're left with clean pasted text — just the words, formatted the way you'd type them yourself."
-        beforeBadgeText="BEFORE: Raw Text with Hidden Artifacts"
-        afterBadgeText="AFTER: Cleaned & Sanitized Plain Text"
+        directAnswerTitle="What ChatGPT leaves in your text"
+        directAnswerText="ChatGPT writes in Markdown and favors certain typography. Paste its output into Word, Docs or a CMS and you get literal ** and ## symbols, em dashes (U+2014) used for nearly every aside, and curly quotes that break code and templates. Some answers also carry narrow no-break spaces (U+202F) that look like normal spaces but stop lines wrapping and fail exact-match searches, and math answers add \( \) LaTeX delimiters that show up as raw text. This cleaner removes each of these and leaves your wording untouched."
+        technicalGuidePoints={technicalGuidePoints}
+        beforeBadgeText="BEFORE: Pasted from ChatGPT"
+        afterBadgeText="AFTER: Clean plain text"
         beforeExample={
           <div className="space-y-2 leading-relaxed">
-            <div className="text-error font-semibold">**Here is a summary:**</div>
+            <div className="text-error font-semibold">Certainly! Here&apos;s a quick breakdown:</div>
             <div>
-              1. ChatGPT output has{" "}
               <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
-                *asterisks*
-              </span>
-              .
+                **Key idea**
+              </span>{" "}
+              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
+                {"—"}
+              </span>{" "}
+              speed matters, but so does {"“"}accuracy{"”"}.
             </div>
             <div>
-              2.{" "}
+              Area:{" "}
               <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
-                “Smart quotes”
-              </span>{" "}
-              &amp;{" "}
-              <span className="bg-error-container text-on-error-container px-1 py-0.5 rounded font-mono">
-                —
-              </span>{" "}
-              em dashes.
+                {"\\( A = \\pi r^2 \\)"}
+              </span>
             </div>
           </div>
         }
         afterExample={
           <div className="space-y-2 leading-relaxed">
-            <div className="text-on-surface font-medium">Here is a summary:</div>
             <div>
-              1. ChatGPT output has{" "}
               <span className="bg-surface-container-lowest px-1 py-0.5 rounded text-primary font-mono font-semibold">
-                asterisks
-              </span>
-              .
-            </div>
-            <div>
-              2.{" "}
-              <span className="bg-surface-container-lowest px-1 py-0.5 rounded text-primary font-mono font-semibold">
-                &quot;Smart quotes&quot;
+                Key idea
               </span>{" "}
-              &amp;{" "}
               <span className="bg-surface-container-lowest px-1 py-0.5 rounded text-primary font-mono font-semibold">
                 -
               </span>{" "}
-              em dashes.
+              speed matters, but so does &quot;accuracy&quot;.
+            </div>
+            <div>
+              Area:{" "}
+              <span className="bg-surface-container-lowest px-1 py-0.5 rounded text-primary font-mono font-semibold">
+                A = \pi r^2
+              </span>
             </div>
           </div>
         }
-        beforeNote="Contains: ** markdown, curly “ ”, U+2014 em dash"
-        afterNote="Purged: Plain text ASCII quotes & standardized hyphen"
+        beforeNote="Contains: chat opener, ** markdown, em dash U+2014, curly quotes, LaTeX delimiters"
+        afterNote="Result: plain text with straight quotes, a hyphen and no markup"
         streamChart={false}
-        benchmarksTitle="Browser Engine Latency"
+        benchmarksTitle="At a glance"
         benchmarks={benchmarks}
         removedItems={removedItems}
         howToSteps={howToSteps}
         faqs={faqs}
+        extraContent={
+          <RelatedGuides
+            title="Related ChatGPT cleanup guides"
+            links={[
+              {
+                href: "/blog/how-to-stop-chatgpt-using-em-dashes",
+                label: "How to stop ChatGPT using em dashes",
+                desc: "Prompts and settings that reduce em dashes before you paste.",
+              },
+              {
+                href: "/blog/how-to-clean-chatgpt-text-for-publishing",
+                label: "Clean ChatGPT text for publishing",
+                desc: "A checklist for getting AI drafts ready for a CMS.",
+              },
+              {
+                href: "/remove-invisible-characters",
+                label: "Remove invisible characters",
+                desc: "Find and strip zero-width spaces and other hidden characters.",
+              },
+            ]}
+          />
+        }
       />
     </div>
   );

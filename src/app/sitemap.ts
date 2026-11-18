@@ -40,7 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const homeEntry: MetadataRoute.Sitemap = [
     {
       url: `${siteUrl}/`,
-      lastModified: new Date("2026-10-10T00:00:00.000Z"),
+      lastModified: new Date("2026-11-18T00:00:00.000Z"),
       changeFrequency: "daily",
       priority: 1.0,
     },
@@ -49,7 +49,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Tier 2: Core Utility Tools (High search-volume programmatic pages)
   const toolEntries: MetadataRoute.Sitemap = coreTools.map((path) => ({
     url: `${siteUrl}${path}`,
-    lastModified: new Date("2026-10-08T00:00:00.000Z"),
+    lastModified: new Date("2026-11-18T00:00:00.000Z"),
     changeFrequency: "weekly",
     priority: 0.85,
   }));
